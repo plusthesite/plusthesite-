@@ -522,15 +522,6 @@ export default function MobileGamePage() {
                 <CTASection />
             </main>
             <Footer />
-
-            {/* Extra keyframe for gradient CTA buttons */}
-            <style jsx global>{`
-        @keyframes gradientShift {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-      `}</style>
         </>
     );
 }

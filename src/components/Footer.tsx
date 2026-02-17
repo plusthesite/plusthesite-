@@ -21,10 +21,10 @@ const footerLinks = {
         { label: "Blog", href: "https://plusthe.site/blog-standard/" },
     ],
     social: [
-        { label: "Instagram", href: "#" },
-        { label: "Facebook", href: "#" },
-        { label: "X (Twitter)", href: "#" },
-        { label: "LinkedIn", href: "#" },
+        { label: "Instagram", href: "https://www.instagram.com/plusthesite/" },
+        { label: "Facebook", href: "https://www.facebook.com/plusthesite/" },
+        { label: "X (Twitter)", href: "https://x.com/plusthesite" },
+        { label: "LinkedIn", href: "https://www.linkedin.com/company/plusthesite/" },
     ],
 };
 

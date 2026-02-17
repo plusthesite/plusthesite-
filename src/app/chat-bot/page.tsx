@@ -622,13 +622,6 @@ export default function ChatBotPage() {
                 <CTASection />
             </main>
             <Footer />
-
-            <style jsx global>{`
-        @keyframes fadeSlideUp {
-          from { opacity: 0; transform: translateY(8px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
         </>
     );
 }
