@@ -7,9 +7,14 @@ import {
 import { ToastContainer } from "./ui/ToastContainer";
 import { InteractiveTour } from "./ui/InteractiveTour";
 import { SidebarItem } from "./ui/SidebarItem";
-import { DocumentationModal } from "./StudioDocs";
-import { ViewPlanner, ViewGenerator, ViewStrategy } from "./StudioCoreViews";
-import { ViewLiveStream, ViewKOL, ViewSubscription, ViewAnalytics } from "./StudioGrowthViews";
+import { DocumentationModal } from "./docs/DocumentationModal";
+import { ViewPlanner } from "./views/core/ViewPlanner";
+import { ViewGenerator } from "./views/core/ViewGenerator";
+import { ViewStrategy } from "./views/core/ViewStrategy";
+import { ViewLiveStream } from "./views/growth/ViewLiveStream";
+import { ViewKOL } from "./views/growth/ViewKOL";
+import { ViewSubscription } from "./views/growth/ViewSubscription";
+import { ViewAnalytics } from "./views/growth/ViewAnalytics";
 import { TOUR_STEPS, ALACARTE_FEATURES } from "@/lib/mockData";
 import { Notification } from "@/types";
 import { useTheme } from "@/components/ThemeProvider";
