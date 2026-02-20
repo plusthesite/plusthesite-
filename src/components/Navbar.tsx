@@ -59,7 +59,7 @@ function ThemeToggle() {
     );
 }
 
-/* ── Language Toggle ── */
+/* ── Language Toggle (Switch Style) ── */
 function LanguageToggle() {
     const { language, toggleLanguage } = useLanguage();
     const [mounted, setMounted] = useState(false);
@@ -69,17 +69,44 @@ function LanguageToggle() {
     }, []);
 
     if (!mounted) {
-        return <div className="h-8 w-8" />;
+        return <div className="h-8 w-[72px]" />;
     }
+
+    const isEN = language === "en";
 
     return (
         <button
             onClick={toggleLanguage}
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 text-sm font-bold transition-all hover:scale-110 hover:shadow-md backdrop-blur-sm"
-            aria-label={`Switch to ${language === "en" ? "Indonesian" : "English"}`}
-            title={`Switch to ${language === "en" ? "Bahasa Indonesia" : "English"}`}
+            className="relative flex h-8 w-[72px] items-center rounded-full border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 p-0.5 transition-all hover:shadow-md backdrop-blur-sm"
+            aria-label={`Switch to ${isEN ? "Bahasa Indonesia" : "English"}`}
+            title={`Switch to ${isEN ? "Bahasa Indonesia" : "English"}`}
         >
-            {language === "en" ? "🇮🇩" : "🇬🇧"}
+            {/* Sliding pill */}
+            <span
+                className={`absolute top-0.5 h-[26px] w-[34px] rounded-full bg-white dark:bg-slate-600 shadow-sm transition-all duration-300 ease-in-out ${
+                    isEN ? "left-0.5" : "left-[34px]"
+                }`}
+            />
+            {/* EN label */}
+            <span
+                className={`relative z-10 flex h-full w-1/2 items-center justify-center text-[11px] font-bold tracking-wide transition-colors duration-300 ${
+                    isEN
+                        ? "text-slate-900 dark:text-white"
+                        : "text-slate-400 dark:text-slate-500"
+                }`}
+            >
+                EN
+            </span>
+            {/* ID label */}
+            <span
+                className={`relative z-10 flex h-full w-1/2 items-center justify-center text-[11px] font-bold tracking-wide transition-colors duration-300 ${
+                    !isEN
+                        ? "text-slate-900 dark:text-white"
+                        : "text-slate-400 dark:text-slate-500"
+                }`}
+            >
+                ID
+            </span>
         </button>
     );
 }
@@ -285,9 +312,8 @@ export default function Navbar() {
                     )}
                 </div>
 
-                {/* Right side: language toggle + theme toggle + CTA */}
+                {/* Right side: theme toggle + CTA + language switch */}
                 <div className="hidden items-center gap-3 md:flex">
-                    <LanguageToggle />
                     <ThemeToggle />
                     <a
                         href={isHome ? "#contact" : "/#pricing"}
@@ -295,11 +321,11 @@ export default function Navbar() {
                     >
                         {isHome ? t.navbar.contactUs : t.navbar.viewPricing}
                     </a>
+                    <LanguageToggle />
                 </div>
 
-                {/* Mobile: language toggle + theme toggle + hamburger */}
+                {/* Mobile: theme toggle + hamburger + language switch */}
                 <div className="flex items-center gap-3 md:hidden">
-                    <LanguageToggle />
                     <ThemeToggle />
                     <button
                         onClick={() => setMobileOpen(!mobileOpen)}
@@ -319,6 +345,7 @@ export default function Navbar() {
                             />
                         ))}
                     </button>
+                    <LanguageToggle />
                 </div>
             </div>
 
