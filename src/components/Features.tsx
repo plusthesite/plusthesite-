@@ -5,9 +5,9 @@ import { useTranslation } from "@/components/LanguageProvider";
 
 const productMeta = [
     { icon: "🤖", href: "/chat-bot", badge: "Popular", internal: true },
-    { icon: "🎧", href: "https://plusthe.site/customer-support/" },
-    { icon: "📱", href: "https://plusthe.site/mobile-app/" },
-    { icon: "📊", href: "https://plusthe.site/crm/" },
+    { icon: "🎧", href: "/customer-support", internal: true },
+    { icon: "📱", href: "/mobile-app", internal: true },
+    { icon: "📊", href: "/crm", internal: true },
     { icon: "🚀", href: "/digital-agency", badge: "New", internal: true },
     { icon: "🎮", href: "/mobile-game", internal: true },
 ];

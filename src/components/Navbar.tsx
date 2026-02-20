@@ -9,9 +9,9 @@ import { useLanguage, useTranslation } from "@/components/LanguageProvider";
 /* ── Product dropdown items ── */
 const productKeys = [
     { icon: "🤖", labelKey: "AI Chat Bot", descKey: "aiChatBot", href: "/chat-bot", internal: true },
-    { icon: "🎧", labelKey: "Customer Support", descKey: "customerSupport", href: "https://plusthe.site/customer-support/" },
-    { icon: "📱", labelKey: "Mobile App", descKey: "mobileApp", href: "https://plusthe.site/mobile-app/" },
-    { icon: "📊", labelKey: "CRM Platform", descKey: "crmPlatform", href: "https://plusthe.site/crm/" },
+    { icon: "🎧", labelKey: "Customer Support", descKey: "customerSupport", href: "/customer-support", internal: true },
+    { icon: "📱", labelKey: "Mobile App", descKey: "mobileApp", href: "/mobile-app", internal: true },
+    { icon: "📊", labelKey: "CRM Platform", descKey: "crmPlatform", href: "/crm", internal: true },
     { icon: "🚀", labelKey: "Digital Agency", descKey: "digitalAgency", href: "/digital-agency", internal: true },
     { icon: "🎮", labelKey: "Mobile Game", descKey: "mobileGame", href: "/mobile-game", internal: true },
 ];

@@ -4,11 +4,11 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useTranslation } from "@/components/LanguageProvider";
 
 const aiFeatureMeta = [
-    { icon: "🎨", accent: "primary" as const },
-    { icon: "✍️", accent: "secondary" as const },
-    { icon: "💬", accent: "primary" as const },
-    { icon: "🎬", accent: "tertiary" as const },
-    { icon: "🎵", accent: "secondary" as const },
+    { icon: "🎨", accent: "primary" as const, href: "/ai-image-generator" },
+    { icon: "✍️", accent: "secondary" as const, href: "/ai-text-generator" },
+    { icon: "💬", accent: "primary" as const, href: "/chat-bot" },
+    { icon: "🎬", accent: "tertiary" as const, href: "/ai-video-generator" },
+    { icon: "🎵", accent: "secondary" as const, href: "/ai-music-generator" },
 ];
 
 const accentMap = {
@@ -48,16 +48,17 @@ export default function AIFeatures() {
                     {aiFeatureMeta.map((f, i) => {
                         const item = t.aiFeatures.items[i];
                         return (
-                            <div
+                            <a
                                 key={i}
-                                className="group rounded-2xl border border-slate-200 dark:border-[#1E293B] bg-white dark:bg-[#0B1120] p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-primary/30"
+                                href={f.href}
+                                className="group rounded-2xl border border-slate-200 dark:border-[#1E293B] bg-white dark:bg-[#0B1120] p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-primary/30 no-underline"
                             >
                                 <span className={`flex h-14 w-14 items-center justify-center rounded-2xl ${accentMap[f.accent]} text-2xl transition-transform group-hover:scale-110`}>
                                     {f.icon}
                                 </span>
                                 <h3 className="mt-5 text-lg font-bold text-[#0F172A] dark:text-[#F8FAFC]">{item.title}</h3>
                                 <p className="mt-2 text-sm leading-relaxed text-[#475569] dark:text-[#94A3B8]">{item.description}</p>
-                            </div>
+                            </a>
                         );
                     })}
                 </div>

@@ -6,9 +6,9 @@ import { useTranslation } from "@/components/LanguageProvider";
 
 const productLinks = [
     { labelKey: "Chat Bot", href: "/chat-bot" },
-    { labelKey: "Customer Support", href: "https://plusthe.site/customer-support/" },
-    { labelKey: "Mobile App", href: "https://plusthe.site/mobile-app/" },
-    { labelKey: "CRM", href: "https://plusthe.site/crm/" },
+    { labelKey: "Customer Support", href: "/customer-support" },
+    { labelKey: "Mobile App", href: "/mobile-app" },
+    { labelKey: "CRM", href: "/crm" },
     { labelKey: "Digital Agency", href: "/digital-agency" },
     { labelKey: "Mobile Game", href: "/mobile-game" },
 ];
@@ -56,8 +56,6 @@ export default function Footer() {
                                     <a
                                         key={link.labelKey}
                                         href={link.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
                                         className="text-sm text-footer-muted transition-colors hover:text-footer-text"
                                     >
                                         {link.labelKey}
