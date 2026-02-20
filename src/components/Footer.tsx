@@ -2,34 +2,36 @@
 
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import Logo from "@/components/Logo";
+import { useTranslation } from "@/components/LanguageProvider";
 
-const footerLinks = {
-    products: [
-        { label: "Chat Bot", href: "/chat-bot" },
-        { label: "Customer Support", href: "https://plusthe.site/customer-support/" },
-        { label: "Mobile App", href: "https://plusthe.site/mobile-app/" },
-        { label: "CRM", href: "https://plusthe.site/crm/" },
-        { label: "Digital Agency", href: "/digital-agency" },
-        { label: "Mobile Game", href: "/mobile-game" },
-    ],
-    company: [
-        { label: "About Us", href: "https://plusthe.site/about-us-1/" },
-        { label: "Our Work", href: "https://plusthe.site/our-work-1/" },
-        { label: "Services", href: "https://plusthe.site/services-1/" },
-        { label: "Pricing", href: "https://plusthe.site/pricing/" },
-        { label: "AI Features", href: "https://plusthe.site/ai-features/" },
-        { label: "Blog", href: "https://plusthe.site/blog-standard/" },
-    ],
-    social: [
-        { label: "Instagram", href: "https://www.instagram.com/plusthesite/" },
-        { label: "Facebook", href: "https://www.facebook.com/plusthesite/" },
-        { label: "X (Twitter)", href: "https://x.com/plusthesite" },
-        { label: "LinkedIn", href: "https://www.linkedin.com/company/plusthesite/" },
-    ],
-};
+const productLinks = [
+    { labelKey: "Chat Bot", href: "/chat-bot" },
+    { labelKey: "Customer Support", href: "https://plusthe.site/customer-support/" },
+    { labelKey: "Mobile App", href: "https://plusthe.site/mobile-app/" },
+    { labelKey: "CRM", href: "https://plusthe.site/crm/" },
+    { labelKey: "Digital Agency", href: "/digital-agency" },
+    { labelKey: "Mobile Game", href: "/mobile-game" },
+];
+
+const socialLinks = [
+    { label: "Instagram", href: "https://www.instagram.com/plusthesite/" },
+    { label: "Facebook", href: "https://www.facebook.com/plusthesite/" },
+    { label: "X (Twitter)", href: "https://x.com/plusthesite" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/company/plusthesite/" },
+];
 
 export default function Footer() {
     const ref = useScrollReveal();
+    const t = useTranslation();
+
+    const companyLinks = [
+        { label: t.footer.aboutUs, href: "https://plusthe.site/about-us-1/" },
+        { label: t.footer.ourWork, href: "https://plusthe.site/our-work-1/" },
+        { label: t.footer.services, href: "https://plusthe.site/services-1/" },
+        { label: t.pricing.badge, href: "https://plusthe.site/pricing/" },
+        { label: t.navbar.aiFeatures, href: "https://plusthe.site/ai-features/" },
+        { label: t.footer.blog, href: "https://plusthe.site/blog-standard/" },
+    ];
 
     return (
         <footer id="contact" className="bg-footer-bg text-footer-text">
@@ -39,9 +41,7 @@ export default function Footer() {
                     <div className="fade-up max-w-xs">
                         <Logo variant="light" size="large" />
                         <p className="mt-3 text-sm leading-relaxed text-footer-muted">
-                            One integrated platform for brands that want to move fast,
-                            stay consistent, and still look premium — powered by AI
-                            and real creative minds.
+                            {t.footer.tagline}
                         </p>
                     </div>
 
@@ -49,10 +49,28 @@ export default function Footer() {
                     <div className="fade-up fade-up-delay-1 flex flex-wrap gap-16">
                         <div>
                             <p className="text-xs font-semibold uppercase tracking-widest text-footer-muted">
-                                Products
+                                {t.footer.productsLabel}
                             </p>
                             <div className="mt-4 flex flex-col gap-3">
-                                {footerLinks.products.map((link) => (
+                                {productLinks.map((link) => (
+                                    <a
+                                        key={link.labelKey}
+                                        href={link.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-sm text-footer-muted transition-colors hover:text-footer-text"
+                                    >
+                                        {link.labelKey}
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                        <div>
+                            <p className="text-xs font-semibold uppercase tracking-widest text-footer-muted">
+                                {t.footer.companyLabel}
+                            </p>
+                            <div className="mt-4 flex flex-col gap-3">
+                                {companyLinks.map((link) => (
                                     <a
                                         key={link.label}
                                         href={link.href}
@@ -67,28 +85,10 @@ export default function Footer() {
                         </div>
                         <div>
                             <p className="text-xs font-semibold uppercase tracking-widest text-footer-muted">
-                                Company
+                                {t.footer.connectLabel}
                             </p>
                             <div className="mt-4 flex flex-col gap-3">
-                                {footerLinks.company.map((link) => (
-                                    <a
-                                        key={link.label}
-                                        href={link.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-sm text-footer-muted transition-colors hover:text-footer-text"
-                                    >
-                                        {link.label}
-                                    </a>
-                                ))}
-                            </div>
-                        </div>
-                        <div>
-                            <p className="text-xs font-semibold uppercase tracking-widest text-footer-muted">
-                                Connect
-                            </p>
-                            <div className="mt-4 flex flex-col gap-3">
-                                {footerLinks.social.map((link) => (
+                                {socialLinks.map((link) => (
                                     <a
                                         key={link.label}
                                         href={link.href}
@@ -109,7 +109,7 @@ export default function Footer() {
                             rel="noopener noreferrer"
                             className="rounded-full border border-footer-border px-7 py-3 text-sm font-semibold text-footer-text transition-all hover:border-footer-text hover:bg-footer-text hover:text-footer-bg hover:scale-105"
                         >
-                            Contact Us →
+                            {t.footer.contactUs}
                         </a>
                         <a
                             href="mailto:support@plusthe.site"
@@ -123,7 +123,7 @@ export default function Footer() {
                 {/* Bottom bar */}
                 <div className="mt-20 flex flex-col items-center justify-between gap-4 border-t border-footer-border pt-8 sm:flex-row">
                     <p className="text-sm text-footer-muted">
-                        © {new Date().getFullYear()} plus. All rights reserved.
+                        © {new Date().getFullYear()} plus. {t.footer.copyright}
                     </p>
                     <a
                         href="#hero"

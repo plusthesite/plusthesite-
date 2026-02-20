@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import ThemeProvider from "@/components/ThemeProvider";
+import LanguageProvider from "@/components/LanguageProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -53,10 +54,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider>
-          {/* Ambient glow effects for dark mode */}
-          <div className="glow-ambient glow-ambient-1" aria-hidden="true" />
-          <div className="glow-ambient glow-ambient-2" aria-hidden="true" />
-          {children}
+          <LanguageProvider>
+            {/* Ambient glow effects for dark mode */}
+            <div className="glow-ambient glow-ambient-1" aria-hidden="true" />
+            <div className="glow-ambient glow-ambient-2" aria-hidden="true" />
+            {children}
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

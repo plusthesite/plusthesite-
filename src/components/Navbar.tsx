@@ -4,29 +4,16 @@ import { useState, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 import Logo from "@/components/Logo";
 import { usePathname } from "next/navigation";
+import { useLanguage, useTranslation } from "@/components/LanguageProvider";
 
 /* ── Product dropdown items ── */
-const products = [
-    { icon: "🤖", label: "AI Chat Bot", desc: "Smart AI-powered chatbot", href: "/chat-bot", internal: true },
-    { icon: "🎧", label: "Customer Support", desc: "Smarter support decisions", href: "https://plusthe.site/customer-support/" },
-    { icon: "📱", label: "Mobile App", desc: "Mobile-first experiences", href: "https://plusthe.site/mobile-app/" },
-    { icon: "📊", label: "CRM Platform", desc: "Client management tools", href: "https://plusthe.site/crm/" },
-    { icon: "🚀", label: "Digital Agency", desc: "Full-service digital solutions", href: "/digital-agency", internal: true },
-    { icon: "🎮", label: "Mobile Game", desc: "Immersive gaming experiences", href: "/mobile-game", internal: true },
-];
-
-const homeLinks = [
-    { label: "About", href: "/#about" },
-    { label: "Products", href: "/#products", hasDropdown: true },
-    { label: "AI Features", href: "/#features" },
-    { label: "Pricing", href: "/#pricing" },
-];
-
-const subpageLinks = [
-    { label: "Home", href: "/" },
-    { label: "Products", href: "/#products", hasDropdown: true },
-    { label: "AI Features", href: "/#features" },
-    { label: "Pricing", href: "/#pricing" },
+const productKeys = [
+    { icon: "🤖", labelKey: "AI Chat Bot", descKey: "aiChatBot", href: "/chat-bot", internal: true },
+    { icon: "🎧", labelKey: "Customer Support", descKey: "customerSupport", href: "https://plusthe.site/customer-support/" },
+    { icon: "📱", labelKey: "Mobile App", descKey: "mobileApp", href: "https://plusthe.site/mobile-app/" },
+    { icon: "📊", labelKey: "CRM Platform", descKey: "crmPlatform", href: "https://plusthe.site/crm/" },
+    { icon: "🚀", labelKey: "Digital Agency", descKey: "digitalAgency", href: "/digital-agency", internal: true },
+    { icon: "🎮", labelKey: "Mobile Game", descKey: "mobileGame", href: "/mobile-game", internal: true },
 ];
 
 /* ── Theme Toggle ── */
@@ -72,6 +59,31 @@ function ThemeToggle() {
     );
 }
 
+/* ── Language Toggle ── */
+function LanguageToggle() {
+    const { language, toggleLanguage } = useLanguage();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) {
+        return <div className="h-8 w-8" />;
+    }
+
+    return (
+        <button
+            onClick={toggleLanguage}
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 text-sm font-bold transition-all hover:scale-110 hover:shadow-md backdrop-blur-sm"
+            aria-label={`Switch to ${language === "en" ? "Indonesian" : "English"}`}
+            title={`Switch to ${language === "en" ? "Bahasa Indonesia" : "English"}`}
+        >
+            {language === "en" ? "🇮🇩" : "🇬🇧"}
+        </button>
+    );
+}
+
 /* ── Chevron icon ── */
 function ChevronDown({ open, className }: { open: boolean; className?: string }) {
     return (
@@ -92,6 +104,7 @@ function ProductsDropdown({ scrolled }: { scrolled: boolean }) {
     const [open, setOpen] = useState(false);
     const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const t = useTranslation();
 
     const handleEnter = () => {
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -128,7 +141,7 @@ function ProductsDropdown({ scrolled }: { scrolled: boolean }) {
                     : "text-[#0F172A] hover:text-primary dark:text-white/90 dark:hover:text-white"
                     }`}
             >
-                Products
+                {t.navbar.products}
                 <ChevronDown open={open} />
             </button>
 
@@ -143,14 +156,14 @@ function ProductsDropdown({ scrolled }: { scrolled: boolean }) {
                     {/* Header */}
                     <div className="px-3 py-2 mb-1">
                         <p className="text-[10px] font-bold uppercase tracking-widest text-[#64748B] dark:text-[#94A3B8]">
-                            Our Products
+                            {t.navbar.ourProducts}
                         </p>
                     </div>
 
                     {/* Items */}
-                    {products.map((p) => (
+                    {productKeys.map((p) => (
                         <a
-                            key={p.label}
+                            key={p.labelKey}
                             href={p.href}
                             {...(p.internal ? {} : { target: "_blank", rel: "noopener noreferrer" })}
                             onClick={() => setOpen(false)}
@@ -161,14 +174,16 @@ function ProductsDropdown({ scrolled }: { scrolled: boolean }) {
                             </span>
                             <div className="min-w-0">
                                 <p className="text-sm font-semibold text-[#0F172A] dark:text-[#F8FAFC] flex items-center gap-2">
-                                    {p.label}
+                                    {p.labelKey}
                                     {p.internal && (
                                         <span className="rounded bg-blue-100 dark:bg-blue-500/20 px-1.5 py-0.5 text-[9px] font-bold uppercase text-blue-600 dark:text-blue-400">
-                                            New
+                                            {t.navbar.new}
                                         </span>
                                     )}
                                 </p>
-                                <p className="text-xs text-[#64748B] dark:text-[#94A3B8] truncate">{p.desc}</p>
+                                <p className="text-xs text-[#64748B] dark:text-[#94A3B8] truncate">
+                                    {t.navbar.productItems[p.descKey as keyof typeof t.navbar.productItems]}
+                                </p>
                             </div>
                             <svg
                                 className="ml-auto h-3.5 w-3.5 shrink-0 text-[#94A3B8] dark:text-[#64748B] opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-0.5"
@@ -189,7 +204,7 @@ function ProductsDropdown({ scrolled }: { scrolled: boolean }) {
                             onClick={() => setOpen(false)}
                             className="flex items-center justify-center gap-2 text-xs font-semibold text-blue-600 dark:text-blue-400 transition-colors hover:text-blue-800 dark:hover:text-blue-300"
                         >
-                            View All Products
+                            {t.navbar.viewAllProducts}
                             <svg className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                             </svg>
@@ -210,6 +225,22 @@ export default function Navbar() {
     const [mounted, setMounted] = useState(false);
     const pathname = usePathname();
     const isHome = pathname === "/";
+    const t = useTranslation();
+
+    const homeLinks = [
+        { label: t.navbar.about, href: "/#about" },
+        { label: t.navbar.products, href: "/#products", hasDropdown: true },
+        { label: t.navbar.aiFeatures, href: "/#features" },
+        { label: t.navbar.pricing, href: "/#pricing" },
+    ];
+
+    const subpageLinks = [
+        { label: t.navbar.home, href: "/" },
+        { label: t.navbar.products, href: "/#products", hasDropdown: true },
+        { label: t.navbar.aiFeatures, href: "/#features" },
+        { label: t.navbar.pricing, href: "/#pricing" },
+    ];
+
     const navLinks = isHome ? homeLinks : subpageLinks;
 
     useEffect(() => {
@@ -254,19 +285,21 @@ export default function Navbar() {
                     )}
                 </div>
 
-                {/* Right side: theme toggle + CTA */}
+                {/* Right side: language toggle + theme toggle + CTA */}
                 <div className="hidden items-center gap-3 md:flex">
+                    <LanguageToggle />
                     <ThemeToggle />
                     <a
                         href={isHome ? "#contact" : "/#pricing"}
                         className={`rounded-full px-6 py-2.5 text-sm font-semibold transition-all hover:scale-105 bg-foreground text-background hover:opacity-90 shadow-md`}
                     >
-                        {isHome ? "Contact Us" : "View Pricing"}
+                        {isHome ? t.navbar.contactUs : t.navbar.viewPricing}
                     </a>
                 </div>
 
-                {/* Mobile: theme toggle + hamburger */}
+                {/* Mobile: language toggle + theme toggle + hamburger */}
                 <div className="flex items-center gap-3 md:hidden">
+                    <LanguageToggle />
                     <ThemeToggle />
                     <button
                         onClick={() => setMobileOpen(!mobileOpen)}
@@ -303,7 +336,7 @@ export default function Navbar() {
                                     onClick={() => setMobileProductsOpen(!mobileProductsOpen)}
                                     className="flex w-full items-center justify-between py-2 text-sm font-semibold uppercase tracking-widest text-[#64748B] dark:text-[#94A3B8] hover:text-[#0F172A] dark:hover:text-white"
                                 >
-                                    Products
+                                    {t.navbar.products}
                                     <ChevronDown open={mobileProductsOpen} />
                                 </button>
 
@@ -313,16 +346,16 @@ export default function Navbar() {
                                         }`}
                                 >
                                     <div className="grid grid-cols-2 gap-2 pb-3 pt-1">
-                                        {products.map((p) => (
+                                        {productKeys.map((p) => (
                                             <a
-                                                key={p.label}
+                                                key={p.labelKey}
                                                 href={p.href}
                                                 {...(p.internal ? {} : { target: "_blank", rel: "noopener noreferrer" })}
                                                 onClick={() => { setMobileOpen(false); setMobileProductsOpen(false); }}
                                                 className="flex items-center gap-2 rounded-lg bg-slate-50 dark:bg-slate-800 px-3 py-2.5 transition-colors hover:bg-blue-50 dark:hover:bg-slate-700"
                                             >
                                                 <span className="text-base">{p.icon}</span>
-                                                <span className="text-xs font-semibold text-[#0F172A] dark:text-[#F8FAFC]">{p.label}</span>
+                                                <span className="text-xs font-semibold text-[#0F172A] dark:text-[#F8FAFC]">{p.labelKey}</span>
                                             </a>
                                         ))}
                                     </div>
@@ -344,7 +377,7 @@ export default function Navbar() {
                         onClick={() => setMobileOpen(false)}
                         className="mt-2 inline-block rounded-full bg-slate-900 dark:bg-white px-6 py-2.5 text-center text-sm font-semibold text-white dark:text-slate-900"
                     >
-                        {isHome ? "Contact Us" : "View Pricing"}
+                        {isHome ? t.navbar.contactUs : t.navbar.viewPricing}
                     </a>
                 </div>
             </div>
