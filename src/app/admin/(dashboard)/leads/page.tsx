@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 interface Lead {
     id: string;
     name: string | null;
-    email: string;
+    email: string | null;
     phone: string | null;
     company: string | null;
     service: string | null;
@@ -103,7 +103,7 @@ export default async function LeadsPage({
                                 <tr key={l.id} className="align-top hover:bg-slate-50">
                                     <td className="px-4 py-3">
                                         <p className="font-semibold text-slate-800">{l.name ?? "—"}</p>
-                                        <p className="text-xs text-slate-500">{l.company ? `${l.company} · ` : ""}{l.email}</p>
+                                        <p className="text-xs text-slate-500">{[l.company, l.email || l.phone].filter(Boolean).join(" · ")}</p>
                                         {l.message && <p className="mt-1 max-w-xs text-xs text-slate-400 line-clamp-1">{l.message}</p>}
                                     </td>
                                     <td className="px-4 py-3">
@@ -117,7 +117,7 @@ export default async function LeadsPage({
                                         <div className="flex items-center gap-2 text-xs font-semibold">
                                             {wa && <a href={wa} target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:text-emerald-800">WA</a>}
                                             {l.phone && <a href={`tel:${l.phone}`} className="text-slate-500 hover:text-slate-700">Call</a>}
-                                            <a href={`mailto:${l.email}`} className="text-blue-600 hover:text-blue-800">Email</a>
+                                            {l.email && <a href={`mailto:${l.email}`} className="text-blue-600 hover:text-blue-800">Email</a>}
                                         </div>
                                     </td>
                                     <td className="px-4 py-3 whitespace-nowrap text-slate-500">{fmt(l.created_at)}</td>
