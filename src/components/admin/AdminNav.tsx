@@ -19,6 +19,7 @@ const sections: { title: string; items: { href: string; label: string; icon: str
         items: [
             { href: "/admin/leads", label: "Leads", icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" },
             { href: "/admin/opportunities", label: "Opportunities", icon: "M3 3v18h18M9 17V9m4 8V5m4 12v-6" },
+            { href: "/admin/tasks", label: "Tasks", icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7l2 2 4-4" },
         ],
     },
     {

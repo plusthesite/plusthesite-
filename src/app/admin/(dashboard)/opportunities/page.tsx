@@ -141,7 +141,7 @@ export default async function OpportunitiesPage({
                             return (
                                 <tr key={o.id} className="align-top hover:bg-slate-50">
                                     <td className="px-4 py-3">
-                                        <p className="font-semibold text-slate-800">{o.name}</p>
+                                        <Link href={`/admin/opportunities/${o.id}`} className="font-semibold text-slate-800 hover:text-blue-600">{o.name}</Link>
                                         <p className="text-xs text-slate-500">{o.contact_name}{o.company ? ` · ${o.company}` : ""}</p>
                                     </td>
                                     <td className="px-4 py-3">

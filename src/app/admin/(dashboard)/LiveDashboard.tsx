@@ -72,6 +72,17 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
                 </span>
             </div>
 
+            {/* Follow-ups banner */}
+            {stats.openTasks > 0 && (
+                <Link
+                    href="/admin/tasks"
+                    className={`mt-5 flex items-center justify-between rounded-xl border px-5 py-3 text-sm font-semibold transition-colors ${stats.overdueTasks > 0 ? "border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100" : "border-amber-200 bg-amber-50 text-amber-800 hover:bg-amber-100"}`}
+                >
+                    <span>📋 {stats.openTasks} open follow-up{stats.openTasks === 1 ? "" : "s"}{stats.overdueTasks > 0 ? ` · ${stats.overdueTasks} overdue` : ""}</span>
+                    <span>View tasks →</span>
+                </Link>
+            )}
+
             {/* Engagement */}
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 <StatCard label="Subscribers" value={stats.subscribers.toLocaleString()} accent="text-blue-600" href="/admin/subscribers" />

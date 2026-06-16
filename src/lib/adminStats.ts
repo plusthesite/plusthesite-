@@ -11,6 +11,8 @@ export interface DashboardStats {
     openPipeline: number;
     weightedPipeline: number;
     wonValue: number;
+    openTasks: number;
+    overdueTasks: number;
     recentSubs: { email: string; locale: string; created_at: string }[];
     recentContacts: { name: string; email: string; created_at: string }[];
     hotOpportunities: { name: string; company: string | null; value: number; stage: string; service: string | null }[];
@@ -31,6 +33,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
         configured: false,
         subscribers: 0, leads: 0, contacts: 0, conversations: 0, opportunities: 0,
         views: 0, openPipeline: 0, weightedPipeline: 0, wonValue: 0,
+        openTasks: 0, overdueTasks: 0,
         recentSubs: [], recentContacts: [], hotOpportunities: [],
         updatedAt: new Date().toISOString(),
     };
@@ -40,13 +43,19 @@ export async function getDashboardStats(): Promise<DashboardStats> {
         count("subscribers"), count("leads"), count("contacts"), count("chat_messages"), count("opportunities"),
     ]);
 
-    const [viewsRes, oppsRes, recentSubsRes, recentContactsRes, hotRes] = await Promise.all([
+    const [viewsRes, oppsRes, recentSubsRes, recentContactsRes, hotRes, tasksRes] = await Promise.all([
         supabase.from("article_views").select("views"),
         supabase.from("opportunities").select("value, probability, stage"),
         supabase.from("subscribers").select("email, locale, created_at").order("created_at", { ascending: false }).limit(5),
         supabase.from("contacts").select("name, email, created_at").order("created_at", { ascending: false }).limit(5),
         supabase.from("opportunities").select("name, company, value, stage, service").not("stage", "in", "(won,lost)").order("value", { ascending: false }).limit(5),
+        supabase.from("activities").select("due_at").eq("status", "open"),
     ]);
+
+    const nowTs = Date.now();
+    const openTaskRows = (tasksRes.data ?? []) as { due_at: string | null }[];
+    const openTasks = openTaskRows.length;
+    const overdueTasks = openTaskRows.filter((t) => t.due_at && new Date(t.due_at).getTime() < nowTs).length;
 
     const views = (viewsRes.data ?? []).reduce((s, r: { views: number }) => s + (Number(r.views) || 0), 0);
     const opps = (oppsRes.data ?? []) as { value: number; probability: number; stage: string }[];
@@ -59,6 +68,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
         configured: true,
         subscribers, leads, contacts, conversations, opportunities,
         views, openPipeline, weightedPipeline, wonValue,
+        openTasks, overdueTasks,
         recentSubs: (recentSubsRes.data ?? []) as DashboardStats["recentSubs"],
         recentContacts: (recentContactsRes.data ?? []) as DashboardStats["recentContacts"],
         hotOpportunities: (hotRes.data ?? []) as DashboardStats["hotOpportunities"],

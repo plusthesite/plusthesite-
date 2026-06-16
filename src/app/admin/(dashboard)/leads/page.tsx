@@ -102,7 +102,7 @@ export default async function LeadsPage({
                             return (
                                 <tr key={l.id} className="align-top hover:bg-slate-50">
                                     <td className="px-4 py-3">
-                                        <p className="font-semibold text-slate-800">{l.name ?? "—"}</p>
+                                        <Link href={`/admin/leads/${l.id}`} className="font-semibold text-slate-800 hover:text-blue-600">{l.name ?? "(no name)"}</Link>
                                         <p className="text-xs text-slate-500">{[l.company, l.email || l.phone].filter(Boolean).join(" · ")}</p>
                                         {l.message && <p className="mt-1 max-w-xs text-xs text-slate-400 line-clamp-1">{l.message}</p>}
                                     </td>
