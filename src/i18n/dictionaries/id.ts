@@ -51,32 +51,32 @@ const id: Dictionary = {
             chatbot: {
                 title: "AI Chat Bot",
                 description:
-                    "Chatbot AI tercerdas Anda — selalu siap membantu. Rasakan percakapan mulus, jawaban instan, dan dukungan 24/7 untuk pelanggan Anda.",
+                    "Jawab setiap pelanggan dalam hitungan detik, 24/7 — di WhatsApp dan website. Tangani FAQ, terima pesanan, dan atur janji temu otomatis.",
             },
             support: {
                 title: "Customer Support",
                 description:
-                    "Alat cerdas untuk keputusan layanan pelanggan yang lebih baik. Tingkatkan operasional dengan solusi yang disesuaikan dengan kebutuhan klien.",
+                    "Ubah layanan pelanggan jadi keunggulan. Satu inbox cerdas, balasan lebih cepat, pelanggan lebih puas — tanpa menambah tim.",
             },
             mobileApp: {
                 title: "Aplikasi Mobile",
                 description:
-                    "Keajaiban mobile — memberdayakan bisnis melalui teknologi. Kami mengembangkan & menciptakan pengalaman digital yang mendorong pertumbuhan.",
+                    "Rilis aplikasi yang benar-benar dipakai pelanggan. Kami desain, bangun, dan rilis aplikasi cross-platform iOS & Android yang mendorong pertumbuhan.",
             },
             crm: {
                 title: "Platform CRM",
                 description:
-                    "Berdayakan bisnis Anda dengan teknologi CRM kami. Meningkatkan operasional, mengelola klien, dan mendorong pertumbuhan berkelanjutan.",
+                    "Berhenti kehilangan prospek di spreadsheet. Lacak tiap calon pelanggan, follow up tepat waktu, dan tutup lebih banyak deal dengan CRM bertenaga AI.",
             },
             agency: {
                 title: "Digital Agency",
                 description:
-                    "Digital agency full-service untuk brand yang ingin berkembang. Dari strategi hingga eksekusi, kami merancang solusi digital yang disesuaikan.",
+                    "Satu tim untuk strategi, branding, konten, dan desain — agar brand Anda tampil premium dan konsisten di setiap channel.",
             },
             game: {
                 title: "Game Mobile",
                 description:
-                    "Pengembangan game mobile menarik yang memikat pemain. Dari konsep hingga rilis, kami membangun pengalaman bermain yang imersif.",
+                    "Dari ide ke rilis, kami bangun game mobile yang seru dimainkan — gameplay menarik dan art rapi di iOS & Android.",
             },
         },
         badgePopular: "Populer",
@@ -84,9 +84,9 @@ const id: Dictionary = {
     },
     aiFeatures: {
         tag: "Fitur AI",
-        title: "Didukung Kecerdasan Buatan",
+        title: "AI Tools yang Mengerjakan Tugas Berat",
         description:
-            "Dari pembuatan gambar hingga musik — tools AI kami membantu Anda membangun lebih cerdas dan lebih cepat.",
+            "Buat gambar, teks, video, dan musik dalam hitungan menit — bukan hari. Produksi lebih banyak, lebih cepat, tanpa menambah tim.",
         items: {
             image: {
                 title: "AI Image Generator",

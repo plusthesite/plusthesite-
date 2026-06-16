@@ -49,32 +49,32 @@ const en = {
             chatbot: {
                 title: "AI Chat Bot",
                 description:
-                    "Your smartest AI chatbot — always ready to assist. Experience seamless conversations, instant answers, and 24/7 support for your customers.",
+                    "Answer every customer in seconds, 24/7 — on WhatsApp and your site. It handles FAQs, takes orders, and books appointments while you sleep.",
             },
             support: {
                 title: "Customer Support",
                 description:
-                    "Smart tools for smarter customer support decisions. Enhance operations with tailored solutions that meet unique client needs.",
+                    "Turn support into a strength. One smart inbox, faster replies, and happier customers — without growing your team.",
             },
             mobileApp: {
                 title: "Mobile App",
                 description:
-                    "Mobile magic — empowering businesses through technology. We develop & create digital experiences that drive growth.",
+                    "Launch a mobile app customers actually use. We design, build, and ship cross-platform apps for iOS and Android that drive real growth.",
             },
             crm: {
                 title: "CRM Platform",
                 description:
-                    "Empower your business with our CRM technology. Enhancing operations, managing clients, and driving sustainable growth.",
+                    "Stop losing leads in spreadsheets. Track every prospect, follow up on time, and close more deals with an AI-powered CRM.",
             },
             agency: {
                 title: "Digital Agency",
                 description:
-                    "Full-service digital agency for brands that want to grow. From strategy to execution, we craft tailored digital solutions.",
+                    "One team for strategy, branding, content, and design — so your brand looks premium and stays consistent on every channel.",
             },
             game: {
                 title: "Mobile Game",
                 description:
-                    "Engaging mobile game development that captivates players. From concept to launch, we build immersive gaming experiences.",
+                    "From idea to launch, we build mobile games people love to play — engaging gameplay and polished art on iOS and Android.",
             },
         },
         badgePopular: "Popular",
@@ -82,9 +82,9 @@ const en = {
     },
     aiFeatures: {
         tag: "AI Features",
-        title: "Powered by Artificial Intelligence",
+        title: "AI Tools That Do the Heavy Lifting",
         description:
-            "From image generation to music creation — our AI tools help you build smarter and faster.",
+            "Generate images, copy, video, and music in minutes — not days. Create more, faster, without a bigger team.",
         items: {
             image: {
                 title: "AI Image Generator",
