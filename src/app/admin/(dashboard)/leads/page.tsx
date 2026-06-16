@@ -109,6 +109,7 @@ export default async function LeadsPage({
                     <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">{newCount} new</span>
                     <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">{convertedCount} converted</span>
                     <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">{all.length} total</span>
+                    <Link href="/admin/leads/new" className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700">+ New Lead</Link>
                 </div>
             </div>
 
