@@ -8,6 +8,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { translations } from "@/lib/translations";
 import { useLocale } from "@/i18n/I18nProvider";
 import { getService } from "@/lib/services";
+import { ProofBand } from "@/components/ProofBand";
 
 const SITE = "https://plusthe.site";
 
@@ -219,6 +220,9 @@ export default function ProductPageTemplate({
                         </div>
                     </section>
                 )}
+
+                {/* ── Honest proof band ── */}
+                <ProofBand />
 
                 {/* ── Testimonials ── */}
                 {SHOW_TESTIMONIALS && p.testimonials && p.testimonials.length > 0 && (

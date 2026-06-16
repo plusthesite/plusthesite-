@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useLocale } from "@/i18n/I18nProvider";
+import { ProofBand } from "@/components/ProofBand";
 
 /* ─────────────────────── DATA (bilingual) ─────────────────────── */
 
@@ -491,6 +492,7 @@ export default function MobileGamePage() {
                 <ShowcaseSection />
                 {SHOW_PROOF && <StatsSection />}
                 {SHOW_PROOF && <TestimonialsSection />}
+                <ProofBand />
                 <CTASection />
             </main>
             <Footer />
