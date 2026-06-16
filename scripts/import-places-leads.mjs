@@ -99,6 +99,22 @@ async function main() {
     if (DRY) { console.table(rows.map((r) => ({ name: r.name, phone: r.phone, website: r.website }))); return; }
 
     const supabase = createClient(SB_URL, SB_KEY, { auth: { persistSession: false } });
+
+    // Upsert a company account per business, then link each lead to it.
+    const names = [...new Set(rows.map((r) => r.company).filter(Boolean))];
+    if (names.length) {
+        const { data: accs, error: accErr } = await supabase
+            .from("accounts")
+            .upsert(names.map((name) => ({ name })), { onConflict: "name" })
+            .select("id, name");
+        if (accErr) {
+            console.warn(`Account link skipped (run supabase/accounts.sql?): ${accErr.message}`);
+        } else {
+            const map = new Map((accs ?? []).map((a) => [a.name, a.id]));
+            for (const r of rows) r.account_id = r.company ? map.get(r.company) ?? null : null;
+        }
+    }
+
     const { data, error } = await supabase
         .from("leads")
         .upsert(rows, { onConflict: "place_id", ignoreDuplicates: true })

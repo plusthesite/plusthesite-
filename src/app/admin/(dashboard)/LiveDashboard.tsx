@@ -100,6 +100,51 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
                 <StatCard label="Won Revenue" value={formatIDR(stats.wonValue, true)} accent="text-emerald-600" href="/admin/opportunities" />
             </div>
 
+            {/* Trends */}
+            <div className="mt-8 grid gap-6 lg:grid-cols-2">
+                {/* New leads — last 14 days */}
+                <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                    <div className="flex items-center justify-between">
+                        <h2 className="text-sm font-bold text-slate-900">New Leads · last 14 days</h2>
+                        <span className="text-xs text-slate-400">{stats.newLeads14d.reduce((s, d) => s + d.count, 0)} total</span>
+                    </div>
+                    <div className="mt-4 flex h-28 items-end gap-1">
+                        {(() => {
+                            const max = Math.max(1, ...stats.newLeads14d.map((d) => d.count));
+                            return stats.newLeads14d.map((d, i) => (
+                                <div key={i} className="group flex flex-1 flex-col items-center justify-end gap-1" title={`${d.label}: ${d.count}`}>
+                                    <span className="text-[9px] font-semibold text-slate-400 opacity-0 group-hover:opacity-100">{d.count}</span>
+                                    <div className="w-full rounded-t bg-blue-500/80 transition-all group-hover:bg-blue-600" style={{ height: `${Math.max(3, Math.round((d.count / max) * 100))}%` }} />
+                                    <span className="text-[8px] text-slate-300">{i % 2 === 0 ? d.label : ""}</span>
+                                </div>
+                            ));
+                        })()}
+                    </div>
+                </div>
+
+                {/* Pipeline by stage */}
+                <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                    <h2 className="text-sm font-bold text-slate-900">Pipeline by Stage</h2>
+                    <div className="mt-4 space-y-2.5">
+                        {stats.stageBreakdown.length === 0 && <p className="py-3 text-sm text-slate-400">No deals yet.</p>}
+                        {(() => {
+                            const maxV = Math.max(1, ...stats.stageBreakdown.map((s) => s.value));
+                            const color: Record<string, string> = { new: "bg-slate-400", contacted: "bg-blue-400", qualified: "bg-indigo-400", proposal: "bg-violet-400", negotiation: "bg-amber-400", won: "bg-emerald-500", lost: "bg-rose-400" };
+                            return stats.stageBreakdown.map((s) => (
+                                <div key={s.stage} className="flex items-center gap-3 text-xs">
+                                    <span className="w-20 shrink-0 capitalize text-slate-500">{s.stage}</span>
+                                    <div className="h-4 flex-1 overflow-hidden rounded bg-slate-100">
+                                        <div className={`h-full ${color[s.stage] ?? "bg-slate-400"}`} style={{ width: `${Math.max(4, Math.round((s.value / maxV) * 100))}%` }} />
+                                    </div>
+                                    <span className="w-24 shrink-0 text-right font-semibold text-slate-700">{formatIDR(s.value, true)}</span>
+                                    <span className="w-6 shrink-0 text-right text-slate-400">{s.count}</span>
+                                </div>
+                            ));
+                        })()}
+                    </div>
+                </div>
+            </div>
+
             <div className="mt-8 grid gap-6 lg:grid-cols-3">
                 <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
                     <h2 className="text-sm font-bold text-slate-900">🔥 Hot Opportunities</h2>
