@@ -24,10 +24,12 @@ export default async function BlogPage({
     const dateLocale = locale === "id" ? "id-ID" : "en-US";
     const activeCategory = category ?? ALL;
 
-    // Static articles + live CMS posts (from Supabase), merged
+    // Live CMS posts win over static seeds with the same slug (so edits in the
+    // dashboard take effect); remaining static articles fill in the rest.
     const staticArticles = articles.filter((a) => (a.locale ?? "id") === locale);
     const dbPosts = await getPublishedPosts(locale);
-    const localeArticles = [...staticArticles, ...dbPosts];
+    const dbSlugs = new Set(dbPosts.map((p) => p.slug));
+    const localeArticles = [...dbPosts, ...staticArticles.filter((a) => !dbSlugs.has(a.slug))];
 
     const filtered =
         activeCategory === ALL

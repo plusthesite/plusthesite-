@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
+import { articles } from "@/data/articles";
 
 async function requireAdmin() {
     const supabase = await createSupabaseServerClient();
@@ -69,4 +70,48 @@ export async function deletePost(formData: FormData) {
     const id = String(formData.get("id") ?? "");
     if (id) await admin.from("posts").delete().eq("id", id);
     revalidatePath("/admin/posts");
+}
+
+/**
+ * Copy a code-defined static article into the CMS so it becomes editable.
+ * Idempotent: if a post with the slug already exists, just open its editor.
+ * Once imported, DB-first blog rendering makes the CMS copy authoritative.
+ */
+export async function importStaticPost(formData: FormData) {
+    await requireAdmin();
+    const admin = getSupabaseAdmin();
+    if (!admin) throw new Error("Database not configured");
+
+    const slug = String(formData.get("slug") ?? "").trim();
+    const article = articles.find((a) => a.slug === slug);
+    if (!article) throw new Error("Article not found");
+
+    const existing = await admin.from("posts").select("id").eq("slug", slug).maybeSingle();
+    let id = existing.data?.id as string | undefined;
+
+    if (!id) {
+        const { data, error } = await admin
+            .from("posts")
+            .insert({
+                slug: article.slug,
+                title: article.title,
+                description: article.description,
+                category: article.category,
+                tags: article.tags,
+                content: article.content,
+                image: article.image,
+                locale: article.locale ?? "id",
+                read_time: article.readTime,
+                status: "published",
+                published_at: new Date(article.date).toISOString(),
+            })
+            .select("id")
+            .single();
+        if (error) throw new Error(error.message);
+        id = data.id as string;
+    }
+
+    revalidatePath("/admin/posts");
+    revalidatePath(`/${article.locale ?? "id"}/blog`);
+    redirect(`/admin/posts/${id}/edit`);
 }

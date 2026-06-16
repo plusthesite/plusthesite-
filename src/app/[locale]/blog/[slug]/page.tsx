@@ -26,7 +26,7 @@ export async function generateMetadata({
     params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
     const { locale, slug } = await params;
-    const article = articles.find((a) => a.slug === slug) ?? (await getPublishedPostBySlug(slug));
+    const article = (await getPublishedPostBySlug(slug)) ?? articles.find((a) => a.slug === slug);
 
     if (!article) {
         return { title: "404 — plus." };
@@ -70,15 +70,16 @@ export default async function ArticlePage({
     const { locale: rawLocale, slug } = await params;
     const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
     const t = getDictionary(locale);
-    const article = articles.find((a) => a.slug === slug) ?? (await getPublishedPostBySlug(slug));
+    const article = (await getPublishedPostBySlug(slug)) ?? articles.find((a) => a.slug === slug);
 
     if (!article) {
         notFound();
     }
 
-    // Related from static + CMS posts of the same locale & category
+    // Related from CMS + static posts of the same locale & category (DB wins, deduped)
     const dbPosts = await getPublishedPosts(locale);
-    const related = [...articles.filter((a) => (a.locale ?? "id") === locale), ...dbPosts]
+    const dbSlugs = new Set(dbPosts.map((p) => p.slug));
+    const related = [...dbPosts, ...articles.filter((a) => (a.locale ?? "id") === locale && !dbSlugs.has(a.slug))]
         .filter((a) => a.category === article.category && a.slug !== article.slug)
         .slice(0, 3);
 
