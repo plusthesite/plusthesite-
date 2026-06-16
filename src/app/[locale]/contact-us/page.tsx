@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useT, useLocale } from "@/i18n/I18nProvider";
+import { SERVICES, serviceName } from "@/lib/services";
 
 export default function ContactUsPage() {
     const t = useT();
@@ -12,10 +13,18 @@ export default function ContactUsPage() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [company, setCompany] = useState("");
+    const [phone, setPhone] = useState("");
+    const [service, setService] = useState("");
     const [message, setMessage] = useState("");
 
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
     const [errorMessage, setErrorMessage] = useState("");
+
+    // Preselect the service when arriving from a product page (?service=slug).
+    useEffect(() => {
+        const slug = new URLSearchParams(window.location.search).get("service");
+        if (slug && SERVICES.some((s) => s.slug === slug)) setService(slug);
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -30,7 +39,7 @@ export default function ContactUsPage() {
             const response = await fetch("/api/contact", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, email, company, message }),
+                body: JSON.stringify({ name, email, company, phone, service, message, locale }),
             });
 
             const data = await response.json();
@@ -39,6 +48,8 @@ export default function ContactUsPage() {
                 setName("");
                 setEmail("");
                 setCompany("");
+                setPhone("");
+                setService("");
                 setMessage("");
             } else {
                 setStatus("error");
@@ -148,6 +159,40 @@ export default function ContactUsPage() {
                                         className="mt-2 block w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 px-4 py-3 text-sm text-[#0F172A] dark:text-[#F8FAFC] placeholder-slate-400 focus:border-primary focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-primary transition-all disabled:opacity-50"
                                         placeholder={t.contact.companyPlaceholder}
                                     />
+                                </div>
+
+                                <div className="grid gap-6 sm:grid-cols-2">
+                                    <div>
+                                        <label htmlFor="service" className="block text-xs font-bold uppercase tracking-wider text-[#475569] dark:text-[#94A3B8]">
+                                            {t.contact.serviceLabel}
+                                        </label>
+                                        <select
+                                            id="service"
+                                            disabled={status === "loading"}
+                                            value={service}
+                                            onChange={(e) => setService(e.target.value)}
+                                            className="mt-2 block w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 px-4 py-3 text-sm text-[#0F172A] dark:text-[#F8FAFC] focus:border-primary focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-primary transition-all disabled:opacity-50"
+                                        >
+                                            <option value="">{t.contact.serviceGeneral}</option>
+                                            {SERVICES.map((s) => (
+                                                <option key={s.slug} value={s.slug}>{serviceName(s.slug, locale)}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label htmlFor="phone" className="block text-xs font-bold uppercase tracking-wider text-[#475569] dark:text-[#94A3B8]">
+                                            {t.contact.phoneLabel} <span className="text-slate-400 font-normal">({t.contact.optional})</span>
+                                        </label>
+                                        <input
+                                            type="tel"
+                                            id="phone"
+                                            disabled={status === "loading"}
+                                            value={phone}
+                                            onChange={(e) => setPhone(e.target.value)}
+                                            className="mt-2 block w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 px-4 py-3 text-sm text-[#0F172A] dark:text-[#F8FAFC] placeholder-slate-400 focus:border-primary focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-primary transition-all disabled:opacity-50"
+                                            placeholder={t.contact.phonePlaceholder}
+                                        />
+                                    </div>
                                 </div>
 
                                 <div>

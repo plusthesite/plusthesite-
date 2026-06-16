@@ -65,6 +65,19 @@ const defaultColors = {
     statsBg: "bg-gradient-to-r from-primary to-secondary",
 };
 
+// Map each product page to its CRM service slug so the CTA funnels a
+// pre-segmented lead straight into the sales pipeline.
+const PAGEKEY_TO_SERVICE: Record<ProductPageTemplateProps["pageKey"], string> = {
+    chatBotPage: "chatbot",
+    crmPage: "crm",
+    customerSupportPage: "customer-support",
+    mobileAppPage: "mobile-app",
+    aiImagePage: "ai-tools",
+    aiTextPage: "ai-tools",
+    aiVideoPage: "ai-tools",
+    aiMusicPage: "ai-tools",
+};
+
 const featureColors = ["primary", "secondary", "tertiary", "primary", "secondary", "tertiary"] as const;
 const colorMap = {
     primary: "bg-primary/10 text-primary",
@@ -89,6 +102,7 @@ export default function ProductPageTemplate({
     const ctaRef = useScrollReveal();
 
     const colors = { ...defaultColors, ...themeColors };
+    const contactHref = `/${locale}/contact-us?service=${PAGEKEY_TO_SERVICE[pageKey]}`;
 
     if (!p) {
         return null;
@@ -123,7 +137,7 @@ export default function ProductPageTemplate({
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                     </svg>
                                 </Link>
-                                <Link href={`/${locale}#contact`} className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-slate-200 dark:border-slate-700 px-8 py-3.5 text-sm font-semibold hover:scale-105 transition-all text-[#0F172A] dark:text-white">
+                                <Link href={contactHref} className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-slate-200 dark:border-slate-700 px-8 py-3.5 text-sm font-semibold hover:scale-105 transition-all text-[#0F172A] dark:text-white">
                                     {p.heroCta2}
                                 </Link>
                             </div>
@@ -216,7 +230,7 @@ export default function ProductPageTemplate({
                             <Link href={`/${locale}#pricing`} className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/25 hover:scale-105 transition-all">
                                 {p.ctaCta1}
                             </Link>
-                            <Link href={`/${locale}#contact`} className="inline-flex items-center gap-2 rounded-full border-2 border-slate-200 dark:border-slate-700 px-8 py-4 text-sm font-semibold hover:scale-105 transition-all text-[#0F172A] dark:text-white">
+                            <Link href={contactHref} className="inline-flex items-center gap-2 rounded-full border-2 border-slate-200 dark:border-slate-700 px-8 py-4 text-sm font-semibold hover:scale-105 transition-all text-[#0F172A] dark:text-white">
                                 {p.ctaCta2}
                             </Link>
                         </div>
