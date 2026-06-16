@@ -3,6 +3,7 @@ import { getSupabaseAdmin } from "@/lib/supabase";
 import { SERVICES, serviceName, getService, formatIDR } from "@/lib/services";
 import { deleteRow } from "../actions";
 import { convertLeadToOpportunity } from "../opportunities/actions";
+import { bulkUpdateLeads } from "./actions";
 
 export const dynamic = "force-dynamic";
 
@@ -147,11 +148,32 @@ export default async function LeadsPage({
                 ))}
             </div>
 
+            {/* Bulk actions */}
+            <form id="bulk-leads" action={bulkUpdateLeads} className="mt-4 flex flex-wrap items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <span className="text-xs font-semibold text-slate-500">Bulk:</span>
+                <select name="bulk_action" defaultValue="" className="rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-xs">
+                    <option value="">Choose action…</option>
+                    <optgroup label="Set status">
+                        <option value="status:new">→ New</option>
+                        <option value="status:contacted">→ Contacted</option>
+                        <option value="status:qualified">→ Qualified</option>
+                        <option value="status:unqualified">→ Unqualified</option>
+                        <option value="status:converted">→ Converted</option>
+                    </optgroup>
+                    <option value="owner">Assign owner</option>
+                    <option value="delete">Delete</option>
+                </select>
+                <input name="bulk_owner" placeholder="Owner (for assign)" className="rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-xs" />
+                <button className="rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-semibold text-white hover:bg-slate-800">Apply to selected</button>
+                <span className="text-xs text-slate-400">Tick rows, choose an action, then Apply.</span>
+            </form>
+
             <div className="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-sm">
                         <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-400">
                             <tr>
+                                <th className="px-4 py-3 w-8" />
                                 <th className="px-4 py-3 font-semibold">Contact</th>
                                 <th className="px-4 py-3 font-semibold">Service</th>
                                 <th className="px-4 py-3 font-semibold">Est. value</th>
@@ -164,7 +186,7 @@ export default async function LeadsPage({
                         </thead>
                         <tbody className="divide-y divide-slate-100">
                             {rows.length === 0 && (
-                                <tr><td colSpan={8} className="px-4 py-12 text-center">
+                                <tr><td colSpan={9} className="px-4 py-12 text-center">
                                     <div className="mx-auto max-w-xs">
                                         <svg className="mx-auto h-10 w-10 text-slate-200" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
                                         <p className="mt-2 text-sm font-medium text-slate-400">No leads in this segment</p>
@@ -178,6 +200,7 @@ export default async function LeadsPage({
                                 const svc = getService(l.service);
                                 return (
                                     <tr key={l.id} className="align-top transition-colors hover:bg-slate-50/80">
+                                        <td className="px-4 py-3"><input type="checkbox" name="ids" value={l.id} form="bulk-leads" className="h-4 w-4 rounded border-slate-300" /></td>
                                         <td className="px-4 py-3">
                                             <Link href={`/admin/leads/${l.id}`} className="font-semibold text-slate-800 hover:text-blue-600 transition-colors">{l.name ?? "(no name)"}</Link>
                                             <p className="text-xs text-slate-500">{[l.company, l.email || l.phone].filter(Boolean).join(" · ")}</p>
