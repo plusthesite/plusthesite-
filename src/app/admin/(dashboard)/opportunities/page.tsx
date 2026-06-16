@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { SERVICES, serviceName, getService, formatIDR } from "@/lib/services";
-import { updateOpportunityStage, deleteOpportunity } from "./actions";
+import { updateOpportunityStage, deleteOpportunity, bulkUpdateOpportunities } from "./actions";
 import { StageSelect } from "./StageSelect";
 
 export const dynamic = "force-dynamic";
@@ -142,12 +142,35 @@ export default async function OpportunitiesPage({
                 ))}
             </div>
 
+            {/* Bulk actions */}
+            <form id="bulk-opps" action={bulkUpdateOpportunities} className="mt-4 flex flex-wrap items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <span className="text-xs font-semibold text-slate-500">Bulk:</span>
+                <select name="bulk_action" defaultValue="" className="rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-xs">
+                    <option value="">Choose action…</option>
+                    <optgroup label="Set stage">
+                        <option value="stage:new">→ New</option>
+                        <option value="stage:contacted">→ Contacted</option>
+                        <option value="stage:qualified">→ Qualified</option>
+                        <option value="stage:proposal">→ Proposal</option>
+                        <option value="stage:negotiation">→ Negotiation</option>
+                        <option value="stage:won">→ Won</option>
+                        <option value="stage:lost">→ Lost</option>
+                    </optgroup>
+                    <option value="owner">Assign owner</option>
+                    <option value="delete">Delete</option>
+                </select>
+                <input name="bulk_owner" placeholder="Owner (for assign)" className="rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-xs" />
+                <button className="rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-semibold text-white hover:bg-slate-800">Apply to selected</button>
+                <span className="text-xs text-slate-400">Tick rows, choose an action, then Apply.</span>
+            </form>
+
             {/* Pipeline table */}
             <div className="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-sm">
                         <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-400">
                             <tr>
+                                <th className="px-4 py-3 w-8" />
                                 <th className="px-4 py-3 font-semibold">Deal / Contact</th>
                                 <th className="px-4 py-3 font-semibold">Service</th>
                                 <th className="px-4 py-3 font-semibold">Value</th>
@@ -161,7 +184,7 @@ export default async function OpportunitiesPage({
                         </thead>
                         <tbody className="divide-y divide-slate-100">
                             {visible.length === 0 && (
-                                <tr><td colSpan={9} className="px-4 py-12 text-center">
+                                <tr><td colSpan={10} className="px-4 py-12 text-center">
                                     <div className="mx-auto max-w-xs">
                                         <svg className="mx-auto h-10 w-10 text-slate-200" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 3v18h18M9 17V9m4 8V5m4 12v-6" /></svg>
                                         <p className="mt-2 text-sm font-medium text-slate-400">No opportunities yet</p>
@@ -175,6 +198,7 @@ export default async function OpportunitiesPage({
                                 const close = daysUntil(o.expected_close);
                                 return (
                                     <tr key={o.id} className="align-top transition-colors hover:bg-slate-50/80">
+                                        <td className="px-4 py-3"><input type="checkbox" name="ids" value={o.id} form="bulk-opps" className="h-4 w-4 rounded border-slate-300" /></td>
                                         <td className="px-4 py-3">
                                             <Link href={`/admin/opportunities/${o.id}`} className="font-semibold text-slate-800 hover:text-blue-600 transition-colors">{o.name}</Link>
                                             <p className="text-xs text-slate-500">{o.contact_name}{o.company ? ` · ${o.company}` : ""}</p>

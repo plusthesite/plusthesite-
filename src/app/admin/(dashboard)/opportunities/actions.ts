@@ -54,6 +54,30 @@ export async function deleteOpportunity(formData: FormData) {
     revalidatePath("/admin");
 }
 
+/** Apply an action to many selected opportunities at once. */
+export async function bulkUpdateOpportunities(formData: FormData) {
+    await requireAdmin();
+    const admin = getSupabaseAdmin();
+    if (!admin) return;
+    const ids = formData.getAll("ids").map(String).filter(Boolean);
+    const action = String(formData.get("bulk_action") ?? "");
+    if (ids.length === 0 || !action) return;
+
+    if (action === "delete") {
+        await admin.from("opportunities").delete().in("id", ids);
+    } else if (action === "owner") {
+        const owner = String(formData.get("bulk_owner") ?? "").trim();
+        await admin.from("opportunities").update({ owner: owner || null }).in("id", ids);
+    } else if (action.startsWith("stage:")) {
+        const stage = action.slice(6);
+        if (STAGES.includes(stage as Stage)) {
+            await admin.from("opportunities").update({ stage, probability: STAGE_PROBABILITY[stage as Stage] }).in("id", ids);
+        }
+    }
+    revalidatePath("/admin/opportunities");
+    revalidatePath("/admin");
+}
+
 /** Promote a lead into the opportunities pipeline, carrying its service tag. */
 export async function convertLeadToOpportunity(formData: FormData) {
     await requireAdmin();
