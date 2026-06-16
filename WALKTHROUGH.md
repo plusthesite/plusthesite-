@@ -1,7 +1,8 @@
 # plus. — Build Walkthrough (Claude / Opus)
 
 How plusthe.site became a full Digital-Agency site with a WordPress-style admin,
-a real sales CRM, 1,100+ real leads, strong Indonesian SEO, and honest copy.
+a real sales CRM, 1,500+ real leads, strong Indonesian SEO, honest copy,
+a WYSIWYG blog editor, sales team management, and in-app notifications.
 
 ---
 
@@ -22,6 +23,9 @@ direct sales reach-out. Also powers pricing.
 - **Activities & Tasks** — log calls/WhatsApp/email/meetings/notes; schedule
   follow-ups; global **Tasks** page with overdue highlighting.
 - **Quick-message templates** — pre-filled WhatsApp/Email per record.
+- **Team management** (`/admin/team`) — sales rep roster with role badges
+  (sales/manager/admin), avatar initials, assigned lead count + open pipeline
+  per rep, toggle active/inactive, delete. Bulk assign dropdown uses rep list.
 
 ## 2. Real lead generation (Google Places API)
 
@@ -54,9 +58,12 @@ drawer, global **Search**, **Export Center** (CSV), **Plugins**, **Users**,
 ## 5. Blog / Content + Article SEO
 
 DB-first rendering (CMS overrides static seeds), **All Posts** manager with
-Import-to-CMS. Every article carries enriched `BlogPosting` JSON-LD
-(ImageObject, wordCount, isPartOf, author/publisher linked to the org) + rich
-OpenGraph.
+Import-to-CMS. **TipTap WYSIWYG editor** replaces the raw HTML textarea —
+bold, italic, underline, headings (H2/H3), bullet/ordered lists, blockquote,
+code blocks, links, images, horizontal rule, undo/redo. Dynamically loaded
+(no SSR) with a clean toolbar matching admin design. Every article carries
+enriched `BlogPosting` JSON-LD (ImageObject, wordCount, isPartOf,
+author/publisher linked to the org) + rich OpenGraph.
 
 ## 6. SEO & AI-Search Visibility (Indonesia)
 
@@ -84,6 +91,20 @@ feature, specific, customer language:
 IDR tiers (Starter Rp 2.5jt / Professional Rp 7.5jt / Enterprise Rp 20jt, annual
 −20%). Contact form + product CTAs create segmented leads (+ accounts).
 
+## 9. In-App Notifications
+
+Real-time notification center in the admin sidebar (desktop + mobile):
+
+- **NotificationBell** — unread count badge (rose dot), dropdown panel, polls
+  every 15s, click-outside-to-close.
+- Auto-fires on: new lead created, new opportunity created, lead converted.
+- Mark individual or **Mark all read**.
+- Each notification links to the relevant admin page.
+- `/api/admin/notifications` — GET (latest 30 + unread count), PATCH (mark
+  read by IDs or all).
+- `lib/notifications.ts` — fire-and-forget helper (never blocks main actions).
+- DB: `supabase/notifications.sql` — indexed on unread + created_at.
+
 ---
 
 ## Database migrations (Supabase SQL Editor)
@@ -94,6 +115,8 @@ IDR tiers (Starter Rp 2.5jt / Professional Rp 7.5jt / Enterprise Rp 20jt, annual
 | `supabase/activities.sql` | activities & tasks | ✅ applied |
 | `supabase/accounts.sql` | accounts + backfill | ✅ applied |
 | `supabase/leads_places.sql` | Places import support | ✅ applied |
+| `supabase/sales_reps.sql` | sales team roster | ⬜ run in SQL Editor |
+| `supabase/notifications.sql` | in-app notifications | ⬜ run in SQL Editor |
 
 ## Optional env
 
@@ -105,7 +128,7 @@ IDR tiers (Starter Rp 2.5jt / Professional Rp 7.5jt / Enterprise Rp 20jt, annual
 | Check | Result |
 |---|---|
 | `npx tsc --noEmit` | ✅ clean |
-| `npx next build` | ✅ 228 pages |
+| `npx next build` | ✅ 232 pages |
 
 > ⚠️ Two agents worked this repo in parallel — keep them synced (one git owner,
 > or separate worktrees) to avoid clobbering.
