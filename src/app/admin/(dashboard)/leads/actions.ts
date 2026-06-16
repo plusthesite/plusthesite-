@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
+import { createNotification } from "@/lib/notifications";
 
 const STATUSES = ["new", "contacted", "qualified", "unqualified", "converted"];
 
@@ -40,6 +41,13 @@ export async function createLead(formData: FormData) {
         source: String(formData.get("source") ?? "manual").trim() || "manual",
         message: String(formData.get("message") ?? "").trim() || null,
         locale: formData.get("locale") === "en" ? "en" : "id",
+    });
+
+    await createNotification({
+        type: "new_lead",
+        title: `New lead: ${name ?? email ?? phone ?? "Unknown"}`,
+        message: company ? `Company: ${company}` : undefined,
+        link: "/admin/leads",
     });
 
     revalidatePath("/admin/leads");

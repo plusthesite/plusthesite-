@@ -77,6 +77,12 @@ export default async function LeadsPage({
         : { data: [] };
     const all = (data ?? []) as Lead[];
 
+    // Fetch active sales reps for the assign dropdown
+    const { data: repsData } = supabase
+        ? await supabase.from("sales_reps").select("name").eq("is_active", true).order("name")
+        : { data: [] };
+    const reps = (repsData ?? []) as { name: string }[];
+
     // Per-service counts
     const serviceCounts = SERVICES.map((svc) => ({
         svc,
@@ -164,7 +170,12 @@ export default async function LeadsPage({
                     <option value="owner">Assign owner</option>
                     <option value="delete">Delete</option>
                 </select>
-                <input name="bulk_owner" placeholder="Owner (for assign)" className="rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-xs" />
+                <input name="bulk_owner" placeholder="Owner (for assign)" className="rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-xs" list="rep-list" />
+                <datalist id="rep-list">
+                    {reps.map((r) => (
+                        <option key={r.name} value={r.name} />
+                    ))}
+                </datalist>
                 <button className="rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-semibold text-white hover:bg-slate-800">Apply to selected</button>
                 <span className="text-xs text-slate-400">Tick rows, choose an action, then Apply.</span>
             </form>

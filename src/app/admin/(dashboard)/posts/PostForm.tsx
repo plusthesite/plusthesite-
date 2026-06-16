@@ -1,5 +1,13 @@
+"use client";
+
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { createPost, updatePost } from "./actions";
+
+const RichTextEditor = dynamic(
+    () => import("@/components/admin/RichTextEditor"),
+    { ssr: false, loading: () => <div className="h-[360px] animate-pulse rounded-lg bg-slate-100" /> }
+);
 
 export interface PostFormData {
     id?: string;
@@ -80,15 +88,8 @@ export default function PostForm({ post }: { post?: PostFormData }) {
             </div>
 
             <div>
-                <label className={labelCls}>Content (HTML)</label>
-                <textarea
-                    name="content"
-                    rows={16}
-                    defaultValue={post?.content ?? ""}
-                    className={`${inputCls} font-mono text-xs leading-relaxed`}
-                    placeholder="<p>Your article…</p>&#10;<h2>Section</h2>&#10;<ul><li>Point</li></ul>"
-                />
-                <p className="mt-1 text-xs text-slate-400">Use HTML: &lt;p&gt;, &lt;h2&gt;, &lt;ul&gt;&lt;li&gt;, &lt;a href&gt;, &lt;strong&gt;.</p>
+                <label className={labelCls}>Content</label>
+                <RichTextEditor name="content" defaultValue={post?.content ?? ""} />
             </div>
 
             <div className="flex items-center gap-3 pt-2">

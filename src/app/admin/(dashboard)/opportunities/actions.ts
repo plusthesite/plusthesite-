@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { STAGES, STAGE_PROBABILITY, type Stage } from "./constants";
+import { createNotification } from "@/lib/notifications";
 
 async function requireAdmin() {
     const supabase = await createSupabaseServerClient();
@@ -92,6 +93,13 @@ export async function createOpportunity(formData: FormData) {
         locale: formData.get("locale") === "en" ? "en" : "id",
     });
 
+    await createNotification({
+        type: "new_opportunity",
+        title: `New deal: ${name}`,
+        message: company ? `Company: ${company}` : undefined,
+        link: "/admin/opportunities",
+    });
+
     revalidatePath("/admin/opportunities");
     revalidatePath("/admin");
     redirect("/admin/opportunities");
@@ -152,6 +160,13 @@ export async function convertLeadToOpportunity(formData: FormData) {
         locale: lead.locale ?? "id",
     });
     await admin.from("leads").update({ status: "converted" }).eq("id", id);
+
+    await createNotification({
+        type: "lead_converted",
+        title: `Lead converted: ${lead.name ?? lead.company ?? "Unknown"}`,
+        message: lead.service ? `Service: ${lead.service}` : undefined,
+        link: "/admin/opportunities",
+    });
 
     revalidatePath("/admin/opportunities");
     revalidatePath("/admin/leads");
