@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { articles } from "@/data/articles";
 import { locales } from "@/i18n/config";
+import { getPublishedPosts } from "@/lib/posts";
 
 const BASE_URL = "https://plusthe.site";
 
@@ -13,7 +14,7 @@ function withAlternates(path: string) {
     return languages;
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const staticPaths: { path: string; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]; priority: number }[] = [
         { path: "", changeFrequency: "weekly", priority: 1 },
         { path: "/blog", changeFrequency: "daily", priority: 0.9 },
@@ -45,14 +46,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
         }
     }
 
-    // Blog articles — each emitted only under its own language
+    // Static (SSG) blog articles — each emitted only under its own language
+    const seen = new Set<string>();
     for (const article of articles) {
         const locale = article.locale ?? "id";
         const url = `${BASE_URL}/${locale}/blog/${article.slug}`;
+        seen.add(url);
         entries.push({
             url,
             lastModified: new Date(article.date),
             changeFrequency: "monthly",
+            priority: 0.7,
+            alternates: { languages: { [locale]: url, "x-default": url } },
+        });
+    }
+
+    // Live CMS posts (published) — pulled per locale so new articles
+    // published from the admin dashboard are indexed automatically.
+    const cmsPosts = (await Promise.all(locales.map((l) => getPublishedPosts(l as "en" | "id")))).flat();
+    for (const post of cmsPosts) {
+        const locale = post.locale ?? "en";
+        const url = `${BASE_URL}/${locale}/blog/${post.slug}`;
+        if (seen.has(url)) continue;
+        seen.add(url);
+        entries.push({
+            url,
+            lastModified: post.date ? new Date(post.date) : new Date(),
+            changeFrequency: "weekly",
             priority: 0.7,
             alternates: { languages: { [locale]: url, "x-default": url } },
         });
