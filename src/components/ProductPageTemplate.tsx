@@ -7,6 +7,9 @@ import Link from "next/link";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { translations } from "@/lib/translations";
 import { useLocale } from "@/i18n/I18nProvider";
+import { getService } from "@/lib/services";
+
+const SITE = "https://plusthe.site";
 
 interface Testimonial {
     quote: string;
@@ -108,8 +111,31 @@ export default function ProductPageTemplate({
         return null;
     }
 
+    const svc = getService(PAGEKEY_TO_SERVICE[pageKey]);
+    const serviceSchema = svc && {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: locale === "id" ? svc.id : svc.en,
+        serviceType: svc.en,
+        description: p.heroDesc,
+        provider: { "@type": "Organization", "@id": `${SITE}/#organization`, name: "plus.", url: SITE },
+        areaServed: { "@type": "Country", name: "Indonesia" },
+        url: `${SITE}/${locale}${svc.path}`,
+        offers: { "@type": "Offer", priceCurrency: "IDR", price: svc.startingValue, url: `${SITE}/${locale}#pricing` },
+    };
+    const breadcrumbSchema = svc && {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/${locale}` },
+            { "@type": "ListItem", position: 2, name: locale === "id" ? svc.id : svc.en, item: `${SITE}/${locale}${svc.path}` },
+        ],
+    };
+
     return (
         <>
+            {serviceSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />}
+            {breadcrumbSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />}
             <Navbar />
             <main>
                 {/* ── Hero ── */}

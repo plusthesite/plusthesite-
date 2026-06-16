@@ -6,6 +6,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import { I18nProvider } from "@/i18n/I18nProvider";
 import { getDictionary } from "@/i18n/getDictionary";
 import { locales, isLocale } from "@/i18n/config";
+import { SERVICES } from "@/lib/services";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,15 +42,21 @@ const keywordsByLocale: Record<string, string[]> = {
   ],
   id: [
     "digital agency Indonesia",
-    "AI agency",
+    "digital agency Jakarta",
+    "agensi AI Indonesia",
     "jasa chatbot AI",
-    "jasa branding",
+    "chatbot WhatsApp Indonesia",
+    "jasa branding Indonesia",
     "jasa pembuatan aplikasi mobile",
+    "jasa pembuatan aplikasi Jakarta",
+    "jasa pembuatan game mobile",
     "CRM Indonesia",
-    "digital marketing",
-    "AI image generator",
-    "jasa pembuatan website",
+    "jasa digital marketing Indonesia",
+    "AI image generator Indonesia",
+    "jasa pembuatan website Indonesia",
     "agensi kreatif Indonesia",
+    "jasa SEO Indonesia",
+    "AI untuk bisnis UMKM",
   ],
 };
 
@@ -85,6 +92,7 @@ export async function generateMetadata({
       type: "website",
       url: `${SITE}/${locale}`,
       locale: locale === "id" ? "id_ID" : "en_US",
+      alternateLocale: locale === "id" ? "en_US" : "id_ID",
       siteName: "plus.",
     },
     twitter: {
@@ -106,14 +114,39 @@ export default async function LocaleLayout({
   if (!isLocale(locale)) notFound();
   const dict = getDictionary(locale);
 
+  const cities = ["Jakarta", "Surabaya", "Bandung", "Medan", "Semarang", "Makassar", "Bali", "Yogyakarta"];
   const organizationSchema = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": ["Organization", "ProfessionalService"],
+    "@id": `${SITE}/#organization`,
     name: "plus.",
+    alternateName: "plus. Digital AI-gency",
     url: SITE,
-    logo: `${SITE}/favicon.png`,
+    logo: { "@type": "ImageObject", url: `${SITE}/logo.png` },
+    image: `${SITE}/logo.png`,
     description: dict.meta.homeDescription,
     email: "support@plusthe.site",
+    slogan: locale === "id" ? "Bangun Brand Lebih Cerdas. Lebih Cepat." : "Build Smarter Brands. Faster.",
+    priceRange: "Rp 2.500.000 – Rp 20.000.000+",
+    currenciesAccepted: "IDR",
+    knowsLanguage: ["id-ID", "en-US"],
+    address: { "@type": "PostalAddress", addressCountry: "ID", addressRegion: "DKI Jakarta", addressLocality: "Jakarta" },
+    areaServed: [
+      { "@type": "Country", name: "Indonesia" },
+      ...cities.map((c) => ({ "@type": "City", name: c })),
+    ],
+    contactPoint: [{
+      "@type": "ContactPoint",
+      contactType: "customer service",
+      email: "support@plusthe.site",
+      areaServed: "ID",
+      availableLanguage: ["Indonesian", "English"],
+    }],
+    makesOffer: SERVICES.map((s) => ({
+      "@type": "Offer",
+      priceCurrency: "IDR",
+      itemOffered: { "@type": "Service", name: locale === "id" ? s.id : s.en, description: s.tagline, serviceType: s.en },
+    })),
     sameAs: ["https://www.instagram.com/plusthe.site/", "https://www.linkedin.com/company/plusthesite/"],
   };
 
