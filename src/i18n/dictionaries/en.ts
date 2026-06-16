@@ -32,19 +32,19 @@ const en = {
     },
     about: {
         tag: "About Plus",
-        titleLine1: "Driven by",
-        titleLine2: "Innovation",
+        titleLine1: "One Team for",
+        titleLine2: "Everything Digital",
         description:
-            "plus. is a forward-thinking IT solutions provider dedicated to empowering businesses through innovative technology and tailored services. We bridge the gap between technology and business needs, providing solutions that enhance efficiency and drive growth.",
+            "plus. pairs AI with a real creative team to run your chatbots, branding, apps, CRM, and marketing — all in one place. Built for Indonesian businesses that want to ship faster, stay on-brand, and stop juggling five different vendors.",
         statPoweredLabel: "Powered",
         statProductsLabel: "Products",
         statToolsLabel: "AI Tools",
     },
     products: {
         tag: "Our Products",
-        title: "AI Products That Empower",
+        title: "Everything Your Brand Needs, in One Place",
         description:
-            "Accelerating progress in artificial intelligence — innovative solutions designed to empower your business and enhance efficiency.",
+            "Six services, one team. From AI chatbots and CRM to mobile apps and full agency work — pick what you need now, scale when you're ready.",
         items: {
             chatbot: {
                 title: "AI Chat Bot",

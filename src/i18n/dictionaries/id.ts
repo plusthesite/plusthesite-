@@ -34,19 +34,19 @@ const id: Dictionary = {
     },
     about: {
         tag: "Tentang Plus",
-        titleLine1: "Digerakkan oleh",
-        titleLine2: "Inovasi",
+        titleLine1: "Satu Tim untuk",
+        titleLine2: "Semua Kebutuhan Digital",
         description:
-            "plus. adalah penyedia solusi IT yang berpikir maju dan berdedikasi memberdayakan bisnis melalui teknologi inovatif dan layanan yang disesuaikan. Kami menjembatani kebutuhan teknologi dan bisnis, menghadirkan solusi yang meningkatkan efisiensi dan mendorong pertumbuhan.",
+            "plus. memadukan AI dengan tim kreatif sungguhan untuk mengurus chatbot, branding, aplikasi, CRM, dan marketing bisnis Anda — semua dalam satu tempat. Dibuat untuk bisnis Indonesia yang ingin rilis lebih cepat, brand tetap konsisten, dan berhenti repot ganti-ganti vendor.",
         statPoweredLabel: "Bertenaga",
         statProductsLabel: "Produk",
         statToolsLabel: "Tools AI",
     },
     products: {
         tag: "Produk Kami",
-        title: "Produk AI yang Memberdayakan",
+        title: "Semua yang Brand Anda Butuhkan, dalam Satu Tempat",
         description:
-            "Mempercepat kemajuan kecerdasan buatan — solusi inovatif yang dirancang untuk memberdayakan bisnis Anda dan meningkatkan efisiensi.",
+            "Enam layanan, satu tim. Dari chatbot AI dan CRM hingga aplikasi mobile dan digital agency lengkap — pilih yang Anda butuhkan sekarang, scale saat siap.",
         items: {
             chatbot: {
                 title: "AI Chat Bot",
