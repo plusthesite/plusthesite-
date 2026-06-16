@@ -50,8 +50,13 @@ export async function generateMetadata({
             type: "article",
             url: `${SITE}/${locale}/blog/${article.slug}`,
             publishedTime: article.date,
+            modifiedTime: article.date,
+            authors: ["plus."],
+            section: article.category,
             tags: article.tags,
-            images: [{ url: article.image }],
+            locale: locale === "id" ? "id_ID" : "en_US",
+            siteName: "plus.",
+            images: [{ url: article.image, width: 1200, height: 630, alt: article.title }],
         },
         twitter: {
             card: "summary_large_image",
@@ -85,23 +90,29 @@ export default async function ArticlePage({
 
     const articleUrl = `${SITE}/${locale}/blog/${article.slug}`;
     const dateLocale = locale === "id" ? "id-ID" : "en-US";
+    const langTag = locale === "id" ? "id-ID" : "en-US";
+    const wordCount = article.content.replace(/<[^>]+>/g, " ").trim().split(/\s+/).filter(Boolean).length;
 
     const articleSchema = {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
-        headline: article.title,
+        "@id": articleUrl,
+        headline: article.title.slice(0, 110),
         description: article.description,
-        image: article.image,
+        image: { "@type": "ImageObject", url: article.image, width: 1200, height: 630 },
         datePublished: article.date,
         dateModified: article.date,
-        inLanguage: locale === "id" ? "id-ID" : "en-US",
-        author: { "@type": "Organization", name: "plus.", url: SITE },
+        inLanguage: langTag,
+        wordCount,
+        author: { "@type": "Organization", "@id": `${SITE}/#organization`, name: "plus.", url: SITE },
         publisher: {
             "@type": "Organization",
+            "@id": `${SITE}/#organization`,
             name: "plus.",
-            logo: { "@type": "ImageObject", url: `${SITE}/favicon.png` },
+            logo: { "@type": "ImageObject", url: `${SITE}/logo.png`, width: 512, height: 512 },
         },
         mainEntityOfPage: { "@type": "WebPage", "@id": articleUrl },
+        isPartOf: { "@type": "Blog", "@id": `${SITE}/${locale}/blog`, name: "plus. Blog" },
         keywords: article.tags.join(", "),
         articleSection: article.category,
     };
