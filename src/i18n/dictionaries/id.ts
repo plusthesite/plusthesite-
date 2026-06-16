@@ -222,7 +222,7 @@ const id: Dictionary = {
         {
             question: "Paket harga apa saja yang ditawarkan?",
             answer:
-                "Kami menawarkan paket bulanan dan tahunan yang fleksibel. Bulanan: Starter ($25), Professional ($50, direkomendasikan), dan Premium ($500). Paket tahunan juga tersedia dengan harga yang disesuaikan. Kami juga menawarkan paket Service Plus mulai dari $45 untuk instalasi hingga $699 untuk paket website lengkap.",
+                "Kami menawarkan paket bulanan dan tahunan yang fleksibel dalam Rupiah. Bulanan: Starter (Rp 2,5 jt), Professional (Rp 7,5 jt, direkomendasikan), dan Enterprise (Rp 20 jt). Paket tahunan hemat 20%. Setiap paket mencakup satu atau lebih lini layanan — dari chatbot AI dan CRM hingga pengembangan aplikasi. Penawaran khusus berbasis proyek juga tersedia.",
         },
         {
             question: "Bagaimana cara menghubungi plus. untuk dukungan?",
@@ -232,7 +232,7 @@ const id: Dictionary = {
         {
             question: "Apakah Anda menyediakan kustomisasi dan pengembangan website?",
             answer:
-                "Ya! Paket Service Plus kami mencakup instalasi tema ($45), setup website siap pakai dengan penggantian konten hingga 6 halaman ($469), dan paket website lengkap dengan optimasi SEO & kecepatan ($699). Semua paket mencakup kustomisasi profesional.",
+                "Ya! Kami membangun website, aplikasi, dan produk digital custom. Harga tergantung cakupan — dari landing page sederhana hingga aplikasi cross-platform. Hubungi tim kami untuk penawaran khusus dalam Rupiah.",
         },
     ],
     footer: {

@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { AdminNav, LogoutButton } from "@/components/admin/AdminNav";
+import { MobileSidebar } from "@/components/admin/MobileSidebar";
 
 export default async function DashboardLayout({
     children,
@@ -18,16 +19,18 @@ export default async function DashboardLayout({
     }
 
     return (
-        <div className="flex min-h-screen">
-            {/* Sidebar */}
-            <aside className="fixed inset-y-0 left-0 flex w-60 flex-col bg-slate-900 px-4 py-6">
+        <div className="flex min-h-screen bg-slate-50">
+            {/* Desktop sidebar */}
+            <aside className="fixed inset-y-0 left-0 z-30 hidden w-60 flex-col bg-slate-900 px-4 py-6 lg:flex">
                 <div className="px-3 pb-6">
                     <div className="text-xl font-extrabold tracking-tight text-white">
                         plus<span className="text-blue-500">.</span>
                     </div>
-                    <p className="text-xs text-slate-500">Admin</p>
+                    <p className="text-xs text-slate-500">Admin Dashboard</p>
                 </div>
-                <AdminNav />
+                <div className="flex-1 overflow-y-auto scrollbar-thin">
+                    <AdminNav />
+                </div>
                 <div className="mt-auto border-t border-slate-800 pt-4">
                     <p className="mb-2 truncate px-3 text-xs text-slate-500" title={user.email ?? ""}>
                         {user.email}
@@ -36,8 +39,24 @@ export default async function DashboardLayout({
                 </div>
             </aside>
 
-            {/* Main */}
-            <main className="ml-60 flex-1 px-8 py-8">{children}</main>
+            {/* Mobile sidebar (hamburger) */}
+            <MobileSidebar email={user.email ?? ""} />
+
+            {/* Main content */}
+            <main className="min-h-screen w-full lg:ml-60">
+                {/* Mobile top bar */}
+                <div className="sticky top-0 z-20 flex items-center justify-between border-b border-slate-200 bg-white/80 px-4 py-3 backdrop-blur-md lg:hidden">
+                    <div className="text-lg font-extrabold tracking-tight text-slate-900">
+                        plus<span className="text-blue-500">.</span>
+                    </div>
+                    <label htmlFor="mobile-nav" className="cursor-pointer rounded-lg p-2 text-slate-600 hover:bg-slate-100">
+                        <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </label>
+                </div>
+                <div className="px-4 py-6 sm:px-6 lg:px-8 lg:py-8">{children}</div>
+            </main>
         </div>
     );
 }

@@ -220,7 +220,7 @@ const en = {
         {
             question: "What pricing plans do you offer?",
             answer:
-                "We offer flexible monthly and annual plans. Monthly: Starter ($25), Professional ($50, recommended), and Premium ($500). Annual plans are also available with adjusted pricing. We also offer Service Plus packages starting at $45 for installation up to $699 for full website packages.",
+                "We offer flexible monthly and annual plans in Indonesian Rupiah (IDR). Monthly: Starter (Rp 2.5 jt), Professional (Rp 7.5 jt, recommended), and Enterprise (Rp 20 jt). Annual plans save 20%. Each plan covers one or more service lines — from AI chatbots and CRM to full app development. Custom project-based quotes are also available.",
         },
         {
             question: "How can I reach plus. for support?",
@@ -230,7 +230,7 @@ const en = {
         {
             question: "Do you offer customization and website development?",
             answer:
-                "Yes! Our Service Plus packages include theme installation ($45), ready-to-use website setup with content replacement up to 6 pages ($469), and full website package with SEO & speed optimization ($699). All packages include professional customization.",
+                "Yes! We build custom websites, apps, and digital products. Pricing depends on scope — from a simple landing page to a full cross-platform app. Contact our team for a tailored quote in IDR.",
         },
     ],
     footer: {

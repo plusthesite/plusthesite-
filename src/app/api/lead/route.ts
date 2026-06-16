@@ -13,7 +13,16 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: "too_many_requests" }, { status: 429 });
     }
 
-    let body: { name?: string; email?: string; message?: string; locale?: string };
+    let body: {
+        name?: string;
+        email?: string;
+        phone?: string;
+        company?: string;
+        service?: string;
+        message?: string;
+        locale?: string;
+        source?: string;
+    };
     try {
         body = await request.json();
     } catch {
@@ -22,8 +31,12 @@ export async function POST(request: Request) {
 
     const email = (body.email ?? "").trim().toLowerCase();
     const name = (body.name ?? "").trim().slice(0, 120) || null;
+    const phone = (body.phone ?? "").trim().slice(0, 40) || null;
+    const company = (body.company ?? "").trim().slice(0, 120) || null;
+    const service = (body.service ?? "").trim().slice(0, 40) || null;
     const message = (body.message ?? "").trim().slice(0, 2000) || null;
     const locale = body.locale === "id" ? "id" : "en";
+    const source = (body.source ?? "website").trim().slice(0, 40);
 
     if (!EMAIL_RE.test(email)) {
         return NextResponse.json({ error: "invalid_email" }, { status: 400 });
@@ -34,8 +47,19 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: "not_configured" }, { status: 503 });
     }
 
-    const { error } = await supabase.from("leads").insert({ name, email, message, locale });
+    const { error } = await supabase.from("leads").insert({
+        name,
+        email,
+        phone,
+        company,
+        service,
+        message,
+        locale,
+        source,
+        status: "new",
+    });
     if (error) {
+        console.error("Lead insert error:", error.message);
         return NextResponse.json({ error: "db_error" }, { status: 500 });
     }
 
