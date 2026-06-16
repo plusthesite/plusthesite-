@@ -30,6 +30,20 @@ export async function updateOpportunityStage(formData: FormData) {
     revalidatePath("/admin");
 }
 
+/** Move an opportunity to a new stage — callable directly from the Kanban board. */
+export async function moveOpportunity(id: string, stage: string) {
+    await requireAdmin();
+    const admin = getSupabaseAdmin();
+    if (!admin || !id || !STAGES.includes(stage as Stage)) return;
+    await admin
+        .from("opportunities")
+        .update({ stage, probability: STAGE_PROBABILITY[stage as Stage] })
+        .eq("id", id);
+    revalidatePath("/admin/opportunities/board");
+    revalidatePath("/admin/opportunities");
+    revalidatePath("/admin");
+}
+
 export async function deleteOpportunity(formData: FormData) {
     await requireAdmin();
     const admin = getSupabaseAdmin();

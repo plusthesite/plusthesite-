@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { serviceName, formatIDR } from "@/lib/services";
 import { ActivityPanel } from "@/components/admin/ActivityPanel";
+import { QuickMessage } from "@/components/admin/QuickMessage";
 import { convertLeadToOpportunity } from "../../opportunities/actions";
 
 export const dynamic = "force-dynamic";
@@ -20,7 +21,7 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
 
     const { data: l } = await supabase
         .from("leads")
-        .select("id, name, email, phone, company, service, status, value, owner, message, source, created_at")
+        .select("id, name, email, phone, company, service, status, value, owner, message, source, locale, created_at")
         .eq("id", id)
         .maybeSingle();
     if (!l) notFound();
@@ -66,6 +67,10 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
                                 </form>
                             )}
                         </div>
+                    </div>
+
+                    <div className="mt-6">
+                        <QuickMessage name={l.name} phone={l.phone} email={l.email} company={l.company} service={l.service} locale={l.locale === "id" ? "id" : "en"} />
                     </div>
                 </div>
 

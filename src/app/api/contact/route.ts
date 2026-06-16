@@ -55,6 +55,17 @@ export async function POST(request: NextRequest) {
       throw error;
     }
 
+    // Link/create the company account (best-effort; table may not exist yet).
+    let accountId: string | null = null;
+    if (cleanCompany) {
+      const { data: acc } = await supabase
+        .from('accounts')
+        .upsert({ name: cleanCompany }, { onConflict: 'name' })
+        .select('id')
+        .maybeSingle();
+      accountId = acc?.id ?? null;
+    }
+
     // Also drop a segmented lead into the sales pipeline so the team can
     // reach out per service line. Best-effort: never fail the submission.
     const { error: leadError } = await supabase.from('leads').insert({
@@ -62,6 +73,7 @@ export async function POST(request: NextRequest) {
       email: cleanEmail,
       phone: cleanPhone,
       company: cleanCompany,
+      account_id: accountId,
       service: cleanService,
       message: cleanMessage,
       source: 'contact-form',

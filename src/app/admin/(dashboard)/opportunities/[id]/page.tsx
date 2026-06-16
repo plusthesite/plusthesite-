@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { serviceName, formatIDR } from "@/lib/services";
 import { ActivityPanel } from "@/components/admin/ActivityPanel";
+import { QuickMessage } from "@/components/admin/QuickMessage";
 import { StageSelect } from "../StageSelect";
 import { updateOpportunityStage } from "../actions";
 
@@ -25,7 +26,7 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
 
     const { data: o } = await supabase
         .from("opportunities")
-        .select("id, name, company, contact_name, email, phone, value, stage, probability, source, service, owner, next_action, next_action_at, expected_close, notes")
+        .select("id, name, company, contact_name, email, phone, value, stage, probability, source, service, owner, next_action, next_action_at, expected_close, notes, locale")
         .eq("id", id)
         .maybeSingle();
     if (!o) notFound();
@@ -68,6 +69,10 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
                             {o.phone && <a href={`tel:${o.phone}`} className="rounded-lg bg-slate-700 px-3 py-2 text-xs font-semibold text-white hover:bg-slate-800">Call</a>}
                             {o.email && <a href={`mailto:${o.email}`} className="rounded-lg bg-blue-600 px-3 py-2 text-xs font-semibold text-white hover:bg-blue-700">Email</a>}
                         </div>
+                    </div>
+
+                    <div className="mt-6">
+                        <QuickMessage name={o.contact_name} phone={o.phone} email={o.email} company={o.company} service={o.service} locale={o.locale === "id" ? "id" : "en"} />
                     </div>
                 </div>
 
