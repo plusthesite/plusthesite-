@@ -40,6 +40,7 @@ const QUERY = args.query;
 const SERVICE = args.service ?? null;
 const LIMIT = Math.min(Number(args.limit) || 60, 60); // Places caps at 60/query
 const DRY = Boolean(args["dry-run"]);
+const REQUIRE_PHONE = Boolean(args["require-phone"]); // only reachable leads
 
 const KEY = process.env.GOOGLE_MAPS_API_KEY;
 const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
@@ -80,7 +81,7 @@ async function main() {
         if (token) await new Promise((r) => setTimeout(r, 2000)); // token needs a moment
     } while (token && places.length < LIMIT);
 
-    const rows = places.slice(0, LIMIT).map((p) => ({
+    let rows = places.map((p) => ({
         place_id: p.id,
         name: p.displayName?.text ?? null,
         company: p.displayName?.text ?? null,
@@ -94,6 +95,9 @@ async function main() {
         notes: [p.formattedAddress, p.websiteUri, p.googleMapsUri].filter(Boolean).join(" · "),
         locale: "id",
     }));
+
+    if (REQUIRE_PHONE) rows = rows.filter((r) => r.phone);
+    rows = rows.slice(0, LIMIT);
 
     console.log(`Found ${rows.length} businesses.`);
     if (DRY) { console.table(rows.map((r) => ({ name: r.name, phone: r.phone, website: r.website }))); return; }
