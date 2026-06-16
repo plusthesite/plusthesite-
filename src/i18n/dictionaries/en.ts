@@ -26,8 +26,8 @@ const en = {
         titleLine2: "Faster.",
         subtitle: "With AI + Human Creativity",
         description:
-            "One integrated platform for brands that want to move fast, stay consistent, and still look premium — powered by AI and real creative minds.",
-        ctaPrimary: "See How It Works",
+            "AI chatbots, branding, apps, and CRM — built by AI and real creatives in one place. Launch faster, stay on-brand, and look premium without juggling five vendors.",
+        ctaPrimary: "See What We Build",
         ctaSecondary: "View Pricing",
     },
     about: {

@@ -28,8 +28,8 @@ const id: Dictionary = {
         titleLine2: "Lebih Cepat.",
         subtitle: "Dengan AI + Kreativitas Manusia",
         description:
-            "Satu platform terintegrasi untuk brand yang ingin bergerak cepat, konsisten, dan tetap terlihat premium — didukung AI dan tim kreatif sungguhan.",
-        ctaPrimary: "Lihat Cara Kerjanya",
+            "Chatbot AI, branding, aplikasi, dan CRM — dikerjakan AI plus tim kreatif sungguhan, dalam satu tempat. Lebih cepat rilis, brand tetap konsisten, dan tampil premium tanpa repot ganti-ganti vendor.",
+        ctaPrimary: "Lihat Karya Kami",
         ctaSecondary: "Lihat Harga",
     },
     about: {
