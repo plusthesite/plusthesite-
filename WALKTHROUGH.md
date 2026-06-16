@@ -29,13 +29,14 @@ direct sales reach-out. Also powers pricing.
 Places API (New) — ToS-compliant, deduped by `place_id`, `--require-phone` so
 every lead is reachable, auto-linked to an Account.
 
-**Imported ≈1,138 reachable leads** across 12+ cities, segmented:
-chatbot ~262 · CRM ~257 · digital-agency ~251 · customer-support ~199 ·
-mobile-app ~127 · ai-tools ~51. Premium/high-revenue segments included
-(property developers, 5-star hotels, private hospitals, premium auto dealers).
+**Imported ≈1,546 reachable leads** (≈1,547 accounts) across 16+ cities —
+Jakarta, Surabaya, Bandung, Medan, Semarang, Makassar, Yogyakarta, Bali/Denpasar,
+Malang, Bekasi, Tangerang and more. Segmented by service, weighted toward
+high-revenue lines (property developers, 5-star hotels, private hospitals,
+premium auto dealers, international schools, contractors).
 
 Each lead carries an indicative deal value per service (importer auto-sets it),
-so the dashboard shows **≈Rp 11+ billion total pipeline potential** for the
+so the dashboard shows **≈Rp 16+ billion total pipeline potential** for the
 sales team to prioritise.
 
 ## 3. Real-time Dashboard
