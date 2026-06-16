@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useLocale } from "@/i18n/I18nProvider";
 import { ProofBand } from "@/components/ProofBand";
+import { HowWeWork } from "@/components/HowWeWork";
 
 /* ── Data (bilingual) ── */
 
@@ -391,6 +392,7 @@ export default function DigitalAgencyPage() {
                 {SHOW_PROOF && <StatsSection />}
                 {SHOW_PROOF && <TestimonialSection />}
                 <ProofBand />
+                <HowWeWork />
                 <CTASection />
             </main>
             <Footer />

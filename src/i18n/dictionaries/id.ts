@@ -206,7 +206,7 @@ const id: Dictionary = {
     faq: {
         tag: "FAQ",
         title: "Pertanyaan yang Sering Diajukan",
-        description: "Semua yang perlu Anda ketahui tentang plus. dan layanan kami.",
+        description: "Harga, layanan, dan cara kami bekerja — terjawab. Masih ada pertanyaan? Hubungi tim kami.",
     },
     faqItems: [
         {
@@ -237,7 +237,7 @@ const id: Dictionary = {
     ],
     footer: {
         tagline:
-            "Satu platform terintegrasi untuk brand yang ingin bergerak cepat, konsisten, dan tetap terlihat premium — didukung AI dan tim kreatif sungguhan.",
+            "Chatbot AI, branding, aplikasi, dan CRM — dikerjakan AI plus tim kreatif sungguhan, dalam satu tempat. Harga IDR terjangkau, dibuat untuk bisnis Indonesia.",
         products: "Produk",
         company: "Perusahaan",
         connect: "Terhubung",

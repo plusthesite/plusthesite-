@@ -204,7 +204,7 @@ const en = {
     faq: {
         tag: "FAQ",
         title: "Frequently Asked Questions",
-        description: "Everything you need to know about plus. and our services.",
+        description: "Pricing, services, and how we work — answered. Still have a question? Talk to our team.",
     },
     faqItems: [
         {
@@ -235,7 +235,7 @@ const en = {
     ],
     footer: {
         tagline:
-            "One integrated platform for brands that want to move fast, stay consistent, and still look premium — powered by AI and real creative minds.",
+            "AI chatbots, branding, apps, and CRM — built by AI and real creatives, in one place. Affordable IDR pricing, made for Indonesian businesses.",
         products: "Products",
         company: "Company",
         connect: "Connect",

@@ -1,69 +1,83 @@
 # plus. — Build Walkthrough (Claude / Opus)
 
-What was built to turn **plusthe.site** into a full Digital-Agency site with a
-WordPress-style admin + sales CRM. Companion to the parallel agent's notes.
+How plusthe.site became a full Digital-Agency site with a WordPress-style admin,
+a real sales CRM, 1,100+ real leads, strong Indonesian SEO, and honest copy.
 
 ---
 
 ## 1. Sales CRM (the core)
 
-**Single source of truth:** `src/lib/services.ts` — 7 service lines (chatbot,
-digital-agency, mobile-app, mobile-game, crm, customer-support, ai-tools). Every
-lead & opportunity is tagged with a `service` slug, so the pipeline is segmented
-for direct sales reach-out. Also powers pricing.
+**Single source of truth:** `src/lib/services.ts` — 7 service lines. Every lead &
+opportunity is tagged with a `service` slug, so the pipeline is segmented for
+direct sales reach-out. Also powers pricing.
 
 - **Leads** (`/admin/leads`) — segmented by service, status filters, summary
-  cards, WhatsApp/Call/Email reach-out, **Convert → Opportunity**, **bulk
-  actions** (set status / assign owner / delete).
-- **Opportunities** (`/admin/opportunities`) — pipeline with open/weighted/won
-  value + win-rate, per-service breakdown, inline stage editing, **bulk
-  actions**, and a drag-&-drop **Kanban board** (`/board`).
+  cards, WhatsApp/Call/Email, **Convert → Opportunity**, **bulk actions**,
+  **+ New Lead** form.
+- **Opportunities** (`/admin/opportunities`) — pipeline with open/weighted/won +
+  win-rate, per-service breakdown, inline stage editing, **bulk actions**,
+  **+ New** form, and a drag-&-drop **Kanban board** (`/board`).
 - **Accounts** (`/admin/accounts`) — companies roll up their leads, deals &
-  pipeline value; auto-created/linked from forms and the Places importer.
-- **Activities & Tasks** — Salesforce/LeadSquared-style. Log calls / WhatsApp /
-  email / meetings / notes on any lead or deal; set a due date to schedule a
-  follow-up. Global **Tasks** page (`/admin/tasks`) with overdue highlighting.
-- **Quick-message templates** — pre-filled WhatsApp/Email per record
-  (`src/lib/templates.ts`, bilingual).
-- **Real-business lead import** — `scripts/import-places-leads.mjs` pulls local
-  businesses via the **official Google Places API** (ToS-compliant; deduped by
-  `place_id`; auto-links accounts). No scraping.
+  pipeline value; auto-created/linked from forms and the importer.
+- **Activities & Tasks** — log calls/WhatsApp/email/meetings/notes; schedule
+  follow-ups; global **Tasks** page with overdue highlighting.
+- **Quick-message templates** — pre-filled WhatsApp/Email per record.
 
-## 2. Real-time Dashboard
+## 2. Real lead generation (Google Places API)
 
-`/admin` polls `/api/admin/stats` every 12s (+ on tab focus). Live engagement +
-pipeline value, hot opportunities, **open/overdue follow-ups banner**, and live
-charts: **new-leads (14-day) bar chart** + **pipeline-by-stage** breakdown.
+`scripts/import-places-leads.mjs` imports real local businesses via the official
+Places API (New) — ToS-compliant, deduped by `place_id`, `--require-phone` so
+every lead is reachable, auto-linked to an Account.
 
-## 3. WordPress-style Admin
+**Imported ≈1,138 reachable leads** across 12+ cities, segmented:
+chatbot ~262 · CRM ~257 · digital-agency ~251 · customer-support ~199 ·
+mobile-app ~127 · ai-tools ~51. Premium/high-revenue segments included
+(property developers, 5-star hotels, private hospitals, premium auto dealers).
+
+## 3. Real-time Dashboard
+
+`/admin` polls `/api/admin/stats` every 12s. Live engagement + pipeline value,
+hot opportunities, open/overdue follow-ups banner, **14-day new-leads chart** +
+**pipeline-by-stage** breakdown.
+
+## 4. WordPress-style Admin
 
 Grouped sidebar (Content / Sales / Audience / Site / Tools), responsive mobile
-drawer, global **Search** (`/admin/search` — leads, deals, accounts, articles),
-**Export Center** (`/admin/export` → CSV per entity via `/api/admin/export`),
-**Plugins** (live integration status), **Users** (Supabase Auth), **Settings**,
-and a daily **pipeline email digest** (`/api/admin/digest`, optional Resend+cron).
+drawer, global **Search**, **Export Center** (CSV), **Plugins**, **Users**,
+**Settings**, **Email digest** (`/api/admin/digest`, optional Resend+cron).
 
-## 4. Blog / Content
+## 5. Blog / Content + Article SEO
 
-DB-first rendering — CMS posts override the 94 static seeds (deduped by slug), so
-dashboard edits are authoritative. **All Posts** manager lists every article in
-one place with status tabs and **Import-to-CMS** (makes a static article editable).
+DB-first rendering (CMS overrides static seeds), **All Posts** manager with
+Import-to-CMS. Every article carries enriched `BlogPosting` JSON-LD
+(ImageObject, wordCount, isPartOf, author/publisher linked to the org) + rich
+OpenGraph.
 
-## 5. SEO & AI-Search Visibility
+## 6. SEO & AI-Search Visibility (Indonesia)
 
-- CMS-aware `sitemap.xml` (includes published CMS posts).
-- `robots.ts` blocks `/admin` + `/api`, explicitly allows AI crawlers
-  (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, …); removed the stale
-  static `robots.txt` that left `/admin` crawlable.
-- Dynamic `/llms.txt` — overview + full article index for AI ingestion.
-- `BlogPosting` + `BreadcrumbList` + `FAQPage` + Organization/WebSite JSON-LD.
+- `Organization → ProfessionalService` with Indonesian address, areaServed (8
+  cities + nationwide), contactPoint, priceRange/currency (IDR), makesOffer.
+- `Service + Offer (IDR) + BreadcrumbList` JSON-LD on every product page.
+- Indonesian keyword set; `og:alternateLocale`.
+- CMS-aware sitemap; robots blocks /admin + allows AI crawlers; dynamic
+  `/llms.txt` with Indonesia coverage + IDR tiers for AI-citation.
 
-## 6. Indonesian-market Pricing & Lead Funnel
+## 7. Copywriting & Integrity (copywriting skill)
 
-- IDR tiers (Starter Rp 2.5jt / Professional Rp 7.5jt / Enterprise Rp 20jt,
-  annual −20%), fully bilingual.
-- Contact form captures service + phone and creates a **segmented lead** (+
-  account); product-page CTAs deep-link to `/contact-us?service=<slug>`.
+Applied the `copywriting` skill site-wide — clarity > cleverness, benefit >
+feature, specific, customer language:
+
+- Hero, About, Products, AI Features, product cards, footer rewritten benefit-led.
+- **Honesty fixes** (critical): removed fabricated stats ("Join 10,000+", "50M+
+  Downloads", "500+ Happy Customers"), false "Free Trial" CTAs (plus. is an
+  IDR-retainer agency) → "Get a Free Quote". Hid fabricated named testimonials.
+- Replaced fake proof with a **ProofBand** of verifiable facts (90+ articles, 7
+  services, ID/EN, AI+Human) + an honest **How We Work** 4-step section.
+
+## Indonesian-market pricing & lead funnel
+
+IDR tiers (Starter Rp 2.5jt / Professional Rp 7.5jt / Enterprise Rp 20jt, annual
+−20%). Contact form + product CTAs create segmented leads (+ accounts).
 
 ---
 
@@ -71,15 +85,14 @@ one place with status tabs and **Import-to-CMS** (makes a static article editabl
 
 | File | Purpose | Status |
 |---|---|---|
-| `supabase/crm.sql` | leads enrichment + opportunities | ✅ applied |
-| `supabase/seed_crm.sql` | sample pipeline (replace with real) | ✅ applied |
-| `supabase/activities.sql` | activities & tasks | ⏳ run me |
-| `supabase/accounts.sql` | accounts + backfill | ⏳ run me |
-| `supabase/leads_places.sql` | Places import support | ⏳ run me |
+| `supabase/crm.sql` + `seed_crm.sql` | leads + opportunities | ✅ applied |
+| `supabase/activities.sql` | activities & tasks | ✅ applied |
+| `supabase/accounts.sql` | accounts + backfill | ✅ applied |
+| `supabase/leads_places.sql` | Places import support | ✅ applied |
 
-## Optional env (for full features)
+## Optional env
 
-`GOOGLE_MAPS_API_KEY` (real lead import) · `RESEND_API_KEY` +
+`GOOGLE_MAPS_API_KEY` (✅ real lead import working) · `RESEND_API_KEY` +
 `ADMIN_DIGEST_EMAIL` + `CRON_SECRET` (auto digest).
 
 ## Verification
@@ -88,8 +101,6 @@ one place with status tabs and **Import-to-CMS** (makes a static article editabl
 |---|---|
 | `npx tsc --noEmit` | ✅ clean |
 | `npx next build` | ✅ 228 pages |
-| Admin routes | ✅ dynamic |
-| Blog | ✅ 94 SSG paths + DB-first |
 
-> ⚠️ Two agents worked this repo in parallel — keep them synced (one owner for
-> git, or separate worktrees) to avoid clobbering.
+> ⚠️ Two agents worked this repo in parallel — keep them synced (one git owner,
+> or separate worktrees) to avoid clobbering.
