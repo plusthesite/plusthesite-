@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { useT } from "@/i18n/I18nProvider";
+import { useT, useLocale } from "@/i18n/I18nProvider";
 import { formatIDR } from "@/lib/services";
 
 function CheckIcon({ highlighted }: { highlighted?: boolean }) {
@@ -23,12 +24,13 @@ export default function Pricing() {
     const [isAnnual, setIsAnnual] = useState(false);
     const ref = useScrollReveal();
     const t = useT();
+    const locale = useLocale();
 
     const p = t.pricing;
     const order = [
-        { ...p.plans.starter, highlighted: false },
-        { ...p.plans.professional, highlighted: true },
-        { ...p.plans.enterprise, highlighted: false },
+        { key: "starter", ...p.plans.starter, highlighted: false },
+        { key: "professional", ...p.plans.professional, highlighted: true },
+        { key: "enterprise", ...p.plans.enterprise, highlighted: false },
     ];
 
     return (
@@ -108,17 +110,15 @@ export default function Pricing() {
                                     <p className="mt-1 h-4 text-xs text-[#94A3B8]">{isAnnual ? p.billedAnnually : ""}</p>
                                 </div>
 
-                                <a
-                                    href="https://plusthe.site/service-plus/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                <Link
+                                    href={`/${locale}/payment?plan=${plan.key}&billing=${isAnnual ? "annual" : "monthly"}`}
                                     className={`mt-6 flex items-center justify-center rounded-full px-5 py-3.5 text-sm font-semibold transition-all hover:scale-105 ${plan.highlighted
                                         ? "bg-primary text-white shadow-lg shadow-primary/25 hover:bg-primary-dark hover:shadow-xl"
                                         : "border border-slate-200 dark:border-[#1E293B] bg-slate-50 dark:bg-[#0F172A] text-[#0F172A] dark:text-[#F8FAFC] hover:bg-slate-100 dark:hover:bg-[#1E293B] dark:hover:text-white"
                                         }`}
                                 >
                                     {p.choosePlan}
-                                </a>
+                                </Link>
 
                                 <div className="mt-8 border-t border-slate-100 dark:border-[#1E293B] pt-6">
                                     <p className="text-xs font-semibold uppercase tracking-wider text-[#64748B] dark:text-[#94A3B8]">

@@ -499,7 +499,7 @@ function PricingSection() {
                             </ul>
 
                             <Link
-                                href={`/${locale}#pricing`}
+                                href={`/${locale}/payment?name=${encodeURIComponent(planMeta[i].name)}&price=${encodeURIComponent(planMeta[i].price + planMeta[i].period)}`}
                                 className={`mt-8 block rounded-full py-3 text-center text-sm font-semibold transition-all hover:scale-105 ${planMeta[i].highlight
                                     ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90"
                                     : "border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700"

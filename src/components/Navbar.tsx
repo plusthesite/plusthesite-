@@ -125,7 +125,12 @@ function LanguageToggle() {
     const switchTo = (target: Locale) => {
         if (target === locale) return;
         persistLocale(target);
-        const navigate = () => router.push(swapLocaleInPath(pathname, target));
+        // Preserve query string + hash so deep-linked state (e.g. the payment
+        // page's ?plan=…&billing=… or a #section anchor) survives a language swap.
+        const navigate = () => {
+            const suffix = window.location.search + window.location.hash;
+            router.push(swapLocaleInPath(pathname, target) + suffix);
+        };
         // Smooth crossfade between languages. The `lang-transition` class
         // re-enables a root fade just for this (theme toggle keeps its own
         // circular-reveal animation untouched).
