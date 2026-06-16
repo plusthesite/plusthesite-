@@ -34,6 +34,10 @@ chatbot ~262 · CRM ~257 · digital-agency ~251 · customer-support ~199 ·
 mobile-app ~127 · ai-tools ~51. Premium/high-revenue segments included
 (property developers, 5-star hotels, private hospitals, premium auto dealers).
 
+Each lead carries an indicative deal value per service (importer auto-sets it),
+so the dashboard shows **≈Rp 11+ billion total pipeline potential** for the
+sales team to prioritise.
+
 ## 3. Real-time Dashboard
 
 `/admin` polls `/api/admin/stats` every 12s. Live engagement + pipeline value,

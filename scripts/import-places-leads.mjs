@@ -42,6 +42,12 @@ const LIMIT = Math.min(Number(args.limit) || 60, 60); // Places caps at 60/query
 const DRY = Boolean(args["dry-run"]);
 const REQUIRE_PHONE = Boolean(args["require-phone"]); // only reachable leads
 
+// Indicative deal value per service (IDR) — mirrors src/lib/services.ts.
+const SERVICE_VALUE = {
+    chatbot: 8000000, "digital-agency": 15000000, "mobile-app": 35000000,
+    "mobile-game": 50000000, crm: 12000000, "customer-support": 6000000, "ai-tools": 4000000,
+};
+
 const KEY = process.env.GOOGLE_MAPS_API_KEY;
 const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
 const SB_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -90,6 +96,7 @@ async function main() {
         address: p.formattedAddress ?? null,
         email: null, // Places rarely exposes email — reach out by phone/WhatsApp
         service: SERVICE,
+        value: SERVICE ? (SERVICE_VALUE[SERVICE] ?? null) : null,
         source: "google-places",
         status: "new",
         notes: [p.formattedAddress, p.websiteUri, p.googleMapsUri].filter(Boolean).join(" · "),
