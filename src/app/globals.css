@@ -459,6 +459,169 @@ button {
   font-weight: 600;
 }
 
+/* ── Rich article elements (headings, lists, links) ── */
+.article-content h3 {
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.article-content ol {
+  margin: 1rem 0 1.25rem 1.5rem;
+  list-style-type: decimal;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.article-content a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.article-content a:hover {
+  opacity: 0.75;
+}
+
+/* ── Pull quote / sourced citation ── */
+.article-content blockquote {
+  margin: 1.75rem 0;
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid var(--primary);
+  background: color-mix(in srgb, var(--primary) 7%, transparent);
+  border-radius: 0 0.75rem 0.75rem 0;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  font-style: italic;
+  color: var(--foreground);
+}
+
+.article-content blockquote p {
+  margin-bottom: 0.5rem;
+}
+
+.article-content blockquote cite {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* ── Data tables ── */
+.article-content .table-wrap {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border: 1px solid var(--border);
+  border-radius: 0.85rem;
+}
+
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.article-content thead {
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+}
+
+.article-content th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  color: var(--foreground);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.article-content td {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.article-content tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--foreground) 3%, transparent);
+}
+
+/* ── Stat cards (infographic-style highlights) ── */
+.article-content .stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 1.75rem 0;
+}
+
+.article-content .stat-card {
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--surface);
+}
+
+.article-content .stat-num {
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--primary);
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+.article-content .stat-label {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* ── Callout / key takeaway box ── */
+.article-content .callout {
+  margin: 1.75rem 0;
+  padding: 1.1rem 1.4rem;
+  border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
+  background: color-mix(in srgb, var(--primary) 6%, transparent);
+  border-radius: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.article-content .callout p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Inline images & figures ── */
+.article-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  display: block;
+  border: 1px solid var(--border);
+}
+
+.article-content figure {
+  margin: 1.75rem 0;
+}
+
+.article-content figure img {
+  margin: 0;
+}
+
+.article-content figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.78rem;
+  text-align: center;
+  color: var(--muted);
+  font-style: italic;
+}
+
 /* ═══════════════════════════════════════════════════
    Pricing card
    ═══════════════════════════════════════════════════ */
