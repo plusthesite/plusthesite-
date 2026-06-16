@@ -21,6 +21,8 @@ const tmMeta = [
     { name: "Andrew Walker", location: "Omaha, NE", avatar: "AW" },
     { name: "Nicole Brown", location: "Austin, TX", avatar: "NB" },
 ];
+// Off until real metrics/testimonials exist (no fabricated proof).
+const SHOW_PROOF = false;
 const statMeta = [
     { value: "50M+", icon: "📲" },
     { value: "200+", icon: "🎮" },
@@ -487,8 +489,8 @@ export default function MobileGamePage() {
                 <HeroSection />
                 <FeaturesSection />
                 <ShowcaseSection />
-                <StatsSection />
-                <TestimonialsSection />
+                {SHOW_PROOF && <StatsSection />}
+                {SHOW_PROOF && <TestimonialsSection />}
                 <CTASection />
             </main>
             <Footer />

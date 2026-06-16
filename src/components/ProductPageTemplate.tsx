@@ -11,6 +11,11 @@ import { getService } from "@/lib/services";
 
 const SITE = "https://plusthe.site";
 
+// Set true once REAL client testimonials / metrics replace the placeholder
+// ones in lib/translations.ts. Kept off to avoid showing fabricated proof.
+const SHOW_TESTIMONIALS = false;
+const SHOW_STATS = false;
+
 interface Testimonial {
     quote: string;
     name: string;
@@ -200,7 +205,7 @@ export default function ProductPageTemplate({
                 </section>
 
                 {/* ── Stats ── */}
-                {p.stats && p.stats.length > 0 && (
+                {SHOW_STATS && p.stats && p.stats.length > 0 && (
                     <section className={`py-20 ${colors.statsBg}`}>
                         <div ref={statsRef} className="mx-auto max-w-7xl px-6 lg:px-8">
                             <div className="fade-up grid grid-cols-2 lg:grid-cols-4 gap-8 text-center text-white">
@@ -216,7 +221,7 @@ export default function ProductPageTemplate({
                 )}
 
                 {/* ── Testimonials ── */}
-                {p.testimonials && p.testimonials.length > 0 && (
+                {SHOW_TESTIMONIALS && p.testimonials && p.testimonials.length > 0 && (
                     <section className="py-24 lg:py-32 bg-section-alt">
                         <div ref={testRef} className="mx-auto max-w-7xl px-6 lg:px-8">
                             <div className="mx-auto max-w-2xl text-center">

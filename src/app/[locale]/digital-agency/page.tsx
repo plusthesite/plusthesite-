@@ -21,6 +21,8 @@ const portfolioImages = [
     "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80&auto=format",
     "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80&auto=format",
 ];
+// Off until real metrics/testimonials exist (no fabricated proof).
+const SHOW_PROOF = false;
 const statValues = ["150+", "500+", "80+", "200+"];
 
 const COPY = {
@@ -385,8 +387,8 @@ export default function DigitalAgencyPage() {
                 <HeroSection />
                 <ServicesSection />
                 <PortfolioSection />
-                <StatsSection />
-                <TestimonialSection />
+                {SHOW_PROOF && <StatsSection />}
+                {SHOW_PROOF && <TestimonialSection />}
                 <CTASection />
             </main>
             <Footer />
