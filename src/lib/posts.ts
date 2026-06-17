@@ -53,6 +53,36 @@ export async function getPublishedPosts(locale: Loc): Promise<Article[]> {
     return (data as DbPost[]).map(toArticle);
 }
 
+/** All published DB posts across every locale, newest first (Article-shaped). */
+export async function getAllPublishedPosts(): Promise<Article[]> {
+    const supabase = getSupabaseAdmin();
+    if (!supabase) return [];
+    const { data, error } = await supabase
+        .from("posts")
+        .select(SELECT)
+        .eq("status", "published")
+        .order("published_at", { ascending: false });
+    if (error || !data) return [];
+    return (data as DbPost[]).map(toArticle);
+}
+
+/**
+ * Bulk map of slug -> view count from the public `article_views` table.
+ * Powers the "Most read" sort. Returns {} when Supabase isn't configured,
+ * so the UI degrades gracefully (everything falls back to recency).
+ */
+export async function getViewsMap(): Promise<Record<string, number>> {
+    const supabase = getSupabaseAdmin();
+    if (!supabase) return {};
+    const { data, error } = await supabase.from("article_views").select("slug, views");
+    if (error || !data) return {};
+    const map: Record<string, number> = {};
+    for (const row of data as { slug: string; views: number }[]) {
+        map[row.slug] = Number(row.views) || 0;
+    }
+    return map;
+}
+
 /** A single published DB post by slug, or null. */
 export async function getPublishedPostBySlug(slug: string): Promise<Article | null> {
     const supabase = getSupabaseAdmin();
