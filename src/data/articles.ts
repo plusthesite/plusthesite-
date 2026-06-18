@@ -2126,20 +2126,52 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80&auto=format",
     content: `
 <p>Banyak bisnis di Indonesia masih mengelola data pelanggan melalui spreadsheet atau catatan manual. CRM mengubah cara ini menjadi sistem yang terpusat dan dapat diandalkan.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">29%</div><div class="stat-label">Peningkatan penjualan rata-rata setelah implementasi CRM (Salesforce)</div></div>
+  <div class="stat-card"><div class="stat-num">74%</div><div class="stat-label">Bisnis melaporkan akses data pelanggan yang lebih baik setelah pakai CRM (Capterra)</div></div>
+  <div class="stat-card"><div class="stat-num">$8.71</div><div class="stat-label">Return untuk setiap $1 yang diinvestasikan pada CRM (Nucleus Research)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&amp;q=80&amp;auto=format" alt="Dashboard CRM menampilkan data pelanggan dan pipeline" loading="lazy" />
+<figcaption>CRM mengubah data pelanggan yang berserakan di spreadsheet menjadi sistem terpusat yang bisa diandalkan.</figcaption>
+</figure>
+
 <h2>Apa Itu CRM?</h2>
-<p>CRM (Customer Relationship Management) adalah sistem untuk mengelola interaksi dengan pelanggan dan calon pelanggan — mencakup data kontak, riwayat komunikasi, dan status transaksi dalam satu tempat.</p>
+<p>CRM (Customer Relationship Management) adalah sistem untuk mengelola interaksi dengan pelanggan dan calon pelanggan — mencakup data kontak, riwayat komunikasi, dan status transaksi dalam satu tempat. Berbeda dari spreadsheet yang bersifat statis, CRM dirancang untuk mencatat riwayat interaksi secara otomatis seiring tim berkomunikasi dengan pelanggan.</p>
+<blockquote>
+<p>"Setiap $1 yang diinvestasikan pada sistem CRM menghasilkan rata-rata return $8.71 — salah satu ROI tertinggi di antara tool bisnis untuk perusahaan kecil dan menengah."</p>
+<cite>— Nucleus Research</cite>
+</blockquote>
+
 <h2>Mengapa Spreadsheet Tidak Cukup?</h2>
-<ul>
-<li>Data mudah hilang atau tidak sinkron antar tim</li>
-<li>Tidak ada otomasi follow-up atau pengingat</li>
-<li>Sulit melihat gambaran besar performa penjualan secara real-time</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Spreadsheet</th><th>CRM</th></tr>
+</thead>
+<tbody>
+<tr><td>Data mudah hilang atau tidak sinkron antar tim</td><td>Data terpusat dan real-time untuk semua anggota tim</td></tr>
+<tr><td>Tidak ada otomasi follow-up atau pengingat</td><td>Pengingat dan follow-up otomatis berbasis aturan</td></tr>
+<tr><td>Sulit melihat performa penjualan secara real-time</td><td>Dashboard dan pelaporan otomatis yang selalu terkini</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Komponen Utama CRM</h2>
-<p>Manajemen kontak, pipeline penjualan, otomasi tugas, dan pelaporan adalah komponen inti yang harus ada dalam sistem CRM yang efektif.</p>
-<h2>Langkah Memulai Implementasi CRM</h2>
-<p>Mulai dengan migrasi data pelanggan yang ada, latih tim untuk konsisten mencatat setiap interaksi, lalu manfaatkan otomasi untuk follow-up rutin.</p>
+<p>Manajemen kontak, pipeline penjualan, otomasi tugas, dan pelaporan adalah komponen inti yang harus ada dalam sistem CRM yang efektif. Tanpa salah satu dari empat komponen ini, sistem yang dipakai cenderung hanya menjadi "spreadsheet versi digital" tanpa benar-benar mengubah cara tim bekerja.</p>
+
+<div class="callout">
+<p><strong>Langkah pertama:</strong> jangan migrasi semua data sekaligus. Mulai dengan satu segmen pelanggan aktif, pastikan tim nyaman memakainya, baru perluas ke seluruh database.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah bisnis kecil dengan beberapa pelanggan saja perlu CRM?</strong> Jika jumlah pelanggan masih sangat sedikit dan mudah diingat, spreadsheet mungkin masih cukup. CRM mulai memberi nilai jelas begitu volume interaksi sudah sulit dilacak secara manual.</p>
+<p><strong>Berapa lama waktu yang dibutuhkan tim untuk beradaptasi dengan CRM baru?</strong> Umumnya dua hingga empat minggu untuk kebiasaan dasar terbentuk, tergantung kompleksitas sistem dan seberapa konsisten tim didorong untuk mencatat setiap interaksi sejak awal.</p>
+
 <h2>Kesimpulan</h2>
-<p>CRM bukan sekadar database — ini adalah fondasi untuk membangun hubungan pelanggan yang konsisten dan dapat diukur.</p>
+<p>CRM bukan sekadar database — ini adalah fondasi untuk membangun hubungan pelanggan yang konsisten dan dapat diukur, bukan sekadar tempat menyimpan data yang jarang dilihat kembali.</p>
 `,
   },
   {
@@ -2155,16 +2187,50 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&q=80&auto=format",
     content: `
 <p>Mempertahankan pelanggan jauh lebih murah dibanding mendapatkan pelanggan baru. CRM memberikan alat untuk membangun hubungan yang membuat pelanggan terus kembali.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">5-25x</div><div class="stat-label">Biaya akuisisi pelanggan baru dibanding mempertahankan yang sudah ada (Harvard Business Review)</div></div>
+  <div class="stat-card"><div class="stat-num">47%</div><div class="stat-label">Bisnis melaporkan loyalitas pelanggan meningkat setelah memakai CRM (Software Advice)</div></div>
+  <div class="stat-card"><div class="stat-num">80%</div><div class="stat-label">Profit perusahaan berasal dari 20% pelanggan paling loyal (prinsip Pareto dalam retensi)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&amp;q=80&amp;auto=format" alt="Tim customer success menggunakan platform CRM" loading="lazy" />
+<figcaption>Personalisasi dan follow-up yang konsisten adalah dua faktor utama yang membentuk loyalitas pelanggan.</figcaption>
+</figure>
+
 <h2>Personalisasi Berdasarkan Riwayat</h2>
-<p>Dengan data riwayat pembelian dan preferensi, tim dapat memberikan penawaran dan komunikasi yang relevan bagi setiap pelanggan — bukan pesan generik untuk semua orang.</p>
+<p>Dengan data riwayat pembelian dan preferensi, tim dapat memberikan penawaran dan komunikasi yang relevan bagi setiap pelanggan — bukan pesan generik untuk semua orang. Pelanggan jauh lebih responsif terhadap komunikasi yang terasa dipersonalisasi dibanding broadcast massal yang sama untuk seluruh database.</p>
+<blockquote>
+<p>"Mendapatkan pelanggan baru dapat menghabiskan biaya lima hingga dua puluh lima kali lebih besar dibanding mempertahankan pelanggan yang sudah ada."</p>
+<cite>— Harvard Business Review</cite>
+</blockquote>
+
 <h2>Follow-up yang Tidak Terlewat</h2>
-<ul>
-<li>Pengingat otomatis untuk follow-up setelah pembelian</li>
-<li>Notifikasi untuk pelanggan yang sudah lama tidak bertransaksi</li>
-<li>Pengelolaan komplain yang terlacak hingga selesai</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Fitur</th><th>Manfaat bagi loyalitas</th></tr>
+</thead>
+<tbody>
+<tr><td>Pengingat otomatis follow-up pasca-pembelian</td><td>Pelanggan merasa diperhatikan, bukan dilupakan setelah transaksi</td></tr>
+<tr><td>Notifikasi pelanggan yang lama tidak bertransaksi</td><td>Memberi kesempatan re-engagement sebelum mereka benar-benar churn</td></tr>
+<tr><td>Pengelolaan komplain terlacak hingga selesai</td><td>Mencegah keluhan terlupakan dan menumpuk menjadi ketidakpuasan</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Segmentasi untuk Komunikasi yang Tepat Sasaran</h2>
-<p>CRM memungkinkan segmentasi pelanggan berdasarkan nilai transaksi, frekuensi pembelian, atau preferensi produk — sehingga kampanye marketing lebih relevan dan efektif.</p>
+<p>CRM memungkinkan segmentasi pelanggan berdasarkan nilai transaksi, frekuensi pembelian, atau preferensi produk — sehingga kampanye marketing lebih relevan dan efektif. Pelanggan bernilai tinggi yang menerima perlakuan generik yang sama dengan pelanggan baru sering merasa tidak dihargai, padahal merekalah yang paling berkontribusi pada profit.</p>
+
+<div class="callout">
+<p><strong>Mulai sederhana:</strong> buat satu segmen "pelanggan top 20%" berdasarkan total transaksi, lalu beri perlakuan komunikasi yang sedikit lebih personal untuk segmen itu sebagai langkah awal.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah personalisasi CRM butuh banyak data pelanggan untuk efektif?</strong> Tidak harus banyak. Bahkan data sederhana seperti riwayat pembelian terakhir dan nama sudah cukup untuk membuat komunikasi terasa jauh lebih personal dibanding pesan generik.</p>
+<p><strong>Bagaimana mengukur apakah CRM benar-benar meningkatkan loyalitas?</strong> Pantau repeat purchase rate dan customer lifetime value sebelum dan setelah implementasi — kenaikan pada dua metrik ini adalah indikator paling langsung dari loyalitas yang membaik.</p>
+
 <h2>Kesimpulan</h2>
 <p>Loyalitas pelanggan dibangun melalui konsistensi dan relevansi — dua hal yang menjadi jauh lebih mudah dengan CRM yang dikelola dengan baik.</p>
 `,
@@ -3347,18 +3413,52 @@ export const articles: Article[] = [
     locale: "en",
     content: `
 <p>Many businesses still manage customer data in spreadsheets or manual notes. A CRM turns this into a centralized, reliable system.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">29%</div><div class="stat-label">Average sales increase after CRM implementation (Salesforce)</div></div>
+  <div class="stat-card"><div class="stat-num">74%</div><div class="stat-label">Businesses report better access to customer data after adopting a CRM (Capterra)</div></div>
+  <div class="stat-card"><div class="stat-num">$8.71</div><div class="stat-label">Return for every $1 invested in a CRM (Nucleus Research)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&amp;q=80&amp;auto=format" alt="CRM dashboard showing customer data and pipeline" loading="lazy" />
+<figcaption>A CRM turns scattered spreadsheet data into a centralized, reliable system.</figcaption>
+</figure>
+
 <h2>What Is a CRM?</h2>
-<p>CRM (Customer Relationship Management) is a system for managing interactions with customers and prospects — covering contact data, communication history, and deal status in one place.</p>
+<p>CRM (Customer Relationship Management) is a system for managing interactions with customers and prospects — covering contact data, communication history, and deal status in one place. Unlike a static spreadsheet, a CRM is built to log interaction history automatically as the team communicates with customers.</p>
+<blockquote>
+<p>"Every $1 invested in a CRM system generates an average return of $8.71 — one of the highest ROIs among business tools for small and mid-sized companies."</p>
+<cite>— Nucleus Research</cite>
+</blockquote>
+
 <h2>Why Spreadsheets Aren't Enough</h2>
-<ul>
-<li>Data is easily lost or unsynced across teams</li>
-<li>No automation for follow-ups or reminders</li>
-<li>Hard to see the big picture of sales performance in real time</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Spreadsheet</th><th>CRM</th></tr>
+</thead>
+<tbody>
+<tr><td>Data easily lost or unsynced across teams</td><td>Centralized, real-time data for the whole team</td></tr>
+<tr><td>No automation for follow-ups or reminders</td><td>Automatic rule-based reminders and follow-ups</td></tr>
+<tr><td>Hard to see real-time sales performance</td><td>Always-current dashboards and reporting</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Core CRM Components</h2>
-<p>Contact management, sales pipeline, task automation, and reporting are the essential components of an effective CRM system.</p>
+<p>Contact management, sales pipeline, task automation, and reporting are the essential components of an effective CRM system. Missing any one of these four tends to leave the system as just a "digital spreadsheet" without truly changing how the team works.</p>
+
+<div class="callout">
+<p><strong>First step:</strong> don't migrate all your data at once. Start with one active customer segment, make sure the team is comfortable using it, then expand to the full database.</p>
+</div>
+
+<h2>Frequently Asked Questions</h2>
+<p><strong>Does a small business with just a handful of customers need a CRM?</strong> If your customer count is still small enough to remember by name, a spreadsheet may still suffice. A CRM starts paying off clearly once interaction volume becomes hard to track manually.</p>
+<p><strong>How long does it take a team to adapt to a new CRM?</strong> Generally two to four weeks for basic habits to form, depending on system complexity and how consistently the team is encouraged to log every interaction from the start.</p>
+
 <h2>Conclusion</h2>
-<p>A CRM is more than a database — it's the foundation for building consistent, measurable customer relationships.</p>
+<p>A CRM is more than a database — it's the foundation for building consistent, measurable customer relationships, not just a place to store data that's rarely revisited.</p>
 `,
   },
   {
@@ -3375,17 +3475,51 @@ export const articles: Article[] = [
     locale: "en",
     content: `
 <p>SEO is a long-term investment that delivers sustained traffic without paying per click. Here are the SEO foundations relevant to any business.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">68%</div><div class="stat-label">Online experiences start with a search engine (BrightEdge)</div></div>
+  <div class="stat-card"><div class="stat-num">53.3%</div><div class="stat-label">Of all website traffic comes from organic search (BrightEdge)</div></div>
+  <div class="stat-card"><div class="stat-num">0.63%</div><div class="stat-label">Of searchers click results on page two of Google (Backlinko)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?w=1200&amp;q=80&amp;auto=format" alt="SEO analytics dashboard on a laptop screen" loading="lazy" />
+<figcaption>SEO compounds over time — unlike paid ads, traffic keeps arriving after the work is done.</figcaption>
+</figure>
+
 <h2>Keyword Research With Real Intent</h2>
-<p>Pay attention to how your audience actually searches — the exact phrases, questions, and terms they use to find your product or service.</p>
+<p>Pay attention to how your audience actually searches — the exact phrases, questions, and terms they use to find your product or service. Matching search intent matters more than matching exact keyword volume; a lower-volume keyword with clear buying intent often converts better than a high-volume but vague one.</p>
+<blockquote>
+<p>"Only 0.63% of Google searchers click on results from the second page — virtually all clicks happen on page one."</p>
+<cite>— Backlinko Search Engine Statistics</cite>
+</blockquote>
+
 <h2>On-Page Optimization</h2>
-<ul>
-<li>Titles and meta descriptions containing your primary keyword</li>
-<li>A logical heading structure (H1, H2, H3)</li>
-<li>Internal linking between relevant content</li>
-<li>Fast page loading speed</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Element</th><th>Why it matters</th></tr>
+</thead>
+<tbody>
+<tr><td>Titles &amp; meta descriptions with primary keyword</td><td>Signals relevance to both search engines and searchers scanning results</td></tr>
+<tr><td>Logical heading structure (H1, H2, H3)</td><td>Helps both readers and crawlers understand content hierarchy</td></tr>
+<tr><td>Internal linking between relevant content</td><td>Distributes authority and keeps visitors exploring more pages</td></tr>
+<tr><td>Fast page loading speed</td><td>Directly affects rankings and how long visitors stay</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Quality Content as the Foundation</h2>
-<p>Google increasingly prioritizes content that genuinely answers user questions comprehensively, not content that merely stuffs keywords.</p>
+<p>Google increasingly prioritizes content that genuinely answers user questions comprehensively, not content that merely stuffs keywords. Comprehensive doesn't mean longer for the sake of length — it means covering the follow-up questions a reader would naturally have after the first one is answered.</p>
+
+<div class="callout">
+<p><strong>Quick win:</strong> pick your highest-traffic page and check whether its title tag and H1 actually match what people are searching for to land there. Misalignment here is one of the most common, easiest fixes in SEO.</p>
+</div>
+
+<h2>Frequently Asked Questions</h2>
+<p><strong>How long does SEO take to show results?</strong> Typically three to six months for meaningful ranking movement, since search engines need time to crawl, index, and build trust signals around new or updated content.</p>
+<p><strong>Is link-building still necessary in 2026?</strong> Yes. Backlinks remain one of the strongest trust signals search engines use, though quality and relevance of the linking site now matter far more than sheer quantity.</p>
+
 <h2>Conclusion</h2>
 <p>SEO is not an instant trick — it's a consistent process of building relevance and credibility for both search engines and users.</p>
 `,
