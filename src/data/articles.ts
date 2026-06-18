@@ -2248,18 +2248,50 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80&auto=format",
     content: `
 <p>Pasar CRM software sangat ramai, dan tidak semua solusi cocok untuk setiap jenis bisnis. Berikut kriteria penting saat memilih.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">22%</div><div class="stat-label">Implementasi CRM gagal karena adopsi tim yang rendah (CSO Insights)</div></div>
+  <div class="stat-card"><div class="stat-num">91%</div><div class="stat-label">Perusahaan dengan 11+ karyawan kini menggunakan CRM (Capterra)</div></div>
+  <div class="stat-card"><div class="stat-num">65%</div><div class="stat-label">Tim sales mengadopsi CRM dalam tahun pertama jika antarmukanya intuitif (Salesforce)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&amp;q=80&amp;auto=format" alt="Perbandingan beberapa platform CRM di layar laptop" loading="lazy" />
+<figcaption>CRM dengan paling banyak fitur di atas kertas belum tentu yang paling efektif jika tim tidak memakainya.</figcaption>
+</figure>
+
 <h2>Kemudahan Penggunaan</h2>
-<p>CRM yang terlalu kompleks justru sering tidak digunakan oleh tim. Pilih platform dengan antarmuka yang intuitif dan kurva belajar yang singkat.</p>
+<p>CRM yang terlalu kompleks justru sering tidak digunakan oleh tim. Pilih platform dengan antarmuka yang intuitif dan kurva belajar yang singkat — fitur paling canggih sekalipun tidak ada gunanya jika tim memilih kembali ke spreadsheet karena merasa kewalahan.</p>
+<blockquote>
+<p>"22% implementasi CRM gagal mencapai ROI yang diharapkan, dan adopsi tim yang rendah adalah penyebab paling sering disebut — bukan kekurangan fitur."</p>
+<cite>— CSO Insights Sales Performance Report</cite>
+</blockquote>
+
 <h2>Kemampuan Integrasi</h2>
-<ul>
-<li>Integrasi dengan WhatsApp, email, dan media sosial</li>
-<li>Koneksi dengan platform e-commerce atau sistem pembayaran</li>
-<li>API terbuka untuk kebutuhan kustomisasi di masa depan</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Kriteria</th><th>Kenapa penting</th></tr>
+</thead>
+<tbody>
+<tr><td>Integrasi WhatsApp, email, media sosial</td><td>Memastikan semua percakapan pelanggan tercatat di satu tempat</td></tr>
+<tr><td>Koneksi e-commerce/sistem pembayaran</td><td>Menghubungkan data transaksi langsung dengan profil pelanggan</td></tr>
+<tr><td>API terbuka</td><td>Memungkinkan kustomisasi tanpa terkunci pada satu vendor selamanya</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Skalabilitas</h2>
-<p>Pilih CRM yang dapat berkembang sesuai pertumbuhan tim — dari beberapa pengguna hingga puluhan, tanpa migrasi sistem yang menyakitkan.</p>
-<h2>Dukungan dan Komunitas Lokal</h2>
-<p>Dukungan teknis dalam bahasa Indonesia dan komunitas pengguna lokal mempercepat proses adopsi tim.</p>
+<p>Pilih CRM yang dapat berkembang sesuai pertumbuhan tim — dari beberapa pengguna hingga puluhan, tanpa migrasi sistem yang menyakitkan. Migrasi CRM di tengah jalan biasanya menyita waktu berbulan-bulan dan berisiko kehilangan data historis, jadi lebih baik mempertimbangkan skalabilitas sejak awal.</p>
+
+<div class="callout">
+<p><strong>Sebelum membeli:</strong> minta trial atau demo dan biarkan dua hingga tiga anggota tim mencobanya langsung selama seminggu. Reaksi mereka adalah indikator adopsi yang lebih akurat dibanding daftar fitur di brosur.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah CRM gratis cukup untuk bisnis kecil?</strong> Untuk tim yang sangat kecil dengan kebutuhan dasar, versi gratis sering cukup. Begitu volume leads dan kebutuhan otomasi bertambah, biasanya perlu upgrade ke paket berbayar untuk fitur yang lebih lengkap.</p>
+<p><strong>Berapa lama proses memilih CRM yang tepat biasanya berlangsung?</strong> Idealnya dua hingga empat minggu untuk riset dan trial beberapa opsi — terburu-buru memutuskan tanpa mencoba langsung sering berujung pada CRM yang akhirnya tidak terpakai.</p>
+
 <h2>Kesimpulan</h2>
 <p>CRM terbaik adalah yang benar-benar digunakan oleh tim setiap hari — bukan yang memiliki paling banyak fitur di atas kertas.</p>
 `,
@@ -2277,16 +2309,50 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&q=80&auto=format",
     content: `
 <p>CRM tradisional bersifat reaktif — mencatat apa yang sudah terjadi. CRM yang terintegrasi dengan AI bersifat proaktif — memprediksi apa yang akan terjadi selanjutnya.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">50%</div><div class="stat-label">Kenaikan leads terkualifikasi dengan predictive lead scoring (Forrester)</div></div>
+  <div class="stat-card"><div class="stat-num">40%</div><div class="stat-label">Pengurangan waktu yang dihabiskan tim sales untuk tugas administratif (McKinsey)</div></div>
+  <div class="stat-card"><div class="stat-num">35%</div><div class="stat-label">Bisnis yang sudah mengintegrasikan AI ke dalam CRM mereka (Salesforce State of Sales)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&amp;q=80&amp;auto=format" alt="Visualisasi AI menganalisis data CRM" loading="lazy" />
+<figcaption>AI mengubah CRM dari pencatat riwayat menjadi alat yang memprediksi langkah berikutnya.</figcaption>
+</figure>
+
 <h2>Predictive Lead Scoring</h2>
-<p>AI dapat menganalisis pola dari leads yang berhasil dikonversi sebelumnya, lalu memberi skor prioritas pada leads baru — membantu tim sales fokus pada peluang terbaik.</p>
+<p>AI dapat menganalisis pola dari leads yang berhasil dikonversi sebelumnya, lalu memberi skor prioritas pada leads baru — membantu tim sales fokus pada peluang terbaik. Ini menggantikan kebiasaan lama menghubungi leads berdasarkan urutan masuk, padahal urutan masuk tidak berkorelasi dengan kemungkinan konversi.</p>
+<blockquote>
+<p>"Tim sales yang menggunakan predictive lead scoring melaporkan kenaikan leads terkualifikasi hingga 50% dibanding scoring manual berbasis intuisi."</p>
+<cite>— Forrester Predictive Analytics Report</cite>
+</blockquote>
+
 <h2>Otomasi Follow-up yang Cerdas</h2>
-<ul>
-<li>Pesan follow-up yang disesuaikan dengan tahap pelanggan dalam funnel</li>
-<li>Waktu pengiriman yang dioptimalkan berdasarkan kebiasaan pelanggan</li>
-<li>Eskalasi otomatis ke tim manusia untuk kasus sensitif</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Fitur AI</th><th>Manfaatnya</th></tr>
+</thead>
+<tbody>
+<tr><td>Pesan follow-up sesuai tahap funnel</td><td>Komunikasi terasa relevan, bukan template generik untuk semua</td></tr>
+<tr><td>Waktu kirim dioptimalkan</td><td>Meningkatkan kemungkinan pesan benar-benar dibaca</td></tr>
+<tr><td>Eskalasi otomatis ke manusia</td><td>Kasus sensitif tetap ditangani dengan empati, bukan bot</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Insight dari Percakapan</h2>
-<p>AI dapat menganalisis sentimen dan topik dari percakapan pelanggan, memberikan insight tentang masalah yang sering muncul tanpa harus membaca setiap chat secara manual.</p>
+<p>AI dapat menganalisis sentimen dan topik dari percakapan pelanggan, memberikan insight tentang masalah yang sering muncul tanpa harus membaca setiap chat secara manual. Pola yang baru terlihat setelah menganalisis ratusan percakapan sering mengungkap masalah produk yang tidak pernah dilaporkan secara eksplisit oleh pelanggan satu per satu.</p>
+
+<div class="callout">
+<p><strong>Mulai dari satu fitur:</strong> aktifkan lead scoring terlebih dahulu sebelum otomasi follow-up penuh. Tim sales bisa langsung merasakan manfaatnya tanpa harus mengubah seluruh workflow sekaligus.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah AI dalam CRM menggantikan peran tim sales?</strong> Tidak. AI menangani analisis data dan tugas repetitif, sementara keputusan akhir dan hubungan dengan pelanggan tetap dipegang manusia — terutama untuk kasus yang butuh negosiasi atau empati.</p>
+<p><strong>Berapa banyak data yang dibutuhkan agar predictive scoring akurat?</strong> Semakin banyak riwayat transaksi yang tersedia, semakin akurat prediksinya — umumnya dibutuhkan minimal beberapa ratus data leads historis sebelum model AI bisa diandalkan.</p>
+
 <h2>Kesimpulan</h2>
 <p>Integrasi AI dan CRM mengubah manajemen pelanggan dari pekerjaan administratif menjadi keunggulan strategis berbasis data.</p>
 `,
@@ -2518,19 +2584,54 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?w=1200&q=80&auto=format",
     content: `
 <p>SEO adalah investasi jangka panjang yang memberikan traffic berkelanjutan tanpa biaya per klik. Berikut fondasi SEO yang relevan untuk bisnis di Indonesia.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">68%</div><div class="stat-label">Pengalaman online dimulai dari mesin pencari (BrightEdge)</div></div>
+  <div class="stat-card"><div class="stat-num">53.3%</div><div class="stat-label">Dari seluruh traffic website berasal dari pencarian organik (BrightEdge)</div></div>
+  <div class="stat-card"><div class="stat-num">0.63%</div><div class="stat-label">Pencari yang mengklik hasil di halaman kedua Google (Backlinko)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?w=1200&amp;q=80&amp;auto=format" alt="Dashboard analitik SEO di laptop" loading="lazy" />
+<figcaption>SEO terus berakumulasi seiring waktu — berbeda dari iklan, traffic tetap datang setelah kerjanya selesai.</figcaption>
+</figure>
+
 <h2>Riset Kata Kunci dengan Konteks Lokal</h2>
-<p>Perhatikan variasi bahasa — istilah formal vs sehari-hari, bahasa Indonesia vs Inggris — yang digunakan target audiens saat mencari produk atau layanan Anda.</p>
+<p>Perhatikan variasi bahasa — istilah formal vs sehari-hari, bahasa Indonesia vs Inggris — yang digunakan target audiens saat mencari produk atau layanan Anda. Mencocokkan intent pencarian jauh lebih penting daripada sekadar mengejar volume kata kunci tertinggi; kata kunci dengan volume lebih kecil tapi intent membeli yang jelas sering berkonversi lebih baik.</p>
+<blockquote>
+<p>"Hanya 0.63% pencari Google yang mengklik hasil di halaman kedua — hampir semua klik terjadi di halaman pertama."</p>
+<cite>— Backlinko Search Engine Statistics</cite>
+</blockquote>
+
 <h2>Optimasi On-Page</h2>
-<ul>
-<li>Judul dan meta description yang mengandung kata kunci utama</li>
-<li>Struktur heading (H1, H2, H3) yang logis</li>
-<li>Internal linking antar konten yang relevan</li>
-<li>Kecepatan loading halaman yang optimal</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Elemen</th><th>Kenapa penting</th></tr>
+</thead>
+<tbody>
+<tr><td>Judul &amp; meta description dengan kata kunci utama</td><td>Menandakan relevansi ke mesin pencari maupun pencari yang memindai hasil</td></tr>
+<tr><td>Struktur heading (H1, H2, H3) logis</td><td>Membantu pembaca dan crawler memahami hierarki konten</td></tr>
+<tr><td>Internal linking antar konten relevan</td><td>Mendistribusikan otoritas dan membuat pengunjung menjelajah lebih jauh</td></tr>
+<tr><td>Kecepatan loading halaman</td><td>Berdampak langsung pada ranking dan lama kunjungan</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Konten Berkualitas sebagai Fondasi</h2>
-<p>Google semakin memprioritaskan konten yang benar-benar menjawab pertanyaan pengguna secara komprehensif, bukan sekadar mengandung kata kunci.</p>
+<p>Google semakin memprioritaskan konten yang benar-benar menjawab pertanyaan pengguna secara komprehensif, bukan sekadar mengandung kata kunci. Komprehensif bukan berarti lebih panjang demi panjang — ini berarti menjawab pertanyaan susulan yang pasti muncul setelah pertanyaan pertama terjawab.</p>
+
 <h2>Local SEO untuk Bisnis dengan Lokasi Fisik</h2>
-<p>Optimasi Google Business Profile dan konsistensi informasi bisnis (nama, alamat, nomor telepon) di seluruh direktori online.</p>
+<p>Optimasi Google Business Profile dan konsistensi informasi bisnis (nama, alamat, nomor telepon) di seluruh direktori online. Inkonsistensi kecil seperti format alamat yang berbeda antar platform dapat membingungkan algoritma local SEO dan menurunkan kepercayaan terhadap profil bisnis.</p>
+
+<div class="callout">
+<p><strong>Quick win:</strong> cek halaman dengan traffic tertinggi Anda dan pastikan title tag serta H1-nya benar-benar cocok dengan apa yang dicari orang untuk sampai ke sana. Ketidaksesuaian di sini adalah salah satu masalah SEO paling umum yang paling mudah diperbaiki.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Berapa lama SEO menunjukkan hasil?</strong> Biasanya tiga hingga enam bulan untuk pergerakan ranking yang berarti, karena mesin pencari butuh waktu untuk meng-crawl, mengindeks, dan membangun sinyal kepercayaan terhadap konten baru atau yang diperbarui.</p>
+<p><strong>Apakah link building masih perlu di 2026?</strong> Ya. Backlink tetap salah satu sinyal kepercayaan terkuat yang dipakai mesin pencari, meski kualitas dan relevansi situs pemberi link kini jauh lebih penting dibanding sekadar jumlahnya.</p>
+
 <h2>Kesimpulan</h2>
 <p>SEO bukan trik instan — ini adalah proses konsisten membangun relevansi dan kredibilitas di mata mesin pencari dan pengguna.</p>
 `,
@@ -2612,14 +2713,54 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=1200&q=80&auto=format",
     content: `
 <p>Setiap platform media sosial memiliki karakteristik audiens dan format konten yang berbeda. Strategi "satu konten untuk semua platform" jarang memberikan hasil optimal.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">167 Juta</div><div class="stat-label">Pengguna media sosial aktif di Indonesia (DataReportal)</div></div>
+  <div class="stat-card"><div class="stat-num">3 Jam 18 Menit</div><div class="stat-label">Rata-rata waktu harian orang Indonesia di media sosial (DataReportal)</div></div>
+  <div class="stat-card"><div class="stat-num">73%</div><div class="stat-label">Marketer menyebut platform yang tepat lebih penting dari volume posting (Hootsuite)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=1200&amp;q=80&amp;auto=format" alt="Beragam ikon platform media sosial di smartphone" loading="lazy" />
+<figcaption>Strategi "satu konten untuk semua platform" jarang memberikan hasil optimal.</figcaption>
+</figure>
+
 <h2>Instagram: Visual dan Storytelling</h2>
 <p>Cocok untuk brand yang mengandalkan visual produk, behind-the-scenes, dan konten yang membangun koneksi emosional dengan audiens.</p>
+<blockquote>
+<p>"Orang Indonesia menghabiskan rata-rata 3 jam 18 menit per hari di media sosial — salah satu durasi tertinggi di dunia, menjadikan ketepatan pemilihan platform jauh lebih penting dari sekadar hadir di semua kanal."</p>
+<cite>— DataReportal Digital Indonesia Report</cite>
+</blockquote>
+
+<h2>Karakteristik Tiap Platform</h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Platform</th><th>Kekuatan utama</th></tr>
+</thead>
+<tbody>
+<tr><td>Instagram</td><td>Visual produk dan storytelling yang membangun koneksi emosional</td></tr>
+<tr><td>TikTok</td><td>Konten otentik dan cepat, algoritma memprioritaskan beberapa detik pertama</td></tr>
+<tr><td>Facebook</td><td>Komunitas dan jangkauan segmen usia lebih luas lewat grup &amp; iklan tertarget</td></tr>
+<tr><td>LinkedIn</td><td>B2B dan thought leadership untuk menjangkau decision maker</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>TikTok: Konten Otentik dan Cepat</h2>
-<p>Algoritma TikTok memprioritaskan konten yang menarik dalam beberapa detik pertama, dengan gaya yang lebih kasual dibanding platform lain.</p>
-<h2>Facebook: Komunitas dan Audiens Lebih Luas</h2>
-<p>Masih relevan untuk menjangkau segmen usia yang lebih beragam, terutama melalui grup komunitas dan iklan tertarget.</p>
-<h2>LinkedIn: B2B dan Thought Leadership</h2>
-<p>Platform paling efektif untuk bisnis B2B yang ingin membangun kredibilitas dan menjangkau decision maker.</p>
+<p>Algoritma TikTok memprioritaskan konten yang menarik dalam beberapa detik pertama, dengan gaya yang lebih kasual dibanding platform lain. Konten yang terlalu terpoles justru sering berkinerja lebih buruk di TikTok dibanding yang terasa natural dan tidak terlalu diatur.</p>
+
+<h2>Facebook dan LinkedIn</h2>
+<p>Facebook masih relevan untuk menjangkau segmen usia yang lebih beragam, terutama melalui grup komunitas dan iklan tertarget. LinkedIn sebaliknya menjadi platform paling efektif untuk bisnis B2B yang ingin membangun kredibilitas dan menjangkau decision maker secara langsung.</p>
+
+<div class="callout">
+<p><strong>Mulai fokus:</strong> daripada hadir di lima platform sekaligus dengan kualitas rendah, pilih dua platform paling relevan dengan audiens Anda dan kuasai formatnya terlebih dahulu.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah bisnis kecil perlu hadir di semua platform media sosial?</strong> Tidak. Lebih efektif fokus pada satu atau dua platform di mana audiens target benar-benar aktif, dibanding menyebar tipis di banyak platform sekaligus.</p>
+<p><strong>Berapa frekuensi posting yang ideal per platform?</strong> Bervariasi — TikTok dan Instagram umumnya butuh frekuensi lebih tinggi (beberapa kali seminggu) dibanding LinkedIn yang lebih efektif dengan posting berkualitas dua hingga tiga kali seminggu.</p>
+
 <h2>Kesimpulan</h2>
 <p>Pilih platform berdasarkan di mana audiens Anda benar-benar aktif, lalu sesuaikan format konten dengan karakteristik masing-masing platform.</p>
 `,
@@ -2637,18 +2778,50 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=1200&q=80&auto=format",
     content: `
 <p>Email marketing sering dianggap "kuno", tetapi data menunjukkan email tetap menjadi salah satu channel dengan ROI tertinggi jika dikelola dengan benar.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">47%</div><div class="stat-label">Penerima memutuskan membuka email hanya berdasarkan subject line (Convince &amp; Convert)</div></div>
+  <div class="stat-card"><div class="stat-num">760%</div><div class="stat-label">Kenaikan revenue dari email yang disegmentasi dibanding broadcast biasa (Campaign Monitor)</div></div>
+  <div class="stat-card"><div class="stat-num">81%</div><div class="stat-label">Email dibuka pertama kali melalui perangkat mobile (Litmus)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=1200&amp;q=80&amp;auto=format" alt="Dashboard analitik email marketing" loading="lazy" />
+<figcaption>Open rate dan CTR yang tinggi datang dari segmentasi tajam, bukan sekadar desain yang menarik.</figcaption>
+</figure>
+
 <h2>Subject Line yang Mendorong Klik</h2>
-<p>Subject line yang spesifik, relevan, dan menciptakan rasa ingin tahu cenderung memiliki open rate lebih tinggi dibanding subject line generik.</p>
+<p>Subject line yang spesifik, relevan, dan menciptakan rasa ingin tahu cenderung memiliki open rate lebih tinggi dibanding subject line generik. Karena penerima memutuskan membuka email hampir sepenuhnya berdasarkan subject line saja, ini adalah elemen tunggal yang paling layak diuji secara A/B sebelum elemen lain.</p>
+<blockquote>
+<p>"Email yang disegmentasi berdasarkan perilaku pelanggan menghasilkan kenaikan revenue hingga 760% dibanding mengirim broadcast yang sama ke seluruh daftar."</p>
+<cite>— Campaign Monitor Email Segmentation Report</cite>
+</blockquote>
+
 <h2>Segmentasi Berdasarkan Perilaku</h2>
-<ul>
-<li>Pelanggan baru vs pelanggan setia</li>
-<li>Berdasarkan kategori produk yang pernah dibeli</li>
-<li>Berdasarkan tingkat engagement dengan email sebelumnya</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Jenis segmentasi</th><th>Manfaatnya</th></tr>
+</thead>
+<tbody>
+<tr><td>Pelanggan baru vs pelanggan setia</td><td>Pesan onboarding vs apresiasi loyalitas yang berbeda kebutuhannya</td></tr>
+<tr><td>Berdasarkan kategori produk dibeli</td><td>Rekomendasi yang relevan, bukan promosi acak</td></tr>
+<tr><td>Berdasarkan engagement sebelumnya</td><td>Frekuensi dan nada pesan disesuaikan, mencegah unsubscribe</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Desain Email yang Mobile-Friendly</h2>
-<p>Mayoritas email dibuka melalui perangkat mobile — pastikan desain responsif dengan CTA yang mudah diklik di layar kecil.</p>
-<h2>Timing dan Frekuensi</h2>
-<p>Uji berbagai waktu pengiriman dan frekuensi untuk menemukan pola yang paling sesuai dengan kebiasaan audiens Anda.</p>
+<p>Mayoritas email dibuka melalui perangkat mobile — pastikan desain responsif dengan CTA yang mudah diklik di layar kecil. Email yang terlihat bagus di desktop tapi berantakan di mobile akan kehilangan sebagian besar penerimanya sebelum sempat dibaca sampai akhir.</p>
+
+<div class="callout">
+<p><strong>Uji cepat:</strong> kirim email test ke ponsel Anda sendiri sebelum mengirim ke seluruh daftar. Jika CTA sulit diklik dengan jempol, penerima lain kemungkinan mengalami hal yang sama.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Berapa banyak segmen yang ideal untuk bisnis kecil?</strong> Mulai dari dua hingga tiga segmen dasar sudah cukup memberi dampak — segmentasi yang terlalu rumit di awal justru sulit dikelola dan jarang sepadan dengan effort-nya.</p>
+<p><strong>Apakah waktu pengiriman benar-benar mempengaruhi open rate?</strong> Ya, cukup signifikan. Namun waktu terbaik berbeda untuk setiap audiens, sehingga pengujian langsung pada daftar Anda sendiri lebih akurat dibanding mengikuti rekomendasi umum.</p>
+
 <h2>Kesimpulan</h2>
 <p>Email marketing yang efektif adalah hasil dari segmentasi yang tajam, konten yang relevan, dan pengujian berkelanjutan.</p>
 `,
