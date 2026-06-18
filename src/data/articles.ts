@@ -1782,6 +1782,7 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80&auto=format",
     content: `
 <p>Mobile app e-commerce yang baik bukan hanya tentang menampilkan produk — tetapi tentang menghilangkan friksi di setiap tahap perjalanan pembeli.</p>
+<img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&amp;q=80&amp;auto=format" alt="Fitur wajib mobile app untuk bisnis e-commerce" loading="lazy" />
 <h2>Fitur Inti</h2>
 <ul>
 <li>Pencarian dan filter produk yang cepat dan relevan</li>
@@ -1810,8 +1811,36 @@ export const articles: Article[] = [
 <p><strong>Apakah perlu membangun semua fitur ini sejak versi pertama?</strong> Tidak. Mulai dari fitur inti yang mendukung transaksi dasar, lalu tambahkan fitur engagement dan kepercayaan secara bertahap berdasarkan feedback pengguna nyata.</p>
 <h2>Memprioritaskan Fitur Berdasarkan Data Pengguna</h2>
 <p>Gunakan data analitik untuk melihat di tahap mana pengguna paling sering meninggalkan proses belanja, lalu prioritaskan fitur yang langsung mengatasi titik tersebut. <a href="/id/blog/kenapa-plus-partner-digital-bisnis-indonesia">Partner digital</a> yang berpengalaman dalam e-commerce dapat membantu mengidentifikasi prioritas ini berdasarkan benchmark industri.</p>
+<h2>Checklist Sebelum Merilis Fitur Mobile App E-Commerce</h2>
+<ul>
+<li>Sudah menguji proses checkout di berbagai ukuran layar dan koneksi internet lambat</li>
+<li>Sudah memvalidasi semua metode pembayaran berjalan tanpa error di production</li>
+<li>Sudah menyiapkan fallback untuk skenario stok habis di tengah proses checkout</li>
+<li>Sudah menguji notifikasi push tidak mengganggu pengalaman pengguna secara berlebihan</li>
+</ul>
+<div class="callout">
+<p><strong>Catatan jujur:</strong> menambahkan terlalu banyak fitur sekaligus di versi pertama app justru sering menurunkan konversi, karena pengguna dihadapkan pada terlalu banyak pilihan dan distraksi. Fokus pada fitur yang langsung mendukung transaksi terlebih dahulu, baru tambahkan fitur engagement secara bertahap.</p>
+</div>
+<h2>Studi Kasus: Penyederhanaan Checkout yang Meningkatkan Konversi</h2>
+<p>Sebuah brand fashion online mengurangi jumlah langkah checkout dari lima langkah menjadi dua langkah dengan menghapus kolom formulir yang tidak esensial dan menyimpan data pengiriman pelanggan yang sudah pernah bertransaksi. Hasilnya, tingkat penyelesaian checkout meningkat signifikan dalam waktu satu bulan, menunjukkan bahwa pengurangan friksi sering lebih efektif dibanding penambahan fitur baru.</p>
+<h2>Menyesuaikan Fitur untuk Kategori Produk yang Berbeda</h2>
+<p>Kebutuhan fitur dapat bervariasi tergantung kategori produk. E-commerce fashion mungkin membutuhkan fitur size guide interaktif dan filter visual berdasarkan warna, sementara e-commerce elektronik lebih membutuhkan perbandingan spesifikasi produk secara berdampingan. Memahami kebutuhan spesifik kategori produk membantu memprioritaskan fitur yang benar-benar relevan.</p>
+<h2>Mengoptimalkan Performa App untuk Pengalaman Belanja yang Lancar</h2>
+<p>Fitur secanggih apapun tidak akan efektif jika app lambat dimuat atau sering crash. Optimasi performa — termasuk waktu loading gambar produk, kecepatan pencarian, dan stabilitas saat traffic tinggi seperti flash sale — sering menjadi faktor yang lebih menentukan konversi dibanding penambahan fitur baru.</p>
+<h2>Mengukur Dampak Fitur Setelah Peluncuran</h2>
+<p>Setelah merilis fitur baru, pantau metrik terkait secara spesifik — misalnya, apakah fitur wishlist benar-benar meningkatkan repeat purchase, atau apakah program loyalitas meningkatkan frekuensi transaksi. Data ini membantu menentukan fitur mana yang layak dikembangkan lebih lanjut dan mana yang sebaiknya disederhanakan atau dihapus.</p>
 <h2>Kesimpulan</h2>
 <p>Setiap fitur tambahan harus dievaluasi dari sudut pandang: apakah ini mempermudah pengguna untuk membeli, atau hanya menambah kompleksitas?</p>
+<h2>Mempertimbangkan Fitur Berdasarkan Skala Bisnis</h2>
+<p>Bisnis e-commerce skala kecil sebaiknya fokus pada fitur inti yang langsung mendukung transaksi, sementara bisnis skala menengah hingga besar dapat mulai mempertimbangkan investasi pada fitur personalisasi dan loyalitas yang lebih kompleks. Menyesuaikan skala fitur dengan skala bisnis membantu menghindari pemborosan anggaran development pada fitur yang belum dibutuhkan oleh basis pelanggan saat ini.</p>
+<h2>Peran Desain Visual dalam Mendukung Fitur Fungsional</h2>
+<p>Fitur yang fungsional tetap membutuhkan desain visual yang intuitif agar benar-benar digunakan oleh pengguna. Tombol checkout yang sulit ditemukan atau filter produk yang membingungkan dapat membuat fitur canggih sekalipun menjadi tidak efektif. Investasi pada riset UX sebelum implementasi fitur baru sering memberikan dampak yang lebih besar dibanding menambah jumlah fitur itu sendiri.</p>
+<h2>Mempersiapkan Fitur untuk Momen Traffic Tinggi</h2>
+<p>Momen seperti flash sale atau hari belanja nasional membutuhkan kesiapan teknis ekstra agar fitur yang sudah ada tetap berjalan stabil di bawah lonjakan traffic. Pastikan sistem checkout, pembayaran, dan notifikasi telah diuji dengan simulasi beban tinggi sebelum momen penting tersebut, karena kegagalan sistem di saat traffic tinggi berdampak langsung pada hilangnya potensi penjualan dalam jumlah besar.</p>
+<h2>Menjaga Konsistensi Fitur di Seluruh Touchpoint Pelanggan</h2>
+<p>Fitur yang tersedia di mobile app sebaiknya konsisten dengan pengalaman di website dan kanal lain seperti marketplace. Misalnya, jika pelanggan memiliki poin loyalitas, mereka harus dapat menggunakannya baik melalui app maupun website tanpa kebingungan. Konsistensi pengalaman lintas kanal membangun kepercayaan pelanggan dan mengurangi keluhan terkait fitur yang tidak sinkron.</p>
+<h2>Melibatkan Tim Customer Service dalam Perencanaan Fitur</h2>
+<p>Tim customer service sering memiliki wawasan langsung tentang keluhan dan kebingungan pelanggan terkait fitur yang sudah ada. Melibatkan mereka dalam proses perencanaan fitur baru membantu mengidentifikasi masalah yang mungkin terlewat oleh tim product, sehingga fitur yang dirilis benar-benar menjawab kebutuhan nyata pelanggan di lapangan, bukan sekadar mengikuti tren fitur yang sedang populer di kompetitor tanpa mempertimbangkan relevansinya bagi pelanggan sendiri di pasar lokal yang terus berkembang.</p>
 `,
   },
   {
