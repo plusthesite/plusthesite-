@@ -4044,18 +4044,55 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80&auto=format",
     locale: "id",
     content: `
-<p>Tanpa data, keputusan marketing hanya tebakan. Google Analytics memberi gambaran jelas tentang siapa pengunjung Anda dan bagaimana mereka berinteraksi dengan website.</p>
-<h2>Metrik Penting untuk Dipantau</h2>
-<ul>
-<li>Jumlah pengunjung dan sumber traffic</li>
-<li>Halaman yang paling banyak dikunjungi</li>
-<li>Tingkat konversi dan jalur menuju konversi</li>
-<li>Waktu yang dihabiskan dan tingkat pentalan (bounce rate)</li>
-</ul>
+<p>Tanpa data, keputusan marketing hanya tebakan. Google Analytics memberi gambaran jelas tentang siapa pengunjung Anda dan bagaimana mereka berinteraksi dengan website — gratis, jadi sebenarnya tidak ada alasan bagus untuk menjalankan website tanpa melihat datanya sama sekali.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">56%+</div><div class="stat-label">Website di dunia memakai Google Analytics (BuiltWith)</div></div>
+  <div class="stat-card"><div class="stat-num">3x</div><div class="stat-label">Lebih mungkin mencapai target pertumbuhan saat keputusan berbasis data (McKinsey)</div></div>
+  <div class="stat-card"><div class="stat-num">41%</div><div class="stat-label">Rata-rata bounce rate yang sering tidak pernah diinvestigasi bisnis (benchmark industri)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&amp;q=80&amp;auto=format" alt="Dashboard analitik website dengan grafik" loading="lazy" />
+<figcaption>Dashboard baru berarti sesuatu setelah ada orang yang menindaklanjuti apa yang ditampilkannya.</figcaption>
+</figure>
+
+<h2>Metrik Penting yang Layak Dipantau Lebih Dulu</h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Metrik</th><th>Yang ditunjukkan</th></tr>
+</thead>
+<tbody>
+<tr><td>Pengunjung &amp; sumber traffic</td><td>Dari mana audiens Anda sebenarnya datang, bukan asumsi</td></tr>
+<tr><td>Halaman paling banyak dikunjungi</td><td>Konten atau produk apa yang benar-benar menarik perhatian</td></tr>
+<tr><td>Tingkat konversi &amp; jalurnya</td><td>Perjalanan mana yang berujung pembelian, mana yang mandek</td></tr>
+<tr><td>Waktu di situs &amp; bounce rate</td><td>Apakah pengunjung betah atau langsung pergi</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Dari Data ke Tindakan</h2>
-<p>Data hanya berguna jika ditindaklanjuti. Jika sebuah halaman memiliki bounce rate tinggi, evaluasi kontennya. Jika satu sumber traffic berkonversi baik, alokasikan lebih banyak upaya ke sana.</p>
+<p>Data hanya berguna jika ditindaklanjuti. Jika sebuah halaman memiliki bounce rate tinggi, evaluasi kontennya — biasanya penyebabnya loading lambat, ekspektasi yang tidak sesuai dari iklan yang membawa pengunjung ke sana, atau pesan yang kurang jelas. Jika satu sumber traffic berkonversi baik, alokasikan lebih banyak upaya ke sana dibanding menyebar anggaran rata ke semua kanal yang belum tentu berkinerja sama.</p>
+<blockquote>
+<p>"Organisasi yang mendasarkan keputusan pada data tiga kali lebih mungkin melaporkan peningkatan signifikan dalam kualitas pengambilan keputusan dibanding yang hanya mengandalkan intuisi."</p>
+<cite>— McKinsey Global Survey on data-driven decision making</cite>
+</blockquote>
+
+<h2>Kesalahan Umum yang Menyia-nyiakan Data</h2>
+<p>Kesalahan paling umum bukan kekurangan data — tapi mengecek data sebulan sekali tanpa pertanyaan yang jelas di kepala. Analytics jadi berguna saat dicek dengan pertanyaan spesifik: "apakah kampanye minggu lalu benar-benar membawa pengunjung berkualitas?" atau "kenapa konversi turun setelah homepage diredesain?" Membuka dashboard tanpa pertanyaan jarang menghasilkan keputusan apa pun.</p>
+<p>Kesalahan kedua: memantau terlalu banyak metrik sekaligus. Mulai dari empat metrik di tabel atas. Tambah dimensi lain — seperti funnel landing page tertentu atau segmen audiens — hanya setelah keempatnya jadi kebiasaan rutin tiap minggu.</p>
+
+<div class="callout">
+<p><strong>Latihan minggu ini:</strong> buka analytics dan temukan satu halaman dengan bounce rate tertinggi yang masih mendapat traffic cukup besar. Halaman itu kemenangan tercepat Anda — memperbaikinya biasanya berdampak lebih besar daripada meluncurkan sesuatu yang baru.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah saya tetap perlu Google Analytics jika sudah punya laporan dari platform iklan?</strong> Ya. Platform iklan hanya menunjukkan apa yang terjadi di dalam ekosistemnya sendiri. Google Analytics menunjukkan gambaran lengkap dari semua sumber traffic, termasuk pencarian organik dan kunjungan langsung yang tidak terlihat di dashboard iklan.</p>
+<p><strong>Seberapa sering bisnis kecil sebaiknya mengecek analytics?</strong> Mingguan sudah cukup untuk kebanyakan bisnis kecil — cukup sering untuk menangkap masalah lebih awal, tapi tidak terlalu sering sampai bereaksi berlebihan pada fluktuasi harian yang sebenarnya tidak punya pola nyata.</p>
+
 <h2>Kesimpulan</h2>
-<p>Google Analytics mengubah marketing dari tebakan menjadi keputusan berbasis bukti — gratis dan dapat diakses oleh bisnis apa pun.</p>
+<p>Google Analytics mengubah marketing dari tebakan menjadi keputusan berbasis bukti — gratis dan dapat diakses oleh bisnis apa pun. Dashboard itu sendiri tidak mengubah apa pun; yang mengubah hasil adalah kebiasaan mengeceknya dengan pertanyaan dan menindaklanjuti apa yang terungkap.</p>
 `,
   },
   {
@@ -4296,19 +4333,54 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=1200&q=80&auto=format",
     locale: "en",
     content: `
-<p>TikTok has become one of the fastest-growing platforms with still-massive organic reach — a golden opportunity for businesses.</p>
+<p>TikTok has become one of the fastest-growing platforms with still-massive organic reach — a golden opportunity for businesses that haven't yet treated it as a real marketing channel.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">1B+</div><div class="stat-label">Monthly active users worldwide (TikTok)</div></div>
+  <div class="stat-card"><div class="stat-num">44%</div><div class="stat-label">Of TikTok users have purchased a product after seeing it on the platform (TikTok/Material study)</div></div>
+  <div class="stat-card"><div class="stat-num">2.7x</div><div class="stat-label">Higher ad recall on TikTok compared to other platforms (Kantar)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=1200&amp;q=80&amp;auto=format" alt="Smartphone showing a short-form video feed" loading="lazy" />
+<figcaption>TikTok's algorithm rewards relevance and watch time over follower count.</figcaption>
+</figure>
+
 <h2>Understand How the Algorithm Works</h2>
-<p>TikTok prioritizes content that hooks in the first few seconds and drives interaction. Even new accounts can go viral if the content is relevant and engaging.</p>
+<p>TikTok prioritizes content that hooks in the first few seconds and drives interaction. Even new accounts can go viral if the content is relevant and engaging — unlike older platforms where reach is largely tied to existing follower count. That's exactly what makes TikTok appealing for businesses without a large following yet.</p>
+<blockquote>
+<p>"44% of TikTok users say they've purchased a product or service after seeing it advertised, mentioned, or reviewed on the platform."</p>
+<cite>— TikTok Marketing Science / Material Global Study</cite>
+</blockquote>
+
 <h2>Effective Content Types</h2>
-<ul>
-<li>Behind-the-scenes of your business process</li>
-<li>Short, entertaining tips and education</li>
-<li>Trending audio and challenges relevant to your brand</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Content type</th><th>Why it performs</th></tr>
+</thead>
+<tbody>
+<tr><td>Behind-the-scenes of your process</td><td>Feels authentic and unscripted, which TikTok audiences respond to</td></tr>
+<tr><td>Short, entertaining tips &amp; education</td><td>Delivers value fast within the platform's short attention span</td></tr>
+<tr><td>Trending audio &amp; relevant challenges</td><td>Rides existing momentum instead of competing against it</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Consistency Is Key</h2>
-<p>Posting regularly helps the algorithm understand your audience. Experiment with formats and learn which perform best.</p>
+<p>Posting regularly helps the algorithm understand your audience. Experiment with formats and learn which perform best — but resist the urge to copy a competitor's exact format. What works depends heavily on your specific audience's viewing habits, which only becomes clear after testing several formats with your own account.</p>
+<p>Track which videos get watched all the way through, not just which get the most likes. Completion rate is a stronger signal of what content actually resonates, since likes can come from broad appeal while completion shows genuine interest in the full message.</p>
+
+<div class="callout">
+<p><strong>Quick start:</strong> post three videos this week using three different formats — one behind-the-scenes, one quick tip, one trending audio. Whichever gets watched to the end tells you where to focus next.</p>
+</div>
+
+<h2>Frequently Asked Questions</h2>
+<p><strong>Does TikTok marketing work for B2B businesses?</strong> Yes, though the content style needs adapting — educational and behind-the-scenes content tends to perform better for B2B than direct product promotion, since the audience is browsing for entertainment, not actively shopping.</p>
+<p><strong>How many videos should a business post per week to see results?</strong> Most accounts need consistent posting — three to five times a week — for at least a month before the algorithm has enough signal to match content with the right audience.</p>
+
 <h2>Conclusion</h2>
-<p>TikTok isn't just for entertainment — with the right strategy, it becomes a powerful, cost-effective customer acquisition channel.</p>
+<p>TikTok isn't just for entertainment — with the right strategy, it becomes a powerful, cost-effective customer acquisition channel. Success comes from consistent experimentation, not from chasing a single viral video.</p>
 `,
   },
   {
@@ -4352,19 +4424,54 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&q=80&auto=format",
     locale: "id",
     content: `
-<p>Mendapatkan pelanggan baru bisa 5x lebih mahal daripada mempertahankan yang sudah ada. Retention adalah kunci pertumbuhan yang berkelanjutan dan menguntungkan.</p>
+<p>Mendapatkan pelanggan baru bisa 5x lebih mahal daripada mempertahankan yang sudah ada. Retention adalah kunci pertumbuhan yang berkelanjutan dan menguntungkan — dan bedanya kecil di angka retention berdampak besar di laba.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">5x</div><div class="stat-label">Biaya akuisisi pelanggan baru dibanding mempertahankan yang lama (Harvard Business Review)</div></div>
+  <div class="stat-card"><div class="stat-num">+25–95%</div><div class="stat-label">Kenaikan profit dari peningkatan retention sebesar 5% (Bain &amp; Company)</div></div>
+  <div class="stat-card"><div class="stat-num">65%</div><div class="stat-label">Pendapatan bisnis rata-rata berasal dari pelanggan yang sudah ada (Small Business Trends)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&amp;q=80&amp;auto=format" alt="Pelanggan setia berinteraksi dengan brand" loading="lazy" />
+<figcaption>Retention bertumbuh dari konsistensi nilai, bukan dari satu kampanye loyalitas sesaat.</figcaption>
+</figure>
+
 <h2>Berikan Pengalaman yang Konsisten</h2>
-<p>Pelanggan kembali ketika setiap interaksi memenuhi ekspektasi mereka. Konsistensi kualitas produk dan layanan membangun kepercayaan jangka panjang.</p>
-<h2>Bangun Program Loyalitas</h2>
-<ul>
-<li>Poin reward untuk setiap pembelian</li>
-<li>Penawaran eksklusif untuk pelanggan setia</li>
-<li>Akses awal ke produk atau fitur baru</li>
-</ul>
+<p>Pelanggan kembali ketika setiap interaksi memenuhi ekspektasi mereka. Konsistensi kualitas produk dan layanan membangun kepercayaan jangka panjang — satu pengalaman buruk bisa menghapus efek sepuluh pengalaman baik sebelumnya, terutama jika tidak ada upaya jelas untuk memperbaikinya.</p>
+<blockquote>
+<p>"Peningkatan tingkat retensi pelanggan sebesar 5% dapat meningkatkan profit perusahaan antara 25% hingga 95%, bergantung pada industri."</p>
+<cite>— Bain &amp; Company / Frederick Reichheld</cite>
+</blockquote>
+
+<h2>Bangun Program Loyalitas yang Terasa Bernilai</h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Elemen</th><th>Kenapa pelanggan menghargainya</th></tr>
+</thead>
+<tbody>
+<tr><td>Poin reward setiap pembelian</td><td>Memberi alasan konkret untuk kembali, bukan sekadar harapan</td></tr>
+<tr><td>Penawaran eksklusif pelanggan setia</td><td>Membuat pelanggan lama merasa diperlakukan berbeda dari pelanggan baru</td></tr>
+<tr><td>Akses awal produk/fitur baru</td><td>Memberi rasa dihargai tanpa harus selalu berupa diskon</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Dengarkan dan Tindak Lanjuti Feedback</h2>
-<p>Pelanggan yang merasa didengar lebih cenderung bertahan. Gunakan survei dan komunikasi proaktif untuk menunjukkan bahwa Anda peduli.</p>
+<p>Pelanggan yang merasa didengar lebih cenderung bertahan. Gunakan survei dan komunikasi proaktif untuk menunjukkan bahwa Anda peduli — tapi yang lebih penting dari survei itu sendiri adalah tindak lanjutnya. Pelanggan yang mengisi survei lalu tidak pernah melihat perubahan apa pun biasanya berhenti memberi feedback, dan diam-diam pindah ke kompetitor.</p>
+<p>Sinyal churn paling sering muncul jauh sebelum pelanggan benar-benar berhenti: frekuensi pembelian menurun, respons email melambat, atau keluhan kecil yang dulu jarang muncul jadi lebih sering. Memantau sinyal ini lebih efektif daripada menunggu pelanggan benar-benar hilang baru bertindak.</p>
+
+<div class="callout">
+<p><strong>Cek cepat:</strong> lihat 20 pelanggan dengan frekuensi pembelian tertinggi tahun lalu — berapa persen yang masih aktif sekarang? Jika turun signifikan, itu sinyal retention butuh perhatian sebelum jadi masalah skala besar.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah program loyalitas berbasis poin selalu efektif?</strong> Tidak selalu. Program poin paling efektif ketika hadiahnya benar-benar relevan dan mudah dicapai. Poin yang butuh waktu sangat lama untuk ditukar cenderung diabaikan dan tidak mengubah perilaku pembelian.</p>
+<p><strong>Berapa lama biasanya sebelum strategi retention menunjukkan hasil?</strong> Perubahan kecil seperti respons layanan yang lebih cepat bisa terasa dalam beberapa minggu. Dampak penuh pada angka retention biasanya terlihat setelah satu hingga dua siklus pembelian pelanggan.</p>
+
 <h2>Kesimpulan</h2>
-<p>Customer retention bukan tentang trik, melainkan konsistensi memberi nilai dan membangun hubungan yang tulus dengan pelanggan.</p>
+<p>Customer retention bukan tentang trik, melainkan konsistensi memberi nilai dan membangun hubungan yang tulus dengan pelanggan. Mulai dari memantau sinyal churn dini, baru bangun program loyalitas di atas fondasi pengalaman yang sudah konsisten.</p>
 `,
   },
   {
@@ -4409,19 +4516,54 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=1200&q=80&auto=format",
     locale: "id",
     content: `
-<p>Landing page adalah halaman yang dirancang khusus untuk satu tujuan: mengubah pengunjung menjadi leads atau pelanggan. Setiap elemennya harus mendukung tujuan tersebut.</p>
+<p>Landing page adalah halaman yang dirancang khusus untuk satu tujuan: mengubah pengunjung menjadi leads atau pelanggan. Setiap elemennya harus mendukung tujuan tersebut — bukan sekadar halaman company profile yang ditempel link iklan.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">2.35%</div><div class="stat-label">Rata-rata conversion rate landing page di semua industri (WordStream)</div></div>
+  <div class="stat-card"><div class="stat-num">86%</div><div class="stat-label">Peningkatan konversi saat headline diuji dan dioptimalkan (HubSpot)</div></div>
+  <div class="stat-card"><div class="stat-num">266%</div><div class="stat-label">Lonjakan konversi setelah menghapus navigasi dari landing page (studi Unbounce)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=1200&amp;q=80&amp;auto=format" alt="Desain landing page di layar laptop" loading="lazy" />
+<figcaption>Setiap elemen di landing page sebaiknya mendukung satu tindakan, bukan sekadar menghiasi halaman.</figcaption>
+</figure>
+
 <h2>Headline yang Langsung Menjawab</h2>
-<p>Dalam beberapa detik, pengunjung harus tahu apa yang Anda tawarkan dan mengapa itu relevan bagi mereka. Headline yang jelas adalah penentu utama.</p>
+<p>Dalam beberapa detik, pengunjung harus tahu apa yang Anda tawarkan dan mengapa itu relevan bagi mereka. Headline yang jelas adalah penentu utama — pengunjung yang bingung di lima detik pertama hampir selalu langsung menutup tab, berapa pun bagus konten di bawahnya.</p>
+<blockquote>
+<p>"Menghapus elemen navigasi dari landing page meningkatkan conversion rate hingga 266% pada beberapa pengujian, karena pengunjung tidak punya jalan keluar selain CTA utama."</p>
+<cite>— Unbounce Conversion Benchmark Report</cite>
+</blockquote>
+
 <h2>Fokus pada Satu Call-to-Action</h2>
-<ul>
-<li>Hilangkan navigasi dan distraksi yang tidak perlu</li>
-<li>Gunakan tombol CTA yang menonjol dan spesifik</li>
-<li>Ulangi CTA di beberapa titik untuk halaman yang panjang</li>
-</ul>
-<h2>Bangun Kepercayaan</h2>
-<p>Testimoni, logo klien, dan jaminan mengurangi keraguan pengunjung untuk mengambil tindakan.</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Praktik</th><th>Alasan</th></tr>
+</thead>
+<tbody>
+<tr><td>Hilangkan navigasi &amp; distraksi</td><td>Setiap link keluar adalah peluang kehilangan pengunjung sebelum konversi</td></tr>
+<tr><td>Tombol CTA menonjol &amp; spesifik</td><td>"Mulai Coba Gratis" jauh lebih jelas daripada "Kirim" atau "Submit"</td></tr>
+<tr><td>Ulangi CTA di halaman panjang</td><td>Pengunjung yang sudah yakin di tengah halaman tidak perlu scroll ulang ke atas</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Bangun Kepercayaan Sebelum Meminta Tindakan</h2>
+<p>Testimoni, logo klien, dan jaminan mengurangi keraguan pengunjung untuk mengambil tindakan. Setiap landing page menghadapi keberatan diam-diam — soal harga, kerumitan penggunaan, atau ketidakpastian komitmen. Identifikasi dua atau tiga keberatan yang paling sering muncul dalam percakapan sales atau tiket support, lalu jawab langsung di halaman lewat FAQ, jaminan, atau copy singkat dekat CTA — jangan menunggu pengunjung pergi dan bertanya nanti.</p>
+<p>Panjang landing page sebaiknya ditentukan oleh berapa banyak kepercayaan dan informasi yang dibutuhkan sebelum pengunjung mau bertindak — penawaran dengan komitmen tinggi biasanya butuh halaman lebih panjang, sementara penawaran sederhana berkonversi baik dengan halaman pendek.</p>
+
+<div class="callout">
+<p><strong>Sebelum publish:</strong> minta orang yang belum pernah lihat halaman ini membacanya selama 5 detik, lalu tanya apa yang ditawarkan. Jika jawabannya tidak jelas, headline Anda belum cukup kuat.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah landing page harus tetap punya menu navigasi?</strong> Dalam kebanyakan kasus, menghilangkan menu navigasi mengurangi distraksi dan membuat pengunjung tetap fokus pada satu tujuan konversi yang dirancang untuk halaman tersebut.</p>
+<p><strong>Berapa lama landing page sebaiknya direview ulang?</strong> Tinjau ulang setiap kali strategi kampanye berubah signifikan — targeting, penawaran, atau audiens baru — bukan dianggap selesai sekali dibuat lalu dibiarkan tanpa perubahan selama bertahun-tahun.</p>
+
 <h2>Kesimpulan</h2>
-<p>Landing page yang efektif sederhana, fokus, dan dirancang untuk memandu pengunjung menuju satu tindakan yang jelas.</p>
+<p>Landing page yang efektif sederhana, fokus, dan dirancang untuk memandu pengunjung menuju satu tindakan yang jelas — dan terus membaik lewat pengujian disiplin, bukan sekali desain lalu dibiarkan begitu saja.</p>
 `,
   },
   {
@@ -4572,19 +4714,54 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&q=80&auto=format",
     locale: "en",
     content: `
-<p>Acquiring a new customer can cost up to 5x more than retaining an existing one. Retention is the key to sustainable, profitable growth.</p>
+<p>Acquiring a new customer can cost up to 5x more than retaining an existing one. Retention is the key to sustainable, profitable growth — and a small shift in your retention rate moves profit by a lot more than it sounds.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">5x</div><div class="stat-label">Cost of acquiring a new customer versus retaining an existing one (Harvard Business Review)</div></div>
+  <div class="stat-card"><div class="stat-num">+25–95%</div><div class="stat-label">Profit increase from a 5% improvement in retention (Bain &amp; Company)</div></div>
+  <div class="stat-card"><div class="stat-num">65%</div><div class="stat-label">Of average business revenue comes from existing customers (Small Business Trends)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&amp;q=80&amp;auto=format" alt="Loyal customer engaging with a brand" loading="lazy" />
+<figcaption>Retention grows from consistent value, not a single one-off loyalty campaign.</figcaption>
+</figure>
+
 <h2>Deliver a Consistent Experience</h2>
-<p>Customers return when every interaction meets their expectations. Consistent product and service quality builds long-term trust.</p>
-<h2>Build a Loyalty Program</h2>
-<ul>
-<li>Reward points for every purchase</li>
-<li>Exclusive offers for loyal customers</li>
-<li>Early access to new products or features</li>
-</ul>
+<p>Customers return when every interaction meets their expectations. Consistent product and service quality builds long-term trust — one bad experience can erase the goodwill of ten good ones, especially if there's no clear effort to make it right afterward.</p>
+<blockquote>
+<p>"Increasing customer retention rates by 5% can increase profits by 25% to 95%, depending on the industry."</p>
+<cite>— Bain &amp; Company / Frederick Reichheld</cite>
+</blockquote>
+
+<h2>Build a Loyalty Program That Actually Feels Valuable</h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Element</th><th>Why customers value it</th></tr>
+</thead>
+<tbody>
+<tr><td>Reward points per purchase</td><td>Gives a concrete reason to return, not just a vague hope</td></tr>
+<tr><td>Exclusive offers for loyal customers</td><td>Makes long-time customers feel treated differently from new ones</td></tr>
+<tr><td>Early access to new products/features</td><td>Creates a sense of appreciation without always relying on discounts</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Listen and Act on Feedback</h2>
-<p>Customers who feel heard are more likely to stay. Use surveys and proactive communication to show that you care.</p>
+<p>Customers who feel heard are more likely to stay. Use surveys and proactive communication to show that you care — but what matters more than the survey itself is the follow-through. Customers who fill out a survey and never see any change typically stop giving feedback, and quietly switch to a competitor instead.</p>
+<p>Churn signals usually show up well before a customer actually leaves: purchase frequency slows down, email responses get slower, or small complaints that used to be rare start showing up more often. Watching for these signals is far more effective than waiting until the customer is already gone to act.</p>
+
+<div class="callout">
+<p><strong>Quick check:</strong> look at your top 20 customers by purchase frequency from last year — what percentage are still active now? If it's dropped significantly, that's a signal retention needs attention before it becomes a much bigger problem.</p>
+</div>
+
+<h2>Frequently Asked Questions</h2>
+<p><strong>Are points-based loyalty programs always effective?</strong> Not always. Points programs work best when the reward is genuinely relevant and easy to reach. Points that take a very long time to redeem tend to get ignored and don't change purchasing behavior.</p>
+<p><strong>How long does it typically take for retention strategies to show results?</strong> Small changes like faster service response can be felt within a few weeks. The full impact on retention numbers usually shows up after one to two full purchase cycles.</p>
+
 <h2>Conclusion</h2>
-<p>Customer retention isn't about tricks — it's the consistency of delivering value and building genuine relationships.</p>
+<p>Customer retention isn't about tricks — it's the consistency of delivering value and building genuine relationships. Start by watching for early churn signals, then build your loyalty program on top of an experience that's already consistent.</p>
 `,
   },
   {
