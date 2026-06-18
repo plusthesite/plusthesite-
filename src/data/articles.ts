@@ -2269,22 +2269,52 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&q=80&auto=format",
     content: `
 <p>Churn rate yang tinggi sering menjadi tanda masalah yang sudah terjadi jauh sebelum pelanggan benar-benar berhenti — dan CRM membantu mendeteksi tanda-tanda ini lebih awal.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">5-25x</div><div class="stat-label">Biaya akuisisi pelanggan baru dibanding mempertahankan yang sudah ada (Harvard Business Review)</div></div>
+  <div class="stat-card"><div class="stat-num">5%</div><div class="stat-label">Kenaikan retensi pelanggan bisa meningkatkan profit 25-95% (Bain &amp; Company)</div></div>
+  <div class="stat-card"><div class="stat-num">68%</div><div class="stat-label">Pelanggan churn karena merasa diabaikan, bukan karena harga (Invesp)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&amp;q=80&amp;auto=format" alt="Dashboard CRM menampilkan data pelanggan" loading="lazy" />
+<figcaption>CRM yang dikonfigurasi dengan benar menandai pelanggan berisiko churn jauh sebelum mereka benar-benar pergi.</figcaption>
+</figure>
+
 <h2>Tanda-Tanda Awal Churn</h2>
-<ul>
-<li>Penurunan frekuensi penggunaan produk atau layanan</li>
-<li>Tidak merespons komunikasi dalam jangka waktu tertentu</li>
-<li>Komplain berulang tanpa resolusi yang memuaskan</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Tanda awal</th><th>Apa artinya</th></tr>
+</thead>
+<tbody>
+<tr><td>Penurunan frekuensi penggunaan produk/layanan</td><td>Pelanggan mulai kehilangan kebiasaan yang membuat produk relevan dalam rutinitasnya</td></tr>
+<tr><td>Tidak merespons komunikasi</td><td>Tanda awal disengagement sebelum keputusan churn benar-benar diambil</td></tr>
+<tr><td>Komplain berulang tanpa resolusi</td><td>Akumulasi frustrasi yang biasanya berujung pada keputusan pindah ke kompetitor</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Cara CRM Membantu Deteksi Dini</h2>
-<p>CRM dapat dikonfigurasi untuk menandai pelanggan dengan pola aktivitas yang menurun, sehingga tim dapat melakukan intervensi sebelum pelanggan benar-benar pergi.</p>
+<p>CRM dapat dikonfigurasi untuk menandai pelanggan dengan pola aktivitas yang menurun, sehingga tim dapat melakukan intervensi sebelum pelanggan benar-benar pergi. Begitu sinyal ini muncul jauh sebelum pelanggan benar-benar membatalkan, tim punya waktu untuk merespons alih-alih hanya bereaksi setelah kehilangan terjadi.</p>
+<blockquote>
+<p>"Meningkatkan retensi pelanggan sebesar 5% saja dapat meningkatkan profitabilitas perusahaan sebesar 25% hingga 95%, tergantung pada industrinya."</p>
+<cite>— Bain &amp; Company</cite>
+</blockquote>
+
 <h2>Strategi Intervensi</h2>
-<ul>
-<li>Penawaran khusus untuk pelanggan yang menunjukkan tanda churn</li>
-<li>Survei singkat untuk memahami alasan penurunan engagement</li>
-<li>Follow-up personal dari tim customer success</li>
-</ul>
+<p>Penawaran khusus untuk pelanggan yang menunjukkan tanda churn, survei singkat untuk memahami alasan penurunan engagement, dan follow-up personal dari tim customer success adalah tiga taktik yang paling sering berhasil. Kuncinya adalah bertindak begitu sinyal pertama terdeteksi — menunggu sampai pelanggan secara eksplisit mengeluh biasanya sudah terlambat, karena keputusan untuk pindah sering sudah dibuat jauh sebelum mereka menyampaikannya.</p>
+
+<div class="callout">
+<p><strong>Mulai sederhana:</strong> buat satu aturan otomatis di CRM untuk menandai pelanggan yang tidak login atau bertransaksi dalam 30 hari terakhir. Itu cukup untuk mulai menangkap sinyal churn paling umum tanpa sistem yang rumit.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah churn rate yang tinggi selalu berarti produk bermasalah?</strong> Tidak selalu. Sering kali masalahnya ada di onboarding atau komunikasi, bukan produk itu sendiri — pelanggan yang tidak paham cara memaksimalkan produk cenderung berhenti meski produknya sebenarnya sudah cukup baik.</p>
+<p><strong>Berapa lama waktu yang dibutuhkan untuk melihat dampak strategi retensi?</strong> Biasanya perlu satu hingga dua kuartal sebelum tren churn rate mulai bergeser, karena efeknya kumulatif dan butuh waktu bagi pelanggan yang sudah berisiko untuk merasakan perubahan pendekatan.</p>
+
 <h2>Kesimpulan</h2>
-<p>Mengurangi churn lebih efektif dilakukan secara proaktif — dan CRM adalah alat yang memungkinkan tim bertindak sebelum terlambat.</p>
+<p>Mengurangi churn lebih efektif dilakukan secara proaktif — dan CRM adalah alat yang memungkinkan tim bertindak sebelum terlambat, bukan hanya mencatat kehilangan setelah terjadi.</p>
 `,
   },
   {
@@ -2300,18 +2330,52 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1200&q=80&auto=format",
     content: `
 <p>WhatsApp adalah aplikasi komunikasi paling banyak digunakan di Indonesia. Memanfaatkannya untuk customer support adalah langkah yang sangat masuk akal.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">100+ Juta</div><div class="stat-label">Pengguna aktif WhatsApp di Indonesia (Meta)</div></div>
+  <div class="stat-card"><div class="stat-num">98%</div><div class="stat-label">Open rate pesan WhatsApp, jauh di atas email (WhatsApp Business)</div></div>
+  <div class="stat-card"><div class="stat-num">3x</div><div class="stat-label">Lebih cepat respons rata-rata dibanding email support (Sinch)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1200&amp;q=80&amp;auto=format" alt="Tampilan chat WhatsApp Business pada smartphone" loading="lazy" />
+<figcaption>WhatsApp Business API memungkinkan multi-agen dan otomasi dalam satu nomor yang sama.</figcaption>
+</figure>
+
 <h2>Perbedaan WhatsApp Biasa dan Business API</h2>
-<p>WhatsApp Business API memungkinkan integrasi dengan sistem CRM dan chatbot, penanganan multi-agen dalam satu nomor, serta otomasi pesan berbasis template.</p>
+<p>WhatsApp Business API memungkinkan integrasi dengan sistem CRM dan chatbot, penanganan multi-agen dalam satu nomor, serta otomasi pesan berbasis template — sesuatu yang tidak mungkin dilakukan dengan akun WhatsApp biasa yang hanya bisa diakses satu perangkat dalam satu waktu.</p>
+<blockquote>
+<p>"Pesan WhatsApp memiliki open rate hingga 98%, dibanding rata-rata 20% untuk email marketing — menjadikannya kanal komunikasi paling efektif untuk customer support yang butuh respons cepat."</p>
+<cite>— WhatsApp Business Platform Report</cite>
+</blockquote>
+
 <h2>Manfaat untuk Customer Support</h2>
-<ul>
-<li>Respons otomatis untuk pertanyaan umum di luar jam kerja</li>
-<li>Distribusi percakapan ke agen yang tepat secara otomatis</li>
-<li>Riwayat percakapan tersimpan dan terhubung dengan data pelanggan di CRM</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Manfaat</th><th>Dampak bagi pelanggan</th></tr>
+</thead>
+<tbody>
+<tr><td>Respons otomatis di luar jam kerja</td><td>Pelanggan tetap mendapat jawaban dasar tanpa harus menunggu sampai jam kerja</td></tr>
+<tr><td>Distribusi percakapan otomatis ke agen tepat</td><td>Mengurangi waktu tunggu karena tidak perlu dipindah-pindah antar agen</td></tr>
+<tr><td>Riwayat percakapan terhubung dengan CRM</td><td>Pelanggan tidak perlu mengulang masalah yang sama ke agen berbeda</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Praktik Terbaik</h2>
-<p>Gunakan template pesan yang sesuai kebijakan WhatsApp, kombinasikan chatbot untuk pertanyaan umum, dan pastikan eskalasi ke agen manusia berjalan mulus untuk kasus kompleks.</p>
+<p>Gunakan template pesan yang sesuai kebijakan WhatsApp, kombinasikan chatbot untuk pertanyaan umum, dan pastikan eskalasi ke agen manusia berjalan mulus untuk kasus kompleks. Pelanggaran kebijakan template adalah penyebab paling umum nomor WhatsApp Business dibatasi oleh Meta, jadi penting untuk meninjau ulang template secara berkala.</p>
+
+<div class="callout">
+<p><strong>Mulai cepat:</strong> aktifkan satu pesan sambutan otomatis dan satu pesan di luar jam kerja terlebih dahulu. Dua template ini saja sudah menutup sebagian besar gap respons yang biasa dikeluhkan pelanggan.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah WhatsApp Business API berbayar?</strong> Ya, berbeda dari WhatsApp Business app biasa yang gratis, API dikenakan biaya per percakapan dan biasanya memerlukan provider resmi (BSP) untuk implementasinya.</p>
+<p><strong>Apakah chatbot WhatsApp bisa menggantikan agen manusia sepenuhnya?</strong> Tidak disarankan. Chatbot efektif untuk pertanyaan repetitif, tapi kasus kompleks atau sensitif tetap membutuhkan eskalasi ke agen manusia agar pelanggan tidak merasa diabaikan.</p>
+
 <h2>Kesimpulan</h2>
-<p>WhatsApp Business API mengubah channel yang sudah familiar bagi pelanggan menjadi sistem customer support yang terstruktur dan terukur.</p>
+<p>WhatsApp Business API mengubah channel yang sudah familiar bagi pelanggan menjadi sistem customer support yang terstruktur dan terukur — tanpa membuat pelanggan merasa berpindah ke platform yang asing.</p>
 `,
   },
   {
@@ -2327,16 +2391,50 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=1200&q=80&auto=format",
     content: `
 <p>Pertanyaan ini sering muncul sebagai "salah satu atau yang lain" — padahal kombinasi keduanya justru memberikan hasil terbaik.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">73%</div><div class="stat-label">Pelanggan puas dengan live chat, kepuasan tertinggi dibanding kanal support lain (Comm100)</div></div>
+  <div class="stat-card"><div class="stat-num">80%</div><div class="stat-label">Pertanyaan rutin yang bisa diselesaikan chatbot tanpa eskalasi (Juniper Research)</div></div>
+  <div class="stat-card"><div class="stat-num">24/7</div><div class="stat-label">Ketersediaan chatbot tanpa biaya tambahan per jam operasional</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=1200&amp;q=80&amp;auto=format" alt="Agen customer service menggunakan live chat" loading="lazy" />
+<figcaption>Model hybrid membiarkan chatbot menyaring volume, sementara agen manusia fokus pada kasus yang butuh empati.</figcaption>
+</figure>
+
 <h2>Kekuatan Live Chat</h2>
-<p>Agen manusia unggul dalam menangani situasi kompleks, sensitif, atau yang membutuhkan empati — seperti komplain serius atau negosiasi.</p>
+<p>Agen manusia unggul dalam menangani situasi kompleks, sensitif, atau yang membutuhkan empati — seperti komplain serius atau negosiasi. Nuansa emosional dalam percakapan ini sulit ditangani sistem otomatis tanpa membuat pelanggan merasa diabaikan.</p>
+<blockquote>
+<p>"73% pelanggan menilai live chat sebagai kanal customer service paling memuaskan, mengungguli email, telepon, dan media sosial."</p>
+<cite>— Comm100 Live Chat Benchmark Report</cite>
+</blockquote>
+
 <h2>Kekuatan Chatbot</h2>
-<ul>
-<li>Tersedia 24/7 tanpa biaya tambahan per jam</li>
-<li>Menangani pertanyaan repetitif secara instan</li>
-<li>Tidak ada waktu tunggu meski volume percakapan tinggi</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Live Chat (Agen Manusia)</th><th>Chatbot</th></tr>
+</thead>
+<tbody>
+<tr><td>Terbatas oleh jam kerja dan kapasitas agen</td><td>Tersedia 24/7 tanpa biaya tambahan per jam</td></tr>
+<tr><td>Lebih lambat saat volume percakapan tinggi</td><td>Menangani pertanyaan repetitif secara instan, tanpa waktu tunggu</td></tr>
+<tr><td>Unggul untuk kasus kompleks dan sensitif</td><td>Unggul untuk pertanyaan standar bervolume tinggi</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Model Hybrid: Yang Terbaik dari Keduanya</h2>
-<p>Chatbot menangani pertanyaan awal dan mengumpulkan informasi dasar, lalu meneruskan ke agen manusia dengan konteks lengkap untuk kasus yang membutuhkan penanganan personal.</p>
+<p>Chatbot menangani pertanyaan awal dan mengumpulkan informasi dasar, lalu meneruskan ke agen manusia dengan konteks lengkap untuk kasus yang membutuhkan penanganan personal. Pendekatan ini menghindari dua skenario buruk sekaligus: pelanggan menunggu lama untuk pertanyaan sederhana, atau pelanggan dengan masalah kompleks terjebak dalam loop chatbot yang tidak bisa membantu.</p>
+
+<div class="callout">
+<p><strong>Aturan sederhana:</strong> biarkan chatbot menangani tiga pertanyaan pertama dalam setiap percakapan. Jika belum terselesaikan, eskalasi otomatis ke agen manusia — ini mencegah pelanggan frustrasi berputar-putar dengan bot.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah bisnis kecil perlu chatbot jika volume percakapan masih sedikit?</strong> Belum mendesak. Jika volume masih rendah, agen manusia biasanya cukup — chatbot baru memberi ROI jelas ketika volume pertanyaan repetitif sudah cukup tinggi untuk membebani tim.</p>
+<p><strong>Bagaimana mencegah chatbot terasa kaku dan menyebalkan?</strong> Batasi cakupannya pada pertanyaan yang benar-benar bisa dijawab dengan baik, dan selalu sediakan jalur cepat untuk berbicara dengan manusia tanpa harus mengulang pertanyaan dari awal.</p>
+
 <h2>Kesimpulan</h2>
 <p>Bisnis tidak perlu memilih salah satu — model hybrid memberikan efisiensi chatbot dan empati manusia dalam satu pengalaman yang mulus.</p>
 `,
@@ -3267,16 +3365,55 @@ export const articles: Article[] = [
     locale: "en",
     content: `
 <p>Content marketing keeps shifting from "posting regularly" to a more measurable, data-driven discipline.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">73%</div><div class="stat-label">B2B marketers use content marketing as a core strategy (Content Marketing Institute)</div></div>
+  <div class="stat-card"><div class="stat-num">2x</div><div class="stat-label">Engagement rate of interactive content vs. static content (Demand Metric)</div></div>
+  <div class="stat-card"><div class="stat-num">3-5x</div><div class="stat-label">More content output possible per topic through smart repurposing</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?w=1200&amp;q=80&amp;auto=format" alt="Content marketing planning on a desk" loading="lazy" />
+<figcaption>The shift is from posting regularly to a measurable, audience-driven discipline.</figcaption>
+</figure>
+
 <h2>1. Content Based on Real Questions</h2>
-<p>Instead of guessing topics, use the actual questions customers ask via support and social media as your content source.</p>
+<p>Instead of guessing topics, use the actual questions customers ask via support and social media as your content source. This approach guarantees relevance because the demand is already proven before a single word gets written.</p>
+<blockquote>
+<p>"73% of B2B marketers say content marketing is a core part of their overall strategy, yet only a minority systematically mine support tickets and social mentions for topic ideas."</p>
+<cite>— Content Marketing Institute B2B Report</cite>
+</blockquote>
+
 <h2>2. Interactive Formats</h2>
-<p>Quizzes, calculators, and participatory content tend to earn more engagement than passive content.</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Trend</th><th>Why it works</th></tr>
+</thead>
+<tbody>
+<tr><td>Quizzes, calculators, participatory content</td><td>Earns more engagement than passive content because the reader takes an active role</td></tr>
+<tr><td>Repurposing one idea across formats</td><td>Maximizes the value of every piece of research instead of using it once</td></tr>
+<tr><td>AI-powered personalization</td><td>Tailors content variations to audience segments without rewriting from scratch</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>3. Repurposing Across Formats</h2>
-<p>One idea can become an article, a short video, an infographic, and a social thread — maximizing the value of every piece of research.</p>
+<p>One idea can become an article, a short video, an infographic, and a social thread — maximizing the value of every piece of research. The research and interviews behind a single long-form piece are usually the most expensive part to produce, so spreading that investment across multiple formats is where the real efficiency gain comes from.</p>
+
 <h2>4. AI-Powered Personalization</h2>
-<p>AI enables content variations tailored to different audience segments without rewriting everything from scratch.</p>
+<p>AI enables content variations tailored to different audience segments without rewriting everything from scratch. A single base article can be adapted in tone and emphasis for different industries or buyer stages, cutting production time while still feeling specific to each reader.</p>
+
+<div class="callout">
+<p><strong>Quick start:</strong> pull the last 20 questions your support team answered and turn the three most repeated ones into content this week. That's a faster validation signal than any keyword tool.</p>
+</div>
+
+<h2>Frequently Asked Questions</h2>
+<p><strong>Does repurposing content hurt SEO through duplicate content?</strong> Not when done correctly — repurposing into different formats (video, infographic) avoids duplicate text entirely, and even text repurposed across articles should be rewritten enough to add unique value for each format's audience.</p>
+<p><strong>Is interactive content worth the extra production effort for a small team?</strong> Start with the simplest format, such as a short quiz or calculator, on your highest-traffic page first — the engagement lift there will tell you whether scaling the format further is worth the investment.</p>
+
 <h2>Conclusion</h2>
-<p>Effective content marketing is rooted in real audience needs and executed consistently across formats.</p>
+<p>Effective content marketing is rooted in real audience needs and executed consistently across formats, not chasing every new trend at once.</p>
 `,
   },
   {
@@ -3607,19 +3744,53 @@ export const articles: Article[] = [
     locale: "id",
     content: `
 <p>Mendatangkan traffic ke website itu penting, tetapi percuma jika pengunjung tidak melakukan aksi yang diinginkan. Di sinilah CRO berperan.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">2.35%</div><div class="stat-label">Rata-rata conversion rate landing page lintas industri (WordStream)</div></div>
+  <div class="stat-card"><div class="stat-num">223%</div><div class="stat-label">Potensi kenaikan konversi dari A/B testing yang dijalankan konsisten (Invesp)</div></div>
+  <div class="stat-card"><div class="stat-num">68%</div><div class="stat-label">Bisnis menyebut CRO sebagai prioritas utama, tapi minoritas yang menjalankannya rutin (Econsultancy)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&amp;q=80&amp;auto=format" alt="Analisis data conversion rate di laptop" loading="lazy" />
+<figcaption>CRO mengubah traffic yang sudah ada menjadi hasil lebih banyak — tanpa menambah biaya akuisisi.</figcaption>
+</figure>
+
 <h2>Apa Itu CRO?</h2>
-<p>Conversion Rate Optimization adalah proses sistematis meningkatkan persentase pengunjung yang menyelesaikan tujuan — entah membeli, mendaftar, atau menghubungi.</p>
+<p>Conversion Rate Optimization adalah proses sistematis meningkatkan persentase pengunjung yang menyelesaikan tujuan — entah membeli, mendaftar, atau menghubungi. Bedanya dengan sekadar "mempercantik" halaman adalah CRO selalu dimulai dari data tentang di mana pengunjung sebenarnya berhenti, bukan tebakan tentang apa yang terlihat bagus.</p>
+<blockquote>
+<p>"Bisnis yang menjalankan A/B testing secara konsisten melaporkan potensi kenaikan conversion rate hingga 223% dibanding yang hanya mengandalkan asumsi desain."</p>
+<cite>— Invesp Conversion Optimization Report</cite>
+</blockquote>
+
 <h2>Langkah-Langkah CRO</h2>
-<ul>
-<li>Analisis data untuk menemukan titik di mana pengunjung berhenti</li>
-<li>Bentuk hipotesis perbaikan berdasarkan data, bukan tebakan</li>
-<li>Lakukan A/B testing untuk menguji perubahan</li>
-<li>Terapkan yang menang, lalu ulangi prosesnya</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Langkah</th><th>Tujuannya</th></tr>
+</thead>
+<tbody>
+<tr><td>Analisis data titik drop-off</td><td>Menemukan di mana pengunjung berhenti, bukan menebak</td></tr>
+<tr><td>Bentuk hipotesis berbasis data</td><td>Memastikan setiap perubahan punya alasan yang bisa diuji</td></tr>
+<tr><td>Jalankan A/B testing</td><td>Memvalidasi perubahan sebelum diterapkan secara penuh</td></tr>
+<tr><td>Terapkan yang menang &amp; ulangi</td><td>Menjadikan CRO proses berkelanjutan, bukan proyek sekali jalan</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Elemen yang Sering Diuji</h2>
-<p>Headline, warna dan teks tombol CTA, panjang formulir, serta penempatan bukti sosial seperti testimoni adalah elemen yang paling berdampak.</p>
+<p>Headline, warna dan teks tombol CTA, panjang formulir, serta penempatan bukti sosial seperti testimoni adalah elemen yang paling berdampak. Formulir yang lebih pendek hampir selalu menang dalam pengujian — setiap field tambahan adalah titik gesekan baru yang bisa membuat pengunjung mengurungkan niat sebelum menyelesaikannya.</p>
+
+<div class="callout">
+<p><strong>Mulai dari satu halaman:</strong> pilih halaman dengan traffic tertinggi tapi conversion rate terendah, lalu jalankan satu pengujian sederhana di sana — misalnya teks CTA. Hasilnya jadi sinyal cepat sebelum memperluas ke halaman lain.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Berapa lama A/B testing harus dijalankan sebelum mengambil keputusan?</strong> Tergantung volume traffic, tapi umumnya perlu minimal dua minggu atau sampai mencapai signifikansi statistik — menghentikan terlalu cepat bisa membuat hasil yang sebenarnya hanya kebetulan terlihat seperti pemenang yang jelas.</p>
+<p><strong>Apakah CRO hanya relevan untuk e-commerce?</strong> Tidak. Situs B2B, halaman pendaftaran, dan formulir kontak sama-sama punya funnel dengan titik drop-off yang bisa dioptimasi menggunakan prinsip CRO yang sama.</p>
+
 <h2>Kesimpulan</h2>
-<p>CRO adalah proses berkelanjutan. Peningkatan kecil yang konsisten dapat melipatgandakan hasil dari traffic yang sudah ada.</p>
+<p>CRO adalah proses berkelanjutan. Peningkatan kecil yang konsisten dapat melipatgandakan hasil dari traffic yang sudah ada — tanpa harus menambah satu rupiah pun ke anggaran iklan.</p>
 `,
   },
   {
@@ -3901,19 +4072,53 @@ export const articles: Article[] = [
     locale: "en",
     content: `
 <p>Driving traffic to a website matters, but it's wasted if visitors don't take the desired action. That's where CRO comes in.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">2.35%</div><div class="stat-label">Average landing page conversion rate across industries (WordStream)</div></div>
+  <div class="stat-card"><div class="stat-num">223%</div><div class="stat-label">Potential conversion lift from consistently run A/B testing (Invesp)</div></div>
+  <div class="stat-card"><div class="stat-num">68%</div><div class="stat-label">Businesses naming CRO a top priority, yet a minority run it regularly (Econsultancy)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&amp;q=80&amp;auto=format" alt="Conversion rate data analysis on a laptop" loading="lazy" />
+<figcaption>CRO turns existing traffic into more results — without raising acquisition costs.</figcaption>
+</figure>
+
 <h2>What Is CRO?</h2>
-<p>Conversion Rate Optimization is the systematic process of increasing the percentage of visitors who complete a goal — whether buying, signing up, or getting in touch.</p>
+<p>Conversion Rate Optimization is the systematic process of increasing the percentage of visitors who complete a goal — whether buying, signing up, or getting in touch. The difference from simply "prettifying" a page is that CRO always starts from data on where visitors actually drop off, not guesses about what looks good.</p>
+<blockquote>
+<p>"Businesses that run A/B testing consistently report a potential conversion rate lift of up to 223% compared to those relying on design assumptions alone."</p>
+<cite>— Invesp Conversion Optimization Report</cite>
+</blockquote>
+
 <h2>The CRO Steps</h2>
-<ul>
-<li>Analyze data to find where visitors drop off</li>
-<li>Form improvement hypotheses based on data, not guesses</li>
-<li>Run A/B tests to validate changes</li>
-<li>Roll out the winner, then repeat the process</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Step</th><th>Purpose</th></tr>
+</thead>
+<tbody>
+<tr><td>Analyze drop-off data</td><td>Find where visitors actually leave, instead of guessing</td></tr>
+<tr><td>Form data-based hypotheses</td><td>Ensures every change has a testable reason behind it</td></tr>
+<tr><td>Run A/B tests</td><td>Validates changes before rolling them out fully</td></tr>
+<tr><td>Roll out the winner &amp; repeat</td><td>Makes CRO an ongoing process, not a one-time project</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Frequently Tested Elements</h2>
-<p>Headlines, CTA button color and copy, form length, and the placement of social proof like testimonials are the highest-impact elements.</p>
+<p>Headlines, CTA button color and copy, form length, and the placement of social proof like testimonials are the highest-impact elements. Shorter forms almost always win in testing — every extra field is a new point of friction that can make a visitor abandon before finishing.</p>
+
+<div class="callout">
+<p><strong>Start with one page:</strong> pick the page with the highest traffic but lowest conversion rate, and run one simple test there first — like CTA copy. The result gives a fast signal before expanding to other pages.</p>
+</div>
+
+<h2>Frequently Asked Questions</h2>
+<p><strong>How long should an A/B test run before deciding?</strong> It depends on traffic volume, but generally at least two weeks or until statistical significance is reached — stopping too early can make a result that's actually just chance look like a clear winner.</p>
+<p><strong>Is CRO only relevant for e-commerce?</strong> No. B2B sites, sign-up pages, and contact forms all have funnels with drop-off points that can be optimized using the same CRO principles.</p>
+
 <h2>Conclusion</h2>
-<p>CRO is an ongoing process. Small, consistent improvements can multiply the results from your existing traffic.</p>
+<p>CRO is an ongoing process. Small, consistent improvements can multiply the results from your existing traffic — without adding a single dollar to your ad budget.</p>
 `,
   },
   {
