@@ -2482,16 +2482,55 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?w=1200&q=80&auto=format",
     content: `
 <p>Content marketing terus bertransformasi dari sekadar "posting rutin" menjadi strategi yang lebih terukur dan berbasis data.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">73%</div><div class="stat-label">Marketer B2B menjadikan content marketing strategi inti (Content Marketing Institute)</div></div>
+  <div class="stat-card"><div class="stat-num">2x</div><div class="stat-label">Engagement rate konten interaktif dibanding konten statis (Demand Metric)</div></div>
+  <div class="stat-card"><div class="stat-num">3-5x</div><div class="stat-label">Lebih banyak output konten per topik lewat repurposing yang tepat</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?w=1200&amp;q=80&amp;auto=format" alt="Perencanaan content marketing di meja kerja" loading="lazy" />
+<figcaption>Pergeseran ke disiplin yang lebih terukur dan berakar pada kebutuhan audiens nyata.</figcaption>
+</figure>
+
 <h2>1. Konten Berbasis Pertanyaan Nyata Pengguna</h2>
-<p>Alih-alih menebak topik, gunakan data pertanyaan yang benar-benar diajukan pelanggan melalui customer service dan media sosial sebagai sumber ide konten.</p>
+<p>Alih-alih menebak topik, gunakan data pertanyaan yang benar-benar diajukan pelanggan melalui customer service dan media sosial sebagai sumber ide konten. Pendekatan ini menjamin relevansi karena demand-nya sudah terbukti sebelum satu kata pun ditulis.</p>
+<blockquote>
+<p>"73% marketer B2B menyebut content marketing sebagai bagian inti dari strategi mereka, namun hanya minoritas yang secara sistematis menambang tiket support dan mention media sosial untuk ide topik."</p>
+<cite>— Content Marketing Institute B2B Report</cite>
+</blockquote>
+
 <h2>2. Format Interaktif</h2>
-<p>Kuis, kalkulator, dan konten yang melibatkan partisipasi aktif audiens cenderung memiliki engagement lebih tinggi dibanding konten pasif.</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Tren</th><th>Kenapa efektif</th></tr>
+</thead>
+<tbody>
+<tr><td>Kuis, kalkulator, konten partisipatif</td><td>Engagement lebih tinggi karena pembaca mengambil peran aktif</td></tr>
+<tr><td>Repurposing satu ide lintas format</td><td>Memaksimalkan nilai setiap riset, bukan hanya dipakai sekali</td></tr>
+<tr><td>Personalisasi dengan AI</td><td>Menyesuaikan variasi konten ke segmen audiens tanpa menulis ulang dari nol</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>3. Repurposing Konten Lintas Format</h2>
-<p>Satu ide konten dapat diubah menjadi artikel, video pendek, infografis, dan thread media sosial — memaksimalkan nilai dari setiap riset dan produksi.</p>
+<p>Satu ide konten dapat diubah menjadi artikel, video pendek, infografis, dan thread media sosial — memaksimalkan nilai dari setiap riset dan produksi. Riset dan wawancara di balik satu artikel panjang biasanya adalah bagian paling mahal untuk diproduksi, sehingga menyebarkan investasi itu ke berbagai format adalah sumber efisiensi sesungguhnya.</p>
+
 <h2>4. Personalisasi dengan AI</h2>
-<p>AI memungkinkan variasi konten yang disesuaikan dengan segmen audiens berbeda, tanpa harus menulis ulang dari nol untuk setiap segmen.</p>
+<p>AI memungkinkan variasi konten yang disesuaikan dengan segmen audiens berbeda, tanpa harus menulis ulang dari nol untuk setiap segmen. Satu artikel dasar dapat diadaptasi nada dan penekanannya untuk industri atau tahap pembeli yang berbeda, memangkas waktu produksi tanpa kehilangan rasa relevan bagi tiap pembaca.</p>
+
+<div class="callout">
+<p><strong>Mulai cepat:</strong> tarik 20 pertanyaan terakhir yang dijawab tim support, lalu ubah tiga yang paling sering diulang menjadi konten minggu ini. Sinyal validasinya lebih cepat dibanding tool keyword apa pun.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah repurposing konten merusak SEO karena duplicate content?</strong> Tidak, jika dilakukan dengan benar — repurposing ke format berbeda (video, infografis) sepenuhnya menghindari teks duplikat, dan bahkan teks yang dipakai ulang lintas artikel sebaiknya ditulis ulang cukup banyak agar tetap memberi nilai unik untuk audiens tiap format.</p>
+<p><strong>Apakah konten interaktif sepadan dengan effort produksi tambahan untuk tim kecil?</strong> Mulai dari format paling sederhana, seperti kuis atau kalkulator singkat, di halaman dengan traffic tertinggi dulu — lonjakan engagement di sana akan menunjukkan apakah memperluas format ini sepadan dengan investasinya.</p>
+
 <h2>Kesimpulan</h2>
-<p>Content marketing yang efektif di 2026 adalah yang berakar pada kebutuhan nyata audiens dan dieksekusi secara konsisten lintas format.</p>
+<p>Content marketing yang efektif di 2026 adalah yang berakar pada kebutuhan nyata audiens dan dieksekusi secara konsisten lintas format, bukan mengejar setiap tren baru sekaligus.</p>
 `,
   },
   {
@@ -4198,19 +4237,53 @@ export const articles: Article[] = [
     locale: "id",
     content: `
 <p>Website adalah etalase digital bisnis Anda yang bekerja 24 jam. Website yang dirancang dengan baik membangun kredibilitas dan menjadi mesin penjualan yang konsisten.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">75%</div><div class="stat-label">Orang menilai kredibilitas bisnis dari desain website-nya (Stanford Web Credibility Project)</div></div>
+  <div class="stat-card"><div class="stat-num">53%</div><div class="stat-label">Pengunjung mobile meninggalkan halaman yang loading lebih dari 3 detik (Google)</div></div>
+  <div class="stat-card"><div class="stat-num">38%</div><div class="stat-label">Pengunjung berhenti berinteraksi dengan website yang tampilannya tidak menarik (Adobe)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=1200&amp;q=80&amp;auto=format" alt="Desain website bisnis di layar laptop" loading="lazy" />
+<figcaption>Website yang efektif menggabungkan desain, kecepatan, dan struktur yang mendukung tujuan bisnis.</figcaption>
+</figure>
+
 <h2>Tentukan Tujuan Website</h2>
-<p>Apakah website untuk menghasilkan leads, menjual produk, atau membangun kredibilitas? Tujuan ini menentukan struktur dan elemen yang perlu diprioritaskan.</p>
+<p>Apakah website untuk menghasilkan leads, menjual produk, atau membangun kredibilitas? Tujuan ini menentukan struktur dan elemen yang perlu diprioritaskan — website untuk leads butuh formulir yang menonjol, sementara website e-commerce butuh halaman produk dan checkout yang mulus.</p>
+<blockquote>
+<p>"75% orang mengakui mereka menilai kredibilitas sebuah bisnis berdasarkan desain website-nya saja, terlepas dari kualitas produk atau layanan sesungguhnya."</p>
+<cite>— Stanford Web Credibility Project</cite>
+</blockquote>
+
 <h2>Struktur Halaman yang Penting</h2>
-<ul>
-<li>Beranda yang langsung menjelaskan nilai bisnis Anda</li>
-<li>Halaman produk atau layanan yang jelas</li>
-<li>Halaman tentang yang membangun kepercayaan</li>
-<li>Halaman kontak yang mudah ditemukan</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Halaman</th><th>Perannya</th></tr>
+</thead>
+<tbody>
+<tr><td>Beranda</td><td>Menjelaskan nilai bisnis dalam hitungan detik pertama</td></tr>
+<tr><td>Produk/layanan</td><td>Memberi detail yang dibutuhkan untuk membuat keputusan</td></tr>
+<tr><td>Tentang</td><td>Membangun kepercayaan lewat cerita dan kredibilitas tim</td></tr>
+<tr><td>Kontak</td><td>Memastikan pengunjung yang siap bertindak tidak kesulitan menemukan jalan</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Optimasi untuk Konversi dan SEO</h2>
-<p>Kecepatan loading, tampilan mobile-friendly, dan call-to-action yang jelas menentukan apakah pengunjung berubah menjadi pelanggan. Jangan lupa optimasi SEO agar website ditemukan di Google.</p>
+<p>Kecepatan loading, tampilan mobile-friendly, dan call-to-action yang jelas menentukan apakah pengunjung berubah menjadi pelanggan. Jangan lupa optimasi SEO agar website ditemukan di Google — website tercepat dan terindah pun tidak berguna jika tidak pernah muncul di hasil pencarian yang relevan.</p>
+
+<div class="callout">
+<p><strong>Cek cepat:</strong> buka website Anda sendiri dari smartphone dengan koneksi biasa. Jika loading lebih dari 3 detik, itu prioritas pertama yang harus diperbaiki sebelum elemen lainnya.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah bisnis kecil perlu website custom atau cukup pakai template?</strong> Template sudah cukup untuk kebanyakan bisnis kecil di awal — yang lebih penting adalah konten dan struktur yang jelas, bukan desain custom yang mahal sejak hari pertama.</p>
+<p><strong>Berapa halaman minimal yang dibutuhkan website bisnis?</strong> Empat halaman inti — beranda, produk/layanan, tentang, dan kontak — sudah cukup untuk membangun kredibilitas dasar sebelum menambah halaman lain seperti blog atau FAQ.</p>
+
 <h2>Kesimpulan</h2>
-<p>Website bisnis yang efektif menggabungkan desain menarik, pengalaman pengguna yang mulus, dan strategi SEO yang solid.</p>
+<p>Website bisnis yang efektif menggabungkan desain menarik, pengalaman pengguna yang mulus, dan strategi SEO yang solid — bukan sekadar tampil bagus tanpa bisa ditemukan atau diakses dengan cepat.</p>
 `,
   },
   {
@@ -4510,19 +4583,53 @@ export const articles: Article[] = [
     locale: "en",
     content: `
 <p>Your website is a digital storefront that works 24 hours a day. A well-designed site builds credibility and becomes a consistent sales engine.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">75%</div><div class="stat-label">People judge a business's credibility based on its website design (Stanford Web Credibility Project)</div></div>
+  <div class="stat-card"><div class="stat-num">53%</div><div class="stat-label">Mobile visitors leave a page that takes more than 3 seconds to load (Google)</div></div>
+  <div class="stat-card"><div class="stat-num">38%</div><div class="stat-label">Visitors stop engaging with a website that has unattractive design (Adobe)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=1200&amp;q=80&amp;auto=format" alt="Business website design on a laptop screen" loading="lazy" />
+<figcaption>An effective website blends design, speed, and structure that supports the business's goal.</figcaption>
+</figure>
+
 <h2>Define Your Website's Goal</h2>
-<p>Is it for generating leads, selling products, or building credibility? This goal determines the structure and elements to prioritize.</p>
+<p>Is it for generating leads, selling products, or building credibility? This goal determines the structure and elements to prioritize — a lead-gen site needs a prominent form, while an e-commerce site needs smooth product pages and checkout.</p>
+<blockquote>
+<p>"75% of people admit they judge a business's credibility based on its website design alone, regardless of the actual quality of its products or services."</p>
+<cite>— Stanford Web Credibility Project</cite>
+</blockquote>
+
 <h2>Essential Page Structure</h2>
-<ul>
-<li>A homepage that immediately explains your value</li>
-<li>Clear product or service pages</li>
-<li>An about page that builds trust</li>
-<li>An easy-to-find contact page</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Page</th><th>Its role</th></tr>
+</thead>
+<tbody>
+<tr><td>Homepage</td><td>Explains your value within the first few seconds</td></tr>
+<tr><td>Product/service</td><td>Provides the detail needed to make a decision</td></tr>
+<tr><td>About</td><td>Builds trust through story and team credibility</td></tr>
+<tr><td>Contact</td><td>Ensures visitors ready to act don't struggle to find a way to reach you</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Optimize for Conversion and SEO</h2>
-<p>Loading speed, mobile-friendly design, and clear calls-to-action decide whether visitors become customers. Don't forget SEO so your site gets found on Google.</p>
+<p>Loading speed, mobile-friendly design, and clear calls-to-action decide whether visitors become customers. Don't forget SEO so your site gets found on Google — the fastest, most beautiful website is useless if it never appears in relevant search results.</p>
+
+<div class="callout">
+<p><strong>Quick check:</strong> open your own website from a smartphone on an ordinary connection. If it takes more than 3 seconds to load, that's the first priority to fix before anything else.</p>
+</div>
+
+<h2>Frequently Asked Questions</h2>
+<p><strong>Does a small business need a custom website or is a template enough?</strong> A template is enough for most small businesses starting out — clear content and structure matter more than an expensive custom design from day one.</p>
+<p><strong>What's the minimum number of pages a business website needs?</strong> Four core pages — homepage, product/service, about, and contact — are enough to establish basic credibility before adding extras like a blog or FAQ.</p>
+
 <h2>Conclusion</h2>
-<p>An effective business website combines attractive design, a seamless user experience, and a solid SEO strategy.</p>
+<p>An effective business website combines attractive design, a seamless user experience, and a solid SEO strategy — not just looking good while being unfindable or slow to load.</p>
 `,
   },
   {
@@ -4868,19 +4975,53 @@ export const articles: Article[] = [
     locale: "id",
     content: `
 <p>Sales funnel adalah peta perjalanan calon pelanggan dari pertama mengenal brand Anda hingga melakukan pembelian. Memahaminya membantu Anda mengoptimalkan setiap tahap.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">96%</div><div class="stat-label">Pengunjung website belum siap membeli pada kunjungan pertama (HubSpot)</div></div>
+  <div class="stat-card"><div class="stat-num">79%</div><div class="stat-label">Leads yang tidak pernah dikonversi karena kurangnya nurturing (MarketingSherpa)</div></div>
+  <div class="stat-card"><div class="stat-num">10x</div><div class="stat-label">Lebih murah mengonversi lead yang sudah dipanaskan dibanding cold traffic (Forrester)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&amp;q=80&amp;auto=format" alt="Diagram sales funnel di papan tulis" loading="lazy" />
+<figcaption>Funnel yang dioptimalkan mengubah lebih banyak pengunjung menjadi pelanggan tanpa biaya akuisisi tambahan.</figcaption>
+</figure>
+
 <h2>Tahap-Tahap Sales Funnel</h2>
-<ul>
-<li><strong>Awareness</strong> — calon pelanggan pertama kali mengenal brand Anda</li>
-<li><strong>Interest</strong> — mereka mulai tertarik dan mencari informasi</li>
-<li><strong>Decision</strong> — mereka mempertimbangkan untuk membeli</li>
-<li><strong>Action</strong> — mereka melakukan pembelian</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Tahap</th><th>Kondisi calon pelanggan</th></tr>
+</thead>
+<tbody>
+<tr><td>Awareness</td><td>Pertama kali mengenal brand Anda</td></tr>
+<tr><td>Interest</td><td>Mulai tertarik dan mencari informasi</td></tr>
+<tr><td>Decision</td><td>Mempertimbangkan untuk membeli, membandingkan opsi</td></tr>
+<tr><td>Action</td><td>Melakukan pembelian</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Optimalkan Setiap Tahap</h2>
-<p>Setiap tahap membutuhkan konten dan pendekatan berbeda. Konten edukasi untuk awareness, perbandingan untuk decision, dan penawaran jelas untuk action.</p>
+<p>Setiap tahap membutuhkan konten dan pendekatan berbeda. Konten edukasi untuk awareness, perbandingan untuk decision, dan penawaran jelas untuk action. Kesalahan paling umum adalah memberikan penawaran "beli sekarang" kepada audiens yang masih di tahap awareness — mereka belum cukup percaya untuk bertindak, dan pendekatan yang terlalu agresif justru membuat mereka mundur.</p>
+<blockquote>
+<p>"96% pengunjung yang datang ke website belum siap untuk membeli pada kunjungan pertama mereka — mereka masih dalam tahap riset atau perbandingan."</p>
+<cite>— HubSpot Research</cite>
+</blockquote>
+
 <h2>Kurangi Kebocoran Funnel</h2>
-<p>Identifikasi di tahap mana calon pelanggan paling banyak berhenti, lalu perbaiki hambatan di titik tersebut — entah harga, kepercayaan, atau kemudahan proses.</p>
+<p>Identifikasi di tahap mana calon pelanggan paling banyak berhenti, lalu perbaiki hambatan di titik tersebut — entah harga, kepercayaan, atau kemudahan proses. Kebocoran terbesar biasanya terjadi di antara interest dan decision, ketika calon pelanggan sudah tertarik tapi belum yakin bahwa solusi ini tepat untuk mereka.</p>
+
+<div class="callout">
+<p><strong>Audit cepat:</strong> lihat data dari mana sebagian besar leads berhenti merespons. Itu adalah titik prioritas pertama untuk diperbaiki sebelum menambah traffic baru ke bagian atas funnel.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah sales funnel harus selalu linear dari awareness ke action?</strong> Tidak selalu. Banyak pelanggan bergerak maju-mundur antar tahap, terutama untuk pembelian dengan nilai tinggi yang butuh lebih banyak waktu pertimbangan sebelum benar-benar memutuskan.</p>
+<p><strong>Berapa lama waktu yang wajar bagi lead untuk berpindah dari awareness ke action?</strong> Sangat bervariasi tergantung harga dan kompleksitas produk — bisa beberapa hari untuk produk murah, atau beberapa bulan untuk layanan B2B bernilai tinggi.</p>
+
 <h2>Kesimpulan</h2>
-<p>Sales funnel yang dioptimalkan mengubah lebih banyak pengunjung menjadi pelanggan tanpa harus menambah biaya akuisisi.</p>
+<p>Sales funnel yang dioptimalkan mengubah lebih banyak pengunjung menjadi pelanggan tanpa harus menambah biaya akuisisi — cukup dengan memperbaiki titik bocor yang sudah ada.</p>
 `,
   },
   {
@@ -5158,19 +5299,53 @@ export const articles: Article[] = [
     locale: "en",
     content: `
 <p>A sales funnel maps the prospect's journey from first discovering your brand to making a purchase. Understanding it helps you optimize every stage.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">96%</div><div class="stat-label">Website visitors aren't ready to buy on their first visit (HubSpot)</div></div>
+  <div class="stat-card"><div class="stat-num">79%</div><div class="stat-label">Leads never convert due to lack of nurturing (MarketingSherpa)</div></div>
+  <div class="stat-card"><div class="stat-num">10x</div><div class="stat-label">Cheaper to convert a warmed-up lead than cold traffic (Forrester)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&amp;q=80&amp;auto=format" alt="Sales funnel diagram on a whiteboard" loading="lazy" />
+<figcaption>An optimized funnel converts more visitors into customers without raising acquisition costs.</figcaption>
+</figure>
+
 <h2>The Stages of a Sales Funnel</h2>
-<ul>
-<li><strong>Awareness</strong> — prospects first discover your brand</li>
-<li><strong>Interest</strong> — they become curious and seek information</li>
-<li><strong>Decision</strong> — they consider making a purchase</li>
-<li><strong>Action</strong> — they buy</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Stage</th><th>Prospect's state of mind</th></tr>
+</thead>
+<tbody>
+<tr><td>Awareness</td><td>First discovers your brand</td></tr>
+<tr><td>Interest</td><td>Becomes curious, seeks information</td></tr>
+<tr><td>Decision</td><td>Considers buying, compares options</td></tr>
+<tr><td>Action</td><td>Makes the purchase</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Optimize Each Stage</h2>
-<p>Each stage needs different content and approaches. Educational content for awareness, comparisons for decision, and clear offers for action.</p>
+<p>Each stage needs different content and approaches. Educational content for awareness, comparisons for decision, and clear offers for action. The most common mistake is pushing a "buy now" offer on an audience still at the awareness stage — they haven't built enough trust to act yet, and a too-aggressive approach tends to push them away instead.</p>
+<blockquote>
+<p>"96% of visitors who land on a website aren't ready to buy on their first visit — they're still in the research or comparison stage."</p>
+<cite>— HubSpot Research</cite>
+</blockquote>
+
 <h2>Reduce Funnel Leaks</h2>
-<p>Identify where prospects drop off most, then fix the friction at that point — whether it's price, trust, or process complexity.</p>
+<p>Identify where prospects drop off most, then fix the friction at that point — whether it's price, trust, or process complexity. The biggest leak usually happens between interest and decision, when a prospect is already curious but not yet convinced this solution is right for them.</p>
+
+<div class="callout">
+<p><strong>Quick audit:</strong> look at where most of your leads stop responding. That's the first priority to fix before pouring more traffic into the top of the funnel.</p>
+</div>
+
+<h2>Frequently Asked Questions</h2>
+<p><strong>Does a sales funnel always move linearly from awareness to action?</strong> Not always. Many prospects move back and forth between stages, especially for higher-value purchases that need more deliberation before a final decision.</p>
+<p><strong>How long should it reasonably take a lead to move from awareness to action?</strong> It varies widely depending on price and product complexity — it can take a few days for cheap products, or several months for high-value B2B services.</p>
+
 <h2>Conclusion</h2>
-<p>An optimized sales funnel converts more visitors into customers without raising your acquisition costs.</p>
+<p>An optimized sales funnel converts more visitors into customers without raising your acquisition costs — just by fixing the leaks that already exist.</p>
 `,
   },
   {
