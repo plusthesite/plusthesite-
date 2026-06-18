@@ -3635,19 +3635,54 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=80&auto=format",
     locale: "id",
     content: `
-<p>Di era digital, reputasi online seseorang sering menjadi kesan pertama. Personal branding yang kuat membuka peluang karier, bisnis, dan kolaborasi.</p>
+<p>Di era digital, reputasi online seseorang sering menjadi kesan pertama — sebelum bertemu langsung, calon klien atau perekrut biasanya sudah mencari nama Anda lebih dulu. Personal branding yang kuat membuka peluang karier, bisnis, dan kolaborasi yang tidak datang lewat lamaran atau proposal biasa.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">70%</div><div class="stat-label">Perekrut mengecek profil online kandidat sebelum memutuskan (CareerBuilder)</div></div>
+  <div class="stat-card"><div class="stat-num">82%</div><div class="stat-label">Konsumen lebih percaya brand yang karyawannya aktif membangun personal branding (Edelman Trust Barometer)</div></div>
+  <div class="stat-card"><div class="stat-num">3x</div><div class="stat-label">Engagement konten personal dibanding konten brand korporat di LinkedIn (LinkedIn data)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&amp;q=80&amp;auto=format" alt="Profesional membangun reputasi digital" loading="lazy" />
+<figcaption>Personal branding yang kuat dimulai dari kejelasan, bukan dari mencoba tampil di semua platform sekaligus.</figcaption>
+</figure>
+
 <h2>Mulai dari Kejelasan</h2>
-<p>Tentukan untuk apa Anda ingin dikenal. Personal branding yang efektif fokus pada satu atau dua area keahlian, bukan mencoba menjadi segalanya.</p>
+<p>Tentukan untuk apa Anda ingin dikenal. Personal branding yang efektif fokus pada satu atau dua area keahlian, bukan mencoba menjadi segalanya. Orang yang mencoba membahas semua topik biasanya tidak diingat untuk apa pun — sementara orang yang konsisten membahas satu sudut pandang spesifik justru menjadi rujukan pertama saat topik itu muncul.</p>
+<blockquote>
+<p>"Konsumen 82% lebih mungkin mempercayai sebuah perusahaan ketika karyawannya berbagi informasi tentang perusahaan tersebut di kanal pribadi mereka, dibanding informasi yang sama dibagikan lewat akun brand."</p>
+<cite>— Edelman Trust Barometer</cite>
+</blockquote>
+
 <h2>Konsisten di Semua Platform</h2>
-<ul>
-<li>Gunakan foto, nama, dan gaya komunikasi yang konsisten</li>
-<li>Bagikan konten yang relevan dengan bidang Anda secara rutin</li>
-<li>Berinteraksi secara otentik, bukan sekadar promosi diri</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Praktik</th><th>Kenapa penting</th></tr>
+</thead>
+<tbody>
+<tr><td>Foto, nama, gaya komunikasi konsisten</td><td>Memudahkan orang mengenali Anda lintas platform tanpa keraguan</td></tr>
+<tr><td>Konten rutin sesuai bidang</td><td>Membangun asosiasi nama Anda dengan topik tersebut dari waktu ke waktu</td></tr>
+<tr><td>Interaksi otentik, bukan promosi diri</td><td>Audiens lebih percaya orang yang terlibat genuine dibanding yang hanya menjual</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Berikan Nilai Lebih Dulu</h2>
-<p>Personal branding terkuat dibangun dengan memberi — berbagi ilmu, pengalaman, dan insight yang bermanfaat bagi audiens Anda.</p>
+<p>Personal branding terkuat dibangun dengan memberi — berbagi ilmu, pengalaman, dan insight yang bermanfaat bagi audiens Anda. Pendekatan ini terasa lebih lambat di awal dibanding promosi langsung, tapi membangun kepercayaan yang jauh lebih tahan lama, karena audiens mengingat Anda sebagai sumber yang membantu, bukan sekadar akun yang menjual.</p>
+<p>Konsistensi lebih penting daripada frekuensi tinggi. Satu konten bernilai setiap minggu yang dipertahankan selama setahun jauh lebih efektif membangun reputasi dibanding posting setiap hari selama sebulan lalu berhenti karena kehabisan ide.</p>
+
+<div class="callout">
+<p><strong>Latihan sederhana:</strong> tuliskan satu kalimat tentang apa yang ingin orang katakan tentang Anda saat nama Anda disebut. Jika kalimat itu belum jelas, personal branding Anda belum punya arah yang bisa dieksekusi konsisten.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah personal branding hanya penting untuk founder atau eksekutif?</strong> Tidak. Profesional di level mana pun diuntungkan dari reputasi online yang jelas — termasuk saat mencari pekerjaan baru, membangun jaringan, atau menarik klien sebagai freelancer.</p>
+<p><strong>Platform mana yang paling efektif untuk membangun personal branding?</strong> Bergantung pada audiens target. LinkedIn cocok untuk konteks profesional dan B2B, sementara Instagram atau TikTok lebih cocok untuk personal branding yang lebih visual atau konsumen langsung.</p>
+
 <h2>Kesimpulan</h2>
-<p>Personal branding bukan tentang pencitraan, melainkan menampilkan keahlian dan nilai Anda secara konsisten dan otentik.</p>
+<p>Personal branding bukan tentang pencitraan, melainkan menampilkan keahlian dan nilai Anda secara konsisten dan otentik. Mulai dari kejelasan arah, beri nilai sebelum meminta perhatian, dan biarkan konsistensi membangun reputasi yang sebenarnya tidak bisa dipalsukan dalam jangka panjang.</p>
 `,
   },
   {
@@ -3894,19 +3929,54 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=80&auto=format",
     locale: "en",
     content: `
-<p>In the digital age, someone's online reputation is often the first impression. A strong personal brand opens doors to career, business, and collaboration opportunities.</p>
+<p>In the digital age, someone's online reputation is often the first impression — before ever meeting in person, a prospective client or employer has usually already searched your name. A strong personal brand opens doors to career, business, and collaboration opportunities that don't come through a standard application or proposal.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">70%</div><div class="stat-label">Of recruiters check a candidate's online profile before deciding (CareerBuilder)</div></div>
+  <div class="stat-card"><div class="stat-num">82%</div><div class="stat-label">Of consumers trust brands more when employees actively build a personal brand (Edelman Trust Barometer)</div></div>
+  <div class="stat-card"><div class="stat-num">3x</div><div class="stat-label">Higher engagement for personal content versus corporate brand content on LinkedIn (LinkedIn data)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&amp;q=80&amp;auto=format" alt="Professional building a digital reputation" loading="lazy" />
+<figcaption>A strong personal brand starts with clarity, not trying to show up everywhere at once.</figcaption>
+</figure>
+
 <h2>Start With Clarity</h2>
-<p>Decide what you want to be known for. Effective personal branding focuses on one or two areas of expertise, not trying to be everything.</p>
+<p>Decide what you want to be known for. Effective personal branding focuses on one or two areas of expertise, not trying to be everything. People who try to cover every topic usually aren't remembered for any of them — while people who consistently speak from one specific angle become the first reference point when that topic comes up.</p>
+<blockquote>
+<p>"Consumers are 82% more likely to trust a company when its employees share information about it through their own personal channels, compared to the same information shared from a brand account."</p>
+<cite>— Edelman Trust Barometer</cite>
+</blockquote>
+
 <h2>Be Consistent Everywhere</h2>
-<ul>
-<li>Use a consistent photo, name, and communication style</li>
-<li>Share content relevant to your field regularly</li>
-<li>Engage authentically, not just self-promotion</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Practice</th><th>Why it matters</th></tr>
+</thead>
+<tbody>
+<tr><td>Consistent photo, name, communication style</td><td>Makes you instantly recognizable across platforms without confusion</td></tr>
+<tr><td>Regular content in your field</td><td>Builds an association between your name and that topic over time</td></tr>
+<tr><td>Authentic engagement, not self-promotion</td><td>Audiences trust genuine engagement far more than constant selling</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Give Value First</h2>
-<p>The strongest personal brands are built by giving — sharing knowledge, experience, and insights that genuinely help your audience.</p>
+<p>The strongest personal brands are built by giving — sharing knowledge, experience, and insights that genuinely help your audience. This approach feels slower upfront than direct self-promotion, but it builds trust that lasts much longer, because the audience remembers you as a helpful source rather than just another account trying to sell something.</p>
+<p>Consistency matters more than high frequency. One valuable piece of content a week, sustained for a year, builds reputation far more effectively than posting daily for a month and then stopping once you run out of ideas.</p>
+
+<div class="callout">
+<p><strong>Simple exercise:</strong> write one sentence describing what you want people to say about you when your name comes up. If that sentence isn't clear yet, your personal brand doesn't have a direction you can execute consistently.</p>
+</div>
+
+<h2>Frequently Asked Questions</h2>
+<p><strong>Is personal branding only important for founders or executives?</strong> No. Professionals at any level benefit from a clear online reputation — including when job hunting, networking, or attracting clients as a freelancer.</p>
+<p><strong>Which platform is most effective for building a personal brand?</strong> It depends on your target audience. LinkedIn suits professional and B2B contexts, while Instagram or TikTok suit more visual or direct-to-consumer personal branding.</p>
+
 <h2>Conclusion</h2>
-<p>Personal branding isn't about image-crafting — it's about consistently and authentically showcasing your expertise and value.</p>
+<p>Personal branding isn't about image-crafting — it's about consistently and authentically showcasing your expertise and value. Start with clarity of direction, give value before asking for attention, and let consistency build a reputation that genuinely can't be faked over the long run.</p>
 `,
   },
   {
@@ -4108,19 +4178,54 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=1200&q=80&auto=format",
     locale: "id",
     content: `
-<p>TikTok telah menjadi salah satu platform dengan pertumbuhan tercepat dan jangkauan organik yang masih sangat besar — peluang emas bagi bisnis.</p>
+<p>TikTok telah menjadi salah satu platform dengan pertumbuhan tercepat dan jangkauan organik yang masih sangat besar — peluang emas bagi bisnis yang belum menganggapnya sebagai kanal marketing serius.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">1 Miliar+</div><div class="stat-label">Pengguna aktif bulanan di seluruh dunia (TikTok)</div></div>
+  <div class="stat-card"><div class="stat-num">44%</div><div class="stat-label">Pengguna TikTok pernah membeli produk setelah melihatnya di platform (studi TikTok/Material)</div></div>
+  <div class="stat-card"><div class="stat-num">2.7x</div><div class="stat-label">Ad recall TikTok lebih tinggi dibanding platform lain (Kantar)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=1200&amp;q=80&amp;auto=format" alt="Smartphone menampilkan feed video pendek" loading="lazy" />
+<figcaption>Algoritma TikTok memberi bobot pada relevansi dan watch time, bukan jumlah follower.</figcaption>
+</figure>
+
 <h2>Pahami Cara Kerja Algoritma</h2>
-<p>TikTok memprioritaskan konten yang menarik dalam detik-detik pertama dan memicu interaksi. Bahkan akun baru bisa viral jika kontennya relevan dan engaging.</p>
+<p>TikTok memprioritaskan konten yang menarik dalam detik-detik pertama dan memicu interaksi. Bahkan akun baru bisa viral jika kontennya relevan dan engaging — berbeda dari platform lama yang reach-nya sangat terkait jumlah follower yang sudah ada. Inilah yang membuat TikTok menarik untuk bisnis yang belum punya audiens besar.</p>
+<blockquote>
+<p>"44% pengguna TikTok mengatakan mereka pernah membeli produk atau layanan setelah melihatnya diiklankan, disebut, atau diulas di platform ini."</p>
+<cite>— TikTok Marketing Science / Material Global Study</cite>
+</blockquote>
+
 <h2>Jenis Konten yang Efektif</h2>
-<ul>
-<li>Behind-the-scenes proses bisnis Anda</li>
-<li>Tips singkat dan edukasi yang menghibur</li>
-<li>Tren audio dan tantangan yang relevan dengan brand</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Jenis konten</th><th>Kenapa berkinerja baik</th></tr>
+</thead>
+<tbody>
+<tr><td>Behind-the-scenes proses bisnis</td><td>Terasa otentik dan tidak terlalu diatur, sesuai selera audiens TikTok</td></tr>
+<tr><td>Tips singkat &amp; edukasi menghibur</td><td>Memberi nilai cepat dalam rentang perhatian pendek di platform ini</td></tr>
+<tr><td>Tren audio &amp; tantangan relevan</td><td>Menumpang momentum yang sudah ada, bukan bersaing melawannya</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Konsistensi adalah Kunci</h2>
-<p>Posting secara rutin membantu algoritma memahami audiens Anda. Eksperimen dengan berbagai format dan pelajari mana yang paling berkinerja.</p>
+<p>Posting secara rutin membantu algoritma memahami audiens Anda. Eksperimen dengan berbagai format dan pelajari mana yang paling berkinerja — tapi hindari menyalin persis format kompetitor. Apa yang berhasil sangat bergantung pada kebiasaan menonton audiens spesifik Anda, yang baru jelas terlihat setelah menguji beberapa format dengan akun sendiri.</p>
+<p>Pantau video mana yang ditonton sampai habis, bukan hanya yang paling banyak disukai. Completion rate adalah sinyal lebih kuat tentang konten apa yang benar-benar beresonansi, karena like bisa datang dari ketertarikan sekilas sementara completion menunjukkan minat genuine pada pesan utuhnya.</p>
+
+<div class="callout">
+<p><strong>Mulai cepat:</strong> posting tiga video minggu ini dengan tiga format berbeda — satu behind-the-scenes, satu tips singkat, satu tren audio. Mana pun yang ditonton sampai habis menunjukkan ke mana fokus berikutnya harus diarahkan.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah TikTok marketing efektif untuk bisnis B2B?</strong> Ya, meski gaya kontennya perlu disesuaikan — konten edukasi dan behind-the-scenes biasanya lebih berkinerja dibanding promosi produk langsung, karena audiens sedang mencari hiburan, bukan aktif berbelanja.</p>
+<p><strong>Berapa video per minggu yang dibutuhkan agar mulai terlihat hasilnya?</strong> Kebanyakan akun butuh posting konsisten — tiga sampai lima kali seminggu — selama minimal satu bulan sebelum algoritma punya cukup sinyal untuk mencocokkan konten dengan audiens yang tepat.</p>
+
 <h2>Kesimpulan</h2>
-<p>TikTok bukan hanya untuk hiburan — dengan strategi yang tepat, ia menjadi kanal akuisisi pelanggan yang kuat dan hemat biaya.</p>
+<p>TikTok bukan hanya untuk hiburan — dengan strategi yang tepat, ia menjadi kanal akuisisi pelanggan yang kuat dan hemat biaya. Hasilnya datang dari eksperimen yang konsisten, bukan dari mengejar satu video viral.</p>
 `,
   },
   {
@@ -4136,19 +4241,54 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=1200&q=80&auto=format",
     locale: "id",
     content: `
-<p>Meski dianggap "kuno", email marketing tetap menjadi salah satu kanal dengan ROI tertinggi. Berikut cara memulainya dari nol.</p>
+<p>Meski dianggap "kuno", email marketing tetap menjadi salah satu kanal dengan ROI tertinggi. Berikut cara memulainya dari nol — tanpa harus punya daftar email besar atau anggaran iklan sama sekali.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">$36</div><div class="stat-label">Rata-rata return tiap $1 yang dikeluarkan untuk email marketing (Litmus)</div></div>
+  <div class="stat-card"><div class="stat-num">21.5%</div><div class="stat-label">Rata-rata open rate email lintas industri (Mailchimp)</div></div>
+  <div class="stat-card"><div class="stat-num">4 miliar+</div><div class="stat-label">Pengguna email aktif di seluruh dunia (Statista)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=1200&amp;q=80&amp;auto=format" alt="Kampanye email marketing di laptop" loading="lazy" />
+<figcaption>Email tetap jadi aset milik Anda sendiri — tidak seperti followers di platform pihak ketiga.</figcaption>
+</figure>
+
 <h2>Bangun Daftar Email Anda</h2>
-<p>Tawarkan sesuatu yang bernilai — ebook, diskon, atau konten eksklusif — sebagai imbalan alamat email. Jangan pernah membeli daftar email.</p>
+<p>Tawarkan sesuatu yang bernilai — ebook, diskon, atau konten eksklusif — sebagai imbalan alamat email. Jangan pernah membeli daftar email; alamat yang dibeli biasanya tidak relevan dengan bisnis Anda dan justru merusak reputasi pengiriman, membuat email Anda lebih sering masuk folder spam meski dikirim ke daftar yang benar-benar opt-in nantinya.</p>
+<blockquote>
+<p>"Rata-rata return on investment untuk email marketing mencapai $36 untuk setiap $1 yang dikeluarkan — jauh di atas kebanyakan kanal marketing digital lainnya."</p>
+<cite>— Litmus State of Email Report</cite>
+</blockquote>
+
 <h2>Tulis Email yang Dibuka dan Dibaca</h2>
-<ul>
-<li>Subject line yang spesifik dan memancing rasa ingin tahu</li>
-<li>Konten yang relevan dan bermanfaat, bukan hanya promosi</li>
-<li>Satu call-to-action yang jelas per email</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Elemen</th><th>Dampaknya</th></tr>
+</thead>
+<tbody>
+<tr><td>Subject line spesifik &amp; memancing rasa ingin tahu</td><td>Menentukan apakah email dibuka sama sekali sebelum kontennya dilihat</td></tr>
+<tr><td>Konten relevan, bukan hanya promosi</td><td>Mencegah penerima berhenti berlangganan karena merasa hanya "dijual terus"</td></tr>
+<tr><td>Satu CTA jelas per email</td><td>Mengurangi kebingungan yang menurunkan klik saat ada banyak pilihan tindakan</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Ukur dan Perbaiki</h2>
-<p>Pantau open rate, click-through rate, dan konversi. Gunakan data ini untuk terus menyempurnakan pendekatan Anda.</p>
+<p>Pantau open rate, click-through rate, dan konversi. Gunakan data ini untuk terus menyempurnakan pendekatan Anda — open rate rendah biasanya berarti subject line perlu dibenahi, sementara click-through rate rendah dengan open rate tinggi menandakan isi email belum cukup relevan dengan ekspektasi yang dibangun subject line.</p>
+<p>Segmentasi daftar berdasarkan perilaku — pembeli baru, pelanggan lama, yang belum pernah membeli — biasanya menghasilkan open rate dan konversi jauh lebih baik dibanding mengirim satu email yang sama ke semua orang sekaligus.</p>
+
+<div class="callout">
+<p><strong>Langkah pertama:</strong> buat satu lead magnet sederhana (checklist, template, atau diskon kecil) dan tawarkan di satu halaman. Itu cukup untuk mulai membangun daftar tanpa perlu sistem rumit di awal.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Berapa frekuensi ideal mengirim email ke daftar pelanggan?</strong> Tidak ada angka pasti, tapi mayoritas bisnis kecil menemukan titik seimbang di satu hingga dua email per minggu — cukup sering untuk diingat, tidak terlalu sering sampai memicu unsubscribe massal.</p>
+<p><strong>Apakah email marketing masih relevan dengan adanya media sosial?</strong> Sangat relevan. Berbeda dari followers media sosial yang bisa hilang sewaktu-waktu karena perubahan algoritma, daftar email adalah aset yang Anda kontrol penuh dan bisa diakses langsung kapan pun dibutuhkan.</p>
+
 <h2>Kesimpulan</h2>
-<p>Email marketing membangun hubungan langsung dengan audiens — aset yang Anda miliki sepenuhnya, tidak seperti followers di platform pihak ketiga.</p>
+<p>Email marketing membangun hubungan langsung dengan audiens — aset yang Anda miliki sepenuhnya, tidak seperti followers di platform pihak ketiga. Mulai kecil, ukur konsisten, dan biarkan data menentukan apa yang perlu disesuaikan.</p>
 `,
   },
   {
@@ -4396,19 +4536,54 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=1200&q=80&auto=format",
     locale: "en",
     content: `
-<p>Though often considered "old school," email marketing remains one of the highest-ROI channels. Here's how to start from scratch.</p>
+<p>Though often considered "old school," email marketing remains one of the highest-ROI channels. Here's how to start from scratch — without needing a huge list or any ad budget at all.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">$36</div><div class="stat-label">Average return for every $1 spent on email marketing (Litmus)</div></div>
+  <div class="stat-card"><div class="stat-num">21.5%</div><div class="stat-label">Average email open rate across industries (Mailchimp)</div></div>
+  <div class="stat-card"><div class="stat-num">4B+</div><div class="stat-label">Active email users worldwide (Statista)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=1200&amp;q=80&amp;auto=format" alt="Email marketing campaign on a laptop" loading="lazy" />
+<figcaption>Email stays an asset you own outright — unlike followers on third-party platforms.</figcaption>
+</figure>
+
 <h2>Build Your Email List</h2>
-<p>Offer something valuable — an ebook, discount, or exclusive content — in exchange for an email address. Never buy email lists.</p>
+<p>Offer something valuable — an ebook, discount, or exclusive content — in exchange for an email address. Never buy email lists; purchased addresses are usually irrelevant to your business and damage your sender reputation, making your emails more likely to land in spam even when sent to a genuinely opted-in list later on.</p>
+<blockquote>
+<p>"The average return on investment for email marketing reaches $36 for every $1 spent — well above most other digital marketing channels."</p>
+<cite>— Litmus State of Email Report</cite>
+</blockquote>
+
 <h2>Write Emails That Get Opened and Read</h2>
-<ul>
-<li>Specific subject lines that spark curiosity</li>
-<li>Relevant, helpful content — not just promotion</li>
-<li>One clear call-to-action per email</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Element</th><th>Its impact</th></tr>
+</thead>
+<tbody>
+<tr><td>Specific subject lines that spark curiosity</td><td>Determines whether the email gets opened at all before content matters</td></tr>
+<tr><td>Relevant content, not just promotion</td><td>Prevents recipients from unsubscribing out of feeling constantly "sold to"</td></tr>
+<tr><td>One clear CTA per email</td><td>Reduces confusion that lowers clicks when there are too many choices</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Measure and Improve</h2>
-<p>Track open rate, click-through rate, and conversions. Use this data to continuously refine your approach.</p>
+<p>Track open rate, click-through rate, and conversions. Use this data to continuously refine your approach — a low open rate usually means the subject line needs work, while a low click-through rate paired with a high open rate signals the content isn't living up to what the subject line promised.</p>
+<p>Segmenting your list by behavior — new buyers, repeat customers, never-purchased — usually produces far better open and conversion rates than sending the exact same email to everyone at once.</p>
+
+<div class="callout">
+<p><strong>First step:</strong> create one simple lead magnet (a checklist, template, or small discount) and offer it on a single page. That's enough to start building your list without needing a complex system from day one.</p>
+</div>
+
+<h2>Frequently Asked Questions</h2>
+<p><strong>How often should I email my list?</strong> There's no fixed number, but most small businesses find the sweet spot at one to two emails per week — frequent enough to stay top of mind, not so frequent it triggers a wave of unsubscribes.</p>
+<p><strong>Is email marketing still relevant given social media?</strong> Very much so. Unlike social followers, which can disappear overnight due to algorithm changes, your email list is an asset you fully control and can reach directly whenever you need to.</p>
+
 <h2>Conclusion</h2>
-<p>Email marketing builds a direct relationship with your audience — an asset you fully own, unlike followers on third-party platforms.</p>
+<p>Email marketing builds a direct relationship with your audience — an asset you fully own, unlike followers on third-party platforms. Start small, measure consistently, and let the data decide what needs adjusting.</p>
 `,
   },
   {
