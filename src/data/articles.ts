@@ -2895,18 +2895,50 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1200&q=80&auto=format",
     content: `
 <p>Influencer marketing di Indonesia tumbuh pesat, namun banyak bisnis masih kesulitan mengukur dampaknya secara objektif.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">60%</div><div class="stat-label">Engagement rate mikro-influencer lebih tinggi dibanding makro-influencer (Markerly)</div></div>
+  <div class="stat-card"><div class="stat-num">$5.78</div><div class="stat-label">Return untuk setiap $1 yang dikeluarkan untuk influencer marketing (Influencer Marketing Hub)</div></div>
+  <div class="stat-card"><div class="stat-num">61%</div><div class="stat-label">Konsumen mempercayai rekomendasi influencer dibanding iklan brand langsung (Matter Communications)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1200&amp;q=80&amp;auto=format" alt="Konten kolaborasi brand dengan influencer di smartphone" loading="lazy" />
+<figcaption>Kecocokan audiens dan keaslian jauh lebih menentukan dampak dibanding ukuran akun influencer.</figcaption>
+</figure>
+
 <h2>Mikro vs Makro Influencer</h2>
-<p>Mikro-influencer dengan audiens lebih kecil seringkali memiliki engagement rate dan tingkat kepercayaan yang lebih tinggi dibanding makro-influencer dengan jutaan followers.</p>
+<p>Mikro-influencer dengan audiens lebih kecil seringkali memiliki engagement rate dan tingkat kepercayaan yang lebih tinggi dibanding makro-influencer dengan jutaan followers. Audiens mikro-influencer biasanya merasa lebih dekat secara personal, sehingga rekomendasi mereka terasa seperti saran teman, bukan iklan.</p>
+<blockquote>
+<p>"61% konsumen mengatakan mereka lebih mempercayai rekomendasi dari influencer dibanding iklan yang langsung berasal dari brand."</p>
+<cite>— Matter Communications Influencer Trust Report</cite>
+</blockquote>
+
 <h2>Kriteria Memilih Influencer</h2>
-<ul>
-<li>Relevansi niche dengan produk Anda, bukan hanya jumlah followers</li>
-<li>Kualitas engagement — rasio like, komentar, dan share</li>
-<li>Keselarasan nilai dan gaya komunikasi dengan brand</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Kriteria</th><th>Kenapa penting</th></tr>
+</thead>
+<tbody>
+<tr><td>Relevansi niche dengan produk</td><td>Lebih menentukan konversi dibanding sekadar jumlah followers</td></tr>
+<tr><td>Kualitas engagement (like, komentar, share)</td><td>Mengungkap audiens yang benar-benar aktif, bukan followers pasif</td></tr>
+<tr><td>Keselarasan nilai &amp; gaya komunikasi</td><td>Memastikan konten terasa natural, bukan endorsement yang dipaksakan</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Mengukur ROI Influencer Marketing</h2>
-<p>Gunakan kode promo unik atau tracking link khusus untuk setiap influencer, sehingga kontribusi mereka terhadap penjualan dapat diukur secara langsung.</p>
-<h2>Kesalahan Umum yang Harus Dihindari</h2>
-<p>Memilih influencer hanya berdasarkan jumlah followers, tanpa mempertimbangkan kesesuaian audiens dengan target pasar Anda.</p>
+<p>Gunakan kode promo unik atau tracking link khusus untuk setiap influencer, sehingga kontribusi mereka terhadap penjualan dapat diukur secara langsung. Tanpa mekanisme tracking ini, sulit membedakan kampanye yang benar-benar efektif dari yang hanya menghasilkan impresi tanpa konversi nyata.</p>
+
+<div class="callout">
+<p><strong>Mulai kecil:</strong> coba kolaborasi dengan dua hingga tiga mikro-influencer dulu sebelum berinvestasi besar pada satu makro-influencer. Hasilnya jadi data nyata untuk keputusan budget berikutnya.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah influencer marketing cocok untuk semua jenis bisnis?</strong> Paling efektif untuk produk yang punya elemen visual atau lifestyle yang jelas. Bisnis B2B yang sangat teknis biasanya mendapat hasil lebih baik dari thought leadership di LinkedIn dibanding endorsement influencer konsumen.</p>
+<p><strong>Bagaimana menghindari kesalahan memilih influencer hanya karena followers banyak?</strong> Selalu cek rasio engagement aktual dan minta data audiens — followers tinggi dengan engagement rendah sering menandakan followers yang dibeli atau tidak aktif.</p>
+
 <h2>Kesimpulan</h2>
 <p>Influencer marketing yang efektif adalah tentang kesesuaian audiens dan keaslian, bukan sekadar ukuran akun.</p>
 `,
@@ -2953,17 +2985,51 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=1200&q=80&auto=format",
     content: `
 <p>Video adalah format konten dengan tingkat retensi informasi tertinggi — orang lebih mudah mengingat apa yang mereka lihat dan dengar dibanding yang hanya mereka baca.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">95%</div><div class="stat-label">Informasi dari video diingat, dibanding 10% dari teks (Insivia)</div></div>
+  <div class="stat-card"><div class="stat-num">86%</div><div class="stat-label">Bisnis menggunakan video sebagai alat marketing (Wyzowl)</div></div>
+  <div class="stat-card"><div class="stat-num">2 Detik</div><div class="stat-label">Waktu rata-rata sebelum penonton memutuskan melanjutkan menonton (TikTok/Meta)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=1200&amp;q=80&amp;auto=format" alt="Kru kecil merekam konten video marketing" loading="lazy" />
+<figcaption>Konsistensi dan relevansi konten lebih penting daripada kualitas produksi yang sempurna.</figcaption>
+</figure>
+
 <h2>Jenis Video yang Efektif untuk Bisnis</h2>
-<ul>
-<li>Video edukasi singkat yang menjawab pertanyaan umum pelanggan</li>
-<li>Behind-the-scenes yang menunjukkan sisi manusia dari brand</li>
-<li>Testimoni pelanggan dalam format video</li>
-<li>Demo produk yang menunjukkan penggunaan nyata</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Jenis video</th><th>Tujuannya</th></tr>
+</thead>
+<tbody>
+<tr><td>Edukasi singkat</td><td>Menjawab pertanyaan umum pelanggan secara proaktif</td></tr>
+<tr><td>Behind-the-scenes</td><td>Menunjukkan sisi manusia dari brand</td></tr>
+<tr><td>Testimoni pelanggan</td><td>Memberi bukti sosial yang lebih meyakinkan dibanding teks</td></tr>
+<tr><td>Demo produk</td><td>Menunjukkan penggunaan nyata sebelum keputusan beli</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Optimasi untuk Setiap Platform</h2>
-<p>Video vertikal untuk Reels dan TikTok, video horizontal untuk YouTube, dan video pendek dengan subtitle untuk konten yang sering ditonton tanpa suara.</p>
+<p>Video vertikal untuk Reels dan TikTok, video horizontal untuk YouTube, dan video pendek dengan subtitle untuk konten yang sering ditonton tanpa suara. Mengabaikan subtitle berarti kehilangan sebagian besar penonton yang menonton di tempat umum dengan suara dimatikan.</p>
+<blockquote>
+<p>"Orang mengingat 95% informasi yang disampaikan melalui video, dibanding hanya 10% jika disampaikan dalam bentuk teks."</p>
+<cite>— Insivia Video Marketing Statistics</cite>
+</blockquote>
+
 <h2>3 Detik Pertama Menentukan Segalanya</h2>
-<p>Algoritma platform video mengukur retention rate — jika penonton berhenti di detik-detik awal, video tidak akan didistribusikan lebih luas.</p>
+<p>Algoritma platform video mengukur retention rate — jika penonton berhenti di detik-detik awal, video tidak akan didistribusikan lebih luas. Hook yang lemah di awal video membuat seluruh produksi yang mahal pun sia-sia karena video tidak akan pernah dilihat sampai bagian terbaiknya.</p>
+
+<div class="callout">
+<p><strong>Uji hook Anda:</strong> potong tiga detik pertama dari video terakhir Anda dan tonton sendiri tanpa konteks. Jika tidak cukup menarik untuk membuat Anda lanjut menonton, kemungkinan besar penonton lain juga berhenti di titik itu.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah video marketing butuh peralatan mahal untuk hasil yang baik?</strong> Tidak. Smartphone modern dengan pencahayaan yang cukup dan audio yang jelas sudah cukup untuk kebanyakan konten video marketing — konten yang relevan mengalahkan produksi mewah tanpa substansi.</p>
+<p><strong>Berapa panjang video ideal untuk media sosial?</strong> Umumnya 15-60 detik untuk platform short-form seperti TikTok dan Reels, sementara YouTube bisa lebih panjang jika kontennya benar-benar edukatif dan mendalam.</p>
+
 <h2>Kesimpulan</h2>
 <p>Video marketing yang efektif tidak harus mahal — konsistensi dan relevansi konten lebih penting daripada kualitas produksi yang sempurna.</p>
 `,
@@ -3967,18 +4033,50 @@ export const articles: Article[] = [
     locale: "id",
     content: `
 <p>Memiliki toko online saja tidak cukup. Persaingan e-commerce semakin ketat, dan dibutuhkan strategi yang tepat agar pengunjung berubah menjadi pembeli.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">69.8%</div><div class="stat-label">Rata-rata cart abandonment rate di e-commerce (Baymard Institute)</div></div>
+  <div class="stat-card"><div class="stat-num">93%</div><div class="stat-label">Pembeli mengandalkan visual produk sebelum memutuskan beli (Justuno)</div></div>
+  <div class="stat-card"><div class="stat-num">26%</div><div class="stat-label">Rata-rata click-through rate iklan retargeting dibanding iklan biasa (AdRoll)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&amp;q=80&amp;auto=format" alt="Pengemasan paket pesanan toko online" loading="lazy" />
+<figcaption>Persaingan e-commerce yang ketat butuh strategi tepat agar pengunjung berubah menjadi pembeli.</figcaption>
+</figure>
+
 <h2>Optimasi Halaman Produk</h2>
-<p>Foto berkualitas, deskripsi yang jelas, dan ulasan pelanggan adalah faktor penentu keputusan beli. Pastikan setiap halaman produk menjawab keraguan calon pembeli.</p>
+<p>Foto berkualitas, deskripsi yang jelas, dan ulasan pelanggan adalah faktor penentu keputusan beli. Pastikan setiap halaman produk menjawab keraguan calon pembeli — terutama pertanyaan yang biasanya muncul di kolom komplain atau tanya jawab produk sejenis.</p>
+<blockquote>
+<p>"Rata-rata 69.8% keranjang belanja online ditinggalkan tanpa transaksi selesai — sebagian besar karena proses checkout yang terlalu rumit atau biaya tersembunyi yang muncul tiba-tiba."</p>
+<cite>— Baymard Institute Cart Abandonment Research</cite>
+</blockquote>
+
 <h2>Permudah Proses Checkout</h2>
-<ul>
-<li>Kurangi jumlah langkah hingga seminimal mungkin</li>
-<li>Sediakan beragam metode pembayaran lokal</li>
-<li>Tampilkan biaya pengiriman secara transparan sejak awal</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Taktik</th><th>Dampaknya</th></tr>
+</thead>
+<tbody>
+<tr><td>Kurangi langkah checkout</td><td>Setiap langkah tambahan adalah titik potensi kehilangan pembeli</td></tr>
+<tr><td>Beragam metode pembayaran lokal</td><td>Mengurangi gesekan dari preferensi pembayaran yang berbeda-beda</td></tr>
+<tr><td>Biaya pengiriman transparan sejak awal</td><td>Mencegah kejutan biaya di akhir yang memicu cart abandonment</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Manfaatkan Retargeting</h2>
-<p>Sebagian besar pengunjung tidak langsung membeli. Kampanye retargeting mengingatkan mereka tentang produk yang dilihat dan mendorong mereka kembali.</p>
-<h2>Bangun Loyalitas</h2>
-<p>Program poin, penawaran khusus, dan layanan purna jual yang baik membuat pelanggan kembali — dan pelanggan setia jauh lebih murah daripada akuisisi baru.</p>
+<p>Sebagian besar pengunjung tidak langsung membeli. Kampanye retargeting mengingatkan mereka tentang produk yang dilihat dan mendorong mereka kembali — efektivitasnya jauh lebih tinggi dibanding iklan ke audiens dingin karena mereka sudah menunjukkan minat nyata sebelumnya.</p>
+
+<div class="callout">
+<p><strong>Cek cepat:</strong> lihat data checkout Anda sendiri — di langkah mana paling banyak pengunjung berhenti? Itu prioritas pertama untuk diperbaiki sebelum menambah traffic baru.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah gratis ongkir selalu meningkatkan penjualan?</strong> Umumnya ya, tapi pastikan biayanya sudah dihitung ke dalam margin produk — gratis ongkir yang menggerus profit tanpa kenaikan volume penjualan yang sepadan justru merugikan jangka panjang.</p>
+<p><strong>Berapa lama kampanye retargeting sebaiknya berjalan untuk satu pengunjung?</strong> Umumnya tujuh hingga empat belas hari setelah kunjungan terakhir — setelah itu, minat biasanya sudah menurun dan iklan retargeting jadi kurang efektif.</p>
+
 <h2>Kesimpulan</h2>
 <p>Peningkatan penjualan e-commerce datang dari perbaikan kecil yang konsisten di setiap tahap perjalanan pembeli.</p>
 `,
@@ -4295,18 +4393,50 @@ export const articles: Article[] = [
     locale: "en",
     content: `
 <p>Simply having an online store isn't enough. E-commerce competition keeps intensifying, and the right strategy is what turns visitors into buyers.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">69.8%</div><div class="stat-label">Average cart abandonment rate in e-commerce (Baymard Institute)</div></div>
+  <div class="stat-card"><div class="stat-num">93%</div><div class="stat-label">Of buyers rely on product visuals before deciding to purchase (Justuno)</div></div>
+  <div class="stat-card"><div class="stat-num">26%</div><div class="stat-label">Average click-through rate of retargeting ads vs. regular ads (AdRoll)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&amp;q=80&amp;auto=format" alt="Packing an online store order" loading="lazy" />
+<figcaption>Intense e-commerce competition demands the right strategy to turn visitors into buyers.</figcaption>
+</figure>
+
 <h2>Optimize Product Pages</h2>
-<p>Quality photos, clear descriptions, and customer reviews drive purchase decisions. Make sure every product page answers a buyer's doubts.</p>
+<p>Quality photos, clear descriptions, and customer reviews drive purchase decisions. Make sure every product page answers a buyer's doubts — especially the questions that typically show up in complaints or Q&amp;A sections of similar products.</p>
+<blockquote>
+<p>"On average, 69.8% of online shopping carts are abandoned without completing the transaction — largely due to an overly complicated checkout or hidden costs that appear unexpectedly."</p>
+<cite>— Baymard Institute Cart Abandonment Research</cite>
+</blockquote>
+
 <h2>Simplify Checkout</h2>
-<ul>
-<li>Reduce the number of steps to a minimum</li>
-<li>Offer multiple local payment methods</li>
-<li>Show shipping costs transparently from the start</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Tactic</th><th>Its impact</th></tr>
+</thead>
+<tbody>
+<tr><td>Reduce checkout steps</td><td>Every extra step is a potential point of losing the buyer</td></tr>
+<tr><td>Offer multiple local payment methods</td><td>Reduces friction from differing payment preferences</td></tr>
+<tr><td>Show shipping costs upfront</td><td>Prevents end-of-checkout surprises that trigger abandonment</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Leverage Retargeting</h2>
-<p>Most visitors don't buy on the first visit. Retargeting campaigns remind them of products they viewed and bring them back.</p>
-<h2>Build Loyalty</h2>
-<p>Points programs, exclusive offers, and great after-sales service keep customers returning — and loyal customers are far cheaper than new acquisitions.</p>
+<p>Most visitors don't buy on the first visit. Retargeting campaigns remind them of products they viewed and bring them back — effectiveness is far higher than ads to cold audiences, since these visitors already showed genuine interest before.</p>
+
+<div class="callout">
+<p><strong>Quick check:</strong> look at your own checkout data — at which step do most visitors drop off? That's the first priority to fix before pouring more traffic into the top of the funnel.</p>
+</div>
+
+<h2>Frequently Asked Questions</h2>
+<p><strong>Does free shipping always boost sales?</strong> Generally yes, but make sure the cost is already factored into your product margins — free shipping that eats into profit without a matching sales lift can hurt you long-term.</p>
+<p><strong>How long should a retargeting campaign run for a single visitor?</strong> Typically seven to fourteen days after the last visit — beyond that, interest tends to fade and retargeting ads become less effective.</p>
+
 <h2>Conclusion</h2>
 <p>E-commerce growth comes from small, consistent improvements at every stage of the buyer journey.</p>
 `,
@@ -4389,17 +4519,51 @@ export const articles: Article[] = [
     locale: "en",
     content: `
 <p>Good design is not just about looking attractive — it's about how easy and enjoyable a product is to use. UI and UX are two sides of the same coin.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">88%</div><div class="stat-label">Users won't return to a site after a bad experience (Toptal)</div></div>
+  <div class="stat-card"><div class="stat-num">$100</div><div class="stat-label">Return for every $1 invested in UX (Forrester)</div></div>
+  <div class="stat-card"><div class="stat-num">94%</div><div class="stat-label">Of first impressions are design-related (Stanford)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&amp;q=80&amp;auto=format" alt="Wireframe and UI design mockups on a screen" loading="lazy" />
+<figcaption>Great UI/UX reduces friction long before a user notices the design at all.</figcaption>
+</figure>
+
 <h2>UI vs UX: What's the Difference?</h2>
-<p>UI (User Interface) covers the visuals — colors, buttons, typography. UX (User Experience) covers the overall experience — how easily users reach their goals.</p>
+<p>UI (User Interface) covers the visuals — colors, buttons, typography. UX (User Experience) covers the overall experience — how easily users reach their goals. A beautiful UI with confusing UX still fails, because users abandon a product the moment they can't accomplish what they came to do.</p>
+<blockquote>
+<p>"Every $1 invested in UX returns an average of $100 — one of the highest ROIs of any digital investment a product team can make."</p>
+<cite>— Forrester UX ROI Research</cite>
+</blockquote>
+
 <h2>Essential Principles</h2>
-<ul>
-<li><strong>Simplicity</strong> — remove anything unnecessary</li>
-<li><strong>Consistency</strong> — the same patterns across the product</li>
-<li><strong>Visual hierarchy</strong> — guide the eye to what matters most</li>
-<li><strong>Feedback</strong> — give a clear response to every user action</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Principle</th><th>What it means in practice</th></tr>
+</thead>
+<tbody>
+<tr><td>Simplicity</td><td>Remove anything that doesn't serve the user's main goal</td></tr>
+<tr><td>Consistency</td><td>Same patterns throughout, so nothing has to be relearned</td></tr>
+<tr><td>Visual hierarchy</td><td>Guides the eye to what matters most first</td></tr>
+<tr><td>Feedback</td><td>Gives a clear response to every user action, no dead ends</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Test With Real Users</h2>
-<p>Designer assumptions often differ from real user behavior. Usability testing reveals problems invisible on paper.</p>
+<p>Designer assumptions often differ from real user behavior. Usability testing reveals problems invisible on paper — a flow that seems obvious to the person who built it can be completely confusing to someone seeing it for the first time.</p>
+
+<div class="callout">
+<p><strong>Quick test:</strong> hand your product to someone who has never seen it and watch them try to complete one core task without guidance. Where they hesitate is exactly where your design needs work.</p>
+</div>
+
+<h2>Frequently Asked Questions</h2>
+<p><strong>Does good UI/UX require a large design team?</strong> No. Even one person applying these core principles consistently can dramatically improve a product — the principles matter more than team size.</p>
+<p><strong>How often should usability testing be done?</strong> Ideally before any major feature launch, plus periodic check-ins every few months, since user expectations and behavior shift over time even when the product doesn't change.</p>
+
 <h2>Conclusion</h2>
 <p>Great UI/UX reduces friction, increases satisfaction, and ultimately drives conversion and loyalty.</p>
 `,
