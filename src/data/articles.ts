@@ -2370,20 +2370,51 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1553775282-20af80779df7?w=1200&q=80&auto=format",
     content: `
 <p>Pelanggan masa kini berpindah dari WhatsApp ke Instagram, lalu ke email, dalam satu perjalanan yang sama. Omnichannel memastikan pengalaman tetap mulus di setiap perpindahan ini.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">90%</div><div class="stat-label">Pelanggan mengharapkan pengalaman konsisten di semua kanal (Salesforce)</div></div>
+  <div class="stat-card"><div class="stat-num">9.5x</div><div class="stat-label">Retensi tahun-ke-tahun lebih tinggi untuk bisnis omnichannel kuat (Aberdeen Group)</div></div>
+  <div class="stat-card"><div class="stat-num">73%</div><div class="stat-label">Pelanggan menggunakan lebih dari satu kanal sepanjang perjalanan beli (Harvard Business Review)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1553775282-20af80779df7?w=1200&amp;q=80&amp;auto=format" alt="Agen customer service mengelola beberapa kanal komunikasi" loading="lazy" />
+<figcaption>Omnichannel menghubungkan kanal yang sudah ada menjadi satu pengalaman yang utuh.</figcaption>
+</figure>
+
 <h2>Perbedaan Omnichannel dan Multichannel</h2>
-<p>Multichannel berarti hadir di banyak kanal, namun masing-masing berjalan sendiri-sendiri. Omnichannel berarti semua kanal terhubung — riwayat percakapan tetap utuh meski pelanggan berpindah kanal.</p>
-<h2>Manfaat bagi Pelanggan</h2>
-<ul>
-<li>Tidak perlu mengulang penjelasan setiap kali berpindah kanal</li>
-<li>Respons yang konsisten di mana pun mereka menghubungi</li>
-</ul>
-<h2>Manfaat bagi Bisnis</h2>
-<ul>
-<li>Tim memiliki konteks lengkap untuk setiap percakapan</li>
-<li>Data pelanggan terkonsolidasi untuk analisis yang lebih akurat</li>
-</ul>
+<p>Multichannel berarti hadir di banyak kanal, namun masing-masing berjalan sendiri-sendiri. Omnichannel berarti semua kanal terhubung — riwayat percakapan tetap utuh meski pelanggan berpindah kanal, sehingga tidak ada informasi yang hilang di antara satu kanal ke kanal lain.</p>
+<blockquote>
+<p>"Pelanggan yang berinteraksi lewat banyak kanal memiliki customer lifetime value rata-rata 30% lebih tinggi dibanding yang hanya menggunakan satu kanal."</p>
+<cite>— Harvard Business Review, Omnichannel Retailing Study</cite>
+</blockquote>
+
+<h2>Manfaat Omnichannel</h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Untuk siapa</th><th>Manfaat utama</th></tr>
+</thead>
+<tbody>
+<tr><td>Pelanggan</td><td>Tidak perlu mengulang penjelasan setiap kali berpindah kanal</td></tr>
+<tr><td>Pelanggan</td><td>Respons yang konsisten di mana pun mereka menghubungi</td></tr>
+<tr><td>Bisnis</td><td>Tim memiliki konteks lengkap untuk setiap percakapan</td></tr>
+<tr><td>Bisnis</td><td>Data pelanggan terkonsolidasi untuk analisis yang lebih akurat</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Langkah Membangun Omnichannel</h2>
 <p>Mulai dengan menyatukan data pelanggan dari semua kanal ke dalam satu sistem CRM, lalu latih tim untuk mengakses riwayat lengkap sebelum merespons.</p>
+
+<div class="callout">
+<p><strong>Mulai sederhana:</strong> jika sumber daya terbatas, gabungkan dulu dua kanal yang paling sering dipakai pelanggan Anda sebelum mencoba menyatukan semuanya sekaligus.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah omnichannel hanya relevan untuk bisnis besar?</strong> Tidak. Bisnis kecil dengan dua atau tiga kanal pun bisa menerapkan prinsip omnichannel selama riwayat percakapan disatukan dalam satu sistem yang sama.</p>
+<p><strong>Berapa banyak kanal ideal untuk memulai strategi omnichannel?</strong> Lebih baik mulai dari dua atau tiga kanal yang benar-benar terhubung dengan baik daripada lima kanal yang masing-masing berjalan sendiri-sendiri.</p>
+
 <h2>Kesimpulan</h2>
 <p>Omnichannel bukan tentang menambah jumlah kanal, tetapi tentang menghubungkan kanal yang sudah ada menjadi satu pengalaman yang utuh.</p>
 `,
@@ -2867,17 +2898,53 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200&q=80&auto=format",
     content: `
 <p>Copywriting yang baik tidak terasa seperti "iklan" — tetapi seperti percakapan yang relevan dengan apa yang sedang dipikirkan pembaca.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">80%</div><div class="stat-label">Orang membaca headline, tapi hanya 20% lanjut membaca isi (Copyblogger)</div></div>
+  <div class="stat-card"><div class="stat-num">90%</div><div class="stat-label">Keputusan beli dipengaruhi emosi, baru dijustifikasi dengan logika (Harvard Business School)</div></div>
+  <div class="stat-card"><div class="stat-num">2x</div><div class="stat-label">CTA spesifik mengungguli CTA generik dalam uji A/B (Unbounce)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200&amp;q=80&amp;auto=format" alt="Penulis menyusun draf copy pemasaran" loading="lazy" />
+<figcaption>Copywriting untuk konversi adalah tentang empati, bukan sekadar kata-kata yang terdengar menjual.</figcaption>
+</figure>
+
 <h2>Headline: Detik Pertama yang Menentukan</h2>
-<p>Headline harus segera menjawab "apa untungnya bagi saya?" dari sudut pandang pembaca, bukan dari sudut pandang brand.</p>
+<p>Headline harus segera menjawab "apa untungnya bagi saya?" dari sudut pandang pembaca, bukan dari sudut pandang brand. Headline yang gagal menjawab pertanyaan ini dalam beberapa detik akan kehilangan pembaca sebelum mereka sampai ke kalimat kedua.</p>
+<blockquote>
+<p>"Delapan dari sepuluh orang akan membaca headline Anda, tapi hanya dua dari sepuluh yang akan membaca sisanya — headline bukan hiasan, itu adalah 80% dari pekerjaan copywriting."</p>
+<cite>— Copyblogger Headline Research</cite>
+</blockquote>
+
 <h2>Fokus pada Manfaat, Bukan Fitur</h2>
-<p>Daripada menulis "dilengkapi AI canggih", tulis "hemat waktu hingga 5 jam per minggu" — manfaat konkret lebih mudah dibayangkan pembaca.</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Pendekatan fitur</th><th>Pendekatan manfaat</th></tr>
+</thead>
+<tbody>
+<tr><td>"Dilengkapi AI canggih"</td><td>"Hemat waktu hingga 5 jam per minggu"</td></tr>
+<tr><td>"Dashboard analitik lengkap"</td><td>"Tahu persis kampanye mana yang menghasilkan uang"</td></tr>
+<tr><td>"Penyimpanan cloud unlimited"</td><td>"Tidak pernah lagi kehabisan ruang atau kehilangan file"</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Mengatasi Keberatan Sebelum Muncul</h2>
-<ul>
-<li>Sertakan jawaban untuk pertanyaan "tapi bagaimana jika..." yang mungkin muncul di pikiran pembaca</li>
-<li>Gunakan bukti sosial — testimoni, angka, atau studi kasus</li>
-</ul>
+<p>Sertakan jawaban untuk pertanyaan "tapi bagaimana jika..." yang mungkin muncul di pikiran pembaca, dan gunakan bukti sosial seperti testimoni, angka, atau studi kasus untuk memperkuat klaim Anda sebelum keraguan itu sempat berkembang.</p>
+
+<div class="callout">
+<p><strong>Latihan singkat:</strong> tulis tiga keberatan paling umum yang biasanya menghentikan calon pelanggan Anda, lalu pastikan copy Anda menjawab ketiganya sebelum mereka sampai ke tombol CTA.</p>
+</div>
+
 <h2>Call-to-Action yang Jelas dan Spesifik</h2>
-<p>"Mulai Sekarang" kurang spesifik dibanding "Coba Gratis 14 Hari, Tanpa Kartu Kredit" — kejelasan mengurangi keraguan untuk mengklik.</p>
+<p>"Mulai Sekarang" kurang spesifik dibanding "Coba Gratis 14 Hari, Tanpa Kartu Kredit" — kejelasan mengurangi keraguan untuk mengklik karena pembaca tahu persis apa yang akan terjadi setelah mereka menekan tombol.</p>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah copywriting yang panjang lebih efektif daripada yang singkat?</strong> Tidak ada panjang ideal yang mutlak — yang penting setiap kalimat menjawab keraguan pembaca. Produk kompleks butuh penjelasan lebih panjang, produk sederhana cukup singkat dan langsung.</p>
+<p><strong>Bagaimana mengetes apakah copy saya efektif?</strong> Lakukan A/B testing pada elemen kecil seperti headline atau CTA, lalu bandingkan tingkat konversi nyata — opini subjektif sering menyesatkan dibanding data aktual dari pembaca.</p>
+
 <h2>Kesimpulan</h2>
 <p>Copywriting untuk konversi adalah tentang empati — memahami kekhawatiran dan keinginan pembaca, lalu menjawabnya secara langsung dan jujur.</p>
 `,
@@ -2956,18 +3023,53 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80&auto=format",
     content: `
 <p>Saat seseorang mencari "kafe terdekat" atau "jasa servis AC di [kota]", Google menampilkan bisnis lokal berdasarkan relevansi, jarak, dan reputasi.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">76%</div><div class="stat-label">Pencarian "dekat saya" berujung kunjungan toko dalam 24 jam (Google)</div></div>
+  <div class="stat-card"><div class="stat-num">88%</div><div class="stat-label">Pencari lokal mengunjungi atau menghubungi bisnis dalam sehari (BrightLocal)</div></div>
+  <div class="stat-card"><div class="stat-num">93%</div><div class="stat-label">Konsumen membaca ulasan online sebelum memilih bisnis lokal (BrightLocal)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&amp;q=80&amp;auto=format" alt="Pemilik toko lokal mengelola profil bisnis online" loading="lazy" />
+<figcaption>Sebagian besar optimasi local SEO bisa dilakukan tanpa biaya tambahan.</figcaption>
+</figure>
+
 <h2>Optimasi Google Business Profile</h2>
-<ul>
-<li>Lengkapi semua informasi — jam operasional, kategori, foto, dan deskripsi</li>
-<li>Update informasi secara berkala agar tetap akurat</li>
-<li>Respons terhadap ulasan, baik positif maupun negatif</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Langkah</th><th>Mengapa penting</th></tr>
+</thead>
+<tbody>
+<tr><td>Lengkapi semua informasi</td><td>Jam operasional, kategori, foto, dan deskripsi yang lengkap meningkatkan kepercayaan dan ranking</td></tr>
+<tr><td>Update berkala</td><td>Informasi yang akurat mencegah calon pelanggan kecewa karena data usang</td></tr>
+<tr><td>Respons ulasan</td><td>Baik positif maupun negatif — menunjukkan bisnis aktif dan peduli pelanggan</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Konsistensi NAP (Name, Address, Phone)</h2>
-<p>Pastikan nama bisnis, alamat, dan nomor telepon konsisten di semua direktori online — inkonsistensi dapat membingungkan algoritma pencarian.</p>
+<p>Pastikan nama bisnis, alamat, dan nomor telepon konsisten di semua direktori online — inkonsistensi dapat membingungkan algoritma pencarian dan menurunkan kepercayaan Google terhadap keabsahan bisnis Anda.</p>
+<blockquote>
+<p>"88% orang yang melakukan pencarian lokal di smartphone mengunjungi toko terkait atau menelepon bisnis tersebut dalam waktu 24 jam."</p>
+<cite>— BrightLocal Local Consumer Review Survey</cite>
+</blockquote>
+
 <h2>Konten Lokal yang Relevan</h2>
-<p>Buat konten yang menyebut area atau lingkungan spesifik tempat bisnis beroperasi, membantu Google memahami relevansi lokal Anda.</p>
+<p>Buat konten yang menyebut area atau lingkungan spesifik tempat bisnis beroperasi, membantu Google memahami relevansi lokal Anda. Artikel tentang event lokal, panduan area, atau studi kasus pelanggan setempat memperkuat sinyal ini lebih jauh.</p>
+
 <h2>Ulasan sebagai Sinyal Kepercayaan</h2>
 <p>Jumlah dan kualitas ulasan Google memengaruhi baik ranking maupun keputusan calon pelanggan untuk memilih bisnis Anda.</p>
+
+<div class="callout">
+<p><strong>Mulai hari ini:</strong> minta tiga pelanggan terakhir yang puas untuk memberi ulasan Google — momentum awal ulasan sering jadi pembeda terbesar dibanding kompetitor yang belum mulai.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah local SEO butuh biaya iklan berbayar?</strong> Tidak harus. Optimasi Google Business Profile, konsistensi NAP, dan permintaan ulasan semuanya gratis — iklan berbayar hanya mempercepat hasil, bukan prasyarat.</p>
+<p><strong>Berapa lama hasil local SEO mulai terlihat?</strong> Umumnya beberapa minggu untuk perubahan kecil seperti melengkapi profil, namun membangun reputasi ulasan dan sinyal lokal yang kuat bisa memakan beberapa bulan.</p>
+
 <h2>Kesimpulan</h2>
 <p>Local SEO memberikan keunggulan signifikan bagi bisnis dengan lokasi fisik — dan sebagian besar optimasinya bisa dilakukan tanpa biaya tambahan.</p>
 `,
@@ -3842,16 +3944,50 @@ export const articles: Article[] = [
     locale: "en",
     content: `
 <p>Today's customers expect fast responses whenever they need them — including late at night or on holidays. A manual team struggles to meet this expectation without large costs.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">64%</div><div class="stat-label">Of consumers expect real-time responses, any time of day (Salesforce)</div></div>
+  <div class="stat-card"><div class="stat-num">30%</div><div class="stat-label">Average reduction in support costs after adopting AI assistance (McKinsey)</div></div>
+  <div class="stat-card"><div class="stat-num">80%</div><div class="stat-label">Of routine inquiries can be resolved by AI without human escalation (Zendesk)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1553775282-20af80779df7?w=1200&amp;q=80&amp;auto=format" alt="Support dashboard showing AI-assisted customer conversations" loading="lazy" />
+<figcaption>AI customer service strengthens a human team rather than replacing it.</figcaption>
+</figure>
+
 <h2>The Challenge of Traditional Support</h2>
-<ul>
-<li>Limited hours keep customers waiting</li>
-<li>Rising recruitment and training costs for a large team</li>
-<li>Inconsistent response quality between agents</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Pain point</th><th>Why it hurts</th></tr>
+</thead>
+<tbody>
+<tr><td>Limited hours</td><td>Customers wait, and many simply give up or look elsewhere</td></tr>
+<tr><td>Rising recruitment and training costs</td><td>Scaling a large team gets expensive fast as ticket volume grows</td></tr>
+<tr><td>Inconsistent quality between agents</td><td>Response quality varies depending on who picks up the conversation</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>How AI Fills the Gap</h2>
-<p>AI customer service handles common questions instantly, then routes complex cases to human agents with full conversation context — so customers never have to repeat themselves.</p>
+<p>AI customer service handles common questions instantly, then routes complex cases to human agents with full conversation context — so customers never have to repeat themselves. This handoff is what makes the difference between AI that frustrates customers and AI that genuinely helps them.</p>
+<blockquote>
+<p>"Companies using AI-assisted support report an average 30% reduction in cost per resolved ticket, without a corresponding drop in customer satisfaction scores."</p>
+<cite>— McKinsey Customer Operations Research</cite>
+</blockquote>
+
 <h2>Impact on Cost and Satisfaction</h2>
-<p>Combining AI with a human team can significantly lower support costs while improving satisfaction thanks to far shorter wait times.</p>
+<p>Combining AI with a human team can significantly lower support costs while improving satisfaction thanks to far shorter wait times. The savings come not from replacing agents, but from letting AI absorb the repetitive volume that previously consumed most of their working hours.</p>
+
+<div class="callout">
+<p><strong>Start small:</strong> identify your top five most repeated customer questions and let AI handle those first — that alone usually removes a large share of ticket volume before you expand further.</p>
+</div>
+
+<h2>Frequently Asked Questions</h2>
+<p><strong>Will customers notice they're talking to AI, and will that hurt trust?</strong> Most customers care more about getting a fast, correct answer than who or what provided it — transparency about AI involvement, paired with an easy path to a human, maintains trust better than hiding it.</p>
+<p><strong>How much of the support load can realistically be handled by AI?</strong> For most businesses, AI can resolve 60-80% of routine inquiries, leaving the more nuanced, emotionally sensitive, or high-stakes cases for human agents.</p>
+
 <h2>Conclusion</h2>
 <p>AI customer service doesn't replace your human team — it strengthens it, handling high volume while freeing agents for cases that truly need a personal touch.</p>
 `,
@@ -4159,17 +4295,51 @@ export const articles: Article[] = [
     locale: "id",
     content: `
 <p>Desain yang baik bukan hanya soal tampilan menarik, tetapi tentang seberapa mudah dan menyenangkan produk digunakan. UI dan UX adalah dua sisi mata uang yang sama.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-num">88%</div><div class="stat-label">Pengguna tidak akan kembali ke situs setelah pengalaman buruk (Toptal)</div></div>
+  <div class="stat-card"><div class="stat-num">$100</div><div class="stat-label">Imbal balik untuk setiap $1 yang diinvestasikan pada UX (Forrester)</div></div>
+  <div class="stat-card"><div class="stat-num">94%</div><div class="stat-label">Kesan pertama pengguna dipengaruhi oleh desain (Stanford)</div></div>
+</div>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&amp;q=80&amp;auto=format" alt="Wireframe dan mockup desain UI di layar" loading="lazy" />
+<figcaption>UI/UX yang baik mengurangi friksi jauh sebelum pengguna sadar ada desain di baliknya.</figcaption>
+</figure>
+
 <h2>UI vs UX: Apa Bedanya?</h2>
-<p>UI (User Interface) berkaitan dengan tampilan visual — warna, tombol, tipografi. UX (User Experience) berkaitan dengan keseluruhan pengalaman — seberapa mudah pengguna mencapai tujuannya.</p>
+<p>UI (User Interface) berkaitan dengan tampilan visual — warna, tombol, tipografi. UX (User Experience) berkaitan dengan keseluruhan pengalaman — seberapa mudah pengguna mencapai tujuannya. UI yang indah dengan UX yang membingungkan tetap gagal, karena pengguna meninggalkan produk begitu mereka tidak bisa menyelesaikan apa yang ingin mereka lakukan.</p>
+<blockquote>
+<p>"Setiap $1 yang diinvestasikan pada UX memberikan imbal balik rata-rata $100 — salah satu ROI tertinggi dari investasi digital apa pun yang bisa dilakukan tim produk."</p>
+<cite>— Forrester UX ROI Research</cite>
+</blockquote>
+
 <h2>Prinsip Dasar yang Penting</h2>
-<ul>
-<li><strong>Kesederhanaan</strong> — hilangkan elemen yang tidak perlu</li>
-<li><strong>Konsistensi</strong> — pola yang sama di seluruh produk</li>
-<li><strong>Hierarki visual</strong> — pandu mata pengguna ke hal terpenting</li>
-<li><strong>Feedback</strong> — beri respons jelas atas setiap aksi pengguna</li>
-</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Prinsip</th><th>Artinya dalam praktik</th></tr>
+</thead>
+<tbody>
+<tr><td>Kesederhanaan</td><td>Hilangkan apa pun yang tidak melayani tujuan utama pengguna</td></tr>
+<tr><td>Konsistensi</td><td>Pola yang sama di seluruh produk, sehingga tidak perlu dipelajari ulang</td></tr>
+<tr><td>Hierarki visual</td><td>Memandu mata ke hal terpenting lebih dulu</td></tr>
+<tr><td>Feedback</td><td>Memberi respons jelas atas setiap aksi, tanpa jalan buntu</td></tr>
+</tbody>
+</table>
+</div>
+
 <h2>Uji dengan Pengguna Nyata</h2>
-<p>Asumsi desainer sering berbeda dari perilaku pengguna sebenarnya. Pengujian usability mengungkap masalah yang tidak terlihat di atas kertas.</p>
+<p>Asumsi desainer sering berbeda dari perilaku pengguna sebenarnya. Pengujian usability mengungkap masalah yang tidak terlihat di atas kertas — alur yang tampak jelas bagi pembuatnya bisa jadi sangat membingungkan bagi orang yang melihatnya untuk pertama kali.</p>
+
+<div class="callout">
+<p><strong>Uji cepat:</strong> berikan produk Anda ke seseorang yang belum pernah melihatnya dan amati saat mereka mencoba menyelesaikan satu tugas utama tanpa panduan. Di titik mereka ragu-ragu, itulah yang perlu diperbaiki.</p>
+</div>
+
+<h2>Pertanyaan yang Sering Muncul</h2>
+<p><strong>Apakah UI/UX yang baik butuh tim desain besar?</strong> Tidak. Bahkan satu orang yang menerapkan prinsip-prinsip dasar ini secara konsisten bisa secara dramatis meningkatkan produk — prinsipnya lebih penting daripada ukuran tim.</p>
+<p><strong>Seberapa sering pengujian usability sebaiknya dilakukan?</strong> Idealnya sebelum setiap peluncuran fitur besar, ditambah pengecekan berkala setiap beberapa bulan, karena ekspektasi dan perilaku pengguna bisa berubah seiring waktu meski produk tidak berubah.</p>
+
 <h2>Kesimpulan</h2>
 <p>UI/UX yang baik mengurangi friksi, meningkatkan kepuasan, dan pada akhirnya mendorong konversi serta loyalitas.</p>
 `,
