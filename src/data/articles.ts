@@ -1911,7 +1911,7 @@ export const articles: Article[] = [
   {
     id: 28,
     slug: "pwa-vs-native-app",
-    title: "Progressive Web App vs Native App: Mana yang Dipilih?",
+    title: "Progressive Web App (PWA) vs Native App: Mana yang Dipilih?",
     description:
       "Perbandingan Progressive Web App (PWA) dan native app dari segi biaya, performa, dan pengalaman pengguna untuk membantu keputusan bisnis Anda.",
     category: "Mobile App Development",
@@ -1921,6 +1921,7 @@ export const articles: Article[] = [
     image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80&auto=format",
     content: `
 <p>Tidak semua bisnis memerlukan native app sejak hari pertama. Progressive Web App (PWA) menawarkan alternatif yang lebih ringan dengan banyak keunggulan native app.</p>
+<img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&amp;q=80&amp;auto=format" alt="Perbandingan Progressive Web App dan native app" loading="lazy" />
 <h2>Apa Itu PWA?</h2>
 <p>PWA adalah website yang dapat berfungsi seperti app — dapat diakses offline, menerima notifikasi push, dan ditambahkan ke home screen, tanpa perlu diunduh dari app store.</p>
 <h2>Keunggulan PWA</h2>
@@ -1946,6 +1947,34 @@ export const articles: Article[] = [
 <p><strong>Apakah pengguna bisa membedakan PWA dengan native app?</strong> Secara visual dan pengalaman penggunaan, kebanyakan pengguna tidak akan menyadari perbedaannya — PWA dapat tampil dan berfungsi sangat mirip dengan native app di home screen.</p>
 <h2>Menentukan Pendekatan Sesuai Tahap Bisnis</h2>
 <p>Evaluasi tahap bisnis Anda saat ini — jika masih dalam fase validasi pasar, PWA memberikan kecepatan dan efisiensi biaya. Jika sudah memiliki basis pengguna besar dengan kebutuhan fitur kompleks, investasi pada native app lebih masuk akal. <a href="/id/blog/kenapa-plus-partner-digital-bisnis-indonesia">Partner digital</a> yang tepat dapat membantu menentukan pendekatan yang sesuai dengan kondisi bisnis Anda.</p>
+<h2>Checklist Sebelum Memutuskan Antara PWA dan Native App</h2>
+<ul>
+<li>Sudah menentukan fitur kritis yang membutuhkan akses hardware mendalam atau tidak</li>
+<li>Sudah menghitung anggaran development dan maintenance untuk kedua opsi</li>
+<li>Sudah memvalidasi apakah target pengguna nyaman mengakses lewat browser tanpa unduhan</li>
+<li>Sudah mempertimbangkan kebutuhan visibilitas di app store untuk strategi marketing</li>
+</ul>
+<div class="callout"><p><strong>Catatan jujur:</strong> Memilih PWA bukan berarti selamanya menghindari native app. Banyak bisnis memulai dengan PWA untuk menghemat biaya awal, lalu membangun native app setelah basis pengguna dan kebutuhan fitur semakin kompleks.</p></div>
+<h2>Studi Kasus: Startup yang Menghemat Biaya dengan PWA</h2>
+<p>Sebuah startup F&amp;B memulai dengan PWA karena anggaran terbatas pada tahap validasi pasar. Pelanggan dapat memesan langsung dari browser tanpa instalasi, dan tim dapat memperbarui menu serta promosi secara instan tanpa proses review app store. Setelah enam bulan dan basis pelanggan loyal terbentuk, startup tersebut baru berinvestasi membangun native app dengan fitur loyalitas yang lebih kompleks.</p>
+<h2>Dampak PWA terhadap Kecepatan Akuisisi Pengguna Baru</h2>
+<p>Karena tidak memerlukan proses unduhan dan instalasi dari app store, PWA dapat mengurangi friksi akuisisi pengguna baru secara signifikan — pengguna cukup mengklik tautan untuk langsung mengakses app, dibandingkan harus melalui beberapa langkah unduhan dan instalasi native app.</p>
+<h2>Mempertimbangkan Dukungan Browser dan Perangkat</h2>
+<p>Meski PWA didukung oleh sebagian besar browser modern, dukungan fitur seperti notifikasi push masih bervariasi tergantung sistem operasi dan browser yang digunakan pengguna. Penting untuk menguji pengalaman PWA di berbagai perangkat target sebelum benar-benar mengandalkannya sebagai solusi utama.</p>
+<h2>Mengukur Kesuksesan PWA Setelah Peluncuran</h2>
+<p>Setelah PWA diluncurkan, pantau metrik seperti tingkat penambahan ke home screen, engagement rate, dan waktu loading di berbagai kondisi jaringan untuk memastikan PWA benar-benar memberikan pengalaman yang setara dengan ekspektasi pengguna terhadap native app.</p>
+<h2>Mempertimbangkan Biaya Distribusi Konten dan Update</h2>
+<p>PWA memungkinkan tim mendorong update konten dan fitur secara instan tanpa menunggu proses approval app store yang bisa memakan waktu beberapa hari, sehingga perubahan mendesak seperti perbaikan bug kritis atau penyesuaian harga dapat langsung diterapkan ke semua pengguna tanpa hambatan birokrasi platform.</p>
+<h2>Risiko Ketergantungan pada Kebijakan Platform App Store</h2>
+<p>Native app selalu tunduk pada kebijakan app store yang dapat berubah sewaktu-waktu, termasuk aturan komisi transaksi atau persyaratan teknis baru. PWA relatif lebih bebas dari ketergantungan ini karena didistribusikan langsung melalui web, meski tetap perlu mematuhi standar browser dan keamanan.</p>
+<h2>Dampak PWA terhadap Konsumsi Penyimpanan Perangkat</h2>
+<p>Salah satu keluhan umum pengguna terhadap native app adalah ukuran instalasi yang besar dan terus bertambah setiap update. PWA biasanya hanya menggunakan beberapa megabyte penyimpanan cache, menjadikannya pilihan menarik bagi pengguna dengan perangkat berkapasitas penyimpanan terbatas, yang masih cukup umum di banyak pasar berkembang.</p>
+<h2>Menggabungkan PWA dengan Strategi Marketing Digital</h2>
+<p>Karena PWA pada dasarnya adalah website, seluruh strategi marketing digital seperti SEO, kampanye iklan berbasis tautan, dan share di media sosial dapat langsung mengarahkan pengguna ke pengalaman seperti app tanpa hambatan unduhan. Ini membuat siklus dari klik iklan hingga konversi menjadi jauh lebih singkat dibanding mengarahkan pengguna ke halaman app store terlebih dahulu.</p>
+<h2>Mempertimbangkan Faktor Keamanan pada PWA dan Native App</h2>
+<p>PWA mengandalkan HTTPS dan kebijakan keamanan browser, sementara native app dapat memanfaatkan fitur keamanan tingkat sistem operasi seperti secure enclave untuk data sensitif. Bisnis yang menangani data finansial atau kesehatan perlu mengevaluasi kebutuhan keamanan ini secara cermat sebelum memilih pendekatan yang sesuai.</p>
+<h2>Mempersiapkan Tim untuk Mengelola Kedua Pendekatan</h2>
+<p>Tim engineering yang akan mengelola PWA membutuhkan keahlian web development standar, sementara native app membutuhkan keahlian platform spesifik seperti Swift untuk iOS atau Kotlin untuk Android. Pertimbangkan ketersediaan talenta dan kemudahan rekrutmen di pasar Anda sebelum menentukan arah jangka panjang.</p>
 <h2>Kesimpulan</h2>
 <p>Banyak bisnis sukses memulai dengan PWA untuk validasi pasar, kemudian beralih ke native app setelah product-market fit tercapai.</p>
 `,
