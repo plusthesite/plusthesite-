@@ -31,6 +31,12 @@ direct sales reach-out. Also powers pricing.
 - **Team management** (`/admin/team`) — sales rep roster with role badges
   (sales/manager/admin), avatar initials, assigned lead count + open pipeline
   per rep, toggle active/inactive, delete. Bulk assign dropdown uses rep list.
+- **Sales Playbook** (`/admin/playbook`) — the sales team's hub: a **live,
+  interactive funnel** (Leads → open pipeline by stage → Closed Won → active
+  service, all clickable to drill into the Kanban) plus a complete Bahasa
+  Indonesia guide — daily routine, the 6 pipeline stages and when to advance,
+  organic outreach principles, BANT qualification, objection handling, and
+  closing — so every rep knows how to turn a lead into Closed Won.
 
 ## 2. Real lead generation (Google Places API)
 
