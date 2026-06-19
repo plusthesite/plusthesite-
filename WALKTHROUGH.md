@@ -15,6 +15,9 @@ direct sales reach-out. Also powers pricing.
 - **Leads** (`/admin/leads`) — segmented by service, status filters, summary
   cards, WhatsApp/Call/Email, **Convert → Opportunity**, **bulk actions**,
   **+ New Lead** form.
+- **Priority** (`/admin/priority`) — **lead scoring** (0–100) by deal value,
+  reachability, funnel stage, source & recency; ranks the hottest prospects
+  with Hot/Warm/Cold tiers so sales works the best leads first.
 - **Opportunities** (`/admin/opportunities`) — pipeline with open/weighted/won +
   win-rate, per-service breakdown, inline stage editing, **bulk actions**,
   **+ New** form, and a drag-&-drop **Kanban board** (`/board`).
