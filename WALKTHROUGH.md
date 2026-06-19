@@ -25,7 +25,9 @@ direct sales reach-out. Also powers pricing.
   pipeline value; auto-created/linked from forms and the importer.
 - **Activities & Tasks** — log calls/WhatsApp/email/meetings/notes; schedule
   follow-ups; global **Tasks** page with overdue highlighting.
-- **Quick-message templates** — pre-filled WhatsApp/Email per record.
+- **Quick-message templates** — organic, low-pressure WhatsApp/Email openers
+  (warm, question-led, no hard sell, explains how we found them) that the rep
+  personalises in an editable box before sending — built to earn trust, not spam.
 - **Team management** (`/admin/team`) — sales rep roster with role badges
   (sales/manager/admin), avatar initials, assigned lead count + open pipeline
   per rep, toggle active/inactive, delete. Bulk assign dropdown uses rep list.
