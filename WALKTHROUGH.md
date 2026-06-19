@@ -33,23 +33,21 @@ direct sales reach-out. Also powers pricing.
 Places API (New) — ToS-compliant, deduped by `place_id`, `--require-phone` so
 every lead is reachable, auto-linked to an Account.
 
-**Imported ≈1,546 reachable leads** (≈1,547 accounts) across 16+ cities —
+**≈1,492 reachable, de-duplicated leads** (~1,547 accounts) across 16+ cities —
 Jakarta, Surabaya, Bandung, Medan, Semarang, Makassar, Yogyakarta, Bali/Denpasar,
 Malang, Bekasi, Tangerang and more. Segmented by service, weighted toward
 high-revenue lines (property developers, 5-star hotels, private hospitals,
 premium auto dealers, international schools, contractors).
 
 Each lead carries an indicative deal value per service (importer auto-sets it),
-so the dashboard shows **≈Rp 16+ billion total pipeline potential** for the
+so the dashboard shows **≈Rp 19 billion total pipeline potential** for the
 sales team to prioritise.
 
-**Data hygiene / dedup.** Imports are deduped by `place_id` at write time, so
-there are **zero duplicate businesses**. The only residual cleanup is (a) ~10
-fabricated seed leads from `seed_crm.sql`, and (b) chains sharing one central
-phone (e.g. a hospital group across cities) — optional to collapse. Because a
-bulk delete on the live DB needs explicit human sign-off, this is shipped as a
-reviewed SQL snippet to run in the Supabase SQL Editor (preview → delete), not
-an agent-run mass mutation.
+**Data hygiene / dedup — done.** Imports are deduped by `place_id` at write time.
+A reviewed SQL snippet (preview → delete, run by a human in the Supabase SQL
+Editor) then removed ~10 fabricated seed leads and collapsed phone-duplicate
+chains: **1,546 → 1,492 leads, 0 fabricated, 0 phone duplicates.** Bulk deletes
+on the live DB are intentionally human-signed-off, never agent-run.
 
 ## 3. Real-time Dashboard
 
