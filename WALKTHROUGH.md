@@ -36,7 +36,7 @@ direct sales reach-out. Also powers pricing.
 Places API (New) — ToS-compliant, deduped by `place_id`, `--require-phone` so
 every lead is reachable, auto-linked to an Account.
 
-**≈1,492 reachable, de-duplicated leads** (~1,547 accounts) across 16+ cities —
+**≈1,492 reachable, de-duplicated leads** (~1,491 accounts, no orphans) across 16+ cities —
 Jakarta, Surabaya, Bandung, Medan, Semarang, Makassar, Yogyakarta, Bali/Denpasar,
 Malang, Bekasi, Tangerang and more. Segmented by service, weighted toward
 high-revenue lines (property developers, 5-star hotels, private hospitals,
@@ -48,9 +48,10 @@ sales team to prioritise.
 
 **Data hygiene / dedup — done.** Imports are deduped by `place_id` at write time.
 A reviewed SQL snippet (preview → delete, run by a human in the Supabase SQL
-Editor) then removed ~10 fabricated seed leads and collapsed phone-duplicate
-chains: **1,546 → 1,492 leads, 0 fabricated, 0 phone duplicates.** Bulk deletes
-on the live DB are intentionally human-signed-off, never agent-run.
+Editor) then removed ~10 fabricated seed leads, collapsed phone-duplicate chains,
+and pruned orphan accounts: **1,492 clean leads · 1,491 accounts · 0 fabricated ·
+0 phone duplicates · 0 orphans.** Bulk deletes on the live DB are intentionally
+human-signed-off, never agent-run.
 
 ## 3. Real-time Dashboard
 
