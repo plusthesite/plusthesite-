@@ -43,6 +43,14 @@ Each lead carries an indicative deal value per service (importer auto-sets it),
 so the dashboard shows **≈Rp 16+ billion total pipeline potential** for the
 sales team to prioritise.
 
+**Data hygiene / dedup.** Imports are deduped by `place_id` at write time, so
+there are **zero duplicate businesses**. The only residual cleanup is (a) ~10
+fabricated seed leads from `seed_crm.sql`, and (b) chains sharing one central
+phone (e.g. a hospital group across cities) — optional to collapse. Because a
+bulk delete on the live DB needs explicit human sign-off, this is shipped as a
+reviewed SQL snippet to run in the Supabase SQL Editor (preview → delete), not
+an agent-run mass mutation.
+
 ## 3. Real-time Dashboard
 
 `/admin` polls `/api/admin/stats` every 12s. Live engagement + pipeline value,
