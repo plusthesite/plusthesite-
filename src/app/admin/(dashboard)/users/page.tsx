@@ -1,4 +1,5 @@
 import { getSupabaseAdmin } from "@/lib/supabase";
+import { requireRole } from "@/lib/role";
 
 export const dynamic = "force-dynamic";
 
@@ -7,6 +8,7 @@ function fmt(d: string | null | undefined) {
 }
 
 export default async function UsersPage() {
+    await requireRole(["admin"]);
     const supabase = getSupabaseAdmin();
 
     let users: { id: string; email?: string; created_at: string; last_sign_in_at?: string | null }[] = [];

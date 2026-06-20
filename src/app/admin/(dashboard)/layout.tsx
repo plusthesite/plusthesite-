@@ -3,6 +3,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { AdminNav, LogoutButton } from "@/components/admin/AdminNav";
 import { MobileSidebar } from "@/components/admin/MobileSidebar";
 import { NotificationBell } from "@/components/admin/NotificationBell";
+import { getUserRole } from "@/lib/role";
 
 export default async function DashboardLayout({
     children,
@@ -19,6 +20,8 @@ export default async function DashboardLayout({
         redirect("/admin/login");
     }
 
+    const role = await getUserRole();
+
     return (
         <div className="flex min-h-screen bg-slate-50">
             {/* Desktop sidebar */}
@@ -33,7 +36,7 @@ export default async function DashboardLayout({
                     <NotificationBell />
                 </div>
                 <div className="flex-1 overflow-y-auto scrollbar-thin">
-                    <AdminNav />
+                    <AdminNav role={role} />
                 </div>
                 <div className="mt-auto border-t border-slate-800 pt-4">
                     <p className="mb-2 truncate px-3 text-xs text-slate-500" title={user.email ?? ""}>
@@ -44,7 +47,7 @@ export default async function DashboardLayout({
             </aside>
 
             {/* Mobile sidebar (hamburger) */}
-            <MobileSidebar email={user.email ?? ""} />
+            <MobileSidebar email={user.email ?? ""} role={role} />
 
             {/* Main content */}
             <main className="min-h-screen w-full lg:ml-60">

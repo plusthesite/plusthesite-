@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
+import { canAccess, type Role } from "@/lib/roleAccess";
 
 const dashboard = { href: "/admin", label: "Dashboard", icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" };
 
@@ -51,8 +52,12 @@ const sections: { title: string; items: { href: string; label: string; icon: str
     },
 ];
 
-export function AdminNav() {
+export function AdminNav({ role = "admin" }: { role?: Role }) {
     const pathname = usePathname();
+
+    const visibleSections = sections
+        .map((sec) => ({ ...sec, items: sec.items.filter((it) => canAccess(role, it.href)) }))
+        .filter((sec) => sec.items.length > 0);
 
     const linkClass = (href: string) => {
         const active = href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
@@ -88,7 +93,7 @@ export function AdminNav() {
                 {dashboard.label}
             </Link>
 
-            {sections.map((sec) => (
+            {visibleSections.map((sec) => (
                 <div key={sec.title} className="mt-5">
                     <p className="px-3 pb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-500">{sec.title}</p>
                     <div className="flex flex-col gap-1">

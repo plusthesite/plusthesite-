@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { AdminNav, LogoutButton } from "./AdminNav";
+import type { Role } from "@/lib/roleAccess";
 
-export function MobileSidebar({ email }: { email: string }) {
+export function MobileSidebar({ email, role }: { email: string; role?: Role }) {
     const [open, setOpen] = useState(false);
     const pathname = usePathname();
 
@@ -74,7 +75,7 @@ export function MobileSidebar({ email }: { email: string }) {
                     </button>
                 </div>
                 <div className="flex-1 overflow-y-auto">
-                    <AdminNav />
+                    <AdminNav role={role} />
                 </div>
                 <div className="mt-auto border-t border-slate-800 pt-4">
                     <p className="mb-2 truncate px-3 text-xs text-slate-500">{email}</p>

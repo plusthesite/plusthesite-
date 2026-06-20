@@ -1,6 +1,7 @@
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { formatIDR } from "@/lib/services";
 import { createRep, updateRep, deleteRep } from "./actions";
+import { requireRole } from "@/lib/role";
 
 export const dynamic = "force-dynamic";
 
@@ -25,6 +26,7 @@ interface OppCount {
 }
 
 export default async function TeamPage() {
+    await requireRole(["admin", "manager"]);
     const supabase = getSupabaseAdmin();
 
     // Fetch reps

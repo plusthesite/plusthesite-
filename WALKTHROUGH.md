@@ -73,6 +73,15 @@ Grouped sidebar (Content / Sales / Audience / Site / Tools), responsive mobile
 drawer, global **Search**, **Export Center** (CSV), **Plugins**, **Users**,
 **Settings**, **Email digest** (`/api/admin/digest`, optional Resend+cron).
 
+**Role-based access (RBAC).** The signed-in user's role is resolved by matching
+their auth email against the `sales_reps` roster (`src/lib/role.ts`); owner /
+unrostered logins default to `admin`. The sidebar is filtered per role
+(`canAccess`) so **sales** only see selling tools (Priority, Leads,
+Opportunities, Tasks, Accounts, Playbook, Search, Analytics), **manager** adds
+Team + content + audience, **admin** sees everything. Sensitive pages
+(Users / Settings / Plugins → admin-only, Team → admin+manager) also
+`requireRole`-guard against direct-URL access.
+
 ## 5. Blog / Content + Article SEO
 
 DB-first rendering (CMS overrides static seeds), **All Posts** manager with

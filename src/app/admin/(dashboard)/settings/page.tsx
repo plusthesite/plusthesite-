@@ -1,4 +1,5 @@
 import { isSupabaseConfigured } from "@/lib/supabase";
+import { requireRole } from "@/lib/role";
 
 export const dynamic = "force-dynamic";
 
@@ -25,7 +26,8 @@ function Health({ label, ok, hint }: { label: string; ok: boolean; hint?: string
     );
 }
 
-export default function SettingsPage() {
+export default async function SettingsPage() {
+    await requireRole(["admin"]);
     const supabaseOn = isSupabaseConfigured();
     const aiOn = !!process.env.GEMINI_API_KEY;
     const placesOn = !!process.env.GOOGLE_MAPS_API_KEY;
