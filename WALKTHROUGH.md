@@ -65,7 +65,13 @@ human-signed-off, never agent-run.
 
 `/admin` polls `/api/admin/stats` every 12s. Live engagement + pipeline value,
 hot opportunities, open/overdue follow-ups banner, **14-day new-leads chart** +
-**pipeline-by-stage** breakdown.
+**pipeline-by-stage** breakdown. Fully responsive (2-up stat cards on mobile,
+fluid type/padding).
+
+**Today's Focus** — an eye-catching, mobile-first panel that answers "what do I
+do now?": the **5 hottest scored leads** (one-tap WhatsApp/Call) and the
+**follow-up tasks due today / overdue** (one-tap Done), each linking to its
+record. Turns the dashboard into a daily action list, not just numbers.
 
 ## 4. WordPress-style Admin
 

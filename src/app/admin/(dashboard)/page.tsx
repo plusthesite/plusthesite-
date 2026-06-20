@@ -1,5 +1,6 @@
 import { getDashboardStats } from "@/lib/adminStats";
 import { LiveDashboard } from "./LiveDashboard";
+import { TodayFocus } from "./TodayFocus";
 
 export const dynamic = "force-dynamic";
 
@@ -14,5 +15,10 @@ export default async function DashboardPage() {
         );
     }
 
-    return <LiveDashboard initial={stats} />;
+    return (
+        <>
+            <LiveDashboard initial={stats} />
+            <TodayFocus />
+        </>
+    );
 }

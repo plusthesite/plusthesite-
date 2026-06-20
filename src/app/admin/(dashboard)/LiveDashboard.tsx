@@ -7,9 +7,9 @@ import type { DashboardStats } from "@/lib/adminStats";
 
 function StatCard({ label, value, accent, href }: { label: string; value: string; accent: string; href?: string }) {
     const inner = (
-        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md">
-            <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">{label}</p>
-            <p className={`mt-2 text-3xl font-extrabold ${accent}`}>{value}</p>
+        <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md sm:p-5">
+            <p className="truncate text-[10px] font-semibold uppercase tracking-wide text-slate-400 sm:text-xs">{label}</p>
+            <p className={`mt-1.5 text-2xl font-extrabold sm:mt-2 sm:text-3xl ${accent}`}>{value}</p>
         </div>
     );
     return href ? <Link href={href}>{inner}</Link> : inner;
@@ -84,7 +84,7 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
             )}
 
             {/* Engagement */}
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
                 <StatCard label="Subscribers" value={stats.subscribers.toLocaleString()} accent="text-blue-600" href="/admin/subscribers" />
                 <StatCard label="Leads" value={stats.leads.toLocaleString()} accent="text-emerald-600" href="/admin/leads" />
                 <StatCard label="Contacts" value={stats.contacts.toLocaleString()} accent="text-violet-600" href="/admin/contacts" />
@@ -93,7 +93,7 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
 
             {/* Revenue pipeline */}
             <h2 className="mt-8 text-sm font-bold uppercase tracking-wide text-slate-400">Sales Pipeline</h2>
-            <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-3 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
                 <StatCard label="Open Opportunities" value={stats.opportunities.toLocaleString()} accent="text-slate-900" href="/admin/opportunities" />
                 <StatCard label="Open Pipeline" value={formatIDR(stats.openPipeline, true)} accent="text-indigo-600" href="/admin/opportunities" />
                 <StatCard label="Weighted Forecast" value={formatIDR(stats.weightedPipeline, true)} accent="text-blue-600" href="/admin/opportunities" />
