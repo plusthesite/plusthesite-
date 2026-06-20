@@ -169,9 +169,14 @@ Real-time notification center in the admin sidebar (desktop + mobile):
 `GOOGLE_MAPS_API_KEY` (✅ real lead import working) · `RESEND_API_KEY` +
 `ADMIN_DIGEST_EMAIL` + `CRON_SECRET` (auto digest).
 
-## Verification
+## Verification & CI
 
 | Check | Result |
 |---|---|
 | `npx tsc --noEmit` | ✅ clean |
 | `npx next build` | ✅ 234 pages |
+
+**GitHub Actions CI** (`.github/workflows/ci.yml`) runs typecheck + production
+build on every push / PR to `main`, so a broken build can't silently reach
+production again (two agents push here in parallel). Make it a required check
+in GitHub → Settings → Branches to block bad merges.
