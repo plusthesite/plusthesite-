@@ -17,6 +17,7 @@ const Q = {
     contact: { en: "Talk to the team", id: "Hubungi tim" },
     process: { en: "How do you work?", id: "Cara kerjanya?" },
     timeline: { en: "How long does it take?", id: "Berapa lama?" },
+    whyus: { en: "Why plus.?", id: "Kenapa pilih plus.?" },
 };
 
 export const INTENTS: Intent[] = [
@@ -171,12 +172,146 @@ export const INTENTS: Intent[] = [
     },
     {
         id: "thanks",
-        triggers: ["makasih", "terima kasih", "thanks", "thank you", "oke", "sip", "mantap", "noted", "siap"],
+        triggers: ["makasih", "terima kasih", "thanks", "thank you", "thx", "tengkyu", "noted", "appreciate"],
         reply: {
             id: "Sama-sama! 🙏 Kalau ada yang mau ditanyakan lagi soal layanan atau harga, saya di sini. Semoga harimu lancar!",
             en: "You're welcome! 🙏 If anything else comes up about services or pricing, I'm here. Have a great day!",
         },
         quick: [Q.services, Q.pricing],
+    },
+    {
+        id: "about",
+        triggers: ["siapa kamu", "kamu siapa", "who are you", "plus itu apa", "apa itu plus", "tentang plus", "about you", "about plus", "kalian siapa", "perusahaan apa", "kamu bot"],
+        reply: {
+            id: "plus. adalah digital AI-agency: satu tim yang memadukan AI dengan kreator manusia untuk bantu bisnis Indonesia berkembang — dari chatbot, aplikasi, branding, sampai CRM. Saya asistennya, siap bantu Anda. 🙂",
+            en: "plus. is a digital AI-agency: one team blending AI with real creatives to help Indonesian businesses grow — from chatbots and apps to branding and CRM. I'm its assistant, here to help. 🙂",
+        },
+        quick: [Q.services, Q.whyus, Q.contact],
+    },
+    {
+        id: "whyus",
+        triggers: ["kenapa pilih", "kenapa harus", "why choose", "why you", "kelebihan", "keunggulan", "beda", "dibanding", "vs", "kompetitor", "bedanya apa", "alasan"],
+        reply: {
+            id: "Kenapa plus.? 1) Satu tim untuk semua (strategi + kreatif + teknologi) — nggak perlu ganti-ganti vendor. 2) AI + manusia asli, jadi cepat tapi tetap berkualitas. 3) Harga IDR terjangkau & transparan. 4) Bilingual ID/EN. 5) Fokus hasil, bukan sekadar tampil.",
+            en: "Why plus.? 1) One team for everything (strategy + creative + tech) — no juggling vendors. 2) AI + real humans, so it's fast but quality. 3) Affordable, transparent IDR pricing. 4) Bilingual ID/EN. 5) Outcome-focused, not just pretty.",
+        },
+        quick: [Q.pricing, Q.contact],
+    },
+    {
+        id: "consultation",
+        triggers: ["konsultasi", "consult", "ngobrol dulu", "tanya dulu", "gratis konsultasi", "free consult", "diskusi", "meeting", "ketemu", "zoom", "call"],
+        reply: {
+            id: "Konsultasi awal kami gratis, tanpa kewajiban. 🙏 Ceritakan kebutuhan Anda, kami kasih ide & estimasi. Tinggalkan nama + email/WhatsApp di sini, atau buka form kontak — kami atur jadwalnya.",
+            en: "Our initial consultation is free, no obligation. 🙏 Tell us your needs and we'll share ideas + an estimate. Drop your name + email/WhatsApp here, or open the contact form and we'll schedule it.",
+        },
+        cta: { label: { en: "Open contact form", id: "Buka form kontak" }, href: "/contact-us" },
+    },
+    {
+        id: "discount",
+        triggers: ["diskon", "discount", "promo", "potongan", "nego", "kurang", "deal", "penawaran khusus", "bisa kurang"],
+        reply: {
+            id: "Kami jaga harga tetap jujur 🙂. Paket tahunan otomatis hemat ~20%, dan untuk proyek kami kasih penawaran khusus sesuai scope. Ceritakan kebutuhan & budget Anda, nanti kami carikan opsi yang pas.",
+            en: "We keep pricing honest 🙂. Annual plans already save ~20%, and for projects we tailor a quote to scope. Share your needs & budget and we'll find an option that fits.",
+        },
+        quick: [Q.pricing, Q.contact],
+    },
+    {
+        id: "guarantee",
+        triggers: ["garansi", "guarantee", "revisi", "revision", "jaminan", "kalau nggak puas", "refund", "uang kembali", "warranty", "gagal"],
+        reply: {
+            id: "Kami kerja iteratif dengan revisi terjadwal di tiap tahap, jadi hasilnya sesuai harapan sebelum lanjut. Lingkup revisi kami sepakati di awal biar jelas & adil buat kedua pihak.",
+            en: "We work iteratively with scheduled revisions at each stage, so it matches your expectations before we move on. We agree the revision scope upfront so it's clear and fair.",
+        },
+        quick: [Q.process, Q.contact],
+    },
+    {
+        id: "contract",
+        triggers: ["kontrak", "contract", "lock in", "lock-in", "terikat", "ikatan", "minimal berlangganan", "komitmen", "putus kapan"],
+        reply: {
+            id: "Tanpa kontrak mengikat untuk layanan bulanan — bisa berhenti kapan saja. Untuk proyek, kesepakatannya berbasis milestone yang jelas. Fleksibel & transparan.",
+            en: "No lock-in for monthly services — cancel anytime. For projects, the agreement is milestone-based and clear. Flexible and transparent.",
+        },
+        quick: [Q.pricing, Q.contact],
+    },
+    {
+        id: "maintenance",
+        triggers: ["maintenance", "perawatan", "support setelah", "after launch", "setelah jadi", "update", "pemeliharaan", "garansi bug", "fixing"],
+        reply: {
+            id: "Kami nggak lepas tangan setelah rilis. Ada paket dukungan & pemeliharaan berkelanjutan — pantau, perbaiki, dan terus tingkatkan. Mau saya jelaskan opsinya?",
+            en: "We don't disappear after launch. We offer ongoing support & maintenance — monitor, fix, and keep improving. Want me to explain the options?",
+        },
+        quick: [Q.pricing, Q.contact],
+    },
+    {
+        id: "seo",
+        triggers: ["seo", "ranking google", "masuk halaman 1", "page 1", "search engine", "mesin pencari", "google search", "trafik", "traffic organik", "kata kunci"],
+        reply: {
+            id: "Ya, SEO bagian dari Digital Agency kami — teknis (struktur, kecepatan, schema), konten, dan optimasi lokal Indonesia biar bisnis Anda lebih gampang ditemukan di Google & AI search. Mau dibantu audit singkat?",
+            en: "Yes — SEO is part of our Digital Agency: technical (structure, speed, schema), content, and Indonesia-local optimization so you're easier to find on Google & AI search. Want a quick audit?",
+        },
+        quick: [Q.contact, Q.pricing],
+    },
+    {
+        id: "ads",
+        triggers: ["iklan", "ads", "google ads", "facebook ads", "meta ads", "fb ads", "instagram ads", "tiktok ads", "beriklan", "paid ads", "ppc", "adwords"],
+        reply: {
+            id: "Bisa — kami bantu kelola iklan berbayar (Google, Meta/Instagram, TikTok) yang efektif sesuai budget, plus landing page yang konversinya tinggi. Targetnya bukan sekadar klik, tapi leads/penjualan nyata.",
+            en: "Yes — we manage paid ads (Google, Meta/Instagram, TikTok) that work within your budget, plus high-converting landing pages. The goal isn't just clicks, but real leads/sales.",
+        },
+        quick: [Q.pricing, Q.contact],
+    },
+    {
+        id: "ecommerce",
+        triggers: ["toko online", "ecommerce", "e-commerce", "jualan online", "online shop", "marketplace", "olshop", "katalog produk", "keranjang", "checkout"],
+        reply: {
+            id: "Bisa banget — kami bangun toko online / aplikasi jualan dengan katalog, keranjang, pembayaran, dan integrasi WhatsApp/CRM biar pesanan & pelanggan terkelola rapi. Mau lewat web atau aplikasi?",
+            en: "Absolutely — we build online stores / commerce apps with catalog, cart, payments, and WhatsApp/CRM integration so orders & customers stay organized. Prefer web or app?",
+        },
+        quick: [Q.app, Q.contact],
+    },
+    {
+        id: "security",
+        triggers: ["keamanan", "aman", "security", "data aman", "privacy", "privasi", "kerahasiaan", "gdpr", "uu pdp", "bocor", "enkripsi"],
+        reply: {
+            id: "Keamanan & privasi kami utamakan — data dienkripsi, akses dibatasi sesuai peran, dan kami patuhi praktik perlindungan data (termasuk UU PDP Indonesia). Data klien tidak kami bagikan.",
+            en: "Security & privacy are a priority — encrypted data, role-based access, and we follow data-protection best practices (incl. Indonesia's PDP law). Client data is never shared.",
+        },
+        quick: [Q.services, Q.contact],
+    },
+    {
+        id: "language",
+        triggers: ["bahasa", "english", "inggris", "language", "multi bahasa", "bilingual", "bisa inggris", "in english"],
+        reply: {
+            id: "Kami bekerja dalam Bahasa Indonesia & English — termasuk membuat website/konten dwibahasa. Anda nyaman pakai bahasa apa, kami ikuti. 🙂",
+            en: "We work in both Bahasa Indonesia & English — including bilingual websites/content. Whichever you prefer, we'll follow. 🙂",
+        },
+        quick: [Q.services, Q.contact],
+    },
+    {
+        id: "umkm",
+        triggers: ["umkm", "ukm", "usaha kecil", "bisnis kecil", "startup", "baru mulai", "modal kecil", "budget terbatas", "pemula", "small business"],
+        reply: {
+            id: "Pas banget — banyak klien kami UMKM & startup. Paket Starter mulai Rp 2,5jt/bln dirancang untuk yang baru mulai: 1 layanan pilihan, setup chatbot/landing, konten bulanan. Tumbuh dulu, scale belakangan.",
+            en: "Perfect — many of our clients are small businesses & startups. The Starter plan from Rp 2.5jt/mo is built for getting going: 1 service, chatbot/landing setup, monthly content. Start small, scale later.",
+        },
+        quick: [Q.pricing, Q.contact],
+    },
+    {
+        id: "affirm",
+        triggers: ["iya", "yes", "boleh", "mau", "oke", "sip ", "lanjut", "tertarik", "minat", "setuju", "betul", "bener"],
+        reply: {
+            id: "Mantap! 🙌 Biar saya bantu lebih tepat — boleh tahu Anda tertarik di layanan apa, atau langsung tinggalkan nama + email/WhatsApp supaya tim kami yang hubungi?",
+            en: "Great! 🙌 So I can help precisely — which service are you interested in, or just leave your name + email/WhatsApp and our team will reach out?",
+        },
+        quick: [Q.services, Q.pricing, Q.contact],
+    },
+    {
+        id: "goodbye",
+        triggers: ["bye", "dadah", "sampai jumpa", "udahan", "cukup", "sudah cukup", "see you", "nanti aja", "besok aja", "tutup"],
+        reply: {
+            id: "Baik, terima kasih sudah mampir! 🙏 Kapan pun butuh, saya & tim plus. siap membantu. Sehat & sukses selalu untuk bisnis Anda! 🚀",
+            en: "Alright, thanks for stopping by! 🙏 Whenever you need us, plus. is here to help. Wishing you & your business all the best! 🚀",
+        },
     },
 ];
 
