@@ -153,13 +153,15 @@ Real-time notification center in the admin sidebar (desktop + mobile):
 
 ## 10. Public AI Chat Widget (dogfooding)
 
-A floating **AI chat assistant** (`src/components/ChatWidget.tsx`) on every
-public page — fitting for an agency that *sells* chatbots. Powered by Gemini via
-the existing `/api/ai` proxy, grounded with plus.'s services + IDR pricing +
-contact, bilingual (replies in the visitor's language), concise and non-pushy
-(no invented facts). Every conversation is saved to `chat_messages`, so it
-**feeds the admin Conversations module** as a live lead channel. Degrades
-gracefully to a "contact us" message if no AI key is set.
+A floating **chat assistant** (`src/components/ChatWidget.tsx`) on every public
+page — fitting for an agency that *sells* chatbots. It's **rule-based** (no AI
+key, no cost, always works): a curated bilingual intent knowledge base
+(`src/lib/chatbot.ts`) with **trigger-phrase matching** + **guided quick-reply
+chips** + contextual CTAs — the pattern most agency/service sites use. Grounded
+in plus.'s real services, IDR pricing, process and contact (no invented facts).
+It **captures leads** — emails/phones typed in chat are detected (email → a
+`chatbot`-sourced lead via `/api/lead`), and every conversation is saved to
+`chat_messages`, feeding the admin **Conversations** module.
 
 ---
 
