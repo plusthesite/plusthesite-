@@ -82,6 +82,12 @@ Team + content + audience, **admin** sees everything. Sensitive pages
 (Users / Settings / Plugins → admin-only, Team → admin+manager) also
 `requireRole`-guard against direct-URL access.
 
+**User provisioning** (`/admin/users/new`, admin-only) — admin creates a login
+in one place: it calls the Supabase Auth admin API to create the account
+(email pre-confirmed) **and** registers it in `sales_reps` with the chosen role,
+so RBAC applies immediately. Includes a secure password generator and a
+one-time credentials panel to hand to the new sales/manager/admin user.
+
 ## 5. Blog / Content + Article SEO
 
 DB-first rendering (CMS overrides static seeds), **All Posts** manager with

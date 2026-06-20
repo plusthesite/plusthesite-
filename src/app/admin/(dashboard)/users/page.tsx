@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { requireRole } from "@/lib/role";
 
@@ -26,7 +27,10 @@ export default async function UsersPage() {
                     <h1 className="text-2xl font-bold text-slate-900">Users</h1>
                     <p className="mt-1 text-sm text-slate-500">Admins who can sign in to this dashboard (Supabase Auth).</p>
                 </div>
-                <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-slate-600">{users.length} admin{users.length === 1 ? "" : "s"}</span>
+                <div className="flex items-center gap-3">
+                    <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-slate-600">{users.length} user{users.length === 1 ? "" : "s"}</span>
+                    <Link href="/admin/users/new" className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700">+ Buat Akun</Link>
+                </div>
             </div>
 
             {error && (
