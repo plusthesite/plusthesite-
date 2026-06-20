@@ -101,6 +101,13 @@ in one place: it calls the Supabase Auth admin API to create the account
 so RBAC applies immediately. Includes a secure password generator and a
 one-time credentials panel to hand to the new sales/manager/admin user.
 
+**Appearance customizer** (`/admin/appearance`, admin-only) — re-theme the public
+site's brand colors **interactively from the dashboard**: color pickers + preset
+palettes with a **live hero preview** that recolors instantly. Saves to
+`site_settings`; the public layout injects the CSS-variable override (light +
+dark) via a cached `ThemeStyle` so pages stay **static/ISR** (revalidate ~2 min)
+— no per-request DB hit, the whole site re-themes within minutes. Reset to
+default anytime.
 ## 5. Blog / Content + Article SEO
 
 DB-first rendering (CMS overrides static seeds), **All Posts** manager with

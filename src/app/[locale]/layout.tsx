@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import ThemeProvider from "@/components/ThemeProvider";
 import ScrollToTop from "@/components/ScrollToTop";
 import { ChatWidget } from "@/components/ChatWidget";
+import { ThemeStyle } from "@/components/ThemeStyle";
 import { I18nProvider } from "@/i18n/I18nProvider";
 import { getDictionary } from "@/i18n/getDictionary";
 import { locales, isLocale } from "@/i18n/config";
@@ -181,6 +182,7 @@ export default async function LocaleLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
+        <ThemeStyle />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} antialiased`}>
         <ThemeProvider>
