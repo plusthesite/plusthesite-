@@ -94,10 +94,16 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
             {/* Revenue pipeline */}
             <h2 className="mt-8 text-sm font-bold uppercase tracking-wide text-slate-400">Sales Pipeline</h2>
             <div className="mt-3 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+                <StatCard label="Lead Pipeline" value={formatIDR(stats.leadPipeline, true)} accent="text-teal-600" href="/admin/priority" />
                 <StatCard label="Open Opportunities" value={stats.opportunities.toLocaleString()} accent="text-slate-900" href="/admin/opportunities" />
                 <StatCard label="Open Pipeline" value={formatIDR(stats.openPipeline, true)} accent="text-indigo-600" href="/admin/opportunities" />
                 <StatCard label="Weighted Forecast" value={formatIDR(stats.weightedPipeline, true)} accent="text-blue-600" href="/admin/opportunities" />
+            </div>
+            <div className="mt-3 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
                 <StatCard label="Won Revenue" value={formatIDR(stats.wonValue, true)} accent="text-emerald-600" href="/admin/opportunities" />
+                <StatCard label="Conversion Rate" value={`${stats.conversionRate}%`} accent="text-purple-600" href="/admin/leads" />
+                <StatCard label="Win Rate" value={`${stats.winRate}%`} accent="text-emerald-600" href="/admin/opportunities" />
+                <StatCard label="Accounts" value={(stats.leads > 0 ? stats.leads : 0).toLocaleString()} accent="text-slate-600" href="/admin/accounts" />
             </div>
 
             {/* Trends */}
@@ -185,6 +191,43 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
                     </div>
                 </div>
             </div>
+
+            {/* Rep leaderboard */}
+            {stats.repLeaderboard.length > 0 && (
+                <div className="mt-8">
+                    <h2 className="text-sm font-bold uppercase tracking-wide text-slate-400">Sales Rep Leaderboard</h2>
+                    <div className="mt-3 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+                        <table className="w-full text-left text-sm">
+                            <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-400">
+                                <tr>
+                                    <th className="px-5 py-3 font-semibold">Rep</th>
+                                    <th className="px-5 py-3 font-semibold text-right">Leads</th>
+                                    <th className="px-5 py-3 font-semibold text-right">Open Deals</th>
+                                    <th className="px-5 py-3 font-semibold text-right">Pipeline</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-slate-100">
+                                {stats.repLeaderboard.map((r, i) => (
+                                    <tr key={r.name} className="transition-colors hover:bg-slate-50">
+                                        <td className="px-5 py-3">
+                                            <div className="flex items-center gap-3">
+                                                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-violet-500 text-xs font-bold text-white">
+                                                    {r.name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase()}
+                                                </div>
+                                                <span className="font-semibold text-slate-800">{r.name}</span>
+                                                {i === 0 && <span className="text-xs">👑</span>}
+                                            </div>
+                                        </td>
+                                        <td className="px-5 py-3 text-right font-semibold text-slate-700">{r.leads}</td>
+                                        <td className="px-5 py-3 text-right font-semibold text-slate-700">{r.deals}</td>
+                                        <td className="px-5 py-3 text-right font-semibold text-indigo-600">{formatIDR(r.pipeline, true)}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

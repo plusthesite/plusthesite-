@@ -1,4 +1,4 @@
-# plus. — Build Walkthrough (Claude / Opus)
+# plus. — Build Walkthrough
 
 How plusthe.site became a full Digital-Agency site with a WordPress-style admin,
 a real sales CRM, 1,500+ real leads, strong Indonesian SEO, honest copy,
@@ -68,6 +68,13 @@ hot opportunities, open/overdue follow-ups banner, **14-day new-leads chart** +
 **pipeline-by-stage** breakdown. Fully responsive (2-up stat cards on mobile,
 fluid type/padding).
 
+**Sales metrics:** Lead Pipeline (total lead value), Open Pipeline, Weighted
+Forecast, Won Revenue, **Conversion Rate**, **Win Rate** — so management sees
+funnel health at a glance.
+
+**Sales Rep Leaderboard** — per-rep table showing assigned leads, open deals,
+and pipeline value. 👑 Crown for the top performer. Updates live every 12s.
+
 **Today's Focus** — an eye-catching, mobile-first panel that answers "what do I
 do now?": the **5 hottest scored leads** (one-tap WhatsApp/Call) and the
 **follow-up tasks due today / overdue** (one-tap Done), each linking to its
@@ -125,7 +132,7 @@ feature, specific, customer language:
 - Replaced fake proof with a **ProofBand** of verifiable facts (90+ articles, 7
   services, ID/EN, AI+Human) + an honest **How We Work** 4-step section.
 
-## Indonesian-market pricing & lead funnel
+## 8. Indonesian-market pricing & lead funnel
 
 IDR tiers (Starter Rp 2.5jt / Professional Rp 7.5jt / Enterprise Rp 20jt, annual
 −20%). Contact form + product CTAs create segmented leads (+ accounts).
@@ -154,8 +161,8 @@ Real-time notification center in the admin sidebar (desktop + mobile):
 | `supabase/activities.sql` | activities & tasks | ✅ applied |
 | `supabase/accounts.sql` | accounts + backfill | ✅ applied |
 | `supabase/leads_places.sql` | Places import support | ✅ applied |
-| `supabase/sales_reps.sql` | sales team roster | ⬜ run in SQL Editor |
-| `supabase/notifications.sql` | in-app notifications | ⬜ run in SQL Editor |
+| `supabase/sales_reps.sql` | sales team roster | ✅ applied |
+| `supabase/notifications.sql` | in-app notifications | ✅ applied |
 
 ## Optional env
 
@@ -167,7 +174,4 @@ Real-time notification center in the admin sidebar (desktop + mobile):
 | Check | Result |
 |---|---|
 | `npx tsc --noEmit` | ✅ clean |
-| `npx next build` | ✅ 232 pages |
-
-> ⚠️ Two agents worked this repo in parallel — keep them synced (one git owner,
-> or separate worktrees) to avoid clobbering.
+| `npx next build` | ✅ 234 pages |
