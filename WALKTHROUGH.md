@@ -151,6 +151,16 @@ Real-time notification center in the admin sidebar (desktop + mobile):
 - `lib/notifications.ts` — fire-and-forget helper (never blocks main actions).
 - DB: `supabase/notifications.sql` — indexed on unread + created_at.
 
+## 10. Public AI Chat Widget (dogfooding)
+
+A floating **AI chat assistant** (`src/components/ChatWidget.tsx`) on every
+public page — fitting for an agency that *sells* chatbots. Powered by Gemini via
+the existing `/api/ai` proxy, grounded with plus.'s services + IDR pricing +
+contact, bilingual (replies in the visitor's language), concise and non-pushy
+(no invented facts). Every conversation is saved to `chat_messages`, so it
+**feeds the admin Conversations module** as a live lead channel. Degrades
+gracefully to a "contact us" message if no AI key is set.
+
 ---
 
 ## Database migrations (Supabase SQL Editor)
