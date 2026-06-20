@@ -7,6 +7,7 @@ export interface DashboardStats {
     contacts: number;
     conversations: number;
     opportunities: number;
+    accounts: number;
     views: number;
     openPipeline: number;
     weightedPipeline: number;
@@ -37,7 +38,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     const supabase = getSupabaseAdmin();
     const empty: DashboardStats = {
         configured: false,
-        subscribers: 0, leads: 0, contacts: 0, conversations: 0, opportunities: 0,
+        subscribers: 0, leads: 0, contacts: 0, conversations: 0, opportunities: 0, accounts: 0,
         views: 0, openPipeline: 0, weightedPipeline: 0, wonValue: 0,
         leadPipeline: 0, conversionRate: 0, winRate: 0,
         openTasks: 0, overdueTasks: 0,
@@ -48,8 +49,8 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     };
     if (!supabase) return empty;
 
-    const [subscribers, leads, contacts, conversations, opportunities] = await Promise.all([
-        count("subscribers"), count("leads"), count("contacts"), count("chat_messages"), count("opportunities"),
+    const [subscribers, leads, contacts, conversations, opportunities, accounts] = await Promise.all([
+        count("subscribers"), count("leads"), count("contacts"), count("chat_messages"), count("opportunities"), count("accounts"),
     ]);
 
     const since14 = new Date(Date.now() - 13 * 86_400_000).toISOString().slice(0, 10);
@@ -120,7 +121,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
 
     return {
         configured: true,
-        subscribers, leads, contacts, conversations, opportunities,
+        subscribers, leads, contacts, conversations, opportunities, accounts,
         views, openPipeline, weightedPipeline, wonValue,
         leadPipeline, conversionRate, winRate,
         openTasks, overdueTasks,

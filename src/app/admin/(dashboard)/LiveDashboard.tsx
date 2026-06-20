@@ -103,7 +103,7 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
                 <StatCard label="Won Revenue" value={formatIDR(stats.wonValue, true)} accent="text-emerald-600" href="/admin/opportunities" />
                 <StatCard label="Conversion Rate" value={`${stats.conversionRate}%`} accent="text-purple-600" href="/admin/leads" />
                 <StatCard label="Win Rate" value={`${stats.winRate}%`} accent="text-emerald-600" href="/admin/opportunities" />
-                <StatCard label="Accounts" value={(stats.leads > 0 ? stats.leads : 0).toLocaleString()} accent="text-slate-600" href="/admin/accounts" />
+                <StatCard label="Accounts" value={stats.accounts.toLocaleString()} accent="text-slate-600" href="/admin/accounts" />
             </div>
 
             {/* Trends */}
