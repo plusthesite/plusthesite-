@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { serviceName, formatIDR } from "@/lib/services";
+import { scoreLead, scoreTier } from "@/lib/leadScore";
 import { ActivityPanel } from "@/components/admin/ActivityPanel";
 import { QuickMessage } from "@/components/admin/QuickMessage";
 import { convertLeadToOpportunity } from "../../opportunities/actions";
@@ -28,6 +29,8 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
 
     const label = l.company || l.name || l.email || "Lead";
     const wa = waLink(l.phone);
+    const { score, reasons } = scoreLead(l);
+    const tier = scoreTier(score);
 
     return (
         <div>
@@ -43,6 +46,18 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
                                 {l.company && <p className="text-sm text-slate-500">{l.company}</p>}
                             </div>
                             <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-600">{serviceName(l.service)}</span>
+                        </div>
+
+                        {/* Lead score */}
+                        <div className="mt-4 flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3">
+                            <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-lg bg-white shadow-sm">
+                                <span className="text-lg font-black leading-none text-slate-900">{score}</span>
+                                <span className="text-[8px] font-bold uppercase text-slate-400">/100</span>
+                            </div>
+                            <div className="min-w-0">
+                                <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-bold ${tier.color}`}>{tier.label} lead</span>
+                                {reasons.length > 0 && <p className="mt-1 truncate text-[11px] text-slate-500" title={reasons.join(" · ")}>{reasons.join(" · ")}</p>}
+                            </div>
                         </div>
 
                         <dl className="mt-4 space-y-2 text-sm">
