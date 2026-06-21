@@ -1,9 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { User, MonitorPlay, Eye, ShoppingBag, Mic, Video, Settings, Send, Cast } from "lucide-react";
+import { User, MonitorPlay, Eye, ShoppingBag, Mic, MicOff, Video, VideoOff, Settings, Send, Cast, Plus, Trash2 } from "lucide-react";
+
+interface LiveProduct { id: number; name: string; price: number; oldPrice?: number }
+
+const PRODUCT_POOL: Omit<LiveProduct, "id">[] = [
+    { name: "Paket Bundling Kopi", price: 85000, oldPrice: 100000 },
+    { name: "Tumbler Eksklusif", price: 45000 },
+    { name: "Beans 250g Arabica", price: 120000, oldPrice: 150000 },
+    { name: "Voucher Diskon 30%", price: 25000 },
+    { name: "Merch T-Shirt", price: 99000 },
+];
+
+const rp = (n: number) => `Rp ${n.toLocaleString("id-ID")}`;
 
 export const ViewLiveStream: React.FC<{ addNotification: (t: 'success' | 'error', m: string) => void }> = ({ addNotification }) => {
     const [isLive, setIsLive] = useState(false);
     const [viewers, setViewers] = useState(120);
+    const [micOn, setMicOn] = useState(true);
+    const [camOn, setCamOn] = useState(true);
+    const [products, setProducts] = useState<LiveProduct[]>([{ id: 1, ...PRODUCT_POOL[0] }]);
+    const [featuredId, setFeaturedId] = useState(1);
     const [chatMessages, setChatMessages] = useState<{ user: string, msg: string, color: string }[]>([
         { user: "User 1", msg: "Keren banget produknya! 🔥", color: "bg-blue-500" },
         { user: "User 2", msg: "Harganya berapa kak?", color: "bg-brand" },
@@ -18,10 +34,24 @@ export const ViewLiveStream: React.FC<{ addNotification: (t: 'success' | 'error'
         setHostMsg("");
     };
 
+    const addProduct = () => {
+        const next = PRODUCT_POOL[products.length % PRODUCT_POOL.length];
+        const id = Date.now();
+        setProducts(prev => [...prev, { id, ...next }]);
+        addNotification('success', `"${next.name}" ditambahkan ke produk.`);
+    };
+
+    const removeProduct = (id: number) => {
+        setProducts(prev => prev.filter(p => p.id !== id));
+        if (featuredId === id) setFeaturedId(prev => (products.find(p => p.id !== id)?.id ?? prev));
+    };
+
+    const featured = products.find(p => p.id === featuredId) ?? products[0];
+
     useEffect(() => {
         if (!isLive) return;
         const interval = setInterval(() => {
-            setViewers(v => v + Math.floor(Math.random() * 5) - 2);
+            setViewers(v => Math.max(0, v + Math.floor(Math.random() * 5) - 2));
             if (Math.random() > 0.7) {
                 setChatMessages(prev => [...prev.slice(-4), {
                     user: `User ${Math.floor(Math.random() * 100)}`,
@@ -41,10 +71,17 @@ export const ViewLiveStream: React.FC<{ addNotification: (t: 'success' | 'error'
                     {/* Mock Video Feed */}
                     <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-slate-900 to-slate-800">
                         {isLive ? (
-                            <div className="text-center animate-pulse">
-                                <div className="w-32 h-32 bg-brand/20 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-brand shadow-[0_0_30px_rgba(12,116,235,0.4)]"><User size={64} className="text-brand" /></div>
-                                <p className="text-brand font-bold">AI Avatar Broadcasting...</p>
-                            </div>
+                            camOn ? (
+                                <div className="text-center animate-pulse">
+                                    <div className="w-32 h-32 bg-brand/20 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-brand shadow-[0_0_30px_rgba(12,116,235,0.4)]"><User size={64} className="text-brand" /></div>
+                                    <p className="text-brand font-bold">AI Avatar Broadcasting...</p>
+                                </div>
+                            ) : (
+                                <div className="text-center opacity-70">
+                                    <VideoOff size={48} className="mx-auto mb-2 text-slate-400" />
+                                    <p className="text-slate-300 font-bold">Kamera dimatikan</p>
+                                </div>
+                            )
                         ) : (
                             <div className="text-center opacity-50">
                                 <MonitorPlay size={48} className="mx-auto mb-2 text-slate-500" />
@@ -58,16 +95,19 @@ export const ViewLiveStream: React.FC<{ addNotification: (t: 'success' | 'error'
                         <div className={`w-2 h-2 rounded-full ${isLive ? 'bg-red-500 animate-pulse' : 'bg-slate-500'}`}></div>
                         <span className="text-xs font-bold text-white">{isLive ? 'LIVE' : 'OFFLINE'}</span>
                     </div>
-                    {isLive && <div className="absolute top-4 right-4 bg-black/50 backdrop-blur px-3 py-1 rounded-full flex items-center gap-2 border border-white/10 animate-in fade-in">
-                        <Eye size={14} className="text-white" />
-                        <span className="text-xs font-bold text-white">{viewers}</span>
+                    {isLive && <div className="absolute top-4 right-4 flex gap-2 animate-in fade-in">
+                        {!micOn && <div className="bg-black/50 backdrop-blur p-1.5 rounded-full border border-white/10"><MicOff size={14} className="text-red-400" /></div>}
+                        <div className="bg-black/50 backdrop-blur px-3 py-1 rounded-full flex items-center gap-2 border border-white/10">
+                            <Eye size={14} className="text-white" />
+                            <span className="text-xs font-bold text-white">{viewers}</span>
+                        </div>
                     </div>}
 
-                    {/* Product Pop-up Overlay */}
-                    {isLive && (
+                    {/* Product Pop-up Overlay (featured pinned product) */}
+                    {isLive && featured && (
                         <div className="absolute bottom-6 left-6 bg-white/10 backdrop-blur-xl border border-white/20 p-3 rounded-xl flex gap-3 items-center max-w-xs animate-in slide-in-from-left shadow-xl">
                             <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center"><ShoppingBag className="text-black" size={20} /></div>
-                            <div><p className="text-xs font-bold text-white">Paket Bundling Kopi</p><p className="text-xs text-yellow-400 font-bold">Rp 85.000 <span className="line-through text-slate-400 ml-1 font-normal">100rb</span></p></div>
+                            <div><p className="text-xs font-bold text-white">{featured.name}</p><p className="text-xs text-yellow-400 font-bold">{rp(featured.price)} {featured.oldPrice && <span className="line-through text-slate-400 ml-1 font-normal">{rp(featured.oldPrice)}</span>}</p></div>
                             <button className="bg-brand hover:bg-brand/80 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg ml-auto transition-colors shadow-lg">Buy</button>
                         </div>
                     )}
@@ -76,9 +116,14 @@ export const ViewLiveStream: React.FC<{ addNotification: (t: 'success' | 'error'
                 {/* Controls */}
                 <div className="bg-card-bg border border-border p-4 rounded-xl flex justify-between items-center shadow-lg transition-colors">
                     <div className="flex gap-4">
-                        <button className="p-3 bg-surface-hover rounded-lg hover:bg-surface text-foreground transition-colors relative shadow-sm"><Mic size={20} /><span className="absolute top-1 right-1 w-2 h-2 bg-tertiary rounded-full border border-surface"></span></button>
-                        <button className="p-3 bg-surface-hover rounded-lg hover:bg-surface text-foreground transition-colors shadow-sm"><Video size={20} /></button>
-                        <button className="p-3 bg-surface-hover rounded-lg hover:bg-surface text-foreground transition-colors shadow-sm"><Settings size={20} /></button>
+                        <button onClick={() => { setMicOn(m => !m); addNotification('success', micOn ? 'Mikrofon dimatikan' : 'Mikrofon aktif'); }} title={micOn ? 'Matikan mikrofon' : 'Aktifkan mikrofon'} className={`p-3 rounded-lg transition-colors relative shadow-sm ${micOn ? 'bg-surface-hover hover:bg-surface text-foreground' : 'bg-red-500/15 text-red-500 hover:bg-red-500/25'}`}>
+                            {micOn ? <Mic size={20} /> : <MicOff size={20} />}
+                            {micOn && <span className="absolute top-1 right-1 w-2 h-2 bg-tertiary rounded-full border border-surface"></span>}
+                        </button>
+                        <button onClick={() => { setCamOn(c => !c); addNotification('success', camOn ? 'Kamera dimatikan' : 'Kamera aktif'); }} title={camOn ? 'Matikan kamera' : 'Aktifkan kamera'} className={`p-3 rounded-lg transition-colors shadow-sm ${camOn ? 'bg-surface-hover hover:bg-surface text-foreground' : 'bg-red-500/15 text-red-500 hover:bg-red-500/25'}`}>
+                            {camOn ? <Video size={20} /> : <VideoOff size={20} />}
+                        </button>
+                        <button onClick={() => addNotification('success', 'Pengaturan stream tersimpan.')} title="Pengaturan" className="p-3 bg-surface-hover rounded-lg hover:bg-surface text-foreground transition-colors shadow-sm"><Settings size={20} /></button>
                     </div>
                     <button onClick={() => { setIsLive(!isLive); addNotification('success', isLive ? 'Stream Ended' : 'You are Live!'); }} className={`px-8 py-3 rounded-lg font-bold transition-all shadow-lg text-white ${isLive ? 'bg-red-600 hover:bg-red-500 shadow-red-900/20' : 'bg-tertiary hover:bg-tertiary-light shadow-green-900/20'}`}>
                         {isLive ? 'End Stream' : 'Go Live'}
@@ -108,16 +153,24 @@ export const ViewLiveStream: React.FC<{ addNotification: (t: 'success' | 'error'
                 </div>
 
                 <div id="live-products" className="bg-card-bg border border-border rounded-2xl h-1/3 flex flex-col overflow-hidden shadow-lg transition-colors min-h-[150px]">
-                    <div className="p-3 border-b border-border bg-surface flex justify-between items-center"><h4 className="text-xs font-bold text-foreground uppercase tracking-wider">Pinned Products</h4><button className="text-[10px] text-primary hover:text-primary-light transition-colors">+ Add</button></div>
-                    <div className="p-3 overflow-y-auto space-y-2">
-                        <div className="flex gap-3 bg-surface-hover p-2 rounded-lg border border-border shadow-sm">
-                            <div className="w-10 h-10 bg-background rounded flex items-center justify-center"><ShoppingBag size={16} className="text-foreground" /></div>
-                            <div className="flex-1 min-w-0">
-                                <p className="text-xs font-bold text-foreground truncate">Paket Bundling</p>
-                                <p className="text-[10px] text-muted">Rp 85.000</p>
-                            </div>
-                            <button className="text-primary hover:text-primary-light transition-colors"><Cast size={16} /></button>
-                        </div>
+                    <div className="p-3 border-b border-border bg-surface flex justify-between items-center"><h4 className="text-xs font-bold text-foreground uppercase tracking-wider">Pinned Products <span className="text-muted font-normal">({products.length})</span></h4><button onClick={addProduct} className="text-[10px] text-primary hover:text-primary-light transition-colors flex items-center gap-1"><Plus size={12} /> Add</button></div>
+                    <div className="p-3 overflow-y-auto space-y-2 custom-scrollbar">
+                        {products.length === 0 ? (
+                            <p className="py-4 text-center text-[11px] text-muted">Belum ada produk. Klik <span className="font-bold text-primary">+ Add</span>.</p>
+                        ) : products.map(p => {
+                            const isFeatured = p.id === featuredId;
+                            return (
+                                <div key={p.id} className={`flex gap-3 p-2 rounded-lg border shadow-sm transition-colors group ${isFeatured ? 'bg-primary/5 border-primary' : 'bg-surface-hover border-border'}`}>
+                                    <div className="w-10 h-10 bg-background rounded flex items-center justify-center shrink-0"><ShoppingBag size={16} className="text-foreground" /></div>
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-xs font-bold text-foreground truncate">{p.name}</p>
+                                        <p className="text-[10px] text-muted">{rp(p.price)}{isFeatured && <span className="ml-1 text-primary font-bold">· tampil</span>}</p>
+                                    </div>
+                                    <button onClick={() => setFeaturedId(p.id)} title="Tampilkan di layar" className={`transition-colors ${isFeatured ? 'text-primary' : 'text-muted hover:text-primary'}`}><Cast size={16} /></button>
+                                    <button onClick={() => removeProduct(p.id)} title="Hapus" className="text-muted hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"><Trash2 size={14} /></button>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </div>
