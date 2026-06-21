@@ -33,7 +33,7 @@ export default function Products() {
     const products = [
         { title: items.chatbot.title, description: items.chatbot.description, icon: "🤖", href: `/${locale}/chat-bot`, badge: t.products.badgePopular, internal: true },
         { title: items.support.title, description: items.support.description, icon: "🎧", href: "https://plusthe.site/customer-support/", internal: false },
-        { title: items.mobileApp.title, description: items.mobileApp.description, icon: "📱", href: "https://plusthe.site/mobile-app/", internal: false },
+        { title: items.mobileApp.title, description: items.mobileApp.description, icon: "📱", href: `/${locale}/mobile-app`, internal: true, comingSoon: true },
         { title: items.crm.title, description: items.crm.description, icon: "📊", href: "https://plusthe.site/crm/", internal: false },
         { title: items.agency.title, description: items.agency.description, icon: "🚀", href: `/${locale}/digital-agency`, badge: t.products.badgeNew, internal: true },
         { title: items.game.title, description: items.game.description, icon: "🎮", href: `/${locale}/mobile-game`, internal: true },
@@ -60,7 +60,11 @@ export default function Products() {
                             "feature-card group relative flex flex-col rounded-2xl border border-slate-200 dark:border-[#1E293B] bg-white dark:bg-[#0B1120] p-7 cursor-pointer transition-colors";
                         const inner = (
                             <>
-                                {p.badge && (
+                                {p.comingSoon ? (
+                                    <span className="absolute top-4 right-4 rounded-full bg-amber-100 px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-700 dark:bg-amber-500/15 dark:text-amber-300">
+                                        {locale === "id" ? "Segera Hadir" : "Coming Soon"}
+                                    </span>
+                                ) : p.badge && (
                                     <span className="absolute top-4 right-4 rounded-full bg-secondary/10 px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-secondary">
                                         {p.badge}
                                     </span>

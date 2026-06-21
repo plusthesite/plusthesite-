@@ -112,13 +112,18 @@ export default function ProductPageTemplate({
     const ctaRef = useScrollReveal();
 
     const colors = { ...defaultColors, ...themeColors };
-    const contactHref = `/${locale}/contact-us?service=${PAGEKEY_TO_SERVICE[pageKey]}`;
+    const svc = getService(PAGEKEY_TO_SERVICE[pageKey]);
+    const comingSoon = Boolean(svc?.comingSoon);
+    // Coming-soon lines shouldn't funnel a lead for a service we can't yet deliver —
+    // route interest to our flagship Digital Agency offering instead.
+    const contactHref = comingSoon
+        ? `/${locale}/contact-us?service=digital-agency`
+        : `/${locale}/contact-us?service=${PAGEKEY_TO_SERVICE[pageKey]}`;
 
     if (!p) {
         return null;
     }
 
-    const svc = getService(PAGEKEY_TO_SERVICE[pageKey]);
     const serviceSchema = svc && {
         "@context": "https://schema.org",
         "@type": "Service",
@@ -128,7 +133,7 @@ export default function ProductPageTemplate({
         provider: { "@type": "Organization", "@id": `${SITE}/#organization`, name: "plus.", url: SITE },
         areaServed: { "@type": "Country", name: "Indonesia" },
         url: `${SITE}/${locale}${svc.path}`,
-        offers: { "@type": "Offer", priceCurrency: "IDR", price: svc.startingValue, url: `${SITE}/${locale}#pricing` },
+        ...(comingSoon ? {} : { offers: { "@type": "Offer", priceCurrency: "IDR", price: svc.startingValue, url: `${SITE}/${locale}#pricing` } }),
     };
     const breadcrumbSchema = svc && {
         "@context": "https://schema.org",
@@ -152,9 +157,9 @@ export default function ProductPageTemplate({
                     <div className="absolute bottom-[-10%] left-[-5%] w-[35%] h-[35%] bg-secondary/8 rounded-full blur-[100px]" />
                     <div ref={heroRef} className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 py-32 lg:py-40">
                         <div className="max-w-3xl">
-                            <span className={`fade-up inline-flex items-center gap-2 rounded-full ${colors.badgeColor} px-4 py-1.5 text-xs font-semibold uppercase tracking-widest mb-6`}>
-                                <span className={`h-1.5 w-1.5 rounded-full ${colors.badgeDotColor} animate-pulse`} />
-                                {p.heroBadge}
+                            <span className={`fade-up inline-flex items-center gap-2 rounded-full ${comingSoon ? "bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300" : colors.badgeColor} px-4 py-1.5 text-xs font-semibold uppercase tracking-widest mb-6`}>
+                                <span className={`h-1.5 w-1.5 rounded-full ${comingSoon ? "bg-amber-500" : colors.badgeDotColor} animate-pulse`} />
+                                {comingSoon ? (locale === "id" ? "Segera Hadir" : "Coming Soon") : p.heroBadge}
                             </span>
                             <h1 className="fade-up fade-up-delay-1 text-4xl font-bold tracking-tight text-[#0F172A] dark:text-[#F8FAFC] sm:text-5xl lg:text-6xl leading-[1.1]">
                                 {p.heroHeading1}<br />
@@ -164,15 +169,28 @@ export default function ProductPageTemplate({
                                 {p.heroDesc}
                             </p>
                             <div className="fade-up fade-up-delay-3 mt-10 flex flex-col sm:flex-row gap-4">
-                                <Link href={`/${locale}#pricing`} className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/25 hover:scale-105 transition-all">
-                                    {p.heroCta1}
-                                    <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                    </svg>
-                                </Link>
-                                <Link href={contactHref} className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-slate-200 dark:border-slate-700 px-8 py-3.5 text-sm font-semibold hover:scale-105 transition-all text-[#0F172A] dark:text-white">
-                                    {p.heroCta2}
-                                </Link>
+                                {comingSoon ? (
+                                    <>
+                                        <span className="inline-flex items-center justify-center gap-2 rounded-full bg-amber-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-amber-500/25 cursor-default">
+                                            {locale === "id" ? "🚧 Segera Hadir" : "🚧 Coming Soon"}
+                                        </span>
+                                        <Link href={contactHref} className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-slate-200 dark:border-slate-700 px-8 py-3.5 text-sm font-semibold hover:scale-105 transition-all text-[#0F172A] dark:text-white">
+                                            {locale === "id" ? "Lihat Layanan Lain" : "Explore Our Services"}
+                                        </Link>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Link href={`/${locale}#pricing`} className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/25 hover:scale-105 transition-all">
+                                            {p.heroCta1}
+                                            <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                            </svg>
+                                        </Link>
+                                        <Link href={contactHref} className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-slate-200 dark:border-slate-700 px-8 py-3.5 text-sm font-semibold hover:scale-105 transition-all text-[#0F172A] dark:text-white">
+                                            {p.heroCta2}
+                                        </Link>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -266,11 +284,13 @@ export default function ProductPageTemplate({
                         </h2>
                         <p className="fade-up fade-up-delay-1 mt-6 text-lg text-[#475569] dark:text-[#94A3B8]">{p.ctaDesc}</p>
                         <div className="fade-up fade-up-delay-2 mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-                            <Link href={`/${locale}#pricing`} className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/25 hover:scale-105 transition-all">
-                                {p.ctaCta1}
-                            </Link>
+                            {!comingSoon && (
+                                <Link href={`/${locale}#pricing`} className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/25 hover:scale-105 transition-all">
+                                    {p.ctaCta1}
+                                </Link>
+                            )}
                             <Link href={contactHref} className="inline-flex items-center gap-2 rounded-full border-2 border-slate-200 dark:border-slate-700 px-8 py-4 text-sm font-semibold hover:scale-105 transition-all text-[#0F172A] dark:text-white">
-                                {p.ctaCta2}
+                                {comingSoon ? (locale === "id" ? "Lihat Layanan Lain" : "Explore Our Services") : p.ctaCta2}
                             </Link>
                         </div>
                     </div>

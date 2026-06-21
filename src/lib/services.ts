@@ -21,6 +21,8 @@ export interface ServiceLine {
     path: string;
     /** Tailwind chip color (light bg + text). */
     chip: string;
+    /** Not yet offered — shown as "Coming soon", excluded from lead-gen funnels. */
+    comingSoon?: boolean;
 }
 
 export const SERVICES: ServiceLine[] = [
@@ -50,6 +52,7 @@ export const SERVICES: ServiceLine[] = [
         startingValue: 35_000_000,
         path: "/mobile-app",
         chip: "bg-emerald-50 text-emerald-700",
+        comingSoon: true,
     },
     {
         slug: "mobile-game",
@@ -88,6 +91,13 @@ export const SERVICES: ServiceLine[] = [
         chip: "bg-fuchsia-50 text-fuchsia-700",
     },
 ];
+
+/** Services we actively sell right now (excludes "coming soon" lines). */
+export const ACTIVE_SERVICES = SERVICES.filter((s) => !s.comingSoon);
+
+export function isComingSoon(slug: string | null | undefined): boolean {
+    return Boolean(getService(slug)?.comingSoon);
+}
 
 const SERVICE_MAP = new Map(SERVICES.map((s) => [s.slug, s]));
 
