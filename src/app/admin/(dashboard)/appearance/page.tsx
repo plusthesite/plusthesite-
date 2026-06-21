@@ -10,10 +10,12 @@ export default async function AppearancePage() {
     const supabase = getSupabaseAdmin();
     let primary = "";
     let secondary = "";
+    let tertiary = "";
     if (supabase) {
-        const { data } = await supabase.from("site_settings").select("primary_color, secondary_color").eq("id", 1).maybeSingle();
+        const { data } = await supabase.from("site_settings").select("primary_color, secondary_color, tertiary_color").eq("id", 1).maybeSingle();
         primary = data?.primary_color ?? "";
         secondary = data?.secondary_color ?? "";
+        tertiary = data?.tertiary_color ?? "";
     }
 
     return (
@@ -26,7 +28,7 @@ export default async function AppearancePage() {
                 </div>
             )}
             <div className="mt-6">
-                <AppearanceForm initialPrimary={primary} initialSecondary={secondary} />
+                <AppearanceForm initialPrimary={primary} initialSecondary={secondary} initialTertiary={tertiary} />
             </div>
         </div>
     );

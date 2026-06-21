@@ -5,24 +5,26 @@ import { saveAppearance, type AppearanceState } from "./actions";
 
 const DEFAULT_P = "#2563eb";
 const DEFAULT_S = "#7c3aed";
+const DEFAULT_T = "#0d9488";
 
-const PRESETS: { name: string; p: string; s: string }[] = [
-    { name: "plus. Blue", p: "#2563eb", s: "#7c3aed" },
-    { name: "Emerald", p: "#059669", s: "#0d9488" },
-    { name: "Rose", p: "#e11d48", s: "#f43f5e" },
-    { name: "Indigo / Sky", p: "#4f46e5", s: "#0284c7" },
-    { name: "Sunset", p: "#ea580c", s: "#db2777" },
-    { name: "Royal", p: "#7c3aed", s: "#2563eb" },
-    { name: "Forest", p: "#16a34a", s: "#65a30d" },
-    { name: "Midnight", p: "#0ea5e9", s: "#6366f1" },
+const PRESETS: { name: string; p: string; s: string; t: string }[] = [
+    { name: "plus. Blue", p: "#2563eb", s: "#7c3aed", t: "#0d9488" },
+    { name: "Emerald", p: "#059669", s: "#0d9488", t: "#65a30d" },
+    { name: "Rose", p: "#e11d48", s: "#f43f5e", t: "#db2777" },
+    { name: "Indigo / Sky", p: "#4f46e5", s: "#0284c7", t: "#0891b2" },
+    { name: "Sunset", p: "#ea580c", s: "#db2777", t: "#f59e0b" },
+    { name: "Royal", p: "#7c3aed", s: "#2563eb", t: "#9333ea" },
+    { name: "Forest", p: "#16a34a", s: "#65a30d", t: "#0d9488" },
+    { name: "Midnight", p: "#0ea5e9", s: "#6366f1", t: "#8b5cf6" },
 ];
 
 const field = "h-10 w-full rounded-lg border border-slate-200 px-3 text-sm font-mono uppercase focus:border-blue-400 focus:outline-none";
 
-export function AppearanceForm({ initialPrimary, initialSecondary }: { initialPrimary: string; initialSecondary: string }) {
+export function AppearanceForm({ initialPrimary, initialSecondary, initialTertiary }: { initialPrimary: string; initialSecondary: string; initialTertiary: string }) {
     const [state, action, pending] = useActionState<AppearanceState, FormData>(saveAppearance, {});
     const [p, setP] = useState(initialPrimary || DEFAULT_P);
     const [s, setS] = useState(initialSecondary || DEFAULT_S);
+    const [t, setT] = useState(initialTertiary || DEFAULT_T);
     const grad = `linear-gradient(135deg, ${p}, ${s})`;
 
     return (
@@ -36,14 +38,14 @@ export function AppearanceForm({ initialPrimary, initialSecondary }: { initialPr
                     <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Preset palette</p>
                     <div className="mt-2 grid grid-cols-4 gap-2">
                         {PRESETS.map((pre) => (
-                            <button type="button" key={pre.name} title={pre.name} onClick={() => { setP(pre.p); setS(pre.s); }}
-                                className={`h-9 rounded-lg ring-2 ring-offset-1 transition ${p === pre.p && s === pre.s ? "ring-slate-900" : "ring-transparent hover:ring-slate-300"}`}
-                                style={{ background: `linear-gradient(135deg, ${pre.p}, ${pre.s})` }} />
+                            <button type="button" key={pre.name} title={pre.name} onClick={() => { setP(pre.p); setS(pre.s); setT(pre.t); }}
+                                className={`h-9 rounded-lg ring-2 ring-offset-1 transition ${p === pre.p && s === pre.s && t === pre.t ? "ring-slate-900" : "ring-transparent hover:ring-slate-300"}`}
+                                style={{ background: `linear-gradient(135deg, ${pre.p}, ${pre.s} 60%, ${pre.t})` }} />
                         ))}
                     </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                     <div>
                         <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Primary</label>
                         <div className="mt-1 flex gap-2">
@@ -56,6 +58,13 @@ export function AppearanceForm({ initialPrimary, initialSecondary }: { initialPr
                         <div className="mt-1 flex gap-2">
                             <input type="color" value={s} onChange={(e) => setS(e.target.value)} className="h-10 w-12 shrink-0 cursor-pointer rounded-lg border border-slate-200" />
                             <input name="secondary_color" value={s} onChange={(e) => setS(e.target.value)} className={field} />
+                        </div>
+                    </div>
+                    <div>
+                        <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Accent</label>
+                        <div className="mt-1 flex gap-2">
+                            <input type="color" value={t} onChange={(e) => setT(e.target.value)} className="h-10 w-12 shrink-0 cursor-pointer rounded-lg border border-slate-200" />
+                            <input name="tertiary_color" value={t} onChange={(e) => setT(e.target.value)} className={field} />
                         </div>
                     </div>
                 </div>
@@ -78,13 +87,14 @@ export function AppearanceForm({ initialPrimary, initialSecondary }: { initialPr
                             <span className="bg-clip-text text-transparent" style={{ backgroundImage: grad }}>Faster.</span>
                         </h3>
                         <p className="text-sm text-slate-500">AI chatbots, branding, apps, and CRM — in one place.</p>
-                        <div className="flex flex-wrap gap-3 pt-1">
+                        <div className="flex flex-wrap items-center gap-3 pt-1">
                             <span className="rounded-full px-5 py-2.5 text-sm font-semibold text-white shadow-lg" style={{ background: grad }}>See What We Build</span>
                             <span className="rounded-full border-2 px-5 py-2.5 text-sm font-semibold" style={{ borderColor: p, color: p }}>View Pricing</span>
+                            <span className="rounded-full px-3 py-1 text-xs font-bold" style={{ background: `${t}1a`, color: t }}>New</span>
                         </div>
                         <div className="flex gap-2 pt-3">
-                            {[p, s].map((c, i) => <span key={i} className="h-8 w-8 rounded-lg" style={{ background: c }} />)}
-                            <span className="h-8 flex-1 rounded-lg" style={{ background: grad }} />
+                            {[p, s, t].map((c, i) => <span key={i} className="h-8 w-8 rounded-lg" style={{ background: c }} />)}
+                            <span className="h-8 flex-1 rounded-lg" style={{ background: `linear-gradient(135deg, ${p}, ${s} 60%, ${t})` }} />
                         </div>
                     </div>
                 </div>

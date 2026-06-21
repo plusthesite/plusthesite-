@@ -15,18 +15,21 @@ export async function saveAppearance(_prev: AppearanceState, formData: FormData)
     const reset = formData.get("reset") === "1";
     let primary: string | null = String(formData.get("primary_color") ?? "").trim();
     let secondary: string | null = String(formData.get("secondary_color") ?? "").trim();
+    let tertiary: string | null = String(formData.get("tertiary_color") ?? "").trim();
 
     if (reset) {
         primary = null;
         secondary = null;
+        tertiary = null;
     } else {
         if (primary && !isHex(primary)) return { error: "Warna primary harus hex (mis. #2563eb)." };
         if (secondary && !isHex(secondary)) return { error: "Warna secondary harus hex (mis. #7c3aed)." };
+        if (tertiary && !isHex(tertiary)) return { error: "Warna accent harus hex (mis. #0d9488)." };
     }
 
     const { error } = await admin
         .from("site_settings")
-        .upsert({ id: 1, primary_color: primary || null, secondary_color: secondary || null, updated_at: new Date().toISOString() }, { onConflict: "id" });
+        .upsert({ id: 1, primary_color: primary || null, secondary_color: secondary || null, tertiary_color: tertiary || null, updated_at: new Date().toISOString() }, { onConflict: "id" });
     if (error) return { error: error.message };
 
     // Bust the unstable_cache data cache for site settings IMMEDIATELY

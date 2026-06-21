@@ -4,6 +4,7 @@ import { getSupabaseAdmin } from "@/lib/supabase";
 export interface SiteSettings {
     primaryColor: string | null;
     secondaryColor: string | null;
+    tertiaryColor: string | null;
 }
 
 /**
@@ -15,19 +16,23 @@ export interface SiteSettings {
 export const getSiteSettings = unstable_cache(
     async (): Promise<SiteSettings> => {
         const supabase = getSupabaseAdmin();
-        if (!supabase) return { primaryColor: null, secondaryColor: null };
+        if (!supabase) return { primaryColor: null, secondaryColor: null, tertiaryColor: null };
         try {
             const { data } = await supabase
                 .from("site_settings")
-                .select("primary_color, secondary_color")
+                .select("primary_color, secondary_color, tertiary_color")
                 .eq("id", 1)
                 .maybeSingle();
-            return { primaryColor: data?.primary_color ?? null, secondaryColor: data?.secondary_color ?? null };
+            return {
+                primaryColor: data?.primary_color ?? null,
+                secondaryColor: data?.secondary_color ?? null,
+                tertiaryColor: data?.tertiary_color ?? null,
+            };
         } catch {
-            return { primaryColor: null, secondaryColor: null };
+            return { primaryColor: null, secondaryColor: null, tertiaryColor: null };
         }
     },
-    ["site-settings-v1"],
+    ["site-settings-v2"],
     { revalidate: 120, tags: ["site-settings"] }
 );
 

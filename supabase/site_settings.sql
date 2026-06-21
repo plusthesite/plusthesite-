@@ -8,9 +8,13 @@ create table if not exists public.site_settings (
     id              smallint primary key default 1,
     primary_color   text,
     secondary_color text,
+    tertiary_color  text,
     updated_at      timestamptz not null default now(),
     constraint site_settings_single_row check (id = 1)
 );
+
+-- Add the accent color to an already-created table (idempotent).
+alter table public.site_settings add column if not exists tertiary_color text;
 
 insert into public.site_settings (id) values (1) on conflict (id) do nothing;
 
