@@ -83,9 +83,9 @@ function timeAgo(d: string) {
 export default async function LeadsPage({
     searchParams,
 }: {
-    searchParams: Promise<{ service?: string; status?: string; sort?: string; page?: string }>;
+    searchParams: Promise<{ service?: string; status?: string; sort?: string; page?: string; owner?: string }>;
 }) {
-    const { service: filter, status: statusFilter, sort, page } = await searchParams;
+    const { service: filter, status: statusFilter, sort, page, owner: ownerFilter } = await searchParams;
     const supabase = getSupabaseAdmin();
     const { data } = supabase
         ? await supabase
@@ -119,8 +119,16 @@ export default async function LeadsPage({
     const newCount = all.filter((l) => (l.status ?? "new") === "new").length;
     const convertedCount = all.filter((l) => l.status === "converted").length;
 
+    // Owner counts (for the "focus on my leads" filter).
+    const ownerCounts = new Map<string, number>();
+    for (const l of all) {
+        const o = l.owner?.trim() || "__unassigned__";
+        ownerCounts.set(o, (ownerCounts.get(o) ?? 0) + 1);
+    }
+
     let rows = filter ? all.filter((l) => l.service === filter) : all;
     if (statusFilter) rows = rows.filter((l) => (l.status ?? "new") === statusFilter);
+    if (ownerFilter) rows = rows.filter((l) => ownerFilter === "__unassigned__" ? !l.owner : l.owner === ownerFilter);
 
     // Sort: hottest score, biggest value, or newest (default).
     if (sort === "hot") rows = [...rows].sort((a, b) => scoreLead(b).score - scoreLead(a).score);
@@ -133,6 +141,12 @@ export default async function LeadsPage({
     const sortBase = new URLSearchParams();
     if (filter) sortBase.set("service", filter);
     if (statusFilter) sortBase.set("status", statusFilter);
+    if (ownerFilter) sortBase.set("owner", ownerFilter);
+    // Owner filter chips preserve the current service/status filters.
+    const ownerBase = new URLSearchParams();
+    if (filter) ownerBase.set("service", filter);
+    if (statusFilter) ownerBase.set("status", statusFilter);
+    const ownerHref = (o: string) => { const p = new URLSearchParams(ownerBase); if (o) p.set("owner", o); const q = p.toString(); return `/admin/leads${q ? `?${q}` : ""}`; };
     const sortHref = (s: string) => { const p = new URLSearchParams(sortBase); if (s) p.set("sort", s); const q = p.toString(); return `/admin/leads${q ? `?${q}` : ""}`; };
     const SORTS: { key: string; label: string }[] = [{ key: "", label: "Newest" }, { key: "hot", label: "🔥 Hottest" }, { key: "value", label: "Highest value" }];
 
@@ -209,6 +223,19 @@ export default async function LeadsPage({
                     <span className="rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700" title="Open leads with no next step set">⏰ {needsStep} need a next step</span>
                 )}
             </div>
+
+            {/* Owner filter — focus on a rep's leads */}
+            {ownerCounts.size > 1 && (
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                    <span className="text-xs font-semibold text-slate-400">Owner:</span>
+                    <Link href={ownerHref("")} className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${!ownerFilter ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"}`}>All</Link>
+                    {[...ownerCounts.entries()].sort((a, b) => b[1] - a[1]).map(([o, count]) => (
+                        <Link key={o} href={ownerHref(o)} className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${ownerFilter === o ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"}`}>
+                            {o === "__unassigned__" ? "Unassigned" : o} · {count}
+                        </Link>
+                    ))}
+                </div>
+            )}
 
             {/* Bulk actions */}
             <form id="bulk-leads" action={bulkUpdateLeads} className="mt-4 flex flex-wrap items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3">
