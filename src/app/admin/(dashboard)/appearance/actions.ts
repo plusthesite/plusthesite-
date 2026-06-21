@@ -30,7 +30,13 @@ export async function saveAppearance(_prev: AppearanceState, formData: FormData)
     const { error } = await admin
         .from("site_settings")
         .upsert({ id: 1, primary_color: primary || null, secondary_color: secondary || null, tertiary_color: tertiary || null, updated_at: new Date().toISOString() }, { onConflict: "id" });
-    if (error) return { error: error.message };
+    if (error) {
+        // Friendly, single message when the table hasn't been created yet.
+        if (/site_settings/.test(error.message) && /(does not exist|schema cache|find the table)/i.test(error.message)) {
+            return { error: "Tabel site_settings belum dibuat. Jalankan migrasi supabase/site_settings.sql dulu (lihat panduan di halaman ini)." };
+        }
+        return { error: error.message };
+    }
 
     // Bust the unstable_cache data cache for site settings IMMEDIATELY
     // (read-your-own-writes), then re-render the public layout so the new
