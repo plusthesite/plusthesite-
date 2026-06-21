@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Wand2, Loader2, Sparkles, Download, Maximize2, Image as ImageIcon } from "lucide-react";
+import { Wand2, Loader2, Sparkles, Download, Maximize2, Image as ImageIcon, X } from "lucide-react";
 import { callGeminiImage, downloadImage } from "@/lib/ai";
 import { supabase } from "@/lib/supabase";
 
@@ -12,6 +12,7 @@ export const ViewGenerator: React.FC<{ addNotification: (t: 'success' | 'error',
     const [generatedImage, setGeneratedImage] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const [history, setHistory] = useState<Asset[]>([]);
+    const [fullscreen, setFullscreen] = useState(false);
 
     // Load the signed-in user's saved generations (newest first).
     const loadHistory = useCallback(async () => {
@@ -27,6 +28,14 @@ export const ViewGenerator: React.FC<{ addNotification: (t: 'success' | 'error',
     }, []);
 
     useEffect(() => { loadHistory(); }, [loadHistory]);
+
+    // Close the fullscreen lightbox with Escape.
+    useEffect(() => {
+        if (!fullscreen) return;
+        const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setFullscreen(false); };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, [fullscreen]);
 
     const handleGenerate = async () => {
         if (!prompt) { addNotification('error', 'Masukkan prompt!'); return; }
@@ -121,7 +130,7 @@ export const ViewGenerator: React.FC<{ addNotification: (t: 'success' | 'error',
                         <img src={generatedImage} alt="Result" className="max-w-full max-h-full object-contain rounded-lg shadow-2xl animate-in zoom-in-95 duration-500" />
                         <div className="absolute bottom-6 flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 backdrop-blur rounded-full px-4 py-2 border border-white/10 translate-y-2 group-hover:translate-y-0 duration-300">
                             <button onClick={() => downloadImage(generatedImage, `plus-gen-${Date.now()}.png`)} className="text-white hover:text-primary transition-colors flex items-center gap-2 text-xs font-bold pr-3 border-r border-white/20"><Download size={16} /> Save</button>
-                            <button className="text-white hover:text-primary transition-colors"><Maximize2 size={16} /></button>
+                            <button onClick={() => setFullscreen(true)} title="Lihat penuh" className="text-white hover:text-primary transition-colors"><Maximize2 size={16} /></button>
                         </div>
                     </div>
                 ) : (
@@ -148,6 +157,15 @@ export const ViewGenerator: React.FC<{ addNotification: (t: 'success' | 'error',
                 </div>
             )}
             </div>
+
+            {/* Fullscreen lightbox */}
+            {fullscreen && generatedImage && (
+                <div onClick={() => setFullscreen(false)} className="fixed inset-0 z-[80] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 sm:p-10 animate-in fade-in duration-200">
+                    <button onClick={() => setFullscreen(false)} className="absolute top-4 right-4 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors"><X size={22} /></button>
+                    <img src={generatedImage} alt="Result fullscreen" onClick={(e) => e.stopPropagation()} className="max-w-full max-h-full object-contain rounded-lg shadow-2xl animate-in zoom-in-95 duration-300" />
+                    <button onClick={(e) => { e.stopPropagation(); downloadImage(generatedImage, `plus-gen-${Date.now()}.png`); }} className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white/10 hover:bg-white/20 backdrop-blur text-white text-sm font-bold px-5 py-2.5 rounded-full flex items-center gap-2 border border-white/20 transition-colors"><Download size={16} /> Save</button>
+                </div>
+            )}
         </div>
     );
 };
