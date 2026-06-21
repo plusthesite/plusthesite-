@@ -20,6 +20,22 @@ import { Notification } from "@/types";
 import { useTheme } from "@/components/ThemeProvider";
 import Logo from "@/components/Logo";
 
+type NotifLogItem = { id: number; type: 'success' | 'error' | 'info'; message: string; at: number };
+
+const NOTIF_AGO = (ms: number) => {
+    const m = Math.floor((Date.now() - ms) / 60000);
+    if (m < 1) return "baru saja";
+    if (m < 60) return `${m} mnt lalu`;
+    const h = Math.floor(m / 60);
+    return h < 24 ? `${h} jam lalu` : `${Math.floor(h / 24)} hr lalu`;
+};
+
+const NOTIF_DOT: Record<NotifLogItem['type'], string> = {
+    success: "bg-tertiary",
+    error: "bg-red-500",
+    info: "bg-primary",
+};
+
 const TAB_TITLES: Record<string, string> = {
     planner: 'AI Planner',
     generator: 'Visual Generator',
@@ -38,6 +54,9 @@ export const StudioDashboard: React.FC<{ onLogout: () => void, user?: any }> = (
     const [activeTab, setActiveTab] = useState('planner');
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [notifications, setNotifications] = useState<Notification[]>([]);
+    const [notifLog, setNotifLog] = useState<NotifLogItem[]>([]);
+    const [notifOpen, setNotifOpen] = useState(false);
+    const [unread, setUnread] = useState(0);
     const [isTourActive, setIsTourActive] = useState(false);
 
     // States for Documentation
@@ -57,6 +76,8 @@ export const StudioDashboard: React.FC<{ onLogout: () => void, user?: any }> = (
     const addNotification = (type: 'success' | 'error' | 'info', message: string) => {
         const id = Date.now();
         setNotifications(prev => [...prev, { id, type, message }]);
+        setNotifLog(prev => [{ id, type, message, at: id }, ...prev].slice(0, 20));
+        setUnread(u => u + 1);
         setTimeout(() => setNotifications(prev => prev.filter(n => n.id !== id)), 3000);
     };
 
@@ -184,7 +205,36 @@ export const StudioDashboard: React.FC<{ onLogout: () => void, user?: any }> = (
                             {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
                         </button>
 
-                        <button className="p-2 text-muted hover:text-foreground relative bg-toggle-bg rounded-full hover:bg-surface-hover transition-colors shadow-sm"><Bell size={20} /><span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span></button>
+                        <div className="relative">
+                            <button onClick={() => { setNotifOpen(o => !o); setUnread(0); }} className="p-2 text-muted hover:text-foreground relative bg-toggle-bg rounded-full hover:bg-surface-hover transition-colors shadow-sm" title="Notifikasi">
+                                <Bell size={20} />
+                                {unread > 0 && <span className="absolute top-1.5 right-1.5 min-w-[16px] h-4 px-1 flex items-center justify-center text-[9px] font-bold text-white bg-red-500 rounded-full">{unread > 9 ? '9+' : unread}</span>}
+                            </button>
+                            {notifOpen && (
+                                <>
+                                    <div className="fixed inset-0 z-30" onClick={() => setNotifOpen(false)} />
+                                    <div className="absolute right-0 mt-2 w-72 bg-card-bg border border-border rounded-xl shadow-2xl z-40 overflow-hidden animate-in fade-in slide-in-from-top-2">
+                                        <div className="px-4 py-3 border-b border-border flex items-center justify-between">
+                                            <p className="text-sm font-bold text-foreground">Notifikasi</p>
+                                            {notifLog.length > 0 && <button onClick={() => setNotifLog([])} className="text-[10px] text-muted hover:text-foreground transition-colors">Bersihkan</button>}
+                                        </div>
+                                        <div className="max-h-80 overflow-y-auto custom-scrollbar">
+                                            {notifLog.length === 0 ? (
+                                                <p className="px-4 py-8 text-center text-xs text-muted">Belum ada notifikasi.</p>
+                                            ) : notifLog.map(n => (
+                                                <div key={n.id} className="px-4 py-3 border-b border-border last:border-0 flex gap-3 items-start hover:bg-surface-hover transition-colors">
+                                                    <span className={`mt-1 w-2 h-2 rounded-full shrink-0 ${NOTIF_DOT[n.type]}`} />
+                                                    <div className="min-w-0 flex-1">
+                                                        <p className="text-xs text-foreground leading-snug">{n.message}</p>
+                                                        <p className="text-[10px] text-muted mt-0.5">{NOTIF_AGO(n.at)}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+                        </div>
                     </div>
                 </header>
 
