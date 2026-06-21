@@ -12,9 +12,15 @@ a WYSIWYG blog editor, sales team management, and in-app notifications.
 opportunity is tagged with a `service` slug, so the pipeline is segmented for
 direct sales reach-out. Also powers pricing.
 
-- **Leads** (`/admin/leads`) — segmented by service, status filters, summary
-  cards, WhatsApp/Call/Email, **Convert → Opportunity**, **bulk actions**,
-  **+ New Lead** form.
+- **Leads** (`/admin/leads`) — segmented by service, status & **owner** filters,
+  summary cards (incl. a clickable **🔥 Hot Leads** count), **lead score
+  pill** (Hot/Warm/Cold) on every row, detail view and Priority — one shared
+  heuristic. Built for fast **reach-out & follow-up**: WhatsApp/Email carry a
+  warm, **bilingual per-lead opener** (name + service + company, ID/EN by lead
+  locale) so it's one click; an inline **Next step** field (`next_action`, was
+  fetched-but-never-shown) + a "⏰ N need a next step" nudge; **inline status
+  change** per row; **sort** by Newest / Hottest / Highest value; **Convert →
+  Opportunity**, **bulk actions**, **+ New Lead**, paginated 50/page.
 - **Priority** (`/admin/priority`) — **lead scoring** (0–100) by deal value,
   reachability, funnel stage, source & recency; ranks the hottest prospects
   with Hot/Warm/Cold tiers so sales works the best leads first.
