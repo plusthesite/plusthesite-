@@ -12,6 +12,7 @@ const en = {
         about: "About",
         products: "Products",
         aiFeatures: "AI Features",
+        studio: "Studio",
         blog: "Blog",
         pricing: "Pricing",
         contactUs: "Contact Us",

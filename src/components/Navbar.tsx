@@ -15,10 +15,8 @@ function getProducts(t: Dictionary, locale: Locale) {
     return [
         { icon: "🤖", label: p.chatbot.title, desc: t.nav.aiFeatures, href: `/${locale}/chat-bot`, internal: true },
         { icon: "🎧", label: p.support.title, desc: t.products.tag, href: "https://plusthe.site/customer-support/", internal: false },
-        { icon: "📱", label: p.mobileApp.title, desc: t.products.tag, href: "https://plusthe.site/mobile-app/", internal: false },
         { icon: "📊", label: p.crm.title, desc: t.products.tag, href: "https://plusthe.site/crm/", internal: false },
         { icon: "🚀", label: p.agency.title, desc: t.products.tag, href: `/${locale}/digital-agency`, internal: true },
-        { icon: "🎮", label: p.game.title, desc: t.products.tag, href: `/${locale}/mobile-game`, internal: true },
     ];
 }
 
@@ -340,6 +338,7 @@ export default function Navbar() {
         { label: t.nav.about, href: `/${locale}#about` },
         { label: t.nav.products, href: `/${locale}#products`, hasDropdown: true },
         { label: t.nav.aiFeatures, href: `/${locale}#features` },
+        { label: t.nav.studio, href: `/${locale}/studio` },
         { label: t.nav.blog, href: `/${locale}/blog` },
         { label: t.nav.pricing, href: `/${locale}#pricing` },
     ];
@@ -348,6 +347,7 @@ export default function Navbar() {
         { label: t.nav.home, href: `/${locale}` },
         { label: t.nav.products, href: `/${locale}#products`, hasDropdown: true },
         { label: t.nav.aiFeatures, href: `/${locale}#features` },
+        { label: t.nav.studio, href: `/${locale}/studio` },
         { label: t.nav.blog, href: `/${locale}/blog` },
         { label: t.nav.pricing, href: `/${locale}#pricing` },
     ];

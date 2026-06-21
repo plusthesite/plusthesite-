@@ -14,6 +14,7 @@ const id: Dictionary = {
         about: "Tentang",
         products: "Produk",
         aiFeatures: "Fitur AI",
+        studio: "Studio",
         blog: "Blog",
         pricing: "Harga",
         contactUs: "Hubungi Kami",
