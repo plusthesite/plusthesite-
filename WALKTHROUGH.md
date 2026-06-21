@@ -150,6 +150,17 @@ feature, specific, customer language:
 IDR tiers (Starter Rp 2.5jt / Professional Rp 7.5jt / Enterprise Rp 20jt, annual
 −20%). Contact form + product CTAs create segmented leads (+ accounts).
 
+**Only sell what we deliver.** Services carry a `comingSoon` flag (`lib/services.ts`).
+**Mobile App Development is currently Coming Soon** — its product page shows a
+Coming Soon badge (no pricing CTA, no price Offer schema), the homepage card is
+badged, it's dropped from the contact-form service list, the contact API remaps
+any coming-soon interest to **Digital Agency**, and the lead importer refuses it.
+Real revenue focus stays on **CRM + Digital Agency** (+ chatbot, support, AI).
+
+**Real pipeline, not demo.** Leads are real (Google Places). The original
+`seed_crm.sql` opportunities are fabricated demo rows — `realign_services.sql`
+removes them (preview-then-delete) so the forecast reflects real conversions.
+
 ## 9. In-App Notifications
 
 Real-time notification center in the admin sidebar (desktop + mobile):
@@ -224,7 +235,8 @@ the fragment so the session is consumed and login completes anyway.
 | `supabase/sales_reps.sql` | sales team roster | ✅ applied |
 | `supabase/notifications.sql` | in-app notifications | ✅ applied |
 | `supabase/site_settings.sql` | Appearance customizer | ⏳ run me |
-| `supabase/studio.sql` | Studio (assets/campaigns/strategies) | ⏳ run me |
+| `supabase/studio.sql` | Studio (assets/campaigns/strategies/KOL) | ⏳ run me |
+| `supabase/realign_services.sql` | Drop fabricated seed opps/leads + re-tag mobile-app → digital-agency (preview-then-run) | ⏳ run me |
 
 ## Optional env
 
