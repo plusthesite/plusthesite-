@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { requireRole } from "@/lib/role";
 import { isHex } from "@/lib/siteSettings";
@@ -29,6 +29,10 @@ export async function saveAppearance(_prev: AppearanceState, formData: FormData)
         .upsert({ id: 1, primary_color: primary || null, secondary_color: secondary || null, updated_at: new Date().toISOString() }, { onConflict: "id" });
     if (error) return { error: error.message };
 
+    // Bust the unstable_cache data cache for site settings IMMEDIATELY
+    // (read-your-own-writes), then re-render the public layout so the new
+    // brand colors apply right away instead of waiting out the 120s revalidate.
+    updateTag("site-settings");
     revalidatePath("/", "layout");
     return { ok: true };
 }

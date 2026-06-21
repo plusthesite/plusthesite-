@@ -9,7 +9,8 @@ export interface SiteSettings {
 /**
  * Public site theme settings. Cached (revalidate 120s, tag "site-settings")
  * so the static/ISR public pages aren't hit with a DB read on every request.
- * The admin save action calls revalidateTag("site-settings") to apply instantly.
+ * The admin save action calls updateTag("site-settings") (Next 16, read-your-
+ * own-writes) so a new theme applies immediately instead of waiting 120s.
  */
 export const getSiteSettings = unstable_cache(
     async (): Promise<SiteSettings> => {

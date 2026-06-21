@@ -29,7 +29,7 @@ export function AppearanceForm({ initialPrimary, initialSecondary }: { initialPr
         <form action={action} className="grid gap-6 lg:grid-cols-2">
             {/* Controls */}
             <div className="space-y-5 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                {state.ok && <div className="rounded-lg bg-emerald-50 p-3 text-sm font-medium text-emerald-700">✅ Tersimpan! Situs publik memakai warna ini (update dalam ±2 menit / setelah refresh).</div>}
+                {state.ok && <div className="rounded-lg bg-emerald-50 p-3 text-sm font-medium text-emerald-700">✅ Tersimpan & langsung aktif! Refresh tab situs publik untuk melihat warna baru.</div>}
                 {state.error && <div className="rounded-lg bg-rose-50 p-3 text-sm font-medium text-rose-700">{state.error}</div>}
 
                 <div>
