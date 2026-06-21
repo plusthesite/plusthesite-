@@ -55,6 +55,27 @@ export async function createLead(formData: FormData) {
     redirect("/admin/leads");
 }
 
+/** Inline single-lead edit from the list/detail (status / next step / owner). */
+export async function quickUpdateLead(formData: FormData) {
+    await requireAdmin();
+    const admin = getSupabaseAdmin();
+    if (!admin) return;
+    const id = String(formData.get("id") ?? "");
+    if (!id) return;
+
+    const patch: Record<string, unknown> = {};
+    const status = String(formData.get("status") ?? "");
+    if (status && STATUSES.includes(status)) patch.status = status;
+    if (formData.has("next_action")) patch.next_action = String(formData.get("next_action") ?? "").trim() || null;
+    if (formData.has("owner")) patch.owner = String(formData.get("owner") ?? "").trim() || null;
+    if (Object.keys(patch).length === 0) return;
+
+    await admin.from("leads").update(patch).eq("id", id);
+    revalidatePath("/admin/leads");
+    revalidatePath(`/admin/leads/${id}`);
+    revalidatePath("/admin");
+}
+
 /** Apply an action to many selected leads at once. */
 export async function bulkUpdateLeads(formData: FormData) {
     await requireAdmin();

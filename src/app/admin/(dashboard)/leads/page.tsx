@@ -4,7 +4,7 @@ import { SERVICES, serviceName, getService, formatIDR } from "@/lib/services";
 import { scoreLead, scoreTier } from "@/lib/leadScore";
 import { deleteRow } from "../actions";
 import { convertLeadToOpportunity } from "../opportunities/actions";
-import { bulkUpdateLeads } from "./actions";
+import { bulkUpdateLeads, quickUpdateLead } from "./actions";
 
 export const dynamic = "force-dynamic";
 
@@ -21,6 +21,7 @@ interface Lead {
     next_action: string | null;
     message: string | null;
     source: string | null;
+    locale: string | null;
     created_at: string;
 }
 
@@ -43,10 +44,26 @@ const SOURCE_ICON: Record<string, string> = {
     event: "🎪",
 };
 
-function waLink(phone: string | null) {
-    if (!phone) return null;
-    const digits = phone.replace(/[^\d]/g, "");
-    return digits ? `https://wa.me/${digits}` : null;
+/** A warm, low-pressure bilingual opener so reach-out is one click. */
+function opener(l: Lead) {
+    const first = l.name?.trim().split(/\s+/)[0];
+    const svc = serviceName(l.service).toLowerCase();
+    if (l.locale === "en") {
+        return `Hi ${first || "there"}, this is plus. (plusthe.site). We help businesses with ${svc} — saw ${l.company || "your business"} and thought we could help. Open to a quick chat?`;
+    }
+    return `Halo ${first || "Kak"}, saya dari plus. (plusthe.site). Kami bantu bisnis untuk ${svc}. Kebetulan lihat ${l.company || "usaha Anda"} — boleh ngobrol singkat?`;
+}
+
+function waLink(l: Lead) {
+    if (!l.phone) return null;
+    const digits = l.phone.replace(/[^\d]/g, "");
+    return digits ? `https://wa.me/${digits}?text=${encodeURIComponent(opener(l))}` : null;
+}
+
+function mailtoLink(l: Lead) {
+    if (!l.email) return null;
+    const subject = l.locale === "en" ? "Quick hello from plus." : "Halo dari plus.";
+    return `mailto:${l.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(opener(l))}`;
 }
 
 function fmt(d: string) {
@@ -66,14 +83,14 @@ function timeAgo(d: string) {
 export default async function LeadsPage({
     searchParams,
 }: {
-    searchParams: Promise<{ service?: string; status?: string }>;
+    searchParams: Promise<{ service?: string; status?: string; sort?: string }>;
 }) {
-    const { service: filter, status: statusFilter } = await searchParams;
+    const { service: filter, status: statusFilter, sort } = await searchParams;
     const supabase = getSupabaseAdmin();
     const { data } = supabase
         ? await supabase
             .from("leads")
-            .select("id, name, email, phone, company, service, status, value, owner, next_action, message, source, created_at")
+            .select("id, name, email, phone, company, service, status, value, owner, next_action, message, source, locale, created_at")
             .order("created_at", { ascending: false })
         : { data: [] };
     const all = (data ?? []) as Lead[];
@@ -104,6 +121,20 @@ export default async function LeadsPage({
 
     let rows = filter ? all.filter((l) => l.service === filter) : all;
     if (statusFilter) rows = rows.filter((l) => (l.status ?? "new") === statusFilter);
+
+    // Sort: hottest score, biggest value, or newest (default).
+    if (sort === "hot") rows = [...rows].sort((a, b) => scoreLead(b).score - scoreLead(a).score);
+    else if (sort === "value") rows = [...rows].sort((a, b) => (b.value ?? 0) - (a.value ?? 0));
+
+    // Follow-up discipline: open leads with no next step set.
+    const needsStep = rows.filter((l) => !l.next_action && l.status !== "converted" && l.status !== "unqualified").length;
+
+    // Preserve active filters when switching sort.
+    const sortBase = new URLSearchParams();
+    if (filter) sortBase.set("service", filter);
+    if (statusFilter) sortBase.set("status", statusFilter);
+    const sortHref = (s: string) => { const p = new URLSearchParams(sortBase); if (s) p.set("sort", s); const q = p.toString(); return `/admin/leads${q ? `?${q}` : ""}`; };
+    const SORTS: { key: string; label: string }[] = [{ key: "", label: "Newest" }, { key: "hot", label: "🔥 Hottest" }, { key: "value", label: "Highest value" }];
 
     return (
         <div>
@@ -156,6 +187,19 @@ export default async function LeadsPage({
                 ))}
             </div>
 
+            {/* Sort + follow-up nudge */}
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                    <span className="text-xs font-semibold text-slate-400">Sort:</span>
+                    {SORTS.map((s) => (
+                        <Link key={s.key} href={sortHref(s.key)} className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${(sort ?? "") === s.key ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"}`}>{s.label}</Link>
+                    ))}
+                </div>
+                {needsStep > 0 && (
+                    <span className="rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700" title="Open leads with no next step set">⏰ {needsStep} need a next step</span>
+                )}
+            </div>
+
             {/* Bulk actions */}
             <form id="bulk-leads" action={bulkUpdateLeads} className="mt-4 flex flex-wrap items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3">
                 <span className="text-xs font-semibold text-slate-500">Bulk:</span>
@@ -192,6 +236,7 @@ export default async function LeadsPage({
                                 <th className="px-4 py-3 font-semibold">Est. value</th>
                                 <th className="px-4 py-3 font-semibold">Status</th>
                                 <th className="px-4 py-3 font-semibold">Owner</th>
+                                <th className="px-4 py-3 font-semibold">Next step</th>
                                 <th className="px-4 py-3 font-semibold">Reach out</th>
                                 <th className="px-4 py-3 font-semibold">Date</th>
                                 <th className="px-4 py-3" />
@@ -199,7 +244,7 @@ export default async function LeadsPage({
                         </thead>
                         <tbody className="divide-y divide-slate-100">
                             {rows.length === 0 && (
-                                <tr><td colSpan={9} className="px-4 py-12 text-center">
+                                <tr><td colSpan={10} className="px-4 py-12 text-center">
                                     <div className="mx-auto max-w-xs">
                                         <svg className="mx-auto h-10 w-10 text-slate-200" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
                                         <p className="mt-2 text-sm font-medium text-slate-400">No leads in this segment</p>
@@ -208,7 +253,8 @@ export default async function LeadsPage({
                                 </td></tr>
                             )}
                             {rows.map((l) => {
-                                const wa = waLink(l.phone);
+                                const wa = waLink(l);
+                                const mail = mailtoLink(l);
                                 const status = l.status ?? "new";
                                 const svc = getService(l.service);
                                 const { score } = scoreLead(l);
@@ -229,17 +275,31 @@ export default async function LeadsPage({
                                         </td>
                                         <td className="px-4 py-3 whitespace-nowrap font-semibold text-slate-700">{l.value ? formatIDR(l.value, true) : "—"}</td>
                                         <td className="px-4 py-3">
-                                            <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize ${STATUS_COLOR[status] ?? STATUS_COLOR.new}`}>{status}</span>
+                                            <form action={quickUpdateLead} className="inline-flex items-center">
+                                                <input type="hidden" name="id" value={l.id} />
+                                                <select name="status" defaultValue={status} className={`cursor-pointer rounded-full border-0 px-2.5 py-0.5 text-xs font-semibold capitalize outline-none ${STATUS_COLOR[status] ?? STATUS_COLOR.new}`}>
+                                                    {["new", "contacted", "qualified", "unqualified", "converted"].map((s) => <option key={s} value={s}>{s}</option>)}
+                                                </select>
+                                                <button className="ml-1 text-[10px] font-semibold text-slate-400 hover:text-slate-700" title="Save status">Set</button>
+                                            </form>
                                         </td>
                                         <td className="px-4 py-3">
                                             <p className="whitespace-nowrap text-xs text-slate-500">{l.owner ?? "—"}</p>
                                             {l.source && <p className="text-[10px] text-slate-400">{SOURCE_ICON[l.source] ?? "📌"} {l.source}</p>}
                                         </td>
                                         <td className="px-4 py-3">
+                                            <form action={quickUpdateLead} className="flex items-center gap-1">
+                                                <input type="hidden" name="id" value={l.id} />
+                                                <input name="next_action" defaultValue={l.next_action ?? ""} placeholder="Add next step…" className={`w-36 rounded-lg border px-2 py-1 text-xs ${l.next_action ? "border-amber-200 bg-amber-50 text-amber-800" : "border-slate-200"}`} />
+                                                <button className="text-[10px] font-semibold text-blue-600 hover:text-blue-800" title="Save next step">Save</button>
+                                            </form>
+                                        </td>
+                                        <td className="px-4 py-3">
                                             <div className="flex items-center gap-2 text-xs font-semibold">
-                                                {wa && <a href={wa} target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:text-emerald-800 transition-colors">WA</a>}
+                                                {wa && <a href={wa} target="_blank" rel="noopener noreferrer" className="rounded bg-emerald-50 px-1.5 py-0.5 text-emerald-700 hover:bg-emerald-100 transition-colors" title="WhatsApp with a ready opener">WA</a>}
                                                 {l.phone && <a href={`tel:${l.phone}`} className="text-slate-500 hover:text-slate-700 transition-colors">Call</a>}
-                                                {l.email && <a href={`mailto:${l.email}`} className="text-blue-600 hover:text-blue-800 transition-colors">Email</a>}
+                                                {mail && <a href={mail} className="text-blue-600 hover:text-blue-800 transition-colors" title="Email with a ready opener">Email</a>}
+                                                {!wa && !l.phone && !mail && <span className="text-slate-300">no contact</span>}
                                             </div>
                                         </td>
                                         <td className="px-4 py-3">
