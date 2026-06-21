@@ -48,11 +48,18 @@ const SERVICE_VALUE = {
     "mobile-game": 50000000, crm: 12000000, "customer-support": 6000000, "ai-tools": 4000000,
 };
 
+// Services we can't deliver yet — don't generate leads for them.
+const COMING_SOON = new Set(["mobile-app"]);
+
 const KEY = process.env.GOOGLE_MAPS_API_KEY;
 const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
 const SB_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!QUERY) { console.error('Missing --query "kategori kota"'); process.exit(1); }
+if (SERVICE && COMING_SOON.has(SERVICE)) {
+    console.error(`✋ "${SERVICE}" is coming-soon — we don't take leads for it yet. Focus on real revenue: use --service crm or --service digital-agency.`);
+    process.exit(1);
+}
 if (!KEY) { console.error("Missing GOOGLE_MAPS_API_KEY"); process.exit(1); }
 if (!DRY && (!SB_URL || !SB_KEY)) { console.error("Missing Supabase env (NEXT_PUBLIC_SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY)"); process.exit(1); }
 

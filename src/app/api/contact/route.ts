@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase';
 import { rateLimit } from '@/lib/rateLimit';
+import { isComingSoon } from '@/lib/services';
 
 export const dynamic = 'force-dynamic';
 
@@ -40,7 +41,10 @@ export async function POST(request: NextRequest) {
     const cleanEmail = String(email).trim().toLowerCase().slice(0, 254);
     const cleanCompany = company ? String(company).slice(0, 120) : null;
     const cleanPhone = phone ? String(phone).slice(0, 40) : null;
-    const cleanService = service ? String(service).slice(0, 40) : null;
+    // Don't tag a lead with a service we can't yet deliver (mobile-app is
+    // "coming soon") — route that interest to our flagship Digital Agency line.
+    const rawService = service ? String(service).slice(0, 40) : null;
+    const cleanService = isComingSoon(rawService) ? "digital-agency" : rawService;
     const cleanMessage = String(message).slice(0, 2000);
     const cleanLocale = locale === 'id' ? 'id' : 'en';
 
