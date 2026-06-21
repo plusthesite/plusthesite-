@@ -32,9 +32,9 @@ export default function Products() {
 
     const products = [
         { title: items.chatbot.title, description: items.chatbot.description, icon: "🤖", href: `/${locale}/chat-bot`, badge: t.products.badgePopular, internal: true },
-        { title: items.support.title, description: items.support.description, icon: "🎧", href: "https://plusthe.site/customer-support/", internal: false },
+        { title: items.support.title, description: items.support.description, icon: "🎧", href: `/${locale}/customer-support`, internal: true },
         { title: items.mobileApp.title, description: items.mobileApp.description, icon: "📱", href: `/${locale}/mobile-app`, internal: true, comingSoon: true },
-        { title: items.crm.title, description: items.crm.description, icon: "📊", href: "https://plusthe.site/crm/", internal: false },
+        { title: items.crm.title, description: items.crm.description, icon: "📊", href: `/${locale}/crm`, internal: true },
         { title: items.agency.title, description: items.agency.description, icon: "🚀", href: `/${locale}/digital-agency`, badge: t.products.badgeNew, internal: true },
         { title: items.game.title, description: items.game.description, icon: "🎮", href: `/${locale}/mobile-game`, internal: true },
     ];
