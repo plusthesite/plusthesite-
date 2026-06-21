@@ -94,7 +94,7 @@ export function NotificationBell() {
             {/* Bell button */}
             <button
                 onClick={() => setOpen(!open)}
-                className="relative rounded-lg p-2 text-slate-400 transition-colors hover:bg-slate-800 hover:text-white"
+                className="relative rounded-lg p-2 text-slate-400 transition-colors hover:bg-slate-400/15"
                 title="Notifications"
             >
                 <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -113,7 +113,7 @@ export function NotificationBell() {
 
             {/* Dropdown panel */}
             {open && (
-                <div className="absolute right-0 top-full z-50 mt-2 w-80 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl">
+                <div className="fixed left-3 right-3 top-16 z-50 max-h-[75vh] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-2xl lg:left-[15.5rem] lg:right-auto lg:top-[4.75rem] lg:w-80">
                     <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3">
                         <h3 className="text-sm font-bold text-slate-900">Notifications</h3>
                         {unread > 0 && (

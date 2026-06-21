@@ -58,11 +58,14 @@ export default async function DashboardLayout({
                             plus<span className="text-blue-500">.</span>
                         </div>
                     </div>
-                    <label htmlFor="mobile-nav" className="cursor-pointer rounded-lg p-2 text-slate-600 hover:bg-slate-100">
-                        <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </label>
+                    <div className="flex items-center gap-1">
+                        <NotificationBell />
+                        <label htmlFor="mobile-nav" className="cursor-pointer rounded-lg p-2 text-slate-600 hover:bg-slate-100">
+                            <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </label>
+                    </div>
                 </div>
                 <div className="px-4 py-6 sm:px-6 lg:px-8 lg:py-8">{children}</div>
             </main>

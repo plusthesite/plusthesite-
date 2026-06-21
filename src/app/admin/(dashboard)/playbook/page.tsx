@@ -3,140 +3,159 @@ import { SalesFunnel } from "./SalesFunnel";
 
 export const dynamic = "force-dynamic";
 
+const STEPS = [
+    { n: 1, icon: "⭐", t: "Buka Priority", d: "Lead sudah diurutkan otomatis. Kerjakan dari atas (yang paling panas dulu).", href: "/admin/priority" },
+    { n: 2, icon: "💬", t: "Sapa via WhatsApp", d: "Klik lead → Quick Message → ganti kalimat pembuka biar personal → kirim.", href: "/admin/leads" },
+    { n: 3, icon: "📝", t: "Catat hasilnya", d: "Setiap balasan dicatat di Activity, biar nggak lupa & gampang follow up.", href: null },
+    { n: 4, icon: "🎯", t: "Yang tertarik → Convert", d: "Jadikan Opportunity. Yang belum balas, jadwalkan follow-up (Task).", href: "/admin/opportunities" },
+];
+
 const STAGES = [
-    { s: "New", c: "bg-slate-100 text-slate-600", arti: "Lead baru, belum dihubungi.", aksi: "Kirim pesan Intro (personalisasi dulu!). Catat di Activity.", lanjut: "Begitu sudah dikirim/dihubungi → Contacted." },
-    { s: "Contacted", c: "bg-blue-50 text-blue-700", arti: "Sudah dihubungi, menunggu/ada balasan.", aksi: "Bangun obrolan. Tanya kebutuhan, jangan jualan dulu.", lanjut: "Kalau ada minat & kebutuhan jelas → Qualified." },
-    { s: "Qualified", c: "bg-indigo-50 text-indigo-700", arti: "Cocok: butuh, ada budget, orang yang tepat.", aksi: "Gali detail (BANT). Convert lead → Opportunity di sini.", lanjut: "Setelah setuju lihat penawaran → Proposal." },
-    { s: "Proposal", c: "bg-violet-50 text-violet-700", arti: "Penawaran/proposal sudah dikirim.", aksi: "Presentasikan ringkas, fokus hasil (bukan fitur). Konfirmasi pemahaman.", lanjut: "Kalau nego harga/scope → Negotiation." },
-    { s: "Negotiation", c: "bg-amber-50 text-amber-700", arti: "Tawar-menawar harga, scope, atau timeline.", aksi: "Jaga nilai, beri opsi (paket lebih kecil), bukan asal diskon.", lanjut: "Deal disepakati → Won. Tidak jadi → Lost (catat alasan)." },
-    { s: "Won", c: "bg-emerald-50 text-emerald-700", arti: "🎉 Closed Won — deal jadi.", aksi: "Kirim invoice/PO, jadwalkan kickoff, serah-terima ke tim delivery.", lanjut: "Selesai. Minta testimoni setelah hasil keluar." },
+    { s: "New", emoji: "🆕", color: "border-t-slate-300", task: "Lead baru. Kirim pesan perkenalan (jangan lupa personalisasi!)." },
+    { s: "Contacted", emoji: "💬", color: "border-t-blue-400", task: "Sudah disapa. Mulai ngobrol, tanya kebutuhan — belum jualan." },
+    { s: "Qualified", emoji: "✅", color: "border-t-indigo-400", task: "Cocok & butuh. Saatnya ubah jadi Opportunity." },
+    { s: "Proposal", emoji: "📄", color: "border-t-violet-400", task: "Penawaran terkirim. Fokus ke hasil buat mereka, bukan daftar fitur." },
+    { s: "Negotiation", emoji: "🤝", color: "border-t-amber-400", task: "Bahas harga/scope. Beri pilihan paket — jangan langsung obral diskon." },
+    { s: "Closed Won", emoji: "🏆", color: "border-t-emerald-400", task: "Deal! 🎉 Kirim invoice, jadwalkan kickoff, serahkan ke tim." },
 ];
 
-const PRINCIPLES = [
-    { t: "Tanya, jangan jualan", d: "Pesan pertama tujuannya dapat balasan, bukan closing. Ajukan 1 pertanyaan relevan tentang bisnis mereka." },
-    { t: "Personalisasi 1 kalimat", d: "Sebut hal spesifik (menu, lokasi, layanan mereka). Jangan kirim pesan yang sama persis ke semua — itu yang bikin ketahuan template." },
-    { t: "Pakai nama asli", d: "Tanda tangani dengan nama kamu, bukan 'tim'. Orang percaya ke orang. Balas cepat & ramah." },
+const TRUST = [
+    { icon: "❓", t: "Tanya, jangan jualan", d: "Pesan pertama tujuannya dapat balasan — bukan langsung nawarin. Ajukan 1 pertanyaan tentang bisnis mereka." },
+    { icon: "✍️", t: "Bikin personal", d: "Sebut hal spesifik (menu, lokasi, atau layanan mereka). Pesan yang sama persis ke semua orang = ketahuan template." },
+    { icon: "🙋", t: "Pakai nama sendiri", d: "Tanda tangani dengan nama kamu, bukan 'tim'. Orang lebih percaya ke orang. Balas cepat & ramah." },
 ];
 
-const BANT = [
-    { k: "Budget", q: "“Untuk hal seperti ini, kira-kira sudah ada anggaran yang disiapkan, atau masih tahap cari info?”" },
-    { k: "Authority", q: "“Selain Bapak/Ibu, ada yang biasanya ikut memutuskan untuk hal ini?”" },
-    { k: "Need", q: "“Apa yang paling bikin repot sekarang soal {layanan}? Apa yang ideal buat Anda?”" },
-    { k: "Timeline", q: "“Kalau cocok, kira-kira ingin mulai kapan? Ada momen/target tertentu?”" },
+const ASK = [
+    { icon: "🎯", k: "Apa yang dibutuhkan", q: "“Apa yang paling bikin repot sekarang? Idealnya seperti apa buat Anda?”" },
+    { icon: "💰", k: "Soal anggaran", q: "“Untuk hal ini sudah ada anggaran yang disiapkan, atau masih cari info dulu?”" },
+    { icon: "👤", k: "Siapa yang memutuskan", q: "“Selain Bapak/Ibu, ada yang biasanya ikut memutuskan?”" },
+    { icon: "📅", k: "Kapan mau mulai", q: "“Kalau cocok, kira-kira ingin mulai kapan? Ada target tertentu?”" },
 ];
 
-const OBJECTIONS = [
-    { o: "“Mahal / belum ada budget.”", r: "“Wajar. Boleh saya tahu hasil seperti apa yang Anda harapkan? Kita bisa mulai dari paket kecil dulu (mulai Rp 2,5jt/bln) yang penting jalan, lalu naik kalau sudah kelihatan hasilnya.”" },
-    { o: "“Sudah ada vendor/tim sendiri.”", r: "“Bagus berarti sudah jalan. Saya nggak mau ganggu yang sudah baik — biasanya kami justru melengkapi (mis. otomasi WA / CRM). Boleh saya kirim 1 ide kecil, kalau berguna silakan dipakai?”" },
-    { o: "“Nanti dulu / belum sempat.”", r: "“Siap, nggak buru-buru sama sekali. Boleh saya simpan kontak dan follow up minggu depan? Atau saya kirim ringkasannya saja dulu biar bisa dilihat santai?”" },
-    { o: "“Kirim proposal/harga dulu aja.”", r: "“Boleh banget. Biar penawarannya pas (bukan template), boleh saya tanya 2 hal singkat dulu soal kebutuhan Anda?”" },
-    { o: "“Dapat nomor saya dari mana?”", r: "“Dari profil Google Bisnis Anda yang publik 🙏 Mohon maaf kalau mengganggu — kalau tidak berkenan, tinggal bilang, langsung saya hapus dari daftar.”" },
+const DOUBTS = [
+    { o: "“Mahal / belum ada budget.”", r: "Wajar 🙂. Tanya hasil yang diharapkan, lalu tawarkan mulai dari paket kecil (Rp 2,5jt/bln) — naik kalau sudah kelihatan hasilnya." },
+    { o: "“Sudah ada tim/vendor.”", r: "Bagus berarti sudah jalan. Tawarkan melengkapi (mis. otomasi WA / CRM), atau kirim 1 ide kecil yang berguna." },
+    { o: "“Nanti dulu, belum sempat.”", r: "Santai, nggak buru-buru. Minta izin follow up minggu depan, atau kirim ringkasan biar bisa dilihat santai." },
+    { o: "“Dapat nomor saya dari mana?”", r: "Jujur: dari Google Bisnis mereka yang publik. Minta maaf kalau mengganggu, tawarkan langsung dihapus kalau tak berkenan." },
 ];
 
-function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-    return <div className={`rounded-xl border border-slate-200 bg-white p-5 shadow-sm ${className}`}>{children}</div>;
+const CLOSE = [
+    "Ringkas hasilnya, bukan harganya: “Jadi dengan ini, [hasil konkret]. Sesuai ya?”",
+    "Tawarkan langkah kecil yang jelas: “Kita mulai bulan ini, saya kirim invoice & kickoff minggu depan?”",
+    "Selalu sepakati langkah berikutnya + tanggalnya (buat Task!) — jangan tutup chat menggantung.",
+    "Kalau gagal, catat alasannya. Bisa ditawari lagi kuartal depan.",
+];
+
+function H({ children }: { children: React.ReactNode }) {
+    return <h2 className="mt-10 text-base font-bold text-slate-900">{children}</h2>;
 }
 
 export default function PlaybookPage() {
     return (
-        <div className="max-w-4xl">
-            <h1 className="text-2xl font-bold text-slate-900">Sales Playbook</h1>
-            <p className="mt-1 text-sm text-slate-500">Panduan lengkap tim sales: dari lead jadi <strong>Closed Won</strong>. Kualitas &gt; kuantitas.</p>
+        <div className="max-w-5xl">
+            <h1 className="text-2xl font-bold text-slate-900">Panduan Sales</h1>
+            <p className="mt-1 text-sm text-slate-500">Cara mengubah lead jadi pelanggan — simpel, langkah demi langkah. <span className="font-semibold text-slate-700">Pelan tapi personal &gt; banyak tapi spam.</span></p>
 
-            {/* Live funnel monitor */}
-            <h2 className="mt-6 text-sm font-bold uppercase tracking-wide text-slate-400">Monitor proses (live)</h2>
-            <div className="mt-3"><SalesFunnel /></div>
+            {/* Live funnel */}
+            <div className="mt-6"><SalesFunnel /></div>
 
             {/* Daily routine */}
-            <h2 className="mt-8 text-sm font-bold uppercase tracking-wide text-slate-400">Rutinitas harian</h2>
-            <Card className="mt-3">
-                <ol className="space-y-3 text-sm text-slate-700">
-                    <li><strong>1.</strong> Buka <Link href="/admin/priority" className="font-semibold text-blue-600 hover:underline">Priority</Link> — kerjakan dari atas (🔴 Hot dulu). <strong>Target realistis: 10–15 lead/hari.</strong> Jangan hajar semua sekaligus.</li>
-                    <li><strong>2.</strong> Klik lead → <strong>Quick Message</strong> → <strong>edit baris pembuka</strong> (sebut hal spesifik) → kirim WhatsApp.</li>
-                    <li><strong>3.</strong> Catat setiap kontak/balasan di <strong>Activity</strong> pada halaman detail lead.</li>
-                    <li><strong>4.</strong> Yang tertarik → <strong>Convert → Opportunity</strong>. Yang belum balas → jadwalkan <strong>Task</strong> follow-up (2–3 hari).</li>
-                    <li><strong>5.</strong> Pagi hari, cek <Link href="/admin/tasks" className="font-semibold text-blue-600 hover:underline">Tasks</Link> — kerjakan follow-up yang jatuh tempo dulu.</li>
-                </ol>
-            </Card>
-
-            {/* Pipeline */}
-            <h2 className="mt-8 text-sm font-bold uppercase tracking-wide text-slate-400">6 Tahap pipeline — apa & kapan lanjut</h2>
-            <div className="mt-3 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-                <table className="w-full text-left text-sm">
-                    <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-400">
-                        <tr><th className="px-4 py-3 font-semibold">Tahap</th><th className="px-4 py-3 font-semibold">Aksi kamu</th><th className="px-4 py-3 font-semibold">Kapan naik</th></tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100">
-                        {STAGES.map((s) => (
-                            <tr key={s.s} className="align-top">
-                                <td className="px-4 py-3"><span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${s.c}`}>{s.s}</span><p className="mt-1 text-xs text-slate-400">{s.arti}</p></td>
-                                <td className="px-4 py-3 text-slate-700">{s.aksi}</td>
-                                <td className="px-4 py-3 text-slate-500">{s.lanjut}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+            <H>🗓️ Rutinitas harianmu</H>
+            <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                {STEPS.map((s) => {
+                    const card = (
+                        <div className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md">
+                            <div className="flex items-center gap-2">
+                                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-sm font-bold text-white">{s.n}</span>
+                                <span className="text-xl">{s.icon}</span>
+                            </div>
+                            <p className="mt-3 text-sm font-bold text-slate-900">{s.t}</p>
+                            <p className="mt-1 text-xs leading-relaxed text-slate-500">{s.d}</p>
+                        </div>
+                    );
+                    return s.href ? <Link key={s.n} href={s.href} className="block">{card}</Link> : <div key={s.n}>{card}</div>;
+                })}
             </div>
+            <p className="mt-3 rounded-xl bg-blue-50 px-4 py-3 text-sm text-blue-800">💡 Target realistis: <strong>10–15 lead per hari</strong>. Jangan dihajar semua sekaligus — kualitas obrolan lebih penting.</p>
 
-            {/* Organic principles */}
-            <h2 className="mt-8 text-sm font-bold uppercase tracking-wide text-slate-400">3 kunci reach-out organik (biar dipercaya)</h2>
-            <div className="mt-3 grid gap-4 sm:grid-cols-3">
-                {PRINCIPLES.map((p, i) => (
-                    <Card key={i}>
-                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-sm font-bold text-white">{i + 1}</span>
-                        <h3 className="mt-3 text-sm font-bold text-slate-900">{p.t}</h3>
-                        <p className="mt-1 text-sm text-slate-600">{p.d}</p>
-                    </Card>
+            {/* Pipeline stages */}
+            <H>📊 6 tahap sebuah deal — & kapan naik ke tahap berikut</H>
+            <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {STAGES.map((st) => (
+                    <div key={st.s} className={`rounded-2xl border border-t-4 border-slate-200 bg-white p-5 shadow-sm ${st.color}`}>
+                        <p className="flex items-center gap-2 text-sm font-bold text-slate-900"><span className="text-lg">{st.emoji}</span> {st.s}</p>
+                        <p className="mt-2 text-xs leading-relaxed text-slate-600">{st.task}</p>
+                    </div>
                 ))}
             </div>
 
-            {/* Qualification */}
-            <h2 className="mt-8 text-sm font-bold uppercase tracking-wide text-slate-400">Kualifikasi — 4 hal yang harus tahu (BANT)</h2>
+            {/* Trust principles */}
+            <H>🤝 3 kunci biar calon pelanggan percaya</H>
+            <div className="mt-3 grid gap-3 sm:grid-cols-3">
+                {TRUST.map((p) => (
+                    <div key={p.t} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                        <span className="text-2xl">{p.icon}</span>
+                        <p className="mt-2 text-sm font-bold text-slate-900">{p.t}</p>
+                        <p className="mt-1 text-xs leading-relaxed text-slate-500">{p.d}</p>
+                    </div>
+                ))}
+            </div>
+
+            {/* Discovery questions */}
+            <H>💡 Sebelum kasih harga, pahami 4 hal ini</H>
             <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                {BANT.map((b) => (
-                    <Card key={b.k}>
-                        <span className="text-xs font-bold uppercase tracking-wide text-primary">{b.k}</span>
-                        <p className="mt-1 text-sm italic text-slate-600">{b.q}</p>
-                    </Card>
+                {ASK.map((a) => (
+                    <div key={a.k} className="flex gap-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                        <span className="text-2xl">{a.icon}</span>
+                        <div>
+                            <p className="text-sm font-bold text-slate-900">{a.k}</p>
+                            <p className="mt-1 text-sm italic text-slate-500">{a.q}</p>
+                        </div>
+                    </div>
                 ))}
             </div>
 
-            {/* Objection handling */}
-            <h2 className="mt-8 text-sm font-bold uppercase tracking-wide text-slate-400">Menjawab keberatan (objection handling)</h2>
+            {/* Objections */}
+            <H>🛟 Kalau calon pelanggan ragu — ini cara menjawabnya</H>
             <div className="mt-3 space-y-3">
-                {OBJECTIONS.map((o, i) => (
-                    <Card key={i}>
-                        <p className="text-sm font-semibold text-rose-600">{o.o}</p>
-                        <p className="mt-1.5 text-sm text-slate-700">↳ {o.r}</p>
-                    </Card>
+                {DOUBTS.map((d, i) => (
+                    <div key={i} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                        <p className="text-sm font-semibold text-rose-600">{d.o}</p>
+                        <p className="mt-1.5 flex gap-2 text-sm text-slate-700"><span className="text-emerald-500">↳</span> {d.r}</p>
+                    </div>
                 ))}
             </div>
 
             {/* Closing */}
-            <h2 className="mt-8 text-sm font-bold uppercase tracking-wide text-slate-400">Menutup deal (closing)</h2>
-            <Card className="mt-3">
-                <ul className="space-y-2 text-sm text-slate-700">
-                    <li>• <strong>Ringkas hasil, bukan harga.</strong> “Jadi dengan ini, {`{layanan}`} Anda bisa [hasil konkret]. Sesuai ya?”</li>
-                    <li>• <strong>Tawarkan langkah kecil & jelas.</strong> “Kalau oke, kita mulai dengan [paket/scope] bulan ini. Saya kirim invoice & kita kickoff minggu depan?”</li>
-                    <li>• <strong>Urgensi yang jujur.</strong> Slot tim terbatas / momen musiman (Lebaran, akhir tahun) — jangan mengarang diskon palsu.</li>
-                    <li>• <strong>Selalu ada next step.</strong> Jangan tutup chat tanpa kesepakatan langkah berikutnya + tanggalnya (buat Task!).</li>
-                    <li>• <strong>Kalau Lost, catat alasannya.</strong> Bisa di-reach lagi kuartal depan.</li>
+            <H>🏁 Cara menutup deal</H>
+            <div className="mt-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                <ul className="space-y-2.5">
+                    {CLOSE.map((c, i) => (
+                        <li key={i} className="flex gap-2.5 text-sm text-slate-700"><span className="mt-0.5 text-emerald-500">✓</span> <span>{c}</span></li>
+                    ))}
                 </ul>
-            </Card>
-
-            {/* Tools */}
-            <h2 className="mt-8 text-sm font-bold uppercase tracking-wide text-slate-400">Tools yang dipakai</h2>
-            <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                <Card><Link href="/admin/priority" className="text-sm font-bold text-blue-600 hover:underline">Priority →</Link><p className="mt-1 text-xs text-slate-500">Lead di-ranking otomatis. Mulai dari sini tiap hari.</p></Card>
-                <Card><Link href="/admin/leads" className="text-sm font-bold text-blue-600 hover:underline">Leads →</Link><p className="mt-1 text-xs text-slate-500">Semua prospek. Filter per layanan, Quick Message, Convert.</p></Card>
-                <Card><Link href="/admin/opportunities" className="text-sm font-bold text-blue-600 hover:underline">Opportunities →</Link><p className="mt-1 text-xs text-slate-500">Deal aktif. Geser tahap di Kanban board.</p></Card>
-                <Card><Link href="/admin/tasks" className="text-sm font-bold text-blue-600 hover:underline">Tasks →</Link><p className="mt-1 text-xs text-slate-500">Follow-up terjadwal. Cek tiap pagi.</p></Card>
-                <Card><Link href="/admin/accounts" className="text-sm font-bold text-blue-600 hover:underline">Accounts →</Link><p className="mt-1 text-xs text-slate-500">Perusahaan + semua lead/deal-nya.</p></Card>
-                <Card><span className="text-sm font-bold text-slate-800">Quick Message</span><p className="mt-1 text-xs text-slate-500">Ada di tiap detail lead/deal. Edit dulu sebelum kirim!</p></Card>
             </div>
 
-            <p className="mt-8 rounded-xl bg-slate-900 p-5 text-center text-sm font-semibold text-white">
-                Ingat: 1 percakapan personal &gt; 100 pesan spam. Pelan, ramah, konsisten — itu yang closing. 🎯
+            {/* Tools */}
+            <H>🧰 Alat yang dipakai</H>
+            <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {[
+                    { href: "/admin/priority", t: "Priority", d: "Lead di-ranking otomatis. Mulai dari sini tiap hari." },
+                    { href: "/admin/leads", t: "Leads", d: "Semua prospek. Filter layanan, Quick Message, Convert." },
+                    { href: "/admin/opportunities", t: "Opportunities", d: "Deal aktif. Geser tahap di papan Kanban." },
+                    { href: "/admin/tasks", t: "Tasks", d: "Follow-up terjadwal. Cek tiap pagi." },
+                    { href: "/admin/accounts", t: "Accounts", d: "Perusahaan + semua lead/deal-nya." },
+                    { href: "/admin", t: "Today's Focus", d: "Di Dashboard: 5 lead terpanas + task hari ini." },
+                ].map((x) => (
+                    <Link key={x.t} href={x.href} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
+                        <p className="text-sm font-bold text-blue-600">{x.t} →</p>
+                        <p className="mt-1 text-xs text-slate-500">{x.d}</p>
+                    </Link>
+                ))}
+            </div>
+
+            <p className="mt-8 rounded-2xl bg-slate-900 p-5 text-center text-sm font-semibold text-white">
+                Ingat: 1 obrolan personal &gt; 100 pesan spam. Pelan, ramah, konsisten — itu yang closing. 🎯
             </p>
         </div>
     );
