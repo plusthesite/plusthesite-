@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Bricolage_Grotesque } from "next/font/google";
 import { notFound } from "next/navigation";
 import ThemeProvider from "@/components/ThemeProvider";
 import ScrollToTop from "@/components/ScrollToTop";
+import AuthRedirectCatcher from "@/components/AuthRedirectCatcher";
 import { ChatWidget } from "@/components/ChatWidget";
 import { ThemeStyle } from "@/components/ThemeStyle";
 import { I18nProvider } from "@/i18n/I18nProvider";
@@ -186,6 +187,7 @@ export default async function LocaleLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} antialiased`}>
         <ThemeProvider>
+          <AuthRedirectCatcher />
           {/* Ambient glow effects for dark mode */}
           <div className="glow-ambient glow-ambient-1" aria-hidden="true" />
           <div className="glow-ambient glow-ambient-2" aria-hidden="true" />
