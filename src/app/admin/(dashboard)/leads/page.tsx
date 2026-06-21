@@ -83,9 +83,9 @@ function timeAgo(d: string) {
 export default async function LeadsPage({
     searchParams,
 }: {
-    searchParams: Promise<{ service?: string; status?: string; sort?: string }>;
+    searchParams: Promise<{ service?: string; status?: string; sort?: string; page?: string }>;
 }) {
-    const { service: filter, status: statusFilter, sort } = await searchParams;
+    const { service: filter, status: statusFilter, sort, page } = await searchParams;
     const supabase = getSupabaseAdmin();
     const { data } = supabase
         ? await supabase
@@ -135,6 +135,16 @@ export default async function LeadsPage({
     if (statusFilter) sortBase.set("status", statusFilter);
     const sortHref = (s: string) => { const p = new URLSearchParams(sortBase); if (s) p.set("sort", s); const q = p.toString(); return `/admin/leads${q ? `?${q}` : ""}`; };
     const SORTS: { key: string; label: string }[] = [{ key: "", label: "Newest" }, { key: "hot", label: "🔥 Hottest" }, { key: "value", label: "Highest value" }];
+
+    // Pagination — render a page at a time instead of all ~1.5k rows.
+    const PAGE_SIZE = 50;
+    const totalRows = rows.length;
+    const totalPages = Math.max(1, Math.ceil(totalRows / PAGE_SIZE));
+    const safePage = Math.min(Math.max(1, Number(page) || 1), totalPages);
+    const pageRows = rows.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
+    const from = totalRows === 0 ? 0 : (safePage - 1) * PAGE_SIZE + 1;
+    const to = Math.min(safePage * PAGE_SIZE, totalRows);
+    const pageHref = (p: number) => { const q = new URLSearchParams(sortBase); if (sort) q.set("sort", sort); if (p > 1) q.set("page", String(p)); const s = q.toString(); return `/admin/leads${s ? `?${s}` : ""}`; };
 
     return (
         <div>
@@ -252,7 +262,7 @@ export default async function LeadsPage({
                                     </div>
                                 </td></tr>
                             )}
-                            {rows.map((l) => {
+                            {pageRows.map((l) => {
                                 const wa = waLink(l);
                                 const mail = mailtoLink(l);
                                 const status = l.status ?? "new";
@@ -328,6 +338,24 @@ export default async function LeadsPage({
                     </table>
                 </div>
             </div>
+
+            {/* Pager */}
+            {totalRows > 0 && (
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+                    <p className="text-xs text-slate-500">Showing <span className="font-semibold text-slate-700">{from}–{to}</span> of <span className="font-semibold text-slate-700">{totalRows}</span></p>
+                    {totalPages > 1 && (
+                        <div className="flex items-center gap-2">
+                            {safePage > 1
+                                ? <Link href={pageHref(safePage - 1)} className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-50">← Prev</Link>
+                                : <span className="rounded-lg border border-slate-100 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-300">← Prev</span>}
+                            <span className="text-xs font-semibold text-slate-500">Page {safePage} of {totalPages}</span>
+                            {safePage < totalPages
+                                ? <Link href={pageHref(safePage + 1)} className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-50">Next →</Link>
+                                : <span className="rounded-lg border border-slate-100 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-300">Next →</span>}
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
 }
