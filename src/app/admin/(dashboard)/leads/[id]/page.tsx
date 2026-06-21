@@ -6,13 +6,21 @@ import { scoreLead, scoreTier } from "@/lib/leadScore";
 import { ActivityPanel } from "@/components/admin/ActivityPanel";
 import { QuickMessage } from "@/components/admin/QuickMessage";
 import { convertLeadToOpportunity } from "../../opportunities/actions";
+import { quickUpdateLead } from "../actions";
 
 export const dynamic = "force-dynamic";
 
-function waLink(phone: string | null) {
+function opener(name: string | null, service: string | null, company: string | null, locale: string | null) {
+    const first = name?.trim().split(/\s+/)[0];
+    const svc = serviceName(service).toLowerCase();
+    if (locale === "en") return `Hi ${first || "there"}, this is plus. (plusthe.site). We help businesses with ${svc} — saw ${company || "your business"} and thought we could help. Open to a quick chat?`;
+    return `Halo ${first || "Kak"}, saya dari plus. (plusthe.site). Kami bantu bisnis untuk ${svc}. Kebetulan lihat ${company || "usaha Anda"} — boleh ngobrol singkat?`;
+}
+
+function waLink(phone: string | null, text: string) {
     if (!phone) return null;
     const d = phone.replace(/[^\d]/g, "");
-    return d ? `https://wa.me/${d}` : null;
+    return d ? `https://wa.me/${d}?text=${encodeURIComponent(text)}` : null;
 }
 
 export default async function LeadDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -22,7 +30,7 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
 
     const { data: l } = await supabase
         .from("leads")
-        .select("id, name, email, phone, company, service, status, value, owner, message, source, locale, created_at, account_id")
+        .select("id, name, email, phone, company, service, status, value, owner, message, source, locale, created_at, account_id, next_action")
         .eq("id", id)
         .maybeSingle();
     if (!l) notFound();
@@ -32,7 +40,9 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
         : { data: null };
 
     const label = l.company || l.name || l.email || "Lead";
-    const wa = waLink(l.phone);
+    const msg = opener(l.name, l.service, l.company, l.locale);
+    const wa = waLink(l.phone, msg);
+    const mail = l.email ? `mailto:${l.email}?subject=${encodeURIComponent(l.locale === "en" ? "Quick hello from plus." : "Halo dari plus.")}&body=${encodeURIComponent(msg)}` : null;
     const { score, reasons } = scoreLead(l);
     const tier = scoreTier(score);
 
@@ -81,9 +91,9 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
                         {l.message && <p className="mt-3 rounded-lg bg-slate-50 p-3 text-sm text-slate-600">{l.message}</p>}
 
                         <div className="mt-4 flex flex-wrap gap-2">
-                            {wa && <a href={wa} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-emerald-600 px-3 py-2 text-xs font-semibold text-white hover:bg-emerald-700">WhatsApp</a>}
+                            {wa && <a href={wa} target="_blank" rel="noopener noreferrer" title="WhatsApp with a ready opener" className="rounded-lg bg-emerald-600 px-3 py-2 text-xs font-semibold text-white hover:bg-emerald-700">WhatsApp</a>}
                             {l.phone && <a href={`tel:${l.phone}`} className="rounded-lg bg-slate-700 px-3 py-2 text-xs font-semibold text-white hover:bg-slate-800">Call</a>}
-                            {l.email && <a href={`mailto:${l.email}`} className="rounded-lg bg-blue-600 px-3 py-2 text-xs font-semibold text-white hover:bg-blue-700">Email</a>}
+                            {mail && <a href={mail} title="Email with a ready opener" className="rounded-lg bg-blue-600 px-3 py-2 text-xs font-semibold text-white hover:bg-blue-700">Email</a>}
                             {l.status !== "converted" && (
                                 <form action={convertLeadToOpportunity}>
                                     <input type="hidden" name="id" value={l.id} />
@@ -92,6 +102,16 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
                             )}
                         </div>
                     </div>
+
+                    {/* Next step / follow-up */}
+                    <form action={quickUpdateLead} className="mt-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+                        <input type="hidden" name="id" value={l.id} />
+                        <label className="text-xs font-semibold text-slate-500">Next step (follow-up)</label>
+                        <div className="mt-2 flex gap-2">
+                            <input name="next_action" defaultValue={l.next_action ?? ""} placeholder="e.g. Call back Fri, send proposal…" className={`flex-1 rounded-lg border px-3 py-2 text-sm ${l.next_action ? "border-amber-200 bg-amber-50 text-amber-800" : "border-slate-200"}`} />
+                            <button className="rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white hover:bg-slate-800">Save</button>
+                        </div>
+                    </form>
 
                     <div className="mt-6">
                         <QuickMessage name={l.name} phone={l.phone} email={l.email} company={l.company} service={l.service} locale={l.locale === "id" ? "id" : "en"} />
