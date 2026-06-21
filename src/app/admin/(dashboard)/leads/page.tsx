@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { SERVICES, serviceName, getService, formatIDR } from "@/lib/services";
+import { scoreLead, scoreTier } from "@/lib/leadScore";
 import { deleteRow } from "../actions";
 import { convertLeadToOpportunity } from "../opportunities/actions";
 import { bulkUpdateLeads } from "./actions";
@@ -210,11 +211,16 @@ export default async function LeadsPage({
                                 const wa = waLink(l.phone);
                                 const status = l.status ?? "new";
                                 const svc = getService(l.service);
+                                const { score } = scoreLead(l);
+                                const tier = scoreTier(score);
                                 return (
                                     <tr key={l.id} className="align-top transition-colors hover:bg-slate-50/80">
                                         <td className="px-4 py-3"><input type="checkbox" name="ids" value={l.id} form="bulk-leads" className="h-4 w-4 rounded border-slate-300" /></td>
                                         <td className="px-4 py-3">
-                                            <Link href={`/admin/leads/${l.id}`} className="font-semibold text-slate-800 hover:text-blue-600 transition-colors">{l.name ?? "(no name)"}</Link>
+                                            <div className="flex items-center gap-2">
+                                                <Link href={`/admin/leads/${l.id}`} className="font-semibold text-slate-800 hover:text-blue-600 transition-colors">{l.name ?? "(no name)"}</Link>
+                                                <span className={`shrink-0 rounded-full px-1.5 py-0.5 text-[10px] font-bold ${tier.color}`} title={`Lead score ${score}/100`}>{tier.label} {score}</span>
+                                            </div>
                                             <p className="text-xs text-slate-500">{[l.company, l.email || l.phone].filter(Boolean).join(" · ")}</p>
                                             {l.message && <p className="mt-1 max-w-xs text-xs text-slate-400 line-clamp-1">{l.message}</p>}
                                         </td>
