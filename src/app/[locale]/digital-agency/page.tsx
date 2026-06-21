@@ -29,7 +29,7 @@ const statValues = ["150+", "500+", "80+", "200+"];
 
 const COPY = {
     en: {
-        hero: { badge: "Digital Agency Services", titleA: "Digital Excellence,", titleB: "Redefined.", subtitle: "Innovative minds delivering branding, storytelling, and content daily.", explore: "Explore Services", portfolio: "View Portfolio" },
+        hero: { badge: "Digital Agency Services", titleA: "Digital Excellence,", titleB: "Redefined.", subtitle: "We help Indonesian brands grow — branding, content & AI-powered marketing that turns attention into paying customers. Projects from Rp 15jt.", explore: "Explore Services", portfolio: "View Portfolio", quote: "Get a Free Quote" },
         services: { tag: "What We Do", title: "Tailored Service Offerings", subtitle: "Innovative branding that clients trust — customized service packages designed to meet your unique business requirements.", learnMore: "Learn more →", items: [
             { title: "Creative Solutions", desc: "We empower businesses through innovative branding solutions that capture attention and drive engagement." },
             { title: "IT Solutions", desc: "Creating impactful platforms for user engagement with cutting-edge technology and modern architectures." },
@@ -47,7 +47,7 @@ const COPY = {
         cta: { badge: "Transforming into Reality", titleA: "We craft & enhance your", titleB: "digital presence", subtitle: "We empower businesses to build exceptional websites with ease. Our solutions simplify the web design journey, making it accessible for all.", start: "Ready to get started?", features: [{ t: "Brand Identity", s: "Brand Development" }, { t: "Design Solutions", s: "Visual Storytelling" }, { t: "Innovative IT", s: "Solutions & Strategy" }] },
     },
     id: {
-        hero: { badge: "Layanan Digital Agency", titleA: "Keunggulan Digital,", titleB: "Didefinisikan Ulang.", subtitle: "Pemikir inovatif yang menghadirkan branding, storytelling, dan konten setiap hari.", explore: "Jelajahi Layanan", portfolio: "Lihat Portofolio" },
+        hero: { badge: "Layanan Digital Agency", titleA: "Keunggulan Digital,", titleB: "Didefinisikan Ulang.", subtitle: "Kami bantu brand Indonesia bertumbuh — branding, konten & marketing bertenaga AI yang mengubah perhatian jadi pelanggan. Mulai dari Rp 15jt.", explore: "Jelajahi Layanan", portfolio: "Lihat Portofolio", quote: "Minta Penawaran Gratis" },
         services: { tag: "Yang Kami Lakukan", title: "Penawaran Layanan yang Disesuaikan", subtitle: "Branding inovatif yang dipercaya klien — paket layanan khusus yang dirancang untuk memenuhi kebutuhan bisnis unik Anda.", learnMore: "Selengkapnya →", items: [
             { title: "Solusi Kreatif", desc: "Kami memberdayakan bisnis melalui solusi branding inovatif yang menarik perhatian dan mendorong engagement." },
             { title: "Solusi IT", desc: "Menciptakan platform berdampak untuk engagement pengguna dengan teknologi mutakhir dan arsitektur modern." },
@@ -90,7 +90,8 @@ const colorMap = {
 /* ── Sections ── */
 
 function HeroSection() {
-    const c = COPY[useLocale()].hero;
+    const locale = useLocale();
+    const c = COPY[locale].hero;
     return (
         <section className="relative flex min-h-[85vh] items-center justify-center overflow-hidden">
             {/* Background */}
@@ -150,25 +151,25 @@ function HeroSection() {
                 </p>
 
                 <div className="hero-animate hero-animate-delay-3 mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-                    <a
-                        href="#services"
+                    <Link
+                        href={`/${locale}/contact-us?service=digital-agency`}
                         className="btn-glow inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-sm font-semibold transition-all hover:scale-105 hover:shadow-2xl"
                         style={{
                             background: "var(--hero-btn-bg)",
                             color: "var(--hero-btn-text)",
                         }}
                     >
-                        {c.explore}
+                        {c.quote}
                         <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
-                    </a>
+                    </Link>
                     <a
-                        href="#portfolio"
+                        href="#services"
                         className="inline-flex items-center gap-2 rounded-full bg-white/20 px-8 py-3.5 text-sm font-bold text-white backdrop-blur-md border-2 border-white/50 transition-all hover:bg-white/30 hover:border-white/70 hover:scale-105 drop-shadow-md"
                         style={{ textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
                     >
-                        {c.portfolio}
+                        {c.explore}
                     </a>
                 </div>
             </div>
@@ -353,13 +354,19 @@ function CTASection() {
 
                         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
                             <Link
-                                href={`/${locale}#pricing`}
+                                href={`/${locale}/contact-us?service=digital-agency`}
                                 className="btn-glow inline-flex items-center gap-2 rounded-full bg-slate-900 dark:bg-white px-8 py-3.5 text-sm font-semibold text-white dark:text-slate-900 transition-all hover:scale-105 hover:shadow-2xl"
                             >
                                 {c.start}
                                 <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                 </svg>
+                            </Link>
+                            <Link
+                                href={`/${locale}#pricing`}
+                                className="inline-flex items-center gap-2 rounded-full border-2 border-slate-200 dark:border-slate-700 px-8 py-3.5 text-sm font-semibold text-slate-900 dark:text-white transition-all hover:scale-105"
+                            >
+                                {locale === "id" ? "Lihat Harga" : "See Pricing"}
                             </Link>
                         </div>
 
