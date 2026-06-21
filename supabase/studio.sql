@@ -40,12 +40,27 @@ create table if not exists public.strategies (
 );
 create index if not exists idx_strategies_user on public.strategies (user_id, created_at desc);
 
+-- KOL outreach shortlist (ViewKOL) ----------------------------
+create table if not exists public.studio_kol_shortlist (
+    id          uuid primary key default gen_random_uuid(),
+    user_id     uuid not null references auth.users(id) on delete cascade,
+    kol_id      text not null,
+    kol_name    text,
+    handle      text,
+    status      text not null default 'contacted',
+    note        text,
+    created_at  timestamptz not null default now()
+);
+create index if not exists idx_kol_shortlist_user on public.studio_kol_shortlist (user_id, created_at desc);
+create unique index if not exists uq_kol_shortlist_user_kol on public.studio_kol_shortlist (user_id, kol_id);
+
 -- ============================================================
 -- Row Level Security — each signed-in user manages only their own rows.
 -- ============================================================
-alter table public.generated_assets enable row level security;
-alter table public.campaigns         enable row level security;
-alter table public.strategies        enable row level security;
+alter table public.generated_assets   enable row level security;
+alter table public.campaigns           enable row level security;
+alter table public.strategies          enable row level security;
+alter table public.studio_kol_shortlist enable row level security;
 
 drop policy if exists "own_generated_assets" on public.generated_assets;
 create policy "own_generated_assets" on public.generated_assets
@@ -57,4 +72,8 @@ create policy "own_campaigns" on public.campaigns
 
 drop policy if exists "own_strategies" on public.strategies;
 create policy "own_strategies" on public.strategies
+    for all to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
+
+drop policy if exists "own_kol_shortlist" on public.studio_kol_shortlist;
+create policy "own_kol_shortlist" on public.studio_kol_shortlist
     for all to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);

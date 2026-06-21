@@ -1,9 +1,50 @@
-import React, { useState } from "react";
-import { Megaphone, Filter, Search, Star, ShieldCheck } from "lucide-react";
+import React, { useState, useEffect, useCallback } from "react";
+import { Megaphone, Filter, Search, Star, ShieldCheck, Check, Trash2, Bookmark } from "lucide-react";
 import { MOCK_KOLS } from "@/lib/mockData";
+import { supabase } from "@/lib/supabase";
+
+interface ShortlistRow { id: string; kol_id: string; kol_name: string; handle: string | null; status: string }
 
 export const ViewKOL: React.FC<{ addNotification: (t: 'success' | 'error', m: string) => void }> = ({ addNotification }) => {
     const [filters, setFilters] = useState({ cat: 'All', price: 'All', search: '' });
+    const [shortlist, setShortlist] = useState<ShortlistRow[]>([]);
+
+    // Load the signed-in user's saved KOL shortlist.
+    const loadShortlist = useCallback(async () => {
+        if (!supabase) return;
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session?.user) return;
+        const { data } = await supabase.from('studio_kol_shortlist')
+            .select('id, kol_id, kol_name, handle, status')
+            .order('created_at', { ascending: false });
+        if (data) setShortlist(data as ShortlistRow[]);
+    }, []);
+    useEffect(() => { loadShortlist(); }, [loadShortlist]);
+
+    const savedIds = new Set(shortlist.map((s) => s.kol_id));
+
+    const handleContact = async (k: typeof MOCK_KOLS[number]) => {
+        if (!supabase) { addNotification('error', 'Studio belum terhubung ke database.'); return; }
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session?.user) { addNotification('error', 'Masuk dulu untuk menyimpan ke shortlist.'); return; }
+        if (savedIds.has(String(k.id))) { addNotification('success', `${k.name} sudah ada di shortlist.`); return; }
+        const { data: ins, error } = await supabase.from('studio_kol_shortlist').insert([{
+            user_id: session.user.id,
+            kol_id: String(k.id),
+            kol_name: k.name,
+            handle: k.handle,
+            status: 'contacted',
+        }]).select('id, kol_id, kol_name, handle, status').single();
+        if (error) { addNotification('error', 'Gagal menyimpan, coba lagi.'); return; }
+        if (ins) { setShortlist((s) => [ins as ShortlistRow, ...s]); addNotification('success', `${k.name} masuk shortlist & proposal disiapkan.`); }
+    };
+
+    const removeFromShortlist = async (id: string) => {
+        if (!supabase) return;
+        await supabase.from('studio_kol_shortlist').delete().eq('id', id);
+        setShortlist((s) => s.filter((x) => x.id !== id));
+    };
+
     const filtered = MOCK_KOLS.filter(k =>
         (filters.cat === 'All' || k.category === filters.cat) &&
         (filters.price === 'All' || (filters.price === 'Micro' ? k.price < 500000 : k.price >= 500000)) &&
@@ -13,6 +54,26 @@ export const ViewKOL: React.FC<{ addNotification: (t: 'success' | 'error', m: st
     return (
         <div className="space-y-6 pb-24 animate-in fade-in duration-500">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"><h2 className="text-2xl font-bold text-slate-800 dark:text-white">KOL Collaboration</h2><button className="px-4 py-2 bg-yellow-500 hover:bg-yellow-400 text-white rounded-lg font-bold text-sm flex gap-2 shadow-lg hover:shadow-yellow-600/20 transition-all transform hover:-translate-y-0.5"><Megaphone size={16} /> Kampanye Baru</button></div>
+
+            {/* Saved shortlist */}
+            {shortlist.length > 0 && (
+                <div className="bg-card-bg border border-border p-5 rounded-2xl shadow-lg transition-colors">
+                    <h3 className="font-bold text-foreground mb-4 flex items-center gap-2"><Bookmark size={18} className="text-primary fill-primary/20" /> Shortlist Anda · tersimpan otomatis <span className="ml-1 text-xs font-normal text-muted">({shortlist.length})</span></h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                        {shortlist.map((s) => (
+                            <div key={s.id} className="flex items-center gap-3 bg-surface border border-border rounded-xl p-3 group">
+                                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-xs font-bold text-white uppercase shrink-0">{s.kol_name?.substring(0, 2)}</div>
+                                <div className="flex-1 min-w-0">
+                                    <p className="text-sm font-bold text-foreground truncate">{s.kol_name}</p>
+                                    <p className="text-[10px] text-primary truncate">{s.handle}</p>
+                                </div>
+                                <span className="text-[9px] uppercase font-bold text-tertiary bg-tertiary/10 px-2 py-0.5 rounded-full shrink-0">{s.status}</span>
+                                <button onClick={() => removeFromShortlist(s.id)} title="Hapus dari shortlist" className="text-muted hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"><Trash2 size={14} /></button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
 
             {/* Filter Section */}
             <div id="kol-filter" className="bg-card-bg backdrop-blur-sm p-4 rounded-xl border border-border flex flex-col md:flex-row gap-4 items-center shadow-lg transition-colors">
@@ -36,7 +97,9 @@ export const ViewKOL: React.FC<{ addNotification: (t: 'success' | 'error', m: st
 
             {/* KOL Cards */}
             <div id="kol-list" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filtered.map(k => (
+                {filtered.map(k => {
+                    const saved = savedIds.has(String(k.id));
+                    return (
                     <div key={k.id} className="bg-card-bg border border-border p-5 rounded-2xl relative group hover:border-primary/50 transition-all hover:bg-surface-hover hover:shadow-xl hover:-translate-y-1">
                         <div className="absolute top-4 right-4 text-yellow-500"><Star size={16} /></div>
                         <div className="flex items-center gap-4 mb-4">
@@ -61,10 +124,11 @@ export const ViewKOL: React.FC<{ addNotification: (t: 'success' | 'error', m: st
                         </div>
                         <div className="flex justify-between items-center">
                             <div><p className="text-[10px] text-muted">Mulai dari</p><p className="text-foreground font-bold">Rp {k.price.toLocaleString()}</p></div>
-                            <button onClick={() => addNotification('success', 'Proposal terkirim!')} className="px-4 py-2 bg-primary hover:bg-primary-dark text-white text-xs font-bold rounded-lg transition-colors shadow-lg">Kontak</button>
+                            <button onClick={() => handleContact(k)} disabled={saved} className={`px-4 py-2 text-xs font-bold rounded-lg transition-colors shadow-lg flex items-center gap-1.5 ${saved ? 'bg-tertiary/15 text-tertiary cursor-default' : 'bg-primary hover:bg-primary-dark text-white'}`}>{saved ? <><Check size={13} /> Di Shortlist</> : 'Kontak'}</button>
                         </div>
                     </div>
-                ))}
+                    );
+                })}
             </div>
         </div>
     );

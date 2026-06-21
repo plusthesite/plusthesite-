@@ -9,6 +9,14 @@ export const ViewLiveStream: React.FC<{ addNotification: (t: 'success' | 'error'
         { user: "User 2", msg: "Harganya berapa kak?", color: "bg-brand" },
         { user: "User 3", msg: "Spill keranjang kuning!", color: "bg-green-500" },
     ]);
+    const [hostMsg, setHostMsg] = useState("");
+
+    const sendHostMessage = () => {
+        const text = hostMsg.trim();
+        if (!text) return;
+        setChatMessages(prev => [...prev.slice(-9), { user: "Host", msg: text, color: "bg-primary" }]);
+        setHostMsg("");
+    };
 
     useEffect(() => {
         if (!isLive) return;
@@ -94,8 +102,8 @@ export const ViewLiveStream: React.FC<{ addNotification: (t: 'success' | 'error'
                         ))}
                     </div>
                     <div className="p-3 border-t border-border bg-surface flex gap-2">
-                        <input placeholder="Type as Host..." className="bg-background border border-border text-foreground text-xs rounded-lg px-3 py-2 flex-1 outline-none focus:ring-1 focus:ring-primary transition-all" />
-                        <button className="bg-primary hover:bg-primary-dark p-2 rounded-lg text-white transition-colors"><Send size={14} /></button>
+                        <input value={hostMsg} onChange={e => setHostMsg(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') sendHostMessage(); }} placeholder="Type as Host..." className="bg-background border border-border text-foreground text-xs rounded-lg px-3 py-2 flex-1 outline-none focus:ring-1 focus:ring-primary transition-all" />
+                        <button onClick={sendHostMessage} disabled={!hostMsg.trim()} className="bg-primary hover:bg-primary-dark p-2 rounded-lg text-white transition-colors disabled:opacity-50"><Send size={14} /></button>
                     </div>
                 </div>
 

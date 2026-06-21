@@ -188,7 +188,17 @@ the browser client on return). It persists to user-scoped tables:
 **Analytics is now real, not mock** — it reads the signed-in user's own data
 (campaign count, AI-asset count, average viral score) and charts the scores of
 your last 12 analyses, with auth-aware / empty states so new users see a clear
-"start here" instead of fake numbers.
+"start here" instead of fake numbers. **KOL** persists a per-user **shortlist**
+(`studio_kol_shortlist`, owner-only RLS) — "Kontak" saves the influencer, shown
+in a saved shortlist with status + one-click remove. **LiveStream**'s host chat
+input now actually posts your messages into the live feed. **Subscription**
+already routes to the real checkout/payment flow.
+
+If OAuth ever falls back to the Site URL and drops the user on a public page
+with the token in the URL (`/en#access_token=…` — e.g. a www/non-www variant
+isn't whitelisted), `AuthRedirectCatcher` (mounted in the locale layout)
+detects the dangling token/code and forwards to `/{locale}/studio`, preserving
+the fragment so the session is consumed and login completes anyway.
 
 > Google sign-in is code-complete; enable it in **Supabase → Auth → Providers →
 > Google** (add Client ID/Secret) and whitelist the studio redirect URLs
