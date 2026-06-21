@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Wand2, Loader2, Sparkles, Download, Maximize2, Image as ImageIcon } from "lucide-react";
 import { callGeminiImage, downloadImage } from "@/lib/ai";
 import { supabase } from "@/lib/supabase";
+
+interface Asset { id: string; image_url: string; prompt: string }
 
 export const ViewGenerator: React.FC<{ addNotification: (t: 'success' | 'error', m: string) => void }> = ({ addNotification }) => {
     const [prompt, setPrompt] = useState('');
@@ -9,6 +11,22 @@ export const ViewGenerator: React.FC<{ addNotification: (t: 'success' | 'error',
     const [ratio, setRatio] = useState('1:1');
     const [generatedImage, setGeneratedImage] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
+    const [history, setHistory] = useState<Asset[]>([]);
+
+    // Load the signed-in user's saved generations (newest first).
+    const loadHistory = useCallback(async () => {
+        if (!supabase) return;
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session?.user) return;
+        const { data } = await supabase
+            .from('generated_assets')
+            .select('id, image_url, prompt')
+            .order('created_at', { ascending: false })
+            .limit(12);
+        if (data) setHistory(data as Asset[]);
+    }, []);
+
+    useEffect(() => { loadHistory(); }, [loadHistory]);
 
     const handleGenerate = async () => {
         if (!prompt) { addNotification('error', 'Masukkan prompt!'); return; }
@@ -24,15 +42,17 @@ export const ViewGenerator: React.FC<{ addNotification: (t: 'success' | 'error',
             if (supabase) {
                 const { data: sessionData } = await supabase.auth.getSession();
                 if (sessionData?.session?.user) {
-                    const { error } = await supabase.from('generated_assets').insert([{
+                    const { data: inserted, error } = await supabase.from('generated_assets').insert([{
                         user_id: sessionData.session.user.id,
                         prompt: prompt,
                         style: style,
                         ratio: ratio,
                         image_url: imgData
-                    }]);
+                    }]).select('id, image_url, prompt').single();
                     if (error) {
                         console.error("Error saving to Supabase:", error);
+                    } else if (inserted) {
+                        setHistory((h) => [inserted as Asset, ...h].slice(0, 12));
                     }
                 }
             }
@@ -80,8 +100,9 @@ export const ViewGenerator: React.FC<{ addNotification: (t: 'success' | 'error',
                 </div>
             </div>
 
-            {/* Preview Panel */}
-            <div id="gen-result-area" className="lg:col-span-8 bg-surface border border-border rounded-2xl flex items-center justify-center relative overflow-hidden group min-h-[400px] shadow-inner transition-colors">
+            {/* Preview + gallery */}
+            <div className="lg:col-span-8 flex h-full flex-col gap-4">
+            <div id="gen-result-area" className="flex-1 bg-surface border border-border rounded-2xl flex items-center justify-center relative overflow-hidden group min-h-[400px] shadow-inner transition-colors">
                 <div className="absolute inset-0 bg-[url('/textures/noise.svg')] opacity-20 pointer-events-none"></div>
 
                 {/* Background Decor */}
@@ -112,6 +133,20 @@ export const ViewGenerator: React.FC<{ addNotification: (t: 'success' | 'error',
                         <p className="text-muted-light text-sm">Tulis prompt di panel kiri untuk mulai membuat visual menakjubkan.</p>
                     </div>
                 )}
+            </div>
+
+            {history.length > 0 && (
+                <div className="shrink-0">
+                    <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-muted">Galeri Anda · tersimpan otomatis</p>
+                    <div className="flex gap-2 overflow-x-auto pb-1 custom-scrollbar">
+                        {history.map((h) => (
+                            <button key={h.id} onClick={() => setGeneratedImage(h.image_url)} title={h.prompt} className="h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-border transition-all hover:border-primary hover:ring-1 hover:ring-primary">
+                                <img src={h.image_url} alt={h.prompt} className="h-full w-full object-cover" />
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            )}
             </div>
         </div>
     );

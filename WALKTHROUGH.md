@@ -172,6 +172,22 @@ It **captures leads** — emails/phones typed in chat are detected (email → a
 
 ---
 
+## 11. PLUS Pro Studio (`/[locale]/studio`)
+
+A standalone AI Marketing dashboard (Generator, Planner, Strategy, Analytics,
+KOL, LiveStream, Subscription) with its own Supabase auth — email/password,
+password reset, and **Google sign-in** (`signInWithOAuth`, PKCE auto-handled by
+the browser client on return). It persists to user-scoped tables:
+`generated_assets` (AI images), `campaigns` (content calendars), `strategies`.
+**Connecting it to the DB** = creating those tables with **owner-only RLS**
+(`auth.uid() = user_id`) so the anon-key writes succeed — see
+`supabase/studio.sql`. ViewGenerator now also **loads & shows a saved gallery**
+(your past generations, click to reopen) so the persistence is visible & useful.
+
+> Google sign-in is code-complete; enable it in **Supabase → Auth → Providers →
+> Google** (add Client ID/Secret) and whitelist the studio redirect URLs
+> (`https://plusthe.site/en/studio`, `/id/studio`) under Auth → URL Config.
+
 ## Database migrations (Supabase SQL Editor)
 
 | File | Purpose | Status |
@@ -182,6 +198,8 @@ It **captures leads** — emails/phones typed in chat are detected (email → a
 | `supabase/leads_places.sql` | Places import support | ✅ applied |
 | `supabase/sales_reps.sql` | sales team roster | ✅ applied |
 | `supabase/notifications.sql` | in-app notifications | ✅ applied |
+| `supabase/site_settings.sql` | Appearance customizer | ⏳ run me |
+| `supabase/studio.sql` | Studio (assets/campaigns/strategies) | ⏳ run me |
 
 ## Optional env
 
