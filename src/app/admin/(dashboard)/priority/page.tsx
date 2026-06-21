@@ -8,13 +8,26 @@ export const dynamic = "force-dynamic";
 interface Lead {
     id: string; name: string | null; company: string | null; phone: string | null; email: string | null;
     website: string | null; service: string | null; status: string | null; value: number | null;
-    source: string | null; owner: string | null; created_at: string;
+    source: string | null; owner: string | null; locale: string | null; created_at: string;
 }
 
-function waLink(phone: string | null) {
-    if (!phone) return null;
-    const d = phone.replace(/[^\d]/g, "");
-    return d ? `https://wa.me/${d}` : null;
+function opener(l: Lead) {
+    const first = l.name?.trim().split(/\s+/)[0];
+    const svc = serviceName(l.service).toLowerCase();
+    if (l.locale === "en") return `Hi ${first || "there"}, this is plus. (plusthe.site). We help businesses with ${svc} — saw ${l.company || "your business"} and thought we could help. Open to a quick chat?`;
+    return `Halo ${first || "Kak"}, saya dari plus. (plusthe.site). Kami bantu bisnis untuk ${svc}. Kebetulan lihat ${l.company || "usaha Anda"} — boleh ngobrol singkat?`;
+}
+
+function waLink(l: Lead) {
+    if (!l.phone) return null;
+    const d = l.phone.replace(/[^\d]/g, "");
+    return d ? `https://wa.me/${d}?text=${encodeURIComponent(opener(l))}` : null;
+}
+
+function mailtoLink(l: Lead) {
+    if (!l.email) return null;
+    const subject = l.locale === "en" ? "Quick hello from plus." : "Halo dari plus.";
+    return `mailto:${l.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(opener(l))}`;
 }
 
 export default async function PriorityPage({ searchParams }: { searchParams: Promise<{ service?: string }> }) {
@@ -23,7 +36,7 @@ export default async function PriorityPage({ searchParams }: { searchParams: Pro
     const { data } = supabase
         ? await supabase
             .from("leads")
-            .select("id, name, company, phone, email, website, service, status, value, source, owner, created_at")
+            .select("id, name, company, phone, email, website, service, status, value, source, owner, locale, created_at")
             .neq("status", "converted")
             .order("value", { ascending: false })
             .limit(1000)
@@ -80,7 +93,8 @@ export default async function PriorityPage({ searchParams }: { searchParams: Pro
                         {top.length === 0 && <tr><td colSpan={7} className="px-4 py-8 text-center text-slate-400">No leads.</td></tr>}
                         {top.map(({ lead: l, score, reasons }, i) => {
                             const tier = scoreTier(score);
-                            const wa = waLink(l.phone);
+                            const wa = waLink(l);
+                            const mail = mailtoLink(l);
                             return (
                                 <tr key={l.id} className="align-top hover:bg-slate-50">
                                     <td className="px-4 py-3 text-slate-400">{i + 1}</td>
@@ -99,9 +113,10 @@ export default async function PriorityPage({ searchParams }: { searchParams: Pro
                                     <td className="px-4 py-3"><span className="text-xs text-slate-400">{reasons.slice(0, 3).join(" · ")}</span></td>
                                     <td className="px-4 py-3">
                                         <div className="flex items-center gap-2 text-xs font-semibold">
-                                            {wa && <a href={wa} target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:text-emerald-800">WA</a>}
+                                            {wa && <a href={wa} target="_blank" rel="noopener noreferrer" className="rounded bg-emerald-50 px-1.5 py-0.5 text-emerald-700 hover:bg-emerald-100" title="WhatsApp with a ready opener">WA</a>}
                                             {l.phone && <a href={`tel:${l.phone}`} className="text-slate-500 hover:text-slate-700">Call</a>}
-                                            {l.email && <a href={`mailto:${l.email}`} className="text-blue-600 hover:text-blue-800">Email</a>}
+                                            {mail && <a href={mail} className="text-blue-600 hover:text-blue-800" title="Email with a ready opener">Email</a>}
+                                            {!wa && !l.phone && !mail && <span className="text-slate-300">no contact</span>}
                                         </div>
                                     </td>
                                 </tr>
