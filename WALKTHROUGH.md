@@ -185,10 +185,13 @@ the browser client on return). It persists to user-scoped tables:
 (your past generations, click to reopen) so the persistence is visible & useful.
 **Planner** lists your saved campaigns (click a chip to reload its calendar) and
 **Strategy** saves every score check + shows a clickable **Riwayat Analisis**.
-**Analytics is now real, not mock** — it reads the signed-in user's own data
-(campaign count, AI-asset count, average viral score) and charts the scores of
-your last 12 analyses, with auth-aware / empty states so new users see a clear
-"start here" instead of fake numbers. **KOL** persists a per-user **shortlist**
+**Analytics is now a real cross-feature dashboard, not mock** — it reads the
+signed-in user's own data: 4 live stat cards (campaigns, AI assets, average
+viral score, KOL shortlist), a bar chart of your last 12 analysis scores, and a
+**Recent Activity feed** that merges campaigns/assets/strategies/KOL saves
+across tables into one time-sorted timeline with relative timestamps —
+auth-aware / empty states so new users see a clear "start here" instead of fake
+numbers. **KOL** persists a per-user **shortlist**
 (`studio_kol_shortlist`, owner-only RLS) — "Kontak" saves the influencer, shown
 in a saved shortlist with status + one-click remove. **LiveStream**'s host chat
 input now actually posts your messages into the live feed. **Subscription**
