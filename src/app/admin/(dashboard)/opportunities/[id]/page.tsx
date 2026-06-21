@@ -9,10 +9,17 @@ import { updateOpportunityStage } from "../actions";
 
 export const dynamic = "force-dynamic";
 
-function waLink(phone: string | null) {
+function opener(contactName: string | null, company: string | null, service: string | null, locale: string | null) {
+    const first = contactName?.trim().split(/\s+/)[0];
+    const svc = serviceName(service).toLowerCase();
+    if (locale === "en") return `Hi ${first || "there"}, this is plus. (plusthe.site) following up on ${svc}${company ? ` for ${company}` : ""}. Open to a quick chat?`;
+    return `Halo ${first || "Kak"}, saya dari plus. (plusthe.site) menindaklanjuti soal ${svc}${company ? ` untuk ${company}` : ""}. Boleh kita lanjut ngobrol singkat?`;
+}
+
+function waLink(phone: string | null, text: string) {
     if (!phone) return null;
     const d = phone.replace(/[^\d]/g, "");
-    return d ? `https://wa.me/${d}` : null;
+    return d ? `https://wa.me/${d}?text=${encodeURIComponent(text)}` : null;
 }
 
 function fmt(d: string | null) {
@@ -32,7 +39,9 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
     if (!o) notFound();
 
     const label = o.company || o.name;
-    const wa = waLink(o.phone);
+    const msg = opener(o.contact_name, o.company, o.service, o.locale);
+    const wa = waLink(o.phone, msg);
+    const mail = o.email ? `mailto:${o.email}?subject=${encodeURIComponent(o.locale === "en" ? "Following up — plus." : "Tindak lanjut — plus.")}&body=${encodeURIComponent(msg)}` : null;
 
     return (
         <div>
@@ -65,9 +74,9 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
                         {o.notes && <p className="mt-3 rounded-lg bg-slate-50 p-3 text-sm text-slate-600">{o.notes}</p>}
 
                         <div className="mt-4 flex flex-wrap gap-2">
-                            {wa && <a href={wa} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-emerald-600 px-3 py-2 text-xs font-semibold text-white hover:bg-emerald-700">WhatsApp</a>}
+                            {wa && <a href={wa} target="_blank" rel="noopener noreferrer" title="WhatsApp with a ready follow-up" className="rounded-lg bg-emerald-600 px-3 py-2 text-xs font-semibold text-white hover:bg-emerald-700">WhatsApp</a>}
                             {o.phone && <a href={`tel:${o.phone}`} className="rounded-lg bg-slate-700 px-3 py-2 text-xs font-semibold text-white hover:bg-slate-800">Call</a>}
-                            {o.email && <a href={`mailto:${o.email}`} className="rounded-lg bg-blue-600 px-3 py-2 text-xs font-semibold text-white hover:bg-blue-700">Email</a>}
+                            {mail && <a href={mail} title="Email with a ready follow-up" className="rounded-lg bg-blue-600 px-3 py-2 text-xs font-semibold text-white hover:bg-blue-700">Email</a>}
                         </div>
                     </div>
 
