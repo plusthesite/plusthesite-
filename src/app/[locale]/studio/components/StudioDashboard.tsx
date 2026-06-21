@@ -20,8 +20,20 @@ import { Notification } from "@/types";
 import { useTheme } from "@/components/ThemeProvider";
 import Logo from "@/components/Logo";
 
+const TAB_TITLES: Record<string, string> = {
+    planner: 'AI Planner',
+    generator: 'Visual Generator',
+    strategy: 'Viral Strategy',
+    livestream: 'Live Studio',
+    analytics: 'Analytics',
+    kol: 'KOL Marketplace',
+    subscription: 'Subscription',
+};
+
 export const StudioDashboard: React.FC<{ onLogout: () => void, user?: any }> = ({ onLogout, user }) => {
     const { theme, setTheme } = useTheme();
+    const avatarUrl: string | undefined = user?.user_metadata?.avatar_url || user?.user_metadata?.picture;
+    const displayName: string = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0] || "Studio User";
     const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
     const [activeTab, setActiveTab] = useState('planner');
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -134,8 +146,12 @@ export const StudioDashboard: React.FC<{ onLogout: () => void, user?: any }> = (
 
                 <div className="mt-auto pt-6 border-t border-border space-y-3">
                     <div className="bg-background p-3 rounded-xl border border-border flex items-center gap-3 shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
-                        <div className="w-10 h-10 bg-surface-hover rounded-full overflow-hidden border-2 border-primary"><User className="w-full h-full p-1 text-muted group-hover:text-foreground" /></div>
-                        <div className="flex-1 min-w-0"><p className="text-sm font-bold text-foreground truncate">{user?.email || "Studio User"}</p><p className="text-[10px] text-tertiary font-medium">Studio Member</p></div>
+                        <div className="w-10 h-10 bg-surface-hover rounded-full overflow-hidden border-2 border-primary shrink-0">
+                            {avatarUrl
+                                ? <img src={avatarUrl} alt={displayName} referrerPolicy="no-referrer" className="w-full h-full object-cover" />
+                                : <User className="w-full h-full p-1 text-muted group-hover:text-foreground" />}
+                        </div>
+                        <div className="flex-1 min-w-0"><p className="text-sm font-bold text-foreground truncate">{displayName}</p><p className="text-[10px] text-tertiary font-medium truncate">{user?.email || "Studio Member"}</p></div>
                         <button className="text-muted hover:text-foreground"><Settings size={18} /></button>
                     </div>
 
@@ -153,7 +169,7 @@ export const StudioDashboard: React.FC<{ onLogout: () => void, user?: any }> = (
                     <div className="flex items-center gap-4">
                         <button onClick={() => setIsMobileMenuOpen(true)} className="md:hidden text-muted hover:text-foreground"><Menu size={24} /></button>
                         <div>
-                            <h1 className="text-xl font-bold text-foreground capitalize">{activeTab === 'livestream' ? 'Live Studio' : activeTab.replace('-', ' ')}</h1>
+                            <h1 className="text-xl font-bold text-foreground">{TAB_TITLES[activeTab] || activeTab}</h1>
                             <p className="text-xs text-muted hidden md:block">Real-time AI Dashboard</p>
                         </div>
                     </div>
