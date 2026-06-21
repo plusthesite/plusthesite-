@@ -95,8 +95,19 @@ readable/writable. Fixed on two layers (defense in depth):
 2. **Database:** RLS on `public.notifications` is tightened so only the service
    role can access it. The old `FOR SELECT USING (true)` policy had no
    `TO authenticated` clause, so it applied to PUBLIC — anyone with the public
-   anon key could read every notification directly via the REST API. See
-   `supabase/notifications.sql`; the migration must be run on the live project.
+   anon key could read every notification directly via the REST API.
+
+This was part of a wider RLS/privilege hardening pass (applied to the live DB,
+recorded in `supabase/harden_rls.sql`):
+- `notifications` + `sales_reps` → service-role-only (were anon-readable; the
+  staff roster leaked name/email/role).
+- Removed anon write surface on `contacts`, `chat_messages`, `analytics_events`,
+  `kol_database` — all writes go via service-role API routes.
+- `increment_article_view` RPC: revoked the default PUBLIC `EXECUTE` grant
+  (`service_role` keeps its explicit grant) and pinned `search_path`.
+- Supabase security advisor: 0 errors; the remaining `rls_enabled_no_policy`
+  notices are the intended service-role-only design. One manual item left:
+  enable **Leaked Password Protection** in the Auth dashboard.
 
 ## Behavior notes intentionally preserved (review these)
 

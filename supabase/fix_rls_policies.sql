@@ -1,4 +1,9 @@
 -- ================================================================
+-- ⚠️ SUPERSEDED — DO NOT RE-RUN. The anon/authenticated write policies
+-- below (chat_insert, contacts_insert, kol_*, analytics_*) were intentionally
+-- REMOVED for security; see supabase/harden_rls.sql. Re-running this file would
+-- re-open anon write access. Kept only for history.
+-- ================================================================
 -- FIX v2: Drop ALL existing policies and recreate
 -- Run this in Supabase Dashboard → SQL Editor → New Query → Run
 -- ================================================================
