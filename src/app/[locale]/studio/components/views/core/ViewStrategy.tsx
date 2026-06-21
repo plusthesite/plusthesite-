@@ -1,13 +1,26 @@
-import React, { useState } from "react";
-import { Target, Flame, RefreshCw, Users, Zap, Loader2, Sparkles } from "lucide-react";
+import React, { useState, useEffect, useCallback } from "react";
+import { Target, Flame, RefreshCw, Users, Zap, Loader2, Sparkles, History } from "lucide-react";
 import { callGeminiStructured, callGeminiText } from "@/lib/ai";
 import { AnalysisResult } from "@/types";
 import { Schema, Type } from "@google/genai";
+import { supabase } from "@/lib/supabase";
+
+interface SavedStrategy { id: string; title: string; brief: string | null; result: AnalysisResult | null; created_at: string }
 
 export const ViewStrategy: React.FC<{ addNotification: (t: 'success' | 'error', m: string) => void }> = ({ addNotification }) => {
     const [inputText, setInputText] = useState("");
     const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
     const [loading, setLoading] = useState(false);
+    const [saved, setSaved] = useState<SavedStrategy[]>([]);
+
+    const loadSaved = useCallback(async () => {
+        if (!supabase) return;
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session?.user) return;
+        const { data } = await supabase.from('strategies').select('id, title, brief, result, created_at').order('created_at', { ascending: false }).limit(8);
+        if (data) setSaved(data as SavedStrategy[]);
+    }, []);
+    useEffect(() => { loadSaved(); }, [loadSaved]);
 
     const handlePredict = async () => {
         if (!inputText) return;
@@ -31,6 +44,19 @@ export const ViewStrategy: React.FC<{ addNotification: (t: 'success' | 'error', 
 
         if (data) {
             setAnalysis(data);
+            // Persist (owner-scoped via RLS).
+            if (supabase) {
+                const { data: { session } } = await supabase.auth.getSession();
+                if (session?.user) {
+                    const { data: ins } = await supabase.from('strategies').insert([{
+                        user_id: session.user.id,
+                        title: inputText.slice(0, 80),
+                        brief: inputText,
+                        result: data,
+                    }]).select('id, title, brief, result, created_at').single();
+                    if (ins) setSaved((s) => [ins as SavedStrategy, ...s].slice(0, 8));
+                }
+            }
         } else {
             addNotification('error', 'Analisis gagal, menggunakan simulasi.');
             setAnalysis({ score: 78, hook: "Avg", fit: "85%", format: "Carousel", improvements: "Make hook shorter" });
@@ -119,6 +145,20 @@ export const ViewStrategy: React.FC<{ addNotification: (t: 'success' | 'error', 
                     </div>
                 </div>
             </div>
+
+            {saved.length > 0 && (
+                <div className="bg-card-bg border border-border p-6 rounded-2xl shadow-lg transition-colors">
+                    <h3 className="font-bold text-foreground mb-4 flex items-center gap-2"><History size={18} className="text-primary" /> Riwayat Analisis · tersimpan</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {saved.map((sv) => (
+                            <button key={sv.id} onClick={() => { setInputText(sv.brief || sv.title); if (sv.result) setAnalysis(sv.result); }} className="flex items-center gap-3 bg-surface border border-border rounded-xl p-3 text-left transition-all hover:-translate-y-0.5 hover:border-primary">
+                                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary/10 font-black text-primary">{sv.result?.score ?? '--'}</div>
+                                <p className="line-clamp-2 flex-1 text-xs text-foreground">{sv.title}</p>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

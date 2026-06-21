@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Zap, Loader2, Sparkles, Calendar, List, Grid } from "lucide-react";
 import { AIVoiceAssistant } from "../../ui/AIVoiceAssistant";
 import { callGeminiStructured } from "@/lib/ai";
@@ -7,11 +7,24 @@ import { CalendarItem } from "@/types";
 import { Schema, Type } from "@google/genai";
 import { supabase } from "@/lib/supabase";
 
+interface SavedCampaign { id: string; name: string; industry: string | null; calendar_data: CalendarItem[] | null; created_at: string }
+
 export const ViewPlanner: React.FC<{ onAutoFill: () => void, addNotification: (t: 'success' | 'error', m: string) => void }> = ({ onAutoFill, addNotification }) => {
     const [loading, setLoading] = useState(false);
     const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
     const [form, setForm] = useState({ name: '', industry: '', market: '', idea: '' });
     const [calendarData, setCalendarData] = useState<CalendarItem[]>(MOCK_CALENDAR);
+    const [saved, setSaved] = useState<SavedCampaign[]>([]);
+
+    // Load the user's saved campaigns (newest first).
+    const loadSaved = useCallback(async () => {
+        if (!supabase) return;
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session?.user) return;
+        const { data } = await supabase.from('campaigns').select('id, name, industry, calendar_data, created_at').order('created_at', { ascending: false }).limit(10);
+        if (data) setSaved(data as SavedCampaign[]);
+    }, []);
+    useEffect(() => { loadSaved(); }, [loadSaved]);
 
     const handleFill = () => { setForm({ name: "Kopi Senja", industry: "F&B", market: "Gen Z", idea: "Promo Akhir Bulan" }); };
 
@@ -46,16 +59,18 @@ export const ViewPlanner: React.FC<{ onAutoFill: () => void, addNotification: (t
             if (supabase) {
                 const { data: sessionData } = await supabase.auth.getSession();
                 if (sessionData?.session?.user) {
-                    const { error } = await supabase.from('campaigns').insert([{
+                    const { data: ins, error } = await supabase.from('campaigns').insert([{
                         user_id: sessionData.session.user.id,
                         name: form.name,
                         industry: form.industry,
                         market: form.market,
                         idea: form.idea,
                         calendar_data: result
-                    }]);
+                    }]).select('id, name, industry, calendar_data, created_at').single();
                     if (error) {
                         console.error("Error saving to Supabase:", error);
+                    } else if (ins) {
+                        setSaved((s) => [ins as SavedCampaign, ...s].slice(0, 10));
                     }
                 }
             }
@@ -79,6 +94,22 @@ export const ViewPlanner: React.FC<{ onAutoFill: () => void, addNotification: (t
                 <div className="space-y-2 mb-6 relative z-10"><label className="text-[10px] font-bold text-muted uppercase tracking-wider">Campaign Focus</label><textarea value={form.idea} onChange={e => setForm({ ...form, idea: e.target.value })} placeholder="Apa tujuan kampanye bulan ini?" className="w-full bg-surface border border-border text-foreground px-4 py-3 rounded-lg text-sm h-20 resize-none focus:border-primary outline-none hover:bg-surface-hover" /></div>
                 <button id="btn-generate-plan" onClick={handleGen} disabled={loading} className="relative z-10 bg-gradient-to-r from-primary to-primary-light hover:brightness-110 text-white px-8 py-3 rounded-lg font-bold w-full md:w-auto transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed">{loading ? <><Loader2 className="animate-spin" size={18} /> Meracik Strategi...</> : <><Sparkles size={18} /> Generate Calendar</>}</button>
             </div>
+
+            {/* Saved campaigns */}
+            {saved.length > 0 && (
+                <div>
+                    <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-muted">Riwayat Campaign · tersimpan otomatis</p>
+                    <div className="flex gap-2 overflow-x-auto pb-1 custom-scrollbar">
+                        {saved.map((c) => (
+                            <button key={c.id} onClick={() => { if (c.calendar_data) setCalendarData(c.calendar_data); setForm((f) => ({ ...f, name: c.name })); }}
+                                className="shrink-0 rounded-xl border border-border bg-card-bg px-4 py-2.5 text-left transition-all hover:-translate-y-0.5 hover:border-primary hover:shadow-sm">
+                                <p className="text-sm font-bold text-foreground">{c.name}</p>
+                                <p className="text-[10px] text-muted">{c.industry || '—'} · {(c.calendar_data?.length ?? 0)} hari</p>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            )}
 
             {/* Results Section */}
             <div className="space-y-4">
