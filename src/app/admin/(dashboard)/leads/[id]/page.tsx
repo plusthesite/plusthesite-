@@ -22,10 +22,14 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
 
     const { data: l } = await supabase
         .from("leads")
-        .select("id, name, email, phone, company, service, status, value, owner, message, source, locale, created_at")
+        .select("id, name, email, phone, company, service, status, value, owner, message, source, locale, created_at, account_id")
         .eq("id", id)
         .maybeSingle();
     if (!l) notFound();
+
+    const { data: account } = l.account_id
+        ? await supabase.from("accounts").select("id, name, industry").eq("id", l.account_id).maybeSingle()
+        : { data: null };
 
     const label = l.company || l.name || l.email || "Lead";
     const wa = waLink(l.phone);
@@ -67,6 +71,11 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
                             <div className="flex justify-between"><dt className="text-slate-400">Source</dt><dd className="font-medium text-slate-700">{l.source ?? "—"}</dd></div>
                             <div className="flex justify-between"><dt className="text-slate-400">Email</dt><dd className="font-medium text-slate-700">{l.email ?? "—"}</dd></div>
                             <div className="flex justify-between"><dt className="text-slate-400">Phone</dt><dd className="font-medium text-slate-700">{l.phone ?? "—"}</dd></div>
+                            <div className="flex justify-between gap-2"><dt className="text-slate-400">Account</dt><dd className="font-medium text-slate-700 truncate">
+                                {account
+                                    ? <Link href={`/admin/accounts/${account.id}`} className="text-blue-600 hover:underline">{account.name}{account.industry ? ` · ${account.industry}` : ""}</Link>
+                                    : "—"}
+                            </dd></div>
                         </dl>
 
                         {l.message && <p className="mt-3 rounded-lg bg-slate-50 p-3 text-sm text-slate-600">{l.message}</p>}
