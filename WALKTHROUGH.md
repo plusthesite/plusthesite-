@@ -183,6 +183,12 @@ the browser client on return). It persists to user-scoped tables:
 (`auth.uid() = user_id`) so the anon-key writes succeed — see
 `supabase/studio.sql`. ViewGenerator now also **loads & shows a saved gallery**
 (your past generations, click to reopen) so the persistence is visible & useful.
+**Planner** lists your saved campaigns (click a chip to reload its calendar) and
+**Strategy** saves every score check + shows a clickable **Riwayat Analisis**.
+**Analytics is now real, not mock** — it reads the signed-in user's own data
+(campaign count, AI-asset count, average viral score) and charts the scores of
+your last 12 analyses, with auth-aware / empty states so new users see a clear
+"start here" instead of fake numbers.
 
 > Google sign-in is code-complete; enable it in **Supabase → Auth → Providers →
 > Google** (add Client ID/Secret) and whitelist the studio redirect URLs
