@@ -57,6 +57,7 @@ export const StudioDashboard: React.FC<{ onLogout: () => void, user?: any }> = (
     const [notifLog, setNotifLog] = useState<NotifLogItem[]>([]);
     const [notifOpen, setNotifOpen] = useState(false);
     const [unread, setUnread] = useState(0);
+    const [accountMenuOpen, setAccountMenuOpen] = useState(false);
     const [isTourActive, setIsTourActive] = useState(false);
 
     // States for Documentation
@@ -166,14 +167,32 @@ export const StudioDashboard: React.FC<{ onLogout: () => void, user?: any }> = (
                 </div>
 
                 <div className="mt-auto pt-6 border-t border-border space-y-3">
-                    <div className="bg-background p-3 rounded-xl border border-border flex items-center gap-3 shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
-                        <div className="w-10 h-10 bg-surface-hover rounded-full overflow-hidden border-2 border-primary shrink-0">
-                            {avatarUrl
-                                ? <img src={avatarUrl} alt={displayName} referrerPolicy="no-referrer" className="w-full h-full object-cover" />
-                                : <User className="w-full h-full p-1 text-muted group-hover:text-foreground" />}
-                        </div>
-                        <div className="flex-1 min-w-0"><p className="text-sm font-bold text-foreground truncate">{displayName}</p><p className="text-[10px] text-tertiary font-medium truncate">{user?.email || "Studio Member"}</p></div>
-                        <button className="text-muted hover:text-foreground"><Settings size={18} /></button>
+                    <div className="relative">
+                        {accountMenuOpen && (
+                            <>
+                                <div className="fixed inset-0 z-30" onClick={() => setAccountMenuOpen(false)} />
+                                <div className="absolute bottom-full left-0 right-0 mb-2 bg-card-bg border border-border rounded-xl shadow-2xl z-40 overflow-hidden animate-in fade-in slide-in-from-bottom-2">
+                                    <button onClick={() => { toggleTheme(); setAccountMenuOpen(false); }} className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:bg-surface-hover transition-colors">
+                                        {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />} {theme === 'dark' ? 'Mode Terang' : 'Mode Gelap'}
+                                    </button>
+                                    <button onClick={() => { openDocs('user-guide'); setAccountMenuOpen(false); }} className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:bg-surface-hover transition-colors border-t border-border">
+                                        <LifeBuoy size={16} /> Panduan
+                                    </button>
+                                    <button onClick={() => { setAccountMenuOpen(false); onLogout(); }} className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors border-t border-border">
+                                        <LogOut size={16} /> Logout
+                                    </button>
+                                </div>
+                            </>
+                        )}
+                        <button onClick={() => setAccountMenuOpen(o => !o)} className="w-full bg-background p-3 rounded-xl border border-border flex items-center gap-3 shadow-sm hover:shadow-md hover:border-primary/40 transition-all text-left group">
+                            <div className="w-10 h-10 bg-surface-hover rounded-full overflow-hidden border-2 border-primary shrink-0">
+                                {avatarUrl
+                                    ? <img src={avatarUrl} alt={displayName} referrerPolicy="no-referrer" className="w-full h-full object-cover" />
+                                    : <User className="w-full h-full p-1 text-muted group-hover:text-foreground" />}
+                            </div>
+                            <div className="flex-1 min-w-0"><p className="text-sm font-bold text-foreground truncate">{displayName}</p><p className="text-[10px] text-tertiary font-medium truncate">{user?.email || "Studio Member"}</p></div>
+                            <Settings size={18} className={`text-muted group-hover:text-foreground transition-transform ${accountMenuOpen ? 'rotate-90' : ''}`} />
+                        </button>
                     </div>
 
                     {/* Logout Button */}
