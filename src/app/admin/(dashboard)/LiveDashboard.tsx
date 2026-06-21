@@ -5,11 +5,12 @@ import Link from "next/link";
 import { formatIDR } from "@/lib/services";
 import type { DashboardStats } from "@/lib/adminStats";
 
-function StatCard({ label, value, accent, href }: { label: string; value: string; accent: string; href?: string }) {
+function StatCard({ label, value, accent, href, hint }: { label: string; value: string; accent: string; href?: string; hint?: string }) {
     const inner = (
-        <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md sm:p-5">
+        <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md sm:p-5" title={hint}>
             <p className="truncate text-[10px] font-semibold uppercase tracking-wide text-slate-400 sm:text-xs">{label}</p>
             <p className={`mt-1.5 text-2xl font-extrabold sm:mt-2 sm:text-3xl ${accent}`}>{value}</p>
+            {hint && <p className="mt-0.5 truncate text-[9px] font-medium text-slate-400">{hint}</p>}
         </div>
     );
     return href ? <Link href={href}>{inner}</Link> : inner;
@@ -94,13 +95,13 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
             {/* Revenue pipeline */}
             <h2 className="mt-8 text-sm font-bold uppercase tracking-wide text-slate-400">Sales Pipeline</h2>
             <div className="mt-3 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-                <StatCard label="Lead Pipeline" value={formatIDR(stats.leadPipeline, true)} accent="text-teal-600" href="/admin/priority" />
+                <StatCard label="Lead Pipeline" value={formatIDR(stats.leadPipeline, true)} accent="text-teal-600" href="/admin/priority" hint="Potensi indikatif — bukan revenue" />
                 <StatCard label="Open Opportunities" value={stats.opportunities.toLocaleString()} accent="text-slate-900" href="/admin/opportunities" />
-                <StatCard label="Open Pipeline" value={formatIDR(stats.openPipeline, true)} accent="text-indigo-600" href="/admin/opportunities" />
-                <StatCard label="Weighted Forecast" value={formatIDR(stats.weightedPipeline, true)} accent="text-blue-600" href="/admin/opportunities" />
+                <StatCard label="Open Pipeline" value={formatIDR(stats.openPipeline, true)} accent="text-indigo-600" href="/admin/opportunities" hint="Nilai deal terbuka" />
+                <StatCard label="Weighted Forecast" value={formatIDR(stats.weightedPipeline, true)} accent="text-blue-600" href="/admin/opportunities" hint="Disesuaikan probabilitas" />
             </div>
             <div className="mt-3 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-                <StatCard label="Won Revenue" value={formatIDR(stats.wonValue, true)} accent="text-emerald-600" href="/admin/opportunities" />
+                <StatCard label="Won Revenue" value={formatIDR(stats.wonValue, true)} accent="text-emerald-600" href="/admin/opportunities" hint="Terbukti — deal closed-won" />
                 <StatCard label="Conversion Rate" value={`${stats.conversionRate}%`} accent="text-purple-600" href="/admin/leads" />
                 <StatCard label="Win Rate" value={`${stats.winRate}%`} accent="text-emerald-600" href="/admin/opportunities" />
                 <StatCard label="Accounts" value={stats.accounts.toLocaleString()} accent="text-slate-600" href="/admin/accounts" />
