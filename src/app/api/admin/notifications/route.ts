@@ -1,45 +1,25 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getSupabaseAdmin } from "@/lib/supabase";
+import { NextResponse } from "next/server";
+import { route } from "@/server/http/respond";
+import { requireAdmin } from "@/server/http/auth";
+import { listNotifications, markNotificationsRead } from "@/server/services/notificationService";
 
 export const dynamic = "force-dynamic";
 
 /**
  * GET /api/admin/notifications — fetch latest notifications (unread first).
  * PATCH /api/admin/notifications — mark notification(s) as read.
+ *
+ * Both require an admin session (consistent with the other /api/admin routes).
+ * Defense in depth: the `notifications` table is also locked to the service
+ * role at the DB level — see supabase/notifications.sql.
  */
-export async function GET() {
-    const supabase = getSupabaseAdmin();
-    if (!supabase) return NextResponse.json({ notifications: [], unread: 0 });
+export const GET = route(async () => {
+    await requireAdmin();
+    return NextResponse.json(await listNotifications());
+});
 
-    const [unreadRes, allRes] = await Promise.all([
-        supabase
-            .from("notifications")
-            .select("*", { count: "exact", head: true })
-            .eq("is_read", false),
-        supabase
-            .from("notifications")
-            .select("id, type, title, message, link, is_read, created_at")
-            .order("created_at", { ascending: false })
-            .limit(30),
-    ]);
-
-    return NextResponse.json({
-        notifications: allRes.data ?? [],
-        unread: unreadRes.count ?? 0,
-    });
-}
-
-export async function PATCH(req: NextRequest) {
-    const supabase = getSupabaseAdmin();
-    if (!supabase) return NextResponse.json({ ok: false });
-
-    const body = (await req.json()) as { ids?: string[]; markAllRead?: boolean };
-
-    if (body.markAllRead) {
-        await supabase.from("notifications").update({ is_read: true }).eq("is_read", false);
-    } else if (body.ids?.length) {
-        await supabase.from("notifications").update({ is_read: true }).in("id", body.ids);
-    }
-
-    return NextResponse.json({ ok: true });
-}
+export const PATCH = route(async (request) => {
+    await requireAdmin();
+    const body = (await request.json()) as { ids?: string[]; markAllRead?: boolean };
+    return NextResponse.json(await markNotificationsRead(body));
+});

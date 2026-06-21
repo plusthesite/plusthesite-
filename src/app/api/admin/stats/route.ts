@@ -1,21 +1,13 @@
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { getDashboardStats } from "@/lib/adminStats";
+import { route } from "@/server/http/respond";
+import { requireAdmin } from "@/server/http/auth";
+import { getDashboardStats } from "@/server/services/statsService";
 
 export const dynamic = "force-dynamic";
 
 // GET /api/admin/stats — live dashboard snapshot (admin session required).
-export async function GET() {
-    const supabase = await createSupabaseServerClient();
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
-    if (!user) {
-        return NextResponse.json({ error: "unauthorized" }, { status: 401 });
-    }
-
+export const GET = route(async () => {
+    await requireAdmin();
     const stats = await getDashboardStats();
-    return NextResponse.json(stats, {
-        headers: { "Cache-Control": "no-store" },
-    });
-}
+    return NextResponse.json(stats, { headers: { "Cache-Control": "no-store" } });
+});

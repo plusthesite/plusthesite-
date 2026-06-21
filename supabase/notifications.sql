@@ -11,19 +11,19 @@ CREATE TABLE IF NOT EXISTS public.notifications (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- Enable RLS (service-role key bypasses automatically).
+-- Enable RLS. The service-role key (used by /api/admin/notifications after an
+-- admin-session check) bypasses RLS automatically, so the admin notification
+-- center keeps working.
 ALTER TABLE public.notifications ENABLE ROW LEVEL SECURITY;
 
--- Allow authenticated to read notifications.
-CREATE POLICY "Authenticated can read notifications"
-    ON public.notifications FOR SELECT
-    USING (true);
-
--- Service role can manage.
-CREATE POLICY "Service role can manage notifications"
-    ON public.notifications FOR ALL
-    USING (true)
-    WITH CHECK (true);
+-- Lock down direct access. The old "USING (true)" SELECT policy had no
+-- `TO authenticated` clause, so it applied to PUBLIC — meaning anyone holding
+-- the public anon key could read every notification straight from the REST API,
+-- bypassing the route. Drop both permissive policies. With RLS enabled and no
+-- permissive policy, anon/authenticated are denied; only the service role
+-- (which bypasses RLS) can access.
+DROP POLICY IF EXISTS "Authenticated can read notifications" ON public.notifications;
+DROP POLICY IF EXISTS "Service role can manage notifications" ON public.notifications;
 
 -- Index for fast unread queries.
 CREATE INDEX IF NOT EXISTS idx_notifications_unread

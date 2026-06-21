@@ -1,98 +1,25 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getSupabaseAdmin } from '@/lib/supabase';
-import { rateLimit } from '@/lib/rateLimit';
-import { isComingSoon } from '@/lib/services';
+import { NextResponse } from "next/server";
+import { getClientIp, route, ServiceError } from "@/server/http/respond";
+import { enforceRateLimit } from "@/server/http/rateLimit";
+import { parseContact } from "@/server/validators/contact";
+import { submitContact } from "@/server/services/contactService";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
-// POST /api/contact — save contact form submission.
-// Uses the service-role client so the server-side write bypasses RLS.
-export async function POST(request: NextRequest) {
-  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
-    || request.headers.get('x-real-ip')
-    || 'unknown';
-
-  if (rateLimit(`contact:${ip}`, 5, 60_000)) {
-    return NextResponse.json({ error: 'Too many requests. Please try again later.' }, { status: 429 });
-  }
-
-  const supabase = getSupabaseAdmin();
-  if (!supabase) {
-    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
-  }
-
-  try {
-    const body = await request.json();
-    const { name, email, company, phone, service, message, locale } = body;
-
-    if (!name || !email || !message) {
-      return NextResponse.json(
-        { error: 'name, email, and message are required' },
-        { status: 400 }
-      );
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json({ error: 'Invalid email format' }, { status: 400 });
-    }
-
-    const cleanName = String(name).slice(0, 120);
-    const cleanEmail = String(email).trim().toLowerCase().slice(0, 254);
-    const cleanCompany = company ? String(company).slice(0, 120) : null;
-    const cleanPhone = phone ? String(phone).slice(0, 40) : null;
-    // Don't tag a lead with a service we can't yet deliver (mobile-app is
-    // "coming soon") — route that interest to our flagship Digital Agency line.
-    const rawService = service ? String(service).slice(0, 40) : null;
-    const cleanService = isComingSoon(rawService) ? "digital-agency" : rawService;
-    const cleanMessage = String(message).slice(0, 2000);
-    const cleanLocale = locale === 'id' ? 'id' : 'en';
-
-    const { data, error } = await supabase
-      .from('contacts')
-      .insert({ name: cleanName, email: cleanEmail, company: cleanCompany, message: cleanMessage })
-      .select()
-      .single();
-
-    if (error) {
-      console.error('Supabase insert error:', JSON.stringify(error, null, 2));
-      throw error;
-    }
-
-    // Link/create the company account (best-effort; table may not exist yet).
-    let accountId: string | null = null;
-    if (cleanCompany) {
-      const { data: acc } = await supabase
-        .from('accounts')
-        .upsert({ name: cleanCompany }, { onConflict: 'name' })
-        .select('id')
-        .maybeSingle();
-      accountId = acc?.id ?? null;
-    }
-
-    // Also drop a segmented lead into the sales pipeline so the team can
-    // reach out per service line. Best-effort: never fail the submission.
-    const { error: leadError } = await supabase.from('leads').insert({
-      name: cleanName,
-      email: cleanEmail,
-      phone: cleanPhone,
-      company: cleanCompany,
-      account_id: accountId,
-      service: cleanService,
-      message: cleanMessage,
-      source: 'contact-form',
-      status: 'new',
-      locale: cleanLocale,
+// POST /api/contact — save a contact form submission, then segment it into the
+// sales pipeline. Uses the service-role client (server-side) to bypass RLS.
+export const POST = route(async (request) => {
+    enforceRateLimit(`contact:${getClientIp(request)}`, 5, 60_000, {
+        error: "Too many requests. Please try again later.",
     });
-    if (leadError) console.error('Lead insert (non-fatal):', leadError.message);
 
-    return NextResponse.json({ success: true, contact: data }, { status: 201 });
-  } catch (error: unknown) {
-    const errObj = error as Record<string, unknown>;
-    console.error('Contact POST error:', JSON.stringify(errObj, null, 2));
-    return NextResponse.json(
-      { error: 'Failed to save contact', detail: errObj?.message || errObj?.code || String(error) },
-      { status: 500 }
-    );
-  }
-}
+    let body: unknown;
+    try {
+        body = await request.json();
+    } catch {
+        throw new ServiceError(500, { error: "Failed to save contact", detail: "invalid JSON body" });
+    }
+
+    const input = parseContact(body);
+    return NextResponse.json(await submitContact(input), { status: 201 });
+});

@@ -1,86 +1,13 @@
 import { NextResponse } from "next/server";
-import { GoogleGenAI } from "@google/genai";
-import { rateLimit } from "@/lib/rateLimit";
+import { getClientIp, route } from "@/server/http/respond";
+import { enforceRateLimit } from "@/server/http/rateLimit";
+import { parseAiRequest } from "@/server/validators/ai";
+import { runAi } from "@/server/services/aiService";
 
-const getGenAI = () => {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-        throw new Error("GEMINI_API_KEY is not configured on the server.");
-    }
-    return new GoogleGenAI({ apiKey });
-};
-
-export async function POST(request: Request) {
-    try {
-        const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim()
-            || request.headers.get("x-real-ip")
-            || "unknown";
-
-        if (rateLimit(`ai:${ip}`, 10, 60_000)) {
-            return NextResponse.json(
-                { error: "Too many requests. Please try again later." },
-                { status: 429 }
-            );
-        }
-
-        const { action, prompt, schema } = await request.json();
-
-        if (!prompt) {
-            return NextResponse.json({ error: "Prompt is required" }, { status: 400 });
-        }
-
-        const ai = getGenAI();
-
-        if (action === "structured") {
-            if (!schema) {
-                return NextResponse.json({ error: "Schema is required for structured action" }, { status: 400 });
-            }
-            const response = await ai.models.generateContent({
-                model: "gemini-2.0-flash",
-                contents: prompt,
-                config: {
-                    responseMimeType: "application/json",
-                    responseSchema: schema,
-                    temperature: 0.7,
-                },
-            });
-            const text = response.text;
-            if (!text) {
-                return NextResponse.json({ error: "No text returned from Gemini" }, { status: 500 });
-            }
-            try {
-                return NextResponse.json({ result: JSON.parse(text) });
-            } catch {
-                return NextResponse.json({ error: "Gemini returned malformed JSON" }, { status: 500 });
-            }
-        } else if (action === "text") {
-            const response = await ai.models.generateContent({
-                model: "gemini-2.0-flash",
-                contents: prompt,
-            });
-            return NextResponse.json({ result: response.text || "" });
-        } else if (action === "image") {
-            const response = await ai.models.generateContent({
-                model: "gemini-2.0-flash-preview-image-generation",
-                contents: prompt,
-                config: {
-                    responseModalities: ["TEXT", "IMAGE"],
-                },
-            });
-
-            for (const part of response.candidates?.[0]?.content?.parts || []) {
-                if (part.inlineData && part.inlineData.data) {
-                    return NextResponse.json({
-                        result: `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`,
-                    });
-                }
-            }
-            return NextResponse.json({ error: "No image generated from Gemini" }, { status: 500 });
-        } else {
-            return NextResponse.json({ error: "Invalid action" }, { status: 400 });
-        }
-    } catch (error: any) {
-        console.error("API AI Route Error:", error);
-        return NextResponse.json({ error: error.message || "Internal Server Error" }, { status: 500 });
-    }
-}
+export const POST = route(async (request) => {
+    enforceRateLimit(`ai:${getClientIp(request)}`, 10, 60_000, {
+        error: "Too many requests. Please try again later.",
+    });
+    const parsed = parseAiRequest(await request.json());
+    return NextResponse.json(await runAi(parsed));
+});
