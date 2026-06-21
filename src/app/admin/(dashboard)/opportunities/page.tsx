@@ -24,10 +24,22 @@ interface Opp {
     expected_close: string | null;
 }
 
-function waLink(phone: string | null) {
-    if (!phone) return null;
-    const digits = phone.replace(/[^\d]/g, "");
-    return digits ? `https://wa.me/${digits}` : null;
+/** A warm follow-up opener so reaching out on a live deal is one click. */
+function opener(o: Opp) {
+    const first = o.contact_name?.trim().split(/\s+/)[0];
+    const svc = serviceName(o.service).toLowerCase();
+    return `Halo ${first || "Kak"}, saya dari plus. (plusthe.site) menindaklanjuti soal ${svc}${o.company ? ` untuk ${o.company}` : ""}. Boleh kita lanjut ngobrol singkat?`;
+}
+
+function waLink(o: Opp) {
+    if (!o.phone) return null;
+    const digits = o.phone.replace(/[^\d]/g, "");
+    return digits ? `https://wa.me/${digits}?text=${encodeURIComponent(opener(o))}` : null;
+}
+
+function mailtoLink(o: Opp) {
+    if (!o.email) return null;
+    return `mailto:${o.email}?subject=${encodeURIComponent("Tindak lanjut — plus.")}&body=${encodeURIComponent(opener(o))}`;
 }
 
 function fmtDate(d: string | null) {
@@ -45,9 +57,9 @@ function daysUntil(d: string | null) {
 export default async function OpportunitiesPage({
     searchParams,
 }: {
-    searchParams: Promise<{ service?: string }>;
+    searchParams: Promise<{ service?: string; owner?: string }>;
 }) {
-    const { service: filter } = await searchParams;
+    const { service: filter, owner: ownerFilter } = await searchParams;
     const supabase = getSupabaseAdmin();
     const { data } = supabase
         ? await supabase
@@ -74,7 +86,23 @@ export default async function OpportunitiesPage({
         };
     }).filter((s) => s.count > 0);
 
-    const visible = filter ? all.filter((o) => o.service === filter) : all;
+    // Owner counts for the "focus on my deals" filter.
+    const ownerCounts = new Map<string, number>();
+    for (const o of all) {
+        const ow = o.owner?.trim() || "__unassigned__";
+        ownerCounts.set(ow, (ownerCounts.get(ow) ?? 0) + 1);
+    }
+
+    let visible = filter ? all.filter((o) => o.service === filter) : all;
+    if (ownerFilter) visible = visible.filter((o) => ownerFilter === "__unassigned__" ? !o.owner : o.owner === ownerFilter);
+
+    // Overdue follow-up nudge — open deals whose next action date has passed.
+    const overdue = visible.filter((o) => o.stage !== "won" && o.stage !== "lost" && o.next_action_at && new Date(o.next_action_at).getTime() < Date.now()).length;
+
+    // Owner filter chips preserve the active service filter.
+    const ownerBase = new URLSearchParams();
+    if (filter) ownerBase.set("service", filter);
+    const ownerHref = (ow: string) => { const p = new URLSearchParams(ownerBase); if (ow) p.set("owner", ow); const q = p.toString(); return `/admin/opportunities${q ? `?${q}` : ""}`; };
 
     return (
         <div>
@@ -145,6 +173,24 @@ export default async function OpportunitiesPage({
                 ))}
             </div>
 
+            {/* Owner filter + overdue nudge */}
+            {(ownerCounts.size > 1 || overdue > 0) && (
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+                    {ownerCounts.size > 1 ? (
+                        <div className="flex flex-wrap items-center gap-2">
+                            <span className="text-xs font-semibold text-slate-400">Owner:</span>
+                            <Link href={ownerHref("")} className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${!ownerFilter ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"}`}>All</Link>
+                            {[...ownerCounts.entries()].sort((a, b) => b[1] - a[1]).map(([ow, count]) => (
+                                <Link key={ow} href={ownerHref(ow)} className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${ownerFilter === ow ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"}`}>
+                                    {ow === "__unassigned__" ? "Unassigned" : ow} · {count}
+                                </Link>
+                            ))}
+                        </div>
+                    ) : <span />}
+                    {overdue > 0 && <span className="rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700" title="Open deals whose next-action date has passed">⏰ {overdue} overdue follow-up{overdue > 1 ? "s" : ""}</span>}
+                </div>
+            )}
+
             {/* Bulk actions */}
             <form id="bulk-opps" action={bulkUpdateOpportunities} className="mt-4 flex flex-wrap items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3">
                 <span className="text-xs font-semibold text-slate-500">Bulk:</span>
@@ -196,7 +242,8 @@ export default async function OpportunitiesPage({
                                 </td></tr>
                             )}
                             {visible.map((o) => {
-                                const wa = waLink(o.phone);
+                                const wa = waLink(o);
+                                const mail = mailtoLink(o);
                                 const svc = getService(o.service);
                                 const close = daysUntil(o.expected_close);
                                 return (
@@ -222,9 +269,10 @@ export default async function OpportunitiesPage({
                                         </td>
                                         <td className="px-4 py-3">
                                             <div className="flex items-center gap-2 text-xs font-semibold">
-                                                {wa && <a href={wa} target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:text-emerald-800 transition-colors">WA</a>}
+                                                {wa && <a href={wa} target="_blank" rel="noopener noreferrer" className="rounded bg-emerald-50 px-1.5 py-0.5 text-emerald-700 hover:bg-emerald-100 transition-colors" title="WhatsApp with a ready follow-up">WA</a>}
                                                 {o.phone && <a href={`tel:${o.phone}`} className="text-slate-500 hover:text-slate-700 transition-colors">Call</a>}
-                                                {o.email && <a href={`mailto:${o.email}`} className="text-blue-600 hover:text-blue-800 transition-colors">Email</a>}
+                                                {mail && <a href={mail} className="text-blue-600 hover:text-blue-800 transition-colors" title="Email with a ready follow-up">Email</a>}
+                                                {!wa && !o.phone && !mail && <span className="text-slate-300">no contact</span>}
                                             </div>
                                         </td>
                                         <td className="px-4 py-3 text-right">
