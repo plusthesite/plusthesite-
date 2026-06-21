@@ -118,6 +118,7 @@ export default async function LeadsPage({
     const totalValue = all.reduce((s, l) => s + (l.value ?? 0), 0);
     const newCount = all.filter((l) => (l.status ?? "new") === "new").length;
     const convertedCount = all.filter((l) => l.status === "converted").length;
+    const hotCount = all.filter((l) => scoreLead(l).score >= 70).length;
 
     // Owner counts (for the "focus on my leads" filter).
     const ownerCounts = new Map<string, number>();
@@ -176,11 +177,15 @@ export default async function LeadsPage({
             </div>
 
             {/* Summary cards */}
-            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
                     <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">Total Leads</p>
                     <p className="mt-2 text-2xl font-extrabold text-slate-900">{all.length}</p>
                 </div>
+                <Link href="/admin/leads?sort=hot" className="rounded-xl border border-rose-200 bg-rose-50 p-5 shadow-sm transition-colors hover:bg-rose-100">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-rose-400">🔥 Hot Leads</p>
+                    <p className="mt-2 text-2xl font-extrabold text-rose-600">{hotCount}</p>
+                </Link>
                 <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
                     <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">Est. Pipeline Value</p>
                     <p className="mt-2 text-2xl font-extrabold text-blue-600">{formatIDR(totalValue, true)}</p>
