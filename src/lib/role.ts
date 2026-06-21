@@ -19,12 +19,16 @@ export async function getUserRole(): Promise<Role> {
     if (!admin) return "admin";
     const { data } = await admin
         .from("sales_reps")
-        .select("role")
+        .select("role, is_active")
         .eq("email", user.email)
-        .eq("is_active", true)
         .maybeSingle();
 
-    const r = data?.role as string | undefined;
+    // Unrostered (e.g. the owner) defaults to admin.
+    if (!data) return "admin";
+    // A deactivated rep must NEVER escalate to the admin default — drop them to
+    // the lowest privilege instead.
+    if (data.is_active === false) return "sales";
+    const r = data.role as string | undefined;
     return r === "sales" || r === "manager" || r === "admin" ? r : "admin";
 }
 
