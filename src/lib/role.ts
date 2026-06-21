@@ -32,6 +32,24 @@ export async function getUserRole(): Promise<Role> {
     return r === "sales" || r === "manager" || r === "admin" ? r : "admin";
 }
 
+/**
+ * True when the signed-in user has an explicit roster row marked inactive.
+ * Used by the dashboard layout to fully block deactivated logins.
+ */
+export async function isUserDeactivated(): Promise<boolean> {
+    const supabase = await createSupabaseServerClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user?.email) return false;
+    const admin = getSupabaseAdmin();
+    if (!admin) return false;
+    const { data } = await admin
+        .from("sales_reps")
+        .select("is_active")
+        .eq("email", user.email)
+        .maybeSingle();
+    return data?.is_active === false;
+}
+
 /** Server guard — redirect to /admin if the user's role isn't allowed. */
 export async function requireRole(allowed: Role[]) {
     const role = await getUserRole();

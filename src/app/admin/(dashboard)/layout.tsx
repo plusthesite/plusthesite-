@@ -3,7 +3,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { AdminNav, LogoutButton } from "@/components/admin/AdminNav";
 import { MobileSidebar } from "@/components/admin/MobileSidebar";
 import { NotificationBell } from "@/components/admin/NotificationBell";
-import { getUserRole } from "@/lib/role";
+import { getUserRole, isUserDeactivated } from "@/lib/role";
 
 export default async function DashboardLayout({
     children,
@@ -18,6 +18,23 @@ export default async function DashboardLayout({
     // Auth gate — only signed-in admins past this point.
     if (!user) {
         redirect("/admin/login");
+    }
+
+    // Deactivated logins are fully blocked (no dashboard, no tools) — a clear
+    // screen + logout, rather than redirecting (which would loop the login).
+    if (await isUserDeactivated()) {
+        return (
+            <div className="flex min-h-screen items-center justify-center bg-slate-50 px-6">
+                <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm">
+                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-rose-50">
+                        <svg className="h-6 w-6 text-rose-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>
+                    </div>
+                    <h1 className="mt-4 text-lg font-bold text-slate-900">Akses dinonaktifkan</h1>
+                    <p className="mt-2 text-sm text-slate-500">Akun <span className="font-medium text-slate-700">{user.email}</span> tidak lagi memiliki akses ke dashboard. Hubungi admin jika ini sebuah kekeliruan.</p>
+                    <div className="mt-6 flex justify-center"><LogoutButton /></div>
+                </div>
+            </div>
+        );
     }
 
     const role = await getUserRole();
