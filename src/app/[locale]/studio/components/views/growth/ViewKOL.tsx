@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Megaphone, Filter, Search, Star, ShieldCheck, Check, Trash2, Bookmark } from "lucide-react";
+import { Megaphone, Filter, Search, Star, ShieldCheck, Check, Trash2, Bookmark, X, Copy, Users2, Wallet } from "lucide-react";
 import { MOCK_KOLS } from "@/lib/mockData";
 import { supabase } from "@/lib/supabase";
 
 interface ShortlistRow { id: string; kol_id: string; kol_name: string; handle: string | null; status: string }
 
+const rp = (n: number) => `Rp ${n.toLocaleString("id-ID")}`;
+
 export const ViewKOL: React.FC<{ addNotification: (t: 'success' | 'error', m: string) => void }> = ({ addNotification }) => {
     const [filters, setFilters] = useState({ cat: 'All', price: 'All', search: '' });
     const [shortlist, setShortlist] = useState<ShortlistRow[]>([]);
+    const [showBrief, setShowBrief] = useState(false);
 
     // Load the signed-in user's saved KOL shortlist.
     const loadShortlist = useCallback(async () => {
@@ -45,6 +48,30 @@ export const ViewKOL: React.FC<{ addNotification: (t: 'success' | 'error', m: st
         setShortlist((s) => s.filter((x) => x.id !== id));
     };
 
+    // Brief built from the shortlist (cross-referenced with the catalog for price/reach).
+    const briefRows = shortlist.map((s) => {
+        const k = MOCK_KOLS.find((m) => String(m.id) === s.kol_id);
+        return { name: s.kol_name, handle: s.handle ?? '', price: k?.price ?? 0, followers: k?.followers ?? '—' };
+    });
+    const totalBudget = briefRows.reduce((a, b) => a + b.price, 0);
+
+    const openCampaign = () => {
+        if (shortlist.length === 0) { addNotification('error', 'Tambahkan KOL ke shortlist dulu (tombol Kontak).'); return; }
+        setShowBrief(true);
+    };
+
+    const copyBrief = async () => {
+        const text = [
+            'BRIEF KAMPANYE KOL',
+            `Jumlah KOL: ${briefRows.length}`,
+            `Estimasi budget (mulai dari): ${rp(totalBudget)}`,
+            '',
+            ...briefRows.map((r) => `• ${r.name} (${r.handle}) — ${r.followers} followers — mulai ${rp(r.price)}`),
+        ].join('\n');
+        try { await navigator.clipboard.writeText(text); addNotification('success', 'Brief disalin ke clipboard.'); }
+        catch { addNotification('error', 'Gagal menyalin brief.'); }
+    };
+
     const filtered = MOCK_KOLS.filter(k =>
         (filters.cat === 'All' || k.category === filters.cat) &&
         (filters.price === 'All' || (filters.price === 'Micro' ? k.price < 500000 : k.price >= 500000)) &&
@@ -53,7 +80,7 @@ export const ViewKOL: React.FC<{ addNotification: (t: 'success' | 'error', m: st
 
     return (
         <div className="space-y-6 pb-24 animate-in fade-in duration-500">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"><h2 className="text-2xl font-bold text-slate-800 dark:text-white">KOL Collaboration</h2><button className="px-4 py-2 bg-yellow-500 hover:bg-yellow-400 text-white rounded-lg font-bold text-sm flex gap-2 shadow-lg hover:shadow-yellow-600/20 transition-all transform hover:-translate-y-0.5"><Megaphone size={16} /> Kampanye Baru</button></div>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"><h2 className="text-2xl font-bold text-slate-800 dark:text-white">KOL Collaboration</h2><button onClick={openCampaign} className="px-4 py-2 bg-yellow-500 hover:bg-yellow-400 text-white rounded-lg font-bold text-sm flex gap-2 shadow-lg hover:shadow-yellow-600/20 transition-all transform hover:-translate-y-0.5"><Megaphone size={16} /> Kampanye Baru</button></div>
 
             {/* Saved shortlist */}
             {shortlist.length > 0 && (
@@ -130,6 +157,46 @@ export const ViewKOL: React.FC<{ addNotification: (t: 'success' | 'error', m: st
                     );
                 })}
             </div>
+
+            {/* Campaign brief modal */}
+            {showBrief && (
+                <div onClick={() => setShowBrief(false)} className="fixed inset-0 z-[80] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
+                    <div onClick={(e) => e.stopPropagation()} className="w-full max-w-lg bg-card-bg border border-border rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+                        <div className="flex items-center justify-between px-6 py-4 border-b border-border">
+                            <h3 className="font-bold text-foreground flex items-center gap-2"><Megaphone size={18} className="text-yellow-500" /> Brief Kampanye KOL</h3>
+                            <button onClick={() => setShowBrief(false)} className="text-muted hover:text-foreground transition-colors"><X size={20} /></button>
+                        </div>
+                        <div className="p-6 space-y-4">
+                            <div className="grid grid-cols-2 gap-3">
+                                <div className="bg-surface border border-border rounded-xl p-4">
+                                    <p className="text-[10px] uppercase font-bold text-muted flex items-center gap-1"><Users2 size={12} /> Jumlah KOL</p>
+                                    <p className="mt-1 text-2xl font-black text-foreground">{briefRows.length}</p>
+                                </div>
+                                <div className="bg-surface border border-border rounded-xl p-4">
+                                    <p className="text-[10px] uppercase font-bold text-muted flex items-center gap-1"><Wallet size={12} /> Estimasi Budget</p>
+                                    <p className="mt-1 text-2xl font-black text-primary">{rp(totalBudget)}</p>
+                                </div>
+                            </div>
+                            <div className="max-h-60 overflow-y-auto custom-scrollbar space-y-2">
+                                {briefRows.map((r, i) => (
+                                    <div key={i} className="flex items-center gap-3 bg-surface border border-border rounded-lg p-3">
+                                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-[10px] font-bold text-white uppercase shrink-0">{r.name.substring(0, 2)}</div>
+                                        <div className="flex-1 min-w-0">
+                                            <p className="text-sm font-bold text-foreground truncate">{r.name}</p>
+                                            <p className="text-[10px] text-muted truncate">{r.handle} · {r.followers} followers</p>
+                                        </div>
+                                        <p className="text-xs font-bold text-foreground shrink-0">{rp(r.price)}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="px-6 py-4 border-t border-border flex gap-3">
+                            <button onClick={copyBrief} className="flex-1 py-2.5 bg-primary hover:bg-primary-dark text-white text-sm font-bold rounded-lg transition-colors shadow-lg flex items-center justify-center gap-2"><Copy size={15} /> Salin Brief</button>
+                            <button onClick={() => setShowBrief(false)} className="px-5 py-2.5 bg-surface border border-border text-foreground text-sm font-bold rounded-lg hover:bg-surface-hover transition-colors">Tutup</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
