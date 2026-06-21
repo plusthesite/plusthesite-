@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Wand2, Loader2, Sparkles, Download, Maximize2, Image as ImageIcon, X } from "lucide-react";
+import { Wand2, Loader2, Sparkles, Download, Maximize2, Image as ImageIcon, X, Trash2 } from "lucide-react";
 import { callGeminiImage, downloadImage } from "@/lib/ai";
 import { supabase } from "@/lib/supabase";
 
@@ -36,6 +36,12 @@ export const ViewGenerator: React.FC<{ addNotification: (t: 'success' | 'error',
         window.addEventListener('keydown', onKey);
         return () => window.removeEventListener('keydown', onKey);
     }, [fullscreen]);
+
+    const deleteAsset = async (id: string) => {
+        if (!supabase) return;
+        await supabase.from('generated_assets').delete().eq('id', id);
+        setHistory((h) => h.filter((x) => x.id !== id));
+    };
 
     const handleGenerate = async () => {
         if (!prompt) { addNotification('error', 'Masukkan prompt!'); return; }
@@ -149,9 +155,12 @@ export const ViewGenerator: React.FC<{ addNotification: (t: 'success' | 'error',
                     <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-muted">Galeri Anda · tersimpan otomatis</p>
                     <div className="flex gap-2 overflow-x-auto pb-1 custom-scrollbar">
                         {history.map((h) => (
-                            <button key={h.id} onClick={() => setGeneratedImage(h.image_url)} title={h.prompt} className="h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-border transition-all hover:border-primary hover:ring-1 hover:ring-primary">
-                                <img src={h.image_url} alt={h.prompt} className="h-full w-full object-cover" />
-                            </button>
+                            <div key={h.id} className="group relative h-16 w-16 shrink-0">
+                                <button onClick={() => setGeneratedImage(h.image_url)} title={h.prompt} className="h-full w-full overflow-hidden rounded-lg border border-border transition-all hover:border-primary hover:ring-1 hover:ring-primary">
+                                    <img src={h.image_url} alt={h.prompt} className="h-full w-full object-cover" />
+                                </button>
+                                <button onClick={() => deleteAsset(h.id)} title="Hapus" className="absolute -top-1.5 -right-1.5 rounded-full bg-red-500 p-1 text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100 hover:bg-red-600"><Trash2 size={11} /></button>
+                            </div>
                         ))}
                     </div>
                 </div>

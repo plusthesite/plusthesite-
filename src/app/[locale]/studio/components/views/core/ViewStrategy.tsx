@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Target, Flame, RefreshCw, Users, Zap, Loader2, Sparkles, History } from "lucide-react";
+import { Target, Flame, RefreshCw, Users, Zap, Loader2, Sparkles, History, X } from "lucide-react";
 import { callGeminiStructured, callGeminiText } from "@/lib/ai";
 import { AnalysisResult } from "@/types";
 import { Schema, Type } from "@google/genai";
@@ -21,6 +21,12 @@ export const ViewStrategy: React.FC<{ addNotification: (t: 'success' | 'error', 
         if (data) setSaved(data as SavedStrategy[]);
     }, []);
     useEffect(() => { loadSaved(); }, [loadSaved]);
+
+    const deleteStrategy = async (id: string) => {
+        if (!supabase) return;
+        await supabase.from('strategies').delete().eq('id', id);
+        setSaved((s) => s.filter((x) => x.id !== id));
+    };
 
     const handlePredict = async () => {
         if (!inputText) return;
@@ -151,10 +157,13 @@ export const ViewStrategy: React.FC<{ addNotification: (t: 'success' | 'error', 
                     <h3 className="font-bold text-foreground mb-4 flex items-center gap-2"><History size={18} className="text-primary" /> Riwayat Analisis · tersimpan</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {saved.map((sv) => (
-                            <button key={sv.id} onClick={() => { setInputText(sv.brief || sv.title); if (sv.result) setAnalysis(sv.result); }} className="flex items-center gap-3 bg-surface border border-border rounded-xl p-3 text-left transition-all hover:-translate-y-0.5 hover:border-primary">
-                                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary/10 font-black text-primary">{sv.result?.score ?? '--'}</div>
-                                <p className="line-clamp-2 flex-1 text-xs text-foreground">{sv.title}</p>
-                            </button>
+                            <div key={sv.id} className="group relative">
+                                <button onClick={() => { setInputText(sv.brief || sv.title); if (sv.result) setAnalysis(sv.result); }} className="flex w-full items-center gap-3 bg-surface border border-border rounded-xl p-3 pr-8 text-left transition-all hover:-translate-y-0.5 hover:border-primary">
+                                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary/10 font-black text-primary">{sv.result?.score ?? '--'}</div>
+                                    <p className="line-clamp-2 flex-1 text-xs text-foreground">{sv.title}</p>
+                                </button>
+                                <button onClick={() => deleteStrategy(sv.id)} title="Hapus" className="absolute top-2 right-2 rounded-full p-1 text-muted opacity-0 transition-opacity hover:text-red-500 group-hover:opacity-100"><X size={14} /></button>
+                            </div>
                         ))}
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Zap, Loader2, Sparkles, Calendar, List, Grid } from "lucide-react";
+import { Zap, Loader2, Sparkles, Calendar, List, Grid, X } from "lucide-react";
 import { AIVoiceAssistant } from "../../ui/AIVoiceAssistant";
 import { callGeminiStructured } from "@/lib/ai";
 import { MOCK_CALENDAR } from "@/lib/mockData";
@@ -25,6 +25,12 @@ export const ViewPlanner: React.FC<{ onAutoFill: () => void, addNotification: (t
         if (data) setSaved(data as SavedCampaign[]);
     }, []);
     useEffect(() => { loadSaved(); }, [loadSaved]);
+
+    const deleteCampaign = async (id: string) => {
+        if (!supabase) return;
+        await supabase.from('campaigns').delete().eq('id', id);
+        setSaved((s) => s.filter((c) => c.id !== id));
+    };
 
     const handleFill = () => { setForm({ name: "Kopi Senja", industry: "F&B", market: "Gen Z", idea: "Promo Akhir Bulan" }); };
 
@@ -101,11 +107,14 @@ export const ViewPlanner: React.FC<{ onAutoFill: () => void, addNotification: (t
                     <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-muted">Riwayat Campaign · tersimpan otomatis</p>
                     <div className="flex gap-2 overflow-x-auto pb-1 custom-scrollbar">
                         {saved.map((c) => (
-                            <button key={c.id} onClick={() => { if (c.calendar_data) setCalendarData(c.calendar_data); setForm((f) => ({ ...f, name: c.name })); }}
-                                className="shrink-0 rounded-xl border border-border bg-card-bg px-4 py-2.5 text-left transition-all hover:-translate-y-0.5 hover:border-primary hover:shadow-sm">
-                                <p className="text-sm font-bold text-foreground">{c.name}</p>
-                                <p className="text-[10px] text-muted">{c.industry || '—'} · {(c.calendar_data?.length ?? 0)} hari</p>
-                            </button>
+                            <div key={c.id} className="group relative shrink-0">
+                                <button onClick={() => { if (c.calendar_data) setCalendarData(c.calendar_data); setForm((f) => ({ ...f, name: c.name })); }}
+                                    className="rounded-xl border border-border bg-card-bg px-4 py-2.5 pr-7 text-left transition-all hover:-translate-y-0.5 hover:border-primary hover:shadow-sm">
+                                    <p className="text-sm font-bold text-foreground">{c.name}</p>
+                                    <p className="text-[10px] text-muted">{c.industry || '—'} · {(c.calendar_data?.length ?? 0)} hari</p>
+                                </button>
+                                <button onClick={() => deleteCampaign(c.id)} title="Hapus" className="absolute top-1.5 right-1.5 rounded-full p-0.5 text-muted opacity-0 transition-opacity hover:text-red-500 group-hover:opacity-100"><X size={13} /></button>
+                            </div>
                         ))}
                     </div>
                 </div>
