@@ -62,10 +62,18 @@ alter table public.campaigns           enable row level security;
 alter table public.strategies          enable row level security;
 alter table public.studio_kol_shortlist enable row level security;
 
+-- Drop legacy "to public" duplicates left by an earlier Supabase quickstart
+-- template (their qual already gated anon, but "to public" is sloppy and was
+-- dropped from the live DB on 2026-06-23). The "own_*" policies below are the
+-- canonical per-user rules.
+drop policy if exists "Users can insert own assets" on public.generated_assets;
+drop policy if exists "Users can view own assets" on public.generated_assets;
 drop policy if exists "own_generated_assets" on public.generated_assets;
 create policy "own_generated_assets" on public.generated_assets
     for all to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
+drop policy if exists "Users can insert own campaigns" on public.campaigns;
+drop policy if exists "Users can view own campaigns" on public.campaigns;
 drop policy if exists "own_campaigns" on public.campaigns;
 create policy "own_campaigns" on public.campaigns
     for all to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
