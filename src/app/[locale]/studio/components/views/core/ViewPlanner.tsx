@@ -2,18 +2,17 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Zap, Loader2, Sparkles, Calendar, List, Grid, X } from "lucide-react";
 import { AIVoiceAssistant } from "../../ui/AIVoiceAssistant";
 import { callGeminiStructured } from "@/lib/ai";
-import { MOCK_CALENDAR } from "@/lib/mockData";
-import { CalendarItem } from "@/types";
+import { CalendarItem, VoiceFormFields } from "@/types";
 import { Schema, Type } from "@google/genai";
 import { supabase } from "@/lib/supabase";
 
 interface SavedCampaign { id: string; name: string; industry: string | null; calendar_data: CalendarItem[] | null; created_at: string }
 
-export const ViewPlanner: React.FC<{ onAutoFill: () => void, addNotification: (t: 'success' | 'error', m: string) => void }> = ({ onAutoFill, addNotification }) => {
+export const ViewPlanner: React.FC<{ addNotification: (t: 'success' | 'error', m: string) => void }> = ({ addNotification }) => {
     const [loading, setLoading] = useState(false);
     const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
     const [form, setForm] = useState({ name: '', industry: '', market: '', idea: '' });
-    const [calendarData, setCalendarData] = useState<CalendarItem[]>(MOCK_CALENDAR);
+    const [calendarData, setCalendarData] = useState<CalendarItem[]>([]);
     const [saved, setSaved] = useState<SavedCampaign[]>([]);
 
     // Load the user's saved campaigns (newest first).
@@ -32,7 +31,14 @@ export const ViewPlanner: React.FC<{ onAutoFill: () => void, addNotification: (t
         setSaved((s) => s.filter((c) => c.id !== id));
     };
 
-    const handleFill = () => { setForm({ name: "Kopi Senja", industry: "F&B", market: "Gen Z", idea: "Promo Akhir Bulan" }); };
+    const handleVoiceFill = (fields: VoiceFormFields) => {
+        setForm((f) => ({
+            name: fields.name || f.name,
+            industry: fields.industry || f.industry,
+            market: fields.market || f.market,
+            idea: fields.idea || f.idea,
+        }));
+    };
 
     const handleGen = async () => {
         if (!form.name) { addNotification('error', 'Mohon isi nama bisnis.'); return; }
@@ -88,7 +94,7 @@ export const ViewPlanner: React.FC<{ onAutoFill: () => void, addNotification: (t
 
     return (
         <div className="space-y-6 pb-24 animate-in fade-in duration-500">
-            <AIVoiceAssistant onAutoFill={handleFill} addNotification={addNotification} />
+            <AIVoiceAssistant onAutoFill={handleVoiceFill} addNotification={addNotification} />
 
             {/* Input Section */}
             <div className="bg-card-bg backdrop-blur-sm border border-border p-6 rounded-2xl relative overflow-hidden group shadow-sm transition-colors">
@@ -133,6 +139,11 @@ export const ViewPlanner: React.FC<{ onAutoFill: () => void, addNotification: (t
                 {loading ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         {[1, 2, 3].map(i => <div key={i} className="h-32 bg-surface animate-pulse rounded-xl border border-border"></div>)}
+                    </div>
+                ) : calendarData.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center gap-3 py-16 bg-card-bg border border-dashed border-border rounded-2xl text-center">
+                        <Calendar size={32} className="text-muted-light" />
+                        <p className="text-sm text-muted max-w-xs">Belum ada jadwal konten. Isi form di atas lalu klik <span className="font-bold">Generate Calendar</span> untuk membuatnya.</p>
                     </div>
                 ) : (
                     <div className={`grid gap-4 ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' : 'grid-cols-1'}`}>

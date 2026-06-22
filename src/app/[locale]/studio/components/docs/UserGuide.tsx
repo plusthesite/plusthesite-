@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import Link from "next/link";
 import { Sparkles, Wand2, PlayCircle, ArrowRight, Pause, Play, Eye, HelpCircle, ChevronUp, ChevronDown } from "lucide-react";
 import { MOCK_TUTORIALS, MOCK_FAQ } from "@/lib/mockData";
+import { useLocale } from "@/i18n/I18nProvider";
 
 export const UserGuide: React.FC<{ onStartTour: (tab: string) => void }> = ({ onStartTour }) => {
+    const locale = useLocale();
     const [activeVideo, setActiveVideo] = useState<string | null>(null);
     const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
@@ -87,7 +90,7 @@ export const UserGuide: React.FC<{ onStartTour: (tab: string) => void }> = ({ on
                     </div>
                     <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-500/30 p-4 rounded-xl mt-4">
                         <p className="text-xs text-blue-600 dark:text-blue-300 mb-2">Butuh bantuan lebih lanjut?</p>
-                        <button className="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold transition-colors">Hubungi Support CS</button>
+                        <Link href={`/${locale}/contact-us`} className="w-full block text-center py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold transition-colors">Hubungi Support CS</Link>
                     </div>
                 </div>
             </div>

@@ -6,12 +6,41 @@ import { Schema, Type } from "@google/genai";
 import { supabase } from "@/lib/supabase";
 
 interface SavedStrategy { id: string; title: string; brief: string | null; result: AnalysisResult | null; created_at: string }
+interface TrendItem { tag: string; volume: string }
 
 export const ViewStrategy: React.FC<{ addNotification: (t: 'success' | 'error', m: string) => void }> = ({ addNotification }) => {
     const [inputText, setInputText] = useState("");
     const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
     const [loading, setLoading] = useState(false);
     const [saved, setSaved] = useState<SavedStrategy[]>([]);
+    const [trending, setTrending] = useState<TrendItem[]>([]);
+    const [trendingLoading, setTrendingLoading] = useState(true);
+    const [trendingError, setTrendingError] = useState(false);
+
+    const loadTrending = useCallback(async () => {
+        setTrendingLoading(true);
+        setTrendingError(false);
+        const schema: Schema = {
+            type: Type.ARRAY,
+            items: {
+                type: Type.OBJECT,
+                properties: {
+                    tag: { type: Type.STRING },
+                    volume: { type: Type.STRING },
+                },
+                required: ["tag", "volume"],
+            },
+        };
+        const prompt = "Sebutkan 4 hashtag yang masuk akal sedang tren di media sosial Indonesia saat ini untuk konten UMKM/bisnis kecil (F&B, fashion, lifestyle, kebanggaan lokal). Untuk setiap hashtag berikan estimasi volume post yang realistis (format singkat seperti '1.2M' atau '850K'). Balas sebagai array JSON of {tag, volume}, tag harus diawali '#'.";
+        const data = await callGeminiStructured<TrendItem[]>(prompt, schema);
+        if (data && Array.isArray(data) && data.length > 0) {
+            setTrending(data);
+        } else {
+            setTrendingError(true);
+        }
+        setTrendingLoading(false);
+    }, []);
+    useEffect(() => { loadTrending(); }, [loadTrending]);
 
     const loadSaved = useCallback(async () => {
         if (!supabase) return;
@@ -64,8 +93,7 @@ export const ViewStrategy: React.FC<{ addNotification: (t: 'success' | 'error', 
                 }
             }
         } else {
-            addNotification('error', 'Analisis gagal, menggunakan simulasi.');
-            setAnalysis({ score: 78, hook: "Avg", fit: "85%", format: "Carousel", improvements: "Make hook shorter" });
+            addNotification('error', 'Analisis gagal. Coba lagi.');
         }
         setLoading(false);
     };
@@ -93,15 +121,28 @@ export const ViewStrategy: React.FC<{ addNotification: (t: 'success' | 'error', 
                     {analysis && <div className="mt-3 h-1.5 w-full bg-surface rounded-full overflow-hidden"><div className="h-full bg-primary rounded-full transition-all duration-1000" style={{ width: `${analysis.score}%` }}></div></div>}
                 </div>
                 <div className="bg-card-bg border border-border p-6 rounded-2xl col-span-2 shadow-lg transition-colors">
-                    <h4 className="text-foreground font-bold mb-4 flex items-center gap-2"><Flame size={18} className="text-orange-500 fill-orange-500" /> Trending Now (Indonesia)</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {[{ t: "#LokalPride", v: "1.2M" }, { t: "#OOTDIndo", v: "850K" }, { t: "#KulinerViral", v: "2.1M" }, { t: "#BisnisAnakMuda", v: "500K" }].map((t, i) => (
-                            <div key={i} className="flex justify-between items-center p-3 bg-surface rounded-lg border border-border hover:border-orange-500/30 transition-colors cursor-pointer group">
-                                <span className="text-foreground-secondary font-medium group-hover:text-orange-500 transition-colors">{t.t}</span>
-                                <span className="text-green-600 dark:text-green-400 text-xs font-bold bg-green-100 dark:bg-green-500/10 px-2 py-1 rounded">{t.v}</span>
-                            </div>
-                        ))}
+                    <div className="flex items-center justify-between mb-4">
+                        <h4 className="text-foreground font-bold flex items-center gap-2"><Flame size={18} className="text-orange-500 fill-orange-500" /> Trending Now (Indonesia)</h4>
+                        <button onClick={loadTrending} disabled={trendingLoading} title="Refresh tren" className="text-muted hover:text-orange-500 transition-colors disabled:opacity-50">
+                            <RefreshCw size={14} className={trendingLoading ? "animate-spin" : ""} />
+                        </button>
                     </div>
+                    {trendingLoading ? (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            {[0, 1, 2, 3].map((i) => <div key={i} className="h-11 bg-surface rounded-lg border border-border animate-pulse" />)}
+                        </div>
+                    ) : trendingError ? (
+                        <p className="text-xs text-muted text-center py-6">Gagal memuat tren. <button onClick={loadTrending} className="text-primary font-bold hover:underline">Coba lagi</button></p>
+                    ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            {trending.map((t, i) => (
+                                <button key={i} onClick={() => setInputText((v) => v ? v : `${t.tag} `)} className="flex justify-between items-center p-3 bg-surface rounded-lg border border-border hover:border-orange-500/30 transition-colors cursor-pointer group text-left">
+                                    <span className="text-foreground-secondary font-medium group-hover:text-orange-500 transition-colors">{t.tag}</span>
+                                    <span className="text-green-600 dark:text-green-400 text-xs font-bold bg-green-100 dark:bg-green-500/10 px-2 py-1 rounded">{t.volume}</span>
+                                </button>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -138,16 +179,9 @@ export const ViewStrategy: React.FC<{ addNotification: (t: 'success' | 'error', 
                 <div className="bg-card-bg border border-border p-6 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg transition-colors">
                     <div className="w-16 h-16 bg-red-100 dark:bg-red-500/20 rounded-full flex items-center justify-center mb-4"><Users size={32} className="text-red-500 dark:text-red-400" /></div>
                     <h4 className="text-foreground font-bold mb-1">Competitor Watch</h4>
-                    <p className="text-xs text-muted mb-6 px-4">Pantau gerakan kompetitor secara real-time.</p>
-                    <div className="w-full space-y-3">
-                        <div className="w-full bg-surface p-3 rounded-xl border border-border flex items-center gap-3 text-left hover:bg-surface-hover transition-colors cursor-pointer">
-                            <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-xs shadow-lg">C</div>
-                            <div><p className="text-xs font-bold text-foreground">CoffeeBrandX</p><p className="text-[10px] text-muted">Post 15m ago • High Engagement</p></div>
-                        </div>
-                        <div className="w-full bg-surface p-3 rounded-xl border border-border flex items-center gap-3 text-left hover:bg-surface-hover transition-colors cursor-pointer">
-                            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xs shadow-lg">K</div>
-                            <div><p className="text-xs font-bold text-foreground">KopiKenanganMantan</p><p className="text-[10px] text-muted">Story 2h ago • Promo Alert</p></div>
-                        </div>
+                    <p className="text-xs text-muted mb-6 px-4">Pemantauan kompetitor real-time belum terhubung.</p>
+                    <div className="w-full bg-surface border border-dashed border-border rounded-xl p-4 text-xs text-muted leading-relaxed">
+                        Hubungkan akun media sosial kompetitor untuk memantau aktivitas mereka di sini. Fitur ini memerlukan integrasi pemantauan yang belum diaktifkan.
                     </div>
                 </div>
             </div>

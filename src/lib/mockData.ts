@@ -1,4 +1,4 @@
-import { CalendarItem, KOL, Plan, ClassItem, VideoTutorial, FAQItem, TourStep } from "@/types";
+import { Plan, ClassItem, VideoTutorial, FAQItem, TourStep } from "@/types";
 
 export const TOUR_STEPS: Record<string, TourStep[]> = {
     planner: [
@@ -19,15 +19,6 @@ export const TOUR_STEPS: Record<string, TourStep[]> = {
     ]
 };
 
-export const MOCK_KOLS: KOL[] = [
-    { id: 1, name: "Sasa Kuliner", handle: "@sasaeats", category: "F&B", followers: "45K", er: "5.2%", price: 350000, tags: ["Micro", "Halal"], verified: true },
-    { id: 2, name: "OOTD Budi", handle: "@budistyle", category: "Fashion", followers: "120K", er: "3.8%", price: 1200000, tags: ["Macro", "Style"], verified: true },
-    { id: 3, name: "Gadget Rina", handle: "@rinatech", category: "Technology", followers: "25K", er: "8.5%", price: 500000, tags: ["Nano", "Review"], verified: false },
-    { id: 4, name: "Mama Dapur", handle: "@mamacooks", category: "F&B", followers: "80K", er: "4.1%", price: 750000, tags: ["Micro", "Resep"], verified: true },
-    { id: 5, name: "Fit with Andi", handle: "@andifit", category: "Health", followers: "200K", er: "2.9%", price: 2500000, tags: ["Macro", "Gym"], verified: true },
-    { id: 6, name: "Travel Santuy", handle: "@santuytrip", category: "Travel", followers: "60K", er: "6.0%", price: 900000, tags: ["Micro", "Trip"], verified: false },
-];
-
 export const PLANS: Plan[] = [
     { name: "Gratis", price: "Rp 0", period: "", features: ["1 gambar/hari", "Konsultasi AI"], highlight: false, color: "border-slate-200 dark:border-white/10" },
     { name: "Starter", price: "Rp 150rb", period: "/bln", features: ["15 gambar/bln", "Logo Generator"], highlight: true, tag: "Paling Populer", color: "border-brand" },
@@ -40,12 +31,6 @@ export const ALACARTE_FEATURES = [
     { id: 'f2', name: 'Viral Predictor', price: 35000 },
     { id: 'f3', name: 'Competitor Spy', price: 75000 },
     { id: 'f4', name: 'Auto-Posting Bot', price: 100000 },
-];
-
-export const MOCK_CALENDAR: CalendarItem[] = [
-    { day: 1, title: 'Behind the Scene', category: 'Awareness', desc: 'Tunjukkan proses pembuatan produk.' },
-    { day: 2, title: 'Testimoni Pelanggan', category: 'Social Proof', desc: 'Repost story pelanggan yang puas.' },
-    { day: 3, title: 'Tips & Trik', category: 'Education', desc: 'Bagikan cara penggunaan produk.' },
 ];
 
 export const MOCK_CLASSES: ClassItem[] = [

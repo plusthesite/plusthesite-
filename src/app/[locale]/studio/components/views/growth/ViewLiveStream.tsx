@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { User, MonitorPlay, Eye, ShoppingBag, Mic, MicOff, Video, VideoOff, Settings, Send, Cast, Plus, Trash2 } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { MonitorPlay, Eye, ShoppingBag, Mic, MicOff, Video, VideoOff, Settings, Send, Cast, Plus, Trash2 } from "lucide-react";
 
 interface LiveProduct { id: number; name: string; price: number; oldPrice?: number }
 
@@ -15,16 +15,14 @@ const rp = (n: number) => `Rp ${n.toLocaleString("id-ID")}`;
 
 export const ViewLiveStream: React.FC<{ addNotification: (t: 'success' | 'error', m: string) => void }> = ({ addNotification }) => {
     const [isLive, setIsLive] = useState(false);
-    const [viewers, setViewers] = useState(120);
     const [micOn, setMicOn] = useState(true);
     const [camOn, setCamOn] = useState(true);
+    const [camError, setCamError] = useState<string | null>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const streamRef = useRef<MediaStream | null>(null);
     const [products, setProducts] = useState<LiveProduct[]>([{ id: 1, ...PRODUCT_POOL[0] }]);
     const [featuredId, setFeaturedId] = useState(1);
-    const [chatMessages, setChatMessages] = useState<{ user: string, msg: string, color: string }[]>([
-        { user: "User 1", msg: "Keren banget produknya! 🔥", color: "bg-blue-500" },
-        { user: "User 2", msg: "Harganya berapa kak?", color: "bg-brand" },
-        { user: "User 3", msg: "Spill keranjang kuning!", color: "bg-green-500" },
-    ]);
+    const [chatMessages, setChatMessages] = useState<{ user: string, msg: string, color: string }[]>([]);
     const [hostMsg, setHostMsg] = useState("");
 
     const sendHostMessage = () => {
@@ -48,40 +46,60 @@ export const ViewLiveStream: React.FC<{ addNotification: (t: 'success' | 'error'
 
     const featured = products.find(p => p.id === featuredId) ?? products[0];
 
+    // Acquire a real camera/mic preview while live; release it when going offline.
     useEffect(() => {
-        if (!isLive) return;
-        const interval = setInterval(() => {
-            setViewers(v => Math.max(0, v + Math.floor(Math.random() * 5) - 2));
-            if (Math.random() > 0.7) {
-                setChatMessages(prev => [...prev.slice(-4), {
-                    user: `User ${Math.floor(Math.random() * 100)}`,
-                    msg: ["Wah murah banget", "Auto checkout!", "Restock dong kak", "Warnanya ada apa aja?"][Math.floor(Math.random() * 4)],
-                    color: ["bg-blue-500", "bg-brand", "bg-orange-500"][Math.floor(Math.random() * 3)]
-                }]);
+        if (!isLive) {
+            streamRef.current?.getTracks().forEach(t => t.stop());
+            streamRef.current = null;
+            if (videoRef.current) videoRef.current.srcObject = null;
+            setCamError(null);
+            return;
+        }
+        let cancelled = false;
+        (async () => {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                if (cancelled) { stream.getTracks().forEach(t => t.stop()); return; }
+                streamRef.current = stream;
+                stream.getVideoTracks().forEach(t => { t.enabled = camOn; });
+                stream.getAudioTracks().forEach(t => { t.enabled = micOn; });
+                if (videoRef.current) videoRef.current.srcObject = stream;
+                setCamError(null);
+            } catch {
+                if (!cancelled) setCamError('Gagal mengakses kamera/mikrofon. Periksa izin browser.');
             }
-        }, 2000);
-        return () => clearInterval(interval);
+        })();
+        return () => { cancelled = true; };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLive]);
+
+    // Mute/unmute existing tracks without re-requesting permission.
+    useEffect(() => { streamRef.current?.getVideoTracks().forEach(t => { t.enabled = camOn; }); }, [camOn]);
+    useEffect(() => { streamRef.current?.getAudioTracks().forEach(t => { t.enabled = micOn; }); }, [micOn]);
+    useEffect(() => () => { streamRef.current?.getTracks().forEach(t => t.stop()); }, []);
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 pb-24 animate-in fade-in duration-500 h-full lg:h-[calc(100vh-140px)]">
             {/* Main Stream Area */}
             <div className="lg:col-span-2 flex flex-col gap-4 h-full">
                 <div id="live-preview" className="bg-black border border-white/10 rounded-2xl flex-1 relative overflow-hidden group shadow-2xl min-h-[400px]">
-                    {/* Mock Video Feed */}
+                    {/* Real local camera/mic preview */}
                     <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-slate-900 to-slate-800">
+                        {isLive && camOn && !camError && (
+                            <video ref={videoRef} autoPlay playsInline muted className="absolute inset-0 w-full h-full object-cover [transform:scaleX(-1)]" />
+                        )}
                         {isLive ? (
-                            camOn ? (
-                                <div className="text-center animate-pulse">
-                                    <div className="w-32 h-32 bg-brand/20 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-brand shadow-[0_0_30px_rgba(12,116,235,0.4)]"><User size={64} className="text-brand" /></div>
-                                    <p className="text-brand font-bold">AI Avatar Broadcasting...</p>
+                            camError ? (
+                                <div className="text-center opacity-80 px-6">
+                                    <VideoOff size={48} className="mx-auto mb-2 text-red-400" />
+                                    <p className="text-red-300 font-bold text-sm">{camError}</p>
                                 </div>
-                            ) : (
+                            ) : !camOn ? (
                                 <div className="text-center opacity-70">
                                     <VideoOff size={48} className="mx-auto mb-2 text-slate-400" />
                                     <p className="text-slate-300 font-bold">Kamera dimatikan</p>
                                 </div>
-                            )
+                            ) : null
                         ) : (
                             <div className="text-center opacity-50">
                                 <MonitorPlay size={48} className="mx-auto mb-2 text-slate-500" />
@@ -99,16 +117,16 @@ export const ViewLiveStream: React.FC<{ addNotification: (t: 'success' | 'error'
                         {!micOn && <div className="bg-black/50 backdrop-blur p-1.5 rounded-full border border-white/10"><MicOff size={14} className="text-red-400" /></div>}
                         <div className="bg-black/50 backdrop-blur px-3 py-1 rounded-full flex items-center gap-2 border border-white/10">
                             <Eye size={14} className="text-white" />
-                            <span className="text-xs font-bold text-white">{viewers}</span>
+                            <span className="text-xs font-bold text-white">Pratinjau Lokal</span>
                         </div>
                     </div>}
 
-                    {/* Product Pop-up Overlay (featured pinned product) */}
+                    {/* Product Pop-up Overlay (preview of featured pinned product) */}
                     {isLive && featured && (
                         <div className="absolute bottom-6 left-6 bg-white/10 backdrop-blur-xl border border-white/20 p-3 rounded-xl flex gap-3 items-center max-w-xs animate-in slide-in-from-left shadow-xl">
                             <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center"><ShoppingBag className="text-black" size={20} /></div>
                             <div><p className="text-xs font-bold text-white">{featured.name}</p><p className="text-xs text-yellow-400 font-bold">{rp(featured.price)} {featured.oldPrice && <span className="line-through text-slate-400 ml-1 font-normal">{rp(featured.oldPrice)}</span>}</p></div>
-                            <button className="bg-brand hover:bg-brand/80 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg ml-auto transition-colors shadow-lg">Buy</button>
+                            <span className="bg-brand/20 text-brand text-[10px] font-bold px-3 py-1.5 rounded-lg ml-auto">Pinned</span>
                         </div>
                     )}
                 </div>
@@ -134,8 +152,14 @@ export const ViewLiveStream: React.FC<{ addNotification: (t: 'success' | 'error'
             {/* Sidebar: Chat & Products */}
             <div className="flex flex-col gap-4 h-full">
                 <div className="bg-card-bg border border-border rounded-2xl flex-1 flex flex-col overflow-hidden shadow-lg transition-colors min-h-[300px]">
-                    <div className="p-3 border-b border-border bg-surface"><h4 className="text-xs font-bold text-foreground uppercase tracking-wider">Live Chat</h4></div>
+                    <div className="p-3 border-b border-border bg-surface">
+                        <h4 className="text-xs font-bold text-foreground uppercase tracking-wider">Live Chat</h4>
+                        <p className="text-[10px] text-muted mt-0.5">Pratinjau lokal — belum terhubung ke penonton nyata</p>
+                    </div>
                     <div className="flex-1 p-3 overflow-y-auto space-y-3 custom-scrollbar">
+                        {chatMessages.length === 0 && (
+                            <p className="py-6 text-center text-[11px] text-muted">Belum ada chat. Ketik pesan sebagai Host di bawah.</p>
+                        )}
                         {chatMessages.map((c, i) => (
                             <div key={i} className="flex gap-2 items-start animate-in slide-in-from-bottom-2">
                                 <div className={`w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] font-bold text-white ${c.color}`}>{c.user.charAt(0)}</div>

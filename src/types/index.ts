@@ -19,7 +19,7 @@ export interface CalendarItem {
 }
 
 export interface KOL {
-  id: number;
+  id: string;
   name: string;
   handle: string;
   category: string;
@@ -59,6 +59,13 @@ export interface AnalysisResult {
   fit: string;
   format: string;
   improvements: string;
+}
+
+export interface VoiceFormFields {
+  name: string;
+  industry: string;
+  market: string;
+  idea: string;
 }
 
 export interface VideoTutorial {

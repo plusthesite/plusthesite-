@@ -1,8 +1,12 @@
 import React from "react";
+import Link from "next/link";
 import { Star, Users, Clock } from "lucide-react";
 import { MOCK_CLASSES } from "@/lib/mockData";
+import { useLocale } from "@/i18n/I18nProvider";
 
-export const Mentoring = () => (
+export const Mentoring = () => {
+    const locale = useLocale();
+    return (
     <div className="max-w-5xl mx-auto animate-in fade-in space-y-8">
         <div className="flex justify-between items-end">
             <div>
@@ -38,7 +42,7 @@ export const Mentoring = () => (
                                     <span className="flex items-center gap-1"><Users size={12} /> {cls.students}</span>
                                     <span className="flex items-center gap-1"><Clock size={12} /> {cls.time}</span>
                                 </div>
-                                <button className="bg-slate-900 dark:bg-white text-white dark:text-black text-xs font-bold px-4 py-1.5 rounded-lg hover:bg-brand hover:text-white transition-colors">Daftar</button>
+                                <Link href={`/${locale}/contact-us`} className="bg-slate-900 dark:bg-white text-white dark:text-black text-xs font-bold px-4 py-1.5 rounded-lg hover:bg-brand hover:text-white transition-colors">Daftar</Link>
                             </div>
                         </div>
                     </div>
@@ -46,4 +50,5 @@ export const Mentoring = () => (
             ))}
         </div>
     </div>
-);
+    );
+};

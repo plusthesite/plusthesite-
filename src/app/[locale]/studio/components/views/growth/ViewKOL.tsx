@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Megaphone, Filter, Search, Star, ShieldCheck, Check, Trash2, Bookmark, X, Copy, Users2, Wallet } from "lucide-react";
-import { MOCK_KOLS } from "@/lib/mockData";
+import { Megaphone, Filter, Search, Star, ShieldCheck, Check, Trash2, Bookmark, X, Copy, Users2, Wallet, Loader2 } from "lucide-react";
+import { KOL } from "@/types";
 import { supabase } from "@/lib/supabase";
 
 interface ShortlistRow { id: string; kol_id: string; kol_name: string; handle: string | null; status: string }
@@ -11,6 +11,20 @@ export const ViewKOL: React.FC<{ addNotification: (t: 'success' | 'error', m: st
     const [filters, setFilters] = useState({ cat: 'All', price: 'All', search: '' });
     const [shortlist, setShortlist] = useState<ShortlistRow[]>([]);
     const [showBrief, setShowBrief] = useState(false);
+    const [kols, setKols] = useState<KOL[]>([]);
+    const [kolsLoading, setKolsLoading] = useState(true);
+
+    // Load the shared KOL catalog.
+    const loadKOLs = useCallback(async () => {
+        setKolsLoading(true);
+        if (!supabase) { setKolsLoading(false); return; }
+        const { data } = await supabase.from('studio_kols')
+            .select('id, name, handle, category, followers, er, price, tags, verified')
+            .order('created_at', { ascending: true });
+        if (data) setKols(data as KOL[]);
+        setKolsLoading(false);
+    }, []);
+    useEffect(() => { loadKOLs(); }, [loadKOLs]);
 
     // Load the signed-in user's saved KOL shortlist.
     const loadShortlist = useCallback(async () => {
@@ -26,7 +40,7 @@ export const ViewKOL: React.FC<{ addNotification: (t: 'success' | 'error', m: st
 
     const savedIds = new Set(shortlist.map((s) => s.kol_id));
 
-    const handleContact = async (k: typeof MOCK_KOLS[number]) => {
+    const handleContact = async (k: KOL) => {
         if (!supabase) { addNotification('error', 'Studio belum terhubung ke database.'); return; }
         const { data: { session } } = await supabase.auth.getSession();
         if (!session?.user) { addNotification('error', 'Masuk dulu untuk menyimpan ke shortlist.'); return; }
@@ -50,7 +64,7 @@ export const ViewKOL: React.FC<{ addNotification: (t: 'success' | 'error', m: st
 
     // Brief built from the shortlist (cross-referenced with the catalog for price/reach).
     const briefRows = shortlist.map((s) => {
-        const k = MOCK_KOLS.find((m) => String(m.id) === s.kol_id);
+        const k = kols.find((m) => String(m.id) === s.kol_id);
         return { name: s.kol_name, handle: s.handle ?? '', price: k?.price ?? 0, followers: k?.followers ?? '—' };
     });
     const totalBudget = briefRows.reduce((a, b) => a + b.price, 0);
@@ -72,7 +86,7 @@ export const ViewKOL: React.FC<{ addNotification: (t: 'success' | 'error', m: st
         catch { addNotification('error', 'Gagal menyalin brief.'); }
     };
 
-    const filtered = MOCK_KOLS.filter(k =>
+    const filtered = kols.filter(k =>
         (filters.cat === 'All' || k.category === filters.cat) &&
         (filters.price === 'All' || (filters.price === 'Micro' ? k.price < 500000 : k.price >= 500000)) &&
         k.name.toLowerCase().includes(filters.search.toLowerCase())
@@ -123,6 +137,26 @@ export const ViewKOL: React.FC<{ addNotification: (t: 'success' | 'error', m: st
             </div>
 
             {/* KOL Cards */}
+            {kolsLoading ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {[1, 2, 3].map(i => <div key={i} className="h-48 bg-surface animate-pulse rounded-2xl border border-border" />)}
+                </div>
+            ) : !supabase ? (
+                <div className="flex flex-col items-center justify-center gap-2 py-16 bg-card-bg border border-dashed border-border rounded-2xl text-center">
+                    <Loader2 size={28} className="text-muted-light" />
+                    <p className="text-sm text-muted max-w-xs">Katalog KOL belum terhubung ke database.</p>
+                </div>
+            ) : kols.length === 0 ? (
+                <div className="flex flex-col items-center justify-center gap-2 py-16 bg-card-bg border border-dashed border-border rounded-2xl text-center">
+                    <Users2 size={28} className="text-muted-light" />
+                    <p className="text-sm text-muted max-w-xs">Belum ada KOL di katalog.</p>
+                </div>
+            ) : filtered.length === 0 ? (
+                <div className="flex flex-col items-center justify-center gap-2 py-16 bg-card-bg border border-dashed border-border rounded-2xl text-center">
+                    <Search size={28} className="text-muted-light" />
+                    <p className="text-sm text-muted max-w-xs">Tidak ada KOL yang cocok dengan filter.</p>
+                </div>
+            ) : (
             <div id="kol-list" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filtered.map(k => {
                     const saved = savedIds.has(String(k.id));
@@ -157,6 +191,7 @@ export const ViewKOL: React.FC<{ addNotification: (t: 'success' | 'error', m: st
                     );
                 })}
             </div>
+            )}
 
             {/* Campaign brief modal */}
             {showBrief && (

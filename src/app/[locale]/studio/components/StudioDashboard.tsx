@@ -103,14 +103,14 @@ export const StudioDashboard: React.FC<{ onLogout: () => void, user?: any }> = (
     const renderContent = () => {
         const props = { addNotification };
         switch (activeTab) {
-            case 'planner': return <ViewPlanner onAutoFill={() => { }} {...props} />;
+            case 'planner': return <ViewPlanner {...props} />;
             case 'generator': return <ViewGenerator {...props} />;
             case 'strategy': return <ViewStrategy {...props} />;
             case 'livestream': return <ViewLiveStream {...props} />;
             case 'analytics': return <ViewAnalytics />;
             case 'kol': return <ViewKOL {...props} />;
             case 'subscription': return <ViewSubscription {...props} />;
-            default: return <ViewPlanner onAutoFill={() => { }} {...props} />;
+            default: return <ViewPlanner {...props} />;
         }
     };
 
