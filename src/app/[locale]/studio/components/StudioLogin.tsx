@@ -34,7 +34,8 @@ export const StudioLogin: React.FC<{ onLoginSuccess: () => void, onBack: () => v
         setSuccessMessage("");
 
         if (!supabase) {
-            setTimeout(() => { setLoading(false); onLoginSuccess(); }, 1500);
+            setLoading(false);
+            setErrorMessage("Autentikasi belum dikonfigurasi. Hubungi admin untuk mengatur Supabase.");
             return;
         }
 
@@ -78,7 +79,8 @@ export const StudioLogin: React.FC<{ onLoginSuccess: () => void, onBack: () => v
         setErrorMessage("");
 
         if (!supabase) {
-            setTimeout(() => { setLoading(false); onLoginSuccess(); }, 1000);
+            setLoading(false);
+            setErrorMessage("Autentikasi belum dikonfigurasi. Hubungi admin untuk mengatur Supabase.");
             return;
         }
 
