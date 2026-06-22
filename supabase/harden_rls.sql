@@ -25,6 +25,10 @@ DROP POLICY IF EXISTS "contacts_insert" ON public.contacts;
 DROP POLICY IF EXISTS "contacts_anon_insert" ON public.contacts;
 DROP POLICY IF EXISTS "chat_insert" ON public.chat_messages;
 DROP POLICY IF EXISTS "chat_select" ON public.chat_messages;
+-- schema.sql historically named these policies "chat_anon_*"; drop those too
+-- so re-running this file fully closes anon access regardless of setup order.
+DROP POLICY IF EXISTS "chat_anon_insert" ON public.chat_messages;
+DROP POLICY IF EXISTS "chat_anon_select" ON public.chat_messages;
 DROP POLICY IF EXISTS "analytics_insert" ON public.analytics_events;
 DROP POLICY IF EXISTS "analytics_select" ON public.analytics_events;
 DROP POLICY IF EXISTS "kol_insert" ON public.kol_database;

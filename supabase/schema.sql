@@ -6,10 +6,11 @@
 --   /api/subscribe -> subscribers      (service-role key)
 --   /api/lead      -> leads            (service-role key)
 --   /api/view      -> article_views + increment_article_view() (service-role)
---   /api/contact   -> contacts         (anon key  → needs RLS insert policy)
---   /api/chat      -> chat_messages    (anon key  → needs RLS policies)
--- Studio tables (generated_assets, campaigns, kol_database, analytics_events)
--- live in the root-level schema.sql / fix_rls_policies.sql.
+--   /api/contact   -> contacts         (service-role key → bypasses RLS)
+--   /api/chat      -> chat_messages    (service-role key → bypasses RLS)
+-- Studio tables (generated_assets, campaigns) live in supabase/studio.sql;
+-- KOL catalog in supabase/studio_kols.sql. Live RLS/privilege hardening
+-- (source of truth): supabase/harden_rls.sql.
 -- ============================================================
 
 -- 1. Newsletter subscribers (written via service-role key) ------
@@ -78,8 +79,8 @@ create table if not exists public.chat_messages (
 -- Row Level Security
 --   subscribers / leads / article_views : written via the
 --   service-role key, which BYPASSES RLS (no insert policy needed).
---   contacts / chat_messages : written via the anon key, so they
---   need explicit anon INSERT policies or the writes fail.
+--   contacts / chat_messages : also written via the service-role key
+--   (server-side), so they need NO anon policy — see harden_rls.sql.
 -- ============================================================
 alter table public.subscribers   enable row level security;
 alter table public.leads          enable row level security;
@@ -93,22 +94,19 @@ create policy "article_views_public_read"
     on public.article_views for select
     to anon, authenticated using (true);
 
--- contacts: anyone may submit; only logged-in may read
+-- contacts: writes go via the service-role key (server-side, bypasses RLS),
+-- so there is NO anon/authenticated INSERT policy. Drop any legacy ones.
 drop policy if exists "contacts_anon_insert" on public.contacts;
-create policy "contacts_anon_insert"
-    on public.contacts for insert
-    to anon, authenticated with check (true);
+drop policy if exists "contacts_insert" on public.contacts;
 drop policy if exists "contacts_auth_read" on public.contacts;
 create policy "contacts_auth_read"
     on public.contacts for select
     to authenticated using (true);
 
--- chat_messages: anon may insert and read (chat demo)
+-- chat_messages: both insert AND read go via the service-role key
+-- (server-side, bypasses RLS), so there is NO anon policy. Drop any legacy
+-- ones (covers both naming schemes used historically).
 drop policy if exists "chat_anon_insert" on public.chat_messages;
-create policy "chat_anon_insert"
-    on public.chat_messages for insert
-    to anon, authenticated with check (true);
 drop policy if exists "chat_anon_select" on public.chat_messages;
-create policy "chat_anon_select"
-    on public.chat_messages for select
-    to anon, authenticated using (true);
+drop policy if exists "chat_insert" on public.chat_messages;
+drop policy if exists "chat_select" on public.chat_messages;
