@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
     ArrowRight, Loader2, Sparkles, User, Video, Mic, Settings, LogOut, Menu, Bell,
     Sun, Moon, Calendar, Wand2, Target, BarChart3, Megaphone, CreditCard, LifeBuoy,
-    GitBranch, Code, BookOpen, X, ChevronRight, ShoppingCart
+    GitBranch, Code, BookOpen, X, ChevronRight, ShoppingCart, Recycle
 } from "lucide-react";
 import { ToastContainer } from "./ui/ToastContainer";
 import { InteractiveTour } from "./ui/InteractiveTour";
@@ -11,6 +11,7 @@ import { DocumentationModal } from "./docs/DocumentationModal";
 import { ViewPlanner } from "./views/core/ViewPlanner";
 import { ViewGenerator } from "./views/core/ViewGenerator";
 import { ViewStrategy } from "./views/core/ViewStrategy";
+import { ViewRepurpose } from "./views/core/ViewRepurpose";
 import { ViewLiveStream } from "./views/growth/ViewLiveStream";
 import { ViewKOL } from "./views/growth/ViewKOL";
 import { ViewSubscription } from "./views/growth/ViewSubscription";
@@ -40,6 +41,7 @@ const TAB_TITLES: Record<string, string> = {
     planner: 'AI Planner',
     generator: 'Visual Generator',
     strategy: 'Viral Strategy',
+    repurpose: 'Repurpose Konten',
     livestream: 'Live Studio',
     analytics: 'Analytics',
     kol: 'KOL Marketplace',
@@ -106,6 +108,7 @@ export const StudioDashboard: React.FC<{ onLogout: () => void, user?: any }> = (
             case 'planner': return <ViewPlanner {...props} />;
             case 'generator': return <ViewGenerator {...props} />;
             case 'strategy': return <ViewStrategy {...props} />;
+            case 'repurpose': return <ViewRepurpose {...props} />;
             case 'livestream': return <ViewLiveStream {...props} />;
             case 'analytics': return <ViewAnalytics />;
             case 'kol': return <ViewKOL {...props} />;
@@ -156,6 +159,7 @@ export const StudioDashboard: React.FC<{ onLogout: () => void, user?: any }> = (
                     <SidebarItem icon={Calendar} label="AI Planner" active={activeTab === 'planner'} onClick={() => handleTabChange('planner')} />
                     <SidebarItem icon={Wand2} label="Visual Generator" active={activeTab === 'generator'} onClick={() => handleTabChange('generator')} />
                     <SidebarItem icon={Target} label="Viral Strategy" active={activeTab === 'strategy'} onClick={() => handleTabChange('strategy')} />
+                    <SidebarItem icon={Recycle} label="Repurpose" active={activeTab === 'repurpose'} onClick={() => handleTabChange('repurpose')} />
 
                     <p className="px-4 text-[10px] font-bold text-muted uppercase tracking-widest mb-2 mt-6">Growth</p>
                     <SidebarItem icon={Video} label="Live Studio" active={activeTab === 'livestream'} onClick={() => handleTabChange('livestream')} />
