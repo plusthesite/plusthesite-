@@ -132,6 +132,15 @@ author/publisher linked to the org) + rich OpenGraph.
 - Indonesian keyword set; `og:alternateLocale`.
 - CMS-aware sitemap; robots blocks /admin + allows AI crawlers; dynamic
   `/llms.txt` with Indonesia coverage + IDR tiers for AI-citation.
+- **Correct canonicals (fixed):** product pages used to declare
+  `https://www.plusthe.site/<path>` (wrong host + no locale). `lib/seo.ts
+  productMetadata()` now emits a per-locale **non-www canonical** + hreflang
+  alternates (en/id/x-default) + OG/Twitter for crm, customer-support,
+  mobile-app, ai-image/text/video/music & contact-us — one clean indexable URL
+  per language. Removed a duplicate **USD** Product schema that contradicted the
+  IDR Service+Offer schema.
+- **FAQPage JSON-LD** on the homepage and the chat-bot page (built from each
+  page's Q&A) for FAQ rich results.
 
 ## 7. Copywriting & Integrity (copywriting skill)
 
