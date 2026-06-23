@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { Recycle, Loader2, Sparkles, Copy, Check, Download, Camera, Music2, Hash, MessageCircle } from "lucide-react";
+import React, { useState, useEffect, useCallback } from "react";
+import { Recycle, Loader2, Sparkles, Copy, Check, Download, Camera, Music2, Hash, MessageCircle, History, Trash2 } from "lucide-react";
 import { callGeminiStructured } from "@/lib/ai";
 import { Schema, Type } from "@google/genai";
+import { supabase } from "@/lib/supabase";
 
 interface RepurposeResult {
     instagram: { caption: string; hashtags: string[] };
@@ -9,6 +10,8 @@ interface RepurposeResult {
     twitter: { thread: string[] };
     whatsapp: { message: string };
 }
+
+interface SavedPack { id: string; idea: string; tone: string; result: RepurposeResult; created_at: string }
 
 const TONES = ["Santai", "Profesional", "Lucu", "Hard-selling", "Storytelling"] as const;
 type Tone = typeof TONES[number];
@@ -43,6 +46,30 @@ export const ViewRepurpose: React.FC<{ addNotification: (t: 'success' | 'error',
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState<RepurposeResult | null>(null);
     const [copiedKey, setCopiedKey] = useState<string | null>(null);
+    const [saved, setSaved] = useState<SavedPack[]>([]);
+
+    // Load the signed-in user's saved packs (newest first, owner-scoped via RLS).
+    const loadSaved = useCallback(async () => {
+        if (!supabase) return;
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session?.user) return;
+        const { data } = await supabase.from('content_packs').select('id, idea, tone, result, created_at').order('created_at', { ascending: false }).limit(8);
+        if (data) setSaved(data as SavedPack[]);
+    }, []);
+    useEffect(() => { loadSaved(); }, [loadSaved]);
+
+    const deletePack = async (id: string) => {
+        if (!supabase) return;
+        await supabase.from('content_packs').delete().eq('id', id);
+        setSaved((s) => s.filter((x) => x.id !== id));
+    };
+
+    const restorePack = (p: SavedPack) => {
+        setInput(p.idea);
+        if ((TONES as readonly string[]).includes(p.tone)) setTone(p.tone as Tone);
+        setResult(p.result);
+        setCopiedKey(null);
+    };
 
     const copy = async (key: string, text: string) => {
         try {
@@ -108,6 +135,19 @@ Aturan:
         if (data && data.instagram && data.tiktok && data.twitter && data.whatsapp) {
             setResult(data);
             addNotification('success', 'Konten siap! 4 platform di-generate.');
+            // Persist (owner-scoped via RLS).
+            if (supabase) {
+                const { data: { session } } = await supabase.auth.getSession();
+                if (session?.user) {
+                    const { data: ins } = await supabase.from('content_packs').insert([{
+                        user_id: session.user.id,
+                        idea,
+                        tone,
+                        result: data,
+                    }]).select('id, idea, tone, result, created_at').single();
+                    if (ins) setSaved((s) => [ins as SavedPack, ...s].slice(0, 8));
+                }
+            }
         } else {
             addNotification('error', 'Gagal repurpose. Coba lagi atau ubah idenya.');
         }
@@ -246,6 +286,26 @@ Aturan:
                         </div>
                     </div>
                 </>
+            )}
+
+            {saved.length > 0 && (
+                <div className="bg-card-bg border border-border p-6 rounded-2xl shadow-lg transition-colors">
+                    <h3 className="font-bold text-foreground mb-4 flex items-center gap-2"><History size={18} className="text-primary" /> Riwayat · tersimpan</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {saved.map((p) => (
+                            <div key={p.id} className="group relative">
+                                <button onClick={() => restorePack(p)} className="flex w-full items-center gap-3 bg-surface border border-border rounded-xl p-3 pr-8 text-left transition-all hover:-translate-y-0.5 hover:border-primary">
+                                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"><Recycle size={16} /></div>
+                                    <div className="min-w-0 flex-1">
+                                        <p className="line-clamp-1 text-xs font-bold text-foreground">{p.idea}</p>
+                                        <p className="text-[10px] text-muted mt-0.5">{p.tone}</p>
+                                    </div>
+                                </button>
+                                <button onClick={() => deletePack(p.id)} title="Hapus" className="absolute top-2 right-2 rounded-full p-1 text-muted opacity-0 transition-opacity hover:text-red-500 group-hover:opacity-100"><Trash2 size={14} /></button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             )}
         </div>
     );

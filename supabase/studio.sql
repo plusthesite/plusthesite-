@@ -85,3 +85,22 @@ create policy "own_strategies" on public.strategies
 drop policy if exists "own_kol_shortlist" on public.studio_kol_shortlist;
 create policy "own_kol_shortlist" on public.studio_kol_shortlist
     for all to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
+
+-- ============================================================
+-- Repurpose Konten (ViewRepurpose) — saved multi-platform packs.
+-- result holds the per-platform JSON (instagram/tiktok/twitter/whatsapp).
+-- ============================================================
+create table if not exists public.content_packs (
+    id          uuid primary key default gen_random_uuid(),
+    user_id     uuid not null references auth.users(id) on delete cascade,
+    idea        text,
+    tone        text,
+    result      jsonb,
+    created_at  timestamptz not null default now()
+);
+create index if not exists idx_content_packs_user on public.content_packs (user_id, created_at desc);
+
+alter table public.content_packs enable row level security;
+drop policy if exists "own_content_packs" on public.content_packs;
+create policy "own_content_packs" on public.content_packs
+    for all to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
