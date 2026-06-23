@@ -1,51 +1,17 @@
 import type { Metadata } from "next";
+import { productMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-    title: "AI Image Generator — plus.",
-    description:
-        "Create beautiful art with artificial intelligence. Three APIs integrated: OpenAI, Stable Diffusion, and Stability AI — 100+ models combined.",
-    openGraph: {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+    const { locale } = await params;
+    return productMetadata({
+        locale,
+        path: "/ai-image-generator",
         title: "AI Image Generator — plus.",
-        description:
-            "Create beautiful art with artificial intelligence. Three APIs integrated: OpenAI, Stable Diffusion, and Stability AI — 100+ models combined.",
-        type: "website",
-        url: "https://www.plusthe.site/ai-image-generator",
-    },
-    alternates: {
-        canonical: "https://www.plusthe.site/ai-image-generator",
-    },
-};
+        description: "Create beautiful art with artificial intelligence. Three APIs integrated: OpenAI, Stable Diffusion, and Stability AI — 100+ models combined.",
+    });
+}
 
-export default function AiImageGeneratorLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
-    return (
-        <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "Product",
-                        "name": "AI Image Generator",
-                        "description": "Create beautiful art with artificial intelligence. Three APIs integrated: OpenAI, Stable Diffusion, and Stability AI — 100+ models combined.",
-                        "brand": {
-                            "@type": "Brand",
-                            "name": "plus."
-                        },
-                        "offers": {
-                            "@type": "AggregateOffer",
-                            "priceCurrency": "USD",
-                            "lowPrice": "20",
-                            "highPrice": "500",
-                            "offerCount": "3"
-                        }
-                    })
-                }}
-            />
-            {children}
-        </>
-    );
+// Service + Offer (IDR) + Breadcrumb JSON-LD is emitted by ProductPageTemplate.
+export default function AiImageGeneratorLayout({ children }: { children: React.ReactNode }) {
+    return <>{children}</>;
 }

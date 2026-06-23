@@ -1,51 +1,17 @@
 import type { Metadata } from "next";
+import { productMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-    title: "CRM Platform — plus.",
-    description:
-        "AI-powered CRM that turns leads into loyal customers. Automate workflows, track every deal, and grow revenue predictably.",
-    openGraph: {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+    const { locale } = await params;
+    return productMetadata({
+        locale,
+        path: "/crm",
         title: "CRM Platform — plus.",
-        description:
-            "AI-powered CRM that turns leads into loyal customers. Automate workflows, track every deal, and grow revenue predictably.",
-        type: "website",
-        url: "https://www.plusthe.site/crm",
-    },
-    alternates: {
-        canonical: "https://www.plusthe.site/crm",
-    },
-};
+        description: "AI-powered CRM that turns leads into loyal customers. Automate workflows, track every deal, and grow revenue predictably.",
+    });
+}
 
-export default function CrmLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
-    return (
-        <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "Product",
-                        "name": "CRM Platform",
-                        "description": "AI-powered CRM that turns leads into loyal customers. Automate workflows, track every deal, and grow revenue predictably.",
-                        "brand": {
-                            "@type": "Brand",
-                            "name": "plus."
-                        },
-                        "offers": {
-                            "@type": "AggregateOffer",
-                            "priceCurrency": "USD",
-                            "lowPrice": "20",
-                            "highPrice": "500",
-                            "offerCount": "3"
-                        }
-                    })
-                }}
-            />
-            {children}
-        </>
-    );
+// Service + Offer (IDR) + Breadcrumb JSON-LD is emitted by ProductPageTemplate.
+export default function CrmLayout({ children }: { children: React.ReactNode }) {
+    return <>{children}</>;
 }

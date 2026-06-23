@@ -1,51 +1,17 @@
 import type { Metadata } from "next";
+import { productMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-    title: "Mobile App Development — plus.",
-    description:
-        "Beautiful, performant mobile apps that users love. From concept to App Store — we handle the entire journey.",
-    openGraph: {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+    const { locale } = await params;
+    return productMetadata({
+        locale,
+        path: "/mobile-app",
         title: "Mobile App Development — plus.",
-        description:
-            "Beautiful, performant mobile apps that users love. From concept to App Store — we handle the entire journey.",
-        type: "website",
-        url: "https://www.plusthe.site/mobile-app",
-    },
-    alternates: {
-        canonical: "https://www.plusthe.site/mobile-app",
-    },
-};
+        description: "Beautiful, performant mobile apps that users love. From concept to App Store — we handle the entire journey.",
+    });
+}
 
-export default function MobileAppLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
-    return (
-        <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "Product",
-                        "name": "Mobile App Development",
-                        "description": "Beautiful, performant mobile apps that users love. From concept to App Store — we handle the entire journey.",
-                        "brand": {
-                            "@type": "Brand",
-                            "name": "plus."
-                        },
-                        "offers": {
-                            "@type": "AggregateOffer",
-                            "priceCurrency": "USD",
-                            "lowPrice": "20",
-                            "highPrice": "500",
-                            "offerCount": "3"
-                        }
-                    })
-                }}
-            />
-            {children}
-        </>
-    );
+// Service + Offer (IDR) + Breadcrumb JSON-LD is emitted by ProductPageTemplate.
+export default function MobileAppLayout({ children }: { children: React.ReactNode }) {
+    return <>{children}</>;
 }

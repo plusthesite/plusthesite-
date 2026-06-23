@@ -1,51 +1,17 @@
 import type { Metadata } from "next";
+import { productMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-    title: "AI Video Generator — plus.",
-    description:
-        "Text-to-Video generation for seamless integration and engaging multimedia content. Create professional videos in minutes, not days.",
-    openGraph: {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+    const { locale } = await params;
+    return productMetadata({
+        locale,
+        path: "/ai-video-generator",
         title: "AI Video Generator — plus.",
-        description:
-            "Text-to-Video generation for seamless integration and engaging multimedia content. Create professional videos in minutes, not days.",
-        type: "website",
-        url: "https://www.plusthe.site/ai-video-generator",
-    },
-    alternates: {
-        canonical: "https://www.plusthe.site/ai-video-generator",
-    },
-};
+        description: "Text-to-Video generation for seamless integration and engaging multimedia content. Create professional videos in minutes, not days.",
+    });
+}
 
-export default function AiVideoGeneratorLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
-    return (
-        <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "Product",
-                        "name": "AI Video Generator",
-                        "description": "Text-to-Video generation for seamless integration and engaging multimedia content. Create professional videos in minutes, not days.",
-                        "brand": {
-                            "@type": "Brand",
-                            "name": "plus."
-                        },
-                        "offers": {
-                            "@type": "AggregateOffer",
-                            "priceCurrency": "USD",
-                            "lowPrice": "20",
-                            "highPrice": "500",
-                            "offerCount": "3"
-                        }
-                    })
-                }}
-            />
-            {children}
-        </>
-    );
+// Service + Offer (IDR) + Breadcrumb JSON-LD is emitted by ProductPageTemplate.
+export default function AiVideoGeneratorLayout({ children }: { children: React.ReactNode }) {
+    return <>{children}</>;
 }

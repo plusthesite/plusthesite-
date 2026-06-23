@@ -1,3 +1,43 @@
+import type { Metadata } from "next";
+import { locales, isLocale } from "@/i18n/config";
+
+const SITE = "https://plusthe.site";
+
+/**
+ * Correct, per-locale metadata for a public product/marketing page.
+ *
+ * Fixes the previous bug where product-page canonicals were
+ * `https://www.plusthe.site/<path>` (wrong host + missing locale). This emits
+ * the canonical for THIS locale (`https://plusthe.site/{locale}{path}`, non-www)
+ * plus hreflang alternates for every locale + x-default, so Google indexes one
+ * clean URL per language and de-duplicates the rest.
+ */
+export function productMetadata({
+    locale,
+    path,
+    title,
+    description,
+}: {
+    locale: string;
+    path: string;
+    title: string;
+    description: string;
+}): Metadata {
+    const loc = isLocale(locale) ? locale : "en";
+    const url = `${SITE}/${loc}${path}`;
+    const languages: Record<string, string> = {};
+    for (const l of locales) languages[l] = `${SITE}/${l}${path}`;
+    languages["x-default"] = `${SITE}/en${path}`;
+
+    return {
+        title,
+        description,
+        alternates: { canonical: url, languages },
+        openGraph: { title, description, type: "website", url, siteName: "plus.", locale: loc === "id" ? "id_ID" : "en_US" },
+        twitter: { card: "summary_large_image", title, description },
+    };
+}
+
 /**
  * On-page SEO scorer for blog articles (0–100 rubric).
  *
