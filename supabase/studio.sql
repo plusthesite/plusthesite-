@@ -104,3 +104,23 @@ alter table public.content_packs enable row level security;
 drop policy if exists "own_content_packs" on public.content_packs;
 create policy "own_content_packs" on public.content_packs
     for all to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
+
+-- ============================================================
+-- Live Commerce (ViewLiveStream) — the seller's real product catalog
+-- shown/pinned during a live session. Replaces the old hardcoded
+-- PRODUCT_POOL. price/old_price are stored in whole rupiah (integer).
+-- ============================================================
+create table if not exists public.live_products (
+    id          uuid primary key default gen_random_uuid(),
+    user_id     uuid not null references auth.users(id) on delete cascade,
+    name        text not null,
+    price       integer not null default 0,
+    old_price   integer,
+    created_at  timestamptz not null default now()
+);
+create index if not exists idx_live_products_user on public.live_products (user_id, created_at desc);
+
+alter table public.live_products enable row level security;
+drop policy if exists "own_live_products" on public.live_products;
+create policy "own_live_products" on public.live_products
+    for all to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
