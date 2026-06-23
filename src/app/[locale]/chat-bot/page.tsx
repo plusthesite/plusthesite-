@@ -568,8 +568,19 @@ function FAQSection() {
     const [openIdx, setOpenIdx] = useState<number | null>(null);
     const c = COPY[useLocale()];
 
+    const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: c.faq.items.map((faq) => ({
+            "@type": "Question",
+            name: faq.q,
+            acceptedAnswer: { "@type": "Answer", text: faq.a },
+        })),
+    };
+
     return (
         <section className="py-24 lg:py-32 bg-white dark:bg-slate-950">
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
             <div ref={ref} className="mx-auto max-w-3xl px-6 lg:px-8">
                 <div className="text-center">
                     <span className="fade-up inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary">
