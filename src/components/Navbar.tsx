@@ -353,7 +353,7 @@ export default function Navbar() {
     ];
 
     const navLinks = isHome ? homeLinks : subpageLinks;
-    const ctaHref = isHome ? `/${locale}#contact` : `/${locale}#pricing`;
+    const ctaHref = isHome ? "mailto:plusthesite@gmail.com" : `/${locale}#pricing`;
     const ctaLabel = isHome ? t.nav.contactUs : t.nav.viewPricing;
 
     useEffect(() => {

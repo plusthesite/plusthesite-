@@ -226,7 +226,7 @@ const en = {
         {
             question: "How can I reach plus. for support?",
             answer:
-                "You can reach us via email at support@plusthe.site or through our Contact Us page. Our team is dedicated to providing innovative solutions and exceptional customer support to meet your unique business needs.",
+                "You can reach us via email at plusthesite@gmail.com or through our Contact Us page. Our team is dedicated to providing innovative solutions and exceptional customer support to meet your unique business needs.",
         },
         {
             question: "Do you offer customization and website development?",

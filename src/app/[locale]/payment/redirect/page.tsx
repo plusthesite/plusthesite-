@@ -69,7 +69,7 @@ export default function PaymentRedirectPage() {
 
                                 <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
                                     <Link
-                                        href={`/${locale}/contact-us`}
+                                        href="mailto:plusthesite@gmail.com"
                                         className="inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-primary px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/25 hover:scale-105 transition-all"
                                     >
                                         {r.contactSales}

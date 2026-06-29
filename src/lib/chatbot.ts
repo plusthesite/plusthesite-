@@ -129,10 +129,10 @@ export const INTENTS: Intent[] = [
         id: "contact",
         triggers: ["hubungi", "kontak", "contact", "email", "telepon", "nomor", "ngobrol", "konsultasi", "demo", "bicara", "tanya tim", "minta penawaran", "quote", "proposal"],
         reply: {
-            id: "Dengan senang hati! 🙏 Email kami di support@plusthe.site, atau isi form kontak — tim kami balas cepat. Boleh juga ketik nama + email/WhatsApp Anda di sini, nanti kami yang hubungi.",
-            en: "Happy to help! 🙏 Email us at support@plusthe.site, or fill the contact form — we reply fast. You can also drop your name + email/WhatsApp here and we'll reach out.",
+            id: "Dengan senang hati! 🙏 Email kami di plusthesite@gmail.com, atau isi form kontak — tim kami balas cepat. Boleh juga ketik nama + email/WhatsApp Anda di sini, nanti kami yang hubungi.",
+            en: "Happy to help! 🙏 Email us at plusthesite@gmail.com, or fill the contact form — we reply fast. You can also drop your name + email/WhatsApp here and we'll reach out.",
         },
-        cta: { label: { en: "Open contact form", id: "Buka form kontak" }, href: "/contact-us" },
+        cta: { label: { en: "Open contact form", id: "Buka form kontak" }, href: "mailto:plusthesite@gmail.com" },
     },
     {
         id: "location",
@@ -168,7 +168,7 @@ export const INTENTS: Intent[] = [
             id: "Tentu — tim kami (manusia asli 🙂) siap bantu. Tinggalkan nama + email/WhatsApp di sini, atau buka form kontak, nanti langsung kami follow up.",
             en: "Of course — our (very human 🙂) team is ready. Leave your name + email/WhatsApp here, or open the contact form, and we'll follow up.",
         },
-        cta: { label: { en: "Open contact form", id: "Buka form kontak" }, href: "/contact-us" },
+        cta: { label: { en: "Open contact form", id: "Buka form kontak" }, href: "mailto:plusthesite@gmail.com" },
     },
     {
         id: "thanks",
@@ -204,7 +204,7 @@ export const INTENTS: Intent[] = [
             id: "Konsultasi awal kami gratis, tanpa kewajiban. 🙏 Ceritakan kebutuhan Anda, kami kasih ide & estimasi. Tinggalkan nama + email/WhatsApp di sini, atau buka form kontak — kami atur jadwalnya.",
             en: "Our initial consultation is free, no obligation. 🙏 Tell us your needs and we'll share ideas + an estimate. Drop your name + email/WhatsApp here, or open the contact form and we'll schedule it.",
         },
-        cta: { label: { en: "Open contact form", id: "Buka form kontak" }, href: "/contact-us" },
+        cta: { label: { en: "Open contact form", id: "Buka form kontak" }, href: "mailto:plusthesite@gmail.com" },
     },
     {
         id: "discount",

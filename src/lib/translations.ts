@@ -256,7 +256,7 @@ export const translations = {
         {
           question: "How can I reach plus. for support?",
           answer:
-            "You can reach us via email at support@plusthe.site or through our Contact Us page. Our team is dedicated to providing innovative solutions and exceptional customer support to meet your unique business needs.",
+            "You can reach us via email at plusthesite@gmail.com or through our Contact Us page. Our team is dedicated to providing innovative solutions and exceptional customer support to meet your unique business needs.",
         },
         {
           question:
@@ -938,7 +938,7 @@ export const translations = {
         {
           question: "Bagaimana cara menghubungi plus. untuk dukungan?",
           answer:
-            "Anda dapat menghubungi kami melalui email di support@plusthe.site atau melalui halaman Hubungi Kami. Tim kami berdedikasi menyediakan solusi inovatif dan dukungan pelanggan luar biasa untuk memenuhi kebutuhan bisnis unik Anda.",
+            "Anda dapat menghubungi kami melalui email di plusthesite@gmail.com atau melalui halaman Hubungi Kami. Tim kami berdedikasi menyediakan solusi inovatif dan dukungan pelanggan luar biasa untuk memenuhi kebutuhan bisnis unik Anda.",
         },
         {
           question:

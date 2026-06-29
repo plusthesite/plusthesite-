@@ -130,16 +130,16 @@ export default function Footer() {
                     {/* Contact */}
                     <div className="fade-up fade-up-delay-2 flex flex-col items-start gap-5">
                         <Link
-                            href={`/${locale}/contact-us`}
+                            href="mailto:plusthesite@gmail.com"
                             className="rounded-full border border-footer-border px-7 py-3 text-sm font-semibold text-footer-text transition-all hover:border-footer-text hover:bg-footer-text hover:text-footer-bg hover:scale-105"
                         >
                             {t.footer.contactUs} →
                         </Link>
                         <a
-                            href="mailto:support@plusthe.site"
+                            href="mailto:plusthesite@gmail.com"
                             className="text-xl font-bold text-footer-text transition-colors hover:text-primary sm:text-2xl"
                         >
-                            support@plusthe.site
+                            plusthesite@gmail.com
                         </a>
                     </div>
                 </div>

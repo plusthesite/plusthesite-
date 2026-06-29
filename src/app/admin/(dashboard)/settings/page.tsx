@@ -45,7 +45,7 @@ export default async function SettingsPage() {
                         <Row label="Tagline" value="Global Digital AI-gency" />
                         <Row label="Site Address (URL)" value="https://plusthe.site" />
                         <Row label="Languages" value="English (/en) · Bahasa Indonesia (/id)" />
-                        <Row label="Admin Email" value="support@plusthe.site" />
+                        <Row label="Admin Email" value="plusthesite@gmail.com" />
                         <Row label="Timezone" value="Asia/Jakarta (WIB)" />
                     </div>
                     <p className="mt-3 text-xs text-slate-400">These are defined in code/SEO metadata. Edit in the repo to change them globally.</p>

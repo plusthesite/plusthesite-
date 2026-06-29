@@ -116,9 +116,7 @@ export default function ProductPageTemplate({
     const comingSoon = Boolean(svc?.comingSoon);
     // Coming-soon lines shouldn't funnel a lead for a service we can't yet deliver —
     // route interest to our flagship Digital Agency offering instead.
-    const contactHref = comingSoon
-        ? `/${locale}/contact-us?service=digital-agency`
-        : `/${locale}/contact-us?service=${PAGEKEY_TO_SERVICE[pageKey]}`;
+    const contactHref = "mailto:plusthesite@gmail.com";
 
     if (!p) {
         return null;

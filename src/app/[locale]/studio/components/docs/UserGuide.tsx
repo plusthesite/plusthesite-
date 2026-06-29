@@ -90,7 +90,7 @@ export const UserGuide: React.FC<{ onStartTour: (tab: string) => void }> = ({ on
                     </div>
                     <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-500/30 p-4 rounded-xl mt-4">
                         <p className="text-xs text-blue-600 dark:text-blue-300 mb-2">Butuh bantuan lebih lanjut?</p>
-                        <Link href={`/${locale}/contact-us`} className="w-full block text-center py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold transition-colors">Hubungi Support CS</Link>
+                        <Link href="mailto:plusthesite@gmail.com" className="w-full block text-center py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold transition-colors">Hubungi Support CS</Link>
                     </div>
                 </div>
             </div>

@@ -228,7 +228,7 @@ const id: Dictionary = {
         {
             question: "Bagaimana cara menghubungi plus. untuk dukungan?",
             answer:
-                "Anda dapat menghubungi kami melalui email di support@plusthe.site atau melalui halaman Hubungi Kami. Tim kami berdedikasi memberikan solusi inovatif dan dukungan pelanggan yang luar biasa untuk memenuhi kebutuhan bisnis unik Anda.",
+                "Anda dapat menghubungi kami melalui email di plusthesite@gmail.com atau melalui halaman Hubungi Kami. Tim kami berdedikasi memberikan solusi inovatif dan dukungan pelanggan yang luar biasa untuk memenuhi kebutuhan bisnis unik Anda.",
         },
         {
             question: "Apakah Anda menyediakan kustomisasi dan pengembangan website?",

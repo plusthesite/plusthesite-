@@ -83,7 +83,7 @@ export const StudioLanding: React.FC<{ onStart: () => void, onLoginClick: () => 
                             <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                         </span>
                     </button>
-                    <a href={`/${locale}/contact-us`} className="px-8 py-4 bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-full font-bold text-lg hover:bg-slate-200 dark:hover:bg-slate-900 transition-all backdrop-blur-sm flex items-center justify-center gap-2 text-slate-700 dark:text-white">
+                    <a href="mailto:plusthesite@gmail.com" className="px-8 py-4 bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-full font-bold text-lg hover:bg-slate-200 dark:hover:bg-slate-900 transition-all backdrop-blur-sm flex items-center justify-center gap-2 text-slate-700 dark:text-white">
                         {c.ctaDemo}
                     </a>
                 </div>

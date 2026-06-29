@@ -42,7 +42,7 @@ export const Mentoring = () => {
                                     <span className="flex items-center gap-1"><Users size={12} /> {cls.students}</span>
                                     <span className="flex items-center gap-1"><Clock size={12} /> {cls.time}</span>
                                 </div>
-                                <Link href={`/${locale}/contact-us`} className="bg-slate-900 dark:bg-white text-white dark:text-black text-xs font-bold px-4 py-1.5 rounded-lg hover:bg-brand hover:text-white transition-colors">Daftar</Link>
+                                <Link href="mailto:plusthesite@gmail.com" className="bg-slate-900 dark:bg-white text-white dark:text-black text-xs font-bold px-4 py-1.5 rounded-lg hover:bg-brand hover:text-white transition-colors">Daftar</Link>
                             </div>
                         </div>
                     </div>

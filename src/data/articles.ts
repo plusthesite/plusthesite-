@@ -6270,7 +6270,7 @@ export const articles: Article[] = [
 <li><strong>Enterprise</strong> — untuk yang scaling dengan tim khusus: lini layanan tanpa batas, pengembangan aplikasi custom, dukungan 24/7.</li>
 </ul>
 <div class="callout">
-<p><strong>Siap menutup kebocoran itu?</strong> Lihat <a href="/id#pricing">paket dan harga</a> yang transparan dalam Rupiah, atau <a href="/id/contact-us">bicara dengan tim kami</a> untuk penawaran sesuai kebutuhan bisnis Anda.</p>
+<p><strong>Siap menutup kebocoran itu?</strong> Lihat <a href="/id#pricing">paket dan harga</a> yang transparan dalam Rupiah, atau <a href="mailto:plusthesite@gmail.com">bicara dengan tim kami</a> untuk penawaran sesuai kebutuhan bisnis Anda.</p>
 </div>
 
 <h2>Kesimpulan</h2>

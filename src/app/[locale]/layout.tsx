@@ -128,7 +128,7 @@ export default async function LocaleLayout({
     logo: { "@type": "ImageObject", url: `${SITE}/logo.png` },
     image: `${SITE}/logo.png`,
     description: dict.meta.homeDescription,
-    email: "support@plusthe.site",
+    email: "plusthesite@gmail.com",
     slogan: locale === "id" ? "Bangun Brand Lebih Cerdas. Lebih Cepat." : "Build Smarter Brands. Faster.",
     priceRange: "Rp 2.500.000 – Rp 20.000.000+",
     currenciesAccepted: "IDR",
@@ -141,7 +141,7 @@ export default async function LocaleLayout({
     contactPoint: [{
       "@type": "ContactPoint",
       contactType: "customer service",
-      email: "support@plusthe.site",
+      email: "plusthesite@gmail.com",
       areaServed: "ID",
       availableLanguage: ["Indonesian", "English"],
     }],
