@@ -43,3 +43,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Hackathon planning docs & committee data — keep OUT of the (public) repo.
+# Anchored to repo root so it does NOT match src/**/hackathon app code.
+/hackathon/
+dbprobe*.mjs
