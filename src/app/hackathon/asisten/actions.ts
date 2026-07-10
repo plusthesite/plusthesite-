@@ -35,7 +35,7 @@ export async function askAssistant(promptId: string, localISO?: string): Promise
             `Jangan menyebut kata "FAKTA". Gunakan poin bila membantu.\n\n` +
             `Pertanyaan direktur: "${label}"\n` +
             `FAKTA (sumber kebenaran, sudah teratestasi SAKSI): ${base.facts}`;
-        const res = await ai.models.generateContent({ model: "gemini-2.0-flash", contents: prompt });
+        const res = await ai.models.generateContent({ model: "gemini-flash-latest", contents: prompt });
         const text = (res.text ?? "").trim();
         if (text.length > 20) {
             return { text, csv: base.csv, csvName: base.csvName, source: "ai" };
