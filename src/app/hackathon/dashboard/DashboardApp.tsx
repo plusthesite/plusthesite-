@@ -228,15 +228,25 @@ export default function DashboardApp({ role, nama, employeeId }: { role: NalarRo
 
                 {/* Leaderboard + category */}
                 <div className="mt-4 grid gap-4 lg:grid-cols-2">
-                    <Panel title="Peringkat Sales (Omzet)">
+                    <Panel title="Peringkat Sales (Omzet)" chip={isSales ? undefined : "klik untuk filter"} chipColor="var(--kabur)">
                         <BarChartH
-                            data={reps.map((r) => ({ label: r.sales.nama.split(" ")[0], value: r.omzet, sub: `${r.transaksi} tx` }))}
+                            data={reps.map((r) => ({ label: r.sales.nama.split(" ")[0], value: r.omzet, sub: `${r.transaksi} tx`, tip: r.sales.nama }))}
                             format={rpShort}
                             highlightIndex={reps.findIndex((r) => r.sales.id === "s-andi")}
+                            selectedLabel={salesId === "all" ? undefined : SALES.find((s) => s.id === salesId)?.nama.split(" ")[0]}
+                            onSelect={isSales ? undefined : (first) => {
+                                const s = SALES.find((x) => x.nama.split(" ")[0] === first);
+                                if (s) setSalesId(salesId === s.id ? "all" : s.id);
+                            }}
                         />
                     </Panel>
-                    <Panel title="Komposisi Penjualan per Kategori">
-                        <Donut data={cats.map((c) => ({ label: c.kategori, value: c.omzet, color: KAT_COLOR[c.kategori] }))} format={rpShort} />
+                    <Panel title="Komposisi Penjualan per Kategori" chip="klik untuk filter" chipColor="var(--kabur)">
+                        <Donut
+                            data={cats.map((c) => ({ label: c.kategori, value: c.omzet, color: KAT_COLOR[c.kategori] }))}
+                            format={rpShort}
+                            selectedLabel={kategori === "all" ? undefined : kategori}
+                            onSelect={(label) => setKategori(kategori === label ? "all" : (label as Kategori))}
+                        />
                     </Panel>
                 </div>
 
@@ -455,7 +465,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 
 function Kpi({ label, value, sub, big }: { label: string; value: string; sub: string; big?: boolean }) {
     return (
-        <div className="nalar-card p-4">
+        <div className="nalar-card p-4" title={`${label}: ${value} — ${sub}`}>
             <div className="text-[11px] font-semibold uppercase tracking-wide" style={{ color: "var(--kabur)" }}>{label}</div>
             <div className={`mt-1 font-extrabold tabular-nums ${big ? "text-2xl" : "text-xl"}`} style={{ color: big ? "var(--hijau)" : "var(--tinta)" }}>{value}</div>
             <div className="text-[11px]" style={{ color: "var(--kabur)" }}>{sub}</div>

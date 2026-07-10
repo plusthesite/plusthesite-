@@ -138,7 +138,7 @@ export function HourBars({ data, prime }: { data: { jam: number; transaksi: numb
     );
 }
 
-export function Donut({ data, format }: { data: { label: string; value: number; color: string }[]; format: (n: number) => string }) {
+export function Donut({ data, format, onSelect, selectedLabel }: { data: { label: string; value: number; color: string }[]; format: (n: number) => string; onSelect?: (label: string) => void; selectedLabel?: string }) {
     const total = data.reduce((s, d) => s + d.value, 0) || 1;
     const R = 52;
     const C = 2 * Math.PI * R;
@@ -153,10 +153,10 @@ export function Donut({ data, format }: { data: { label: string; value: number; 
                         const frac = d.value / total;
                         const dash = frac * C;
                         const el = (
-                            <circle key={`${d.label}-${i}`} cx="70" cy="70" r={R} fill="none" stroke={d.color} strokeWidth={i === hov ? 20 : 16}
+                            <circle key={`${d.label}-${i}`} cx="70" cy="70" r={R} fill="none" stroke={d.color} strokeWidth={i === hov || d.label === selectedLabel ? 20 : 16}
                                 strokeDasharray={`${dash} ${C - dash}`} strokeDashoffset={-acc * C}
-                                style={{ cursor: "pointer", transition: "stroke-width .15s" }}
-                                onMouseEnter={() => setHov(i)} onMouseLeave={() => setHov(-1)}>
+                                style={{ cursor: onSelect ? "pointer" : "default", transition: "stroke-width .15s" }}
+                                onMouseEnter={() => setHov(i)} onMouseLeave={() => setHov(-1)} onClick={() => onSelect?.(d.label)}>
                                 <title>{`${d.label}: ${format(d.value)} (${Math.round(frac * 100)}%)`}</title>
                             </circle>
                         );
@@ -177,8 +177,8 @@ export function Donut({ data, format }: { data: { label: string; value: number; 
             </div>
             <div className="flex flex-col gap-1.5">
                 {data.map((d, i) => (
-                    <div key={`${d.label}-${i}`} className="flex items-center gap-2 text-[13px]" style={{ opacity: hov < 0 || hov === i ? 1 : 0.5, cursor: "pointer" }}
-                        onMouseEnter={() => setHov(i)} onMouseLeave={() => setHov(-1)}>
+                    <div key={`${d.label}-${i}`} className="flex items-center gap-2 text-[13px]" style={{ opacity: hov < 0 || hov === i ? 1 : 0.5, cursor: onSelect ? "pointer" : "default" }}
+                        onMouseEnter={() => setHov(i)} onMouseLeave={() => setHov(-1)} onClick={() => onSelect?.(d.label)}>
                         <span className="h-2.5 w-2.5 rounded-sm" style={{ background: d.color }} />
                         <span className="capitalize">{d.label}</span>
                         <span className="ml-auto pl-3 font-semibold tabular-nums">{format(d.value)}</span>
