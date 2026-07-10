@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { DEMO_CUSTOMER, customerReceipts, loyalty, CUSTOMER_PROMOS } from "@/lib/hackathon/customer";
+import ReceiptList from "./ReceiptList";
 
 const rp = (n: number) => "Rp " + Math.round(n).toLocaleString("id-ID");
 
@@ -7,6 +8,11 @@ export default function PelangganHome() {
     const c = DEMO_CUSTOMER;
     const l = loyalty();
     const receipts = customerReceipts();
+    // Tier ladder: Perunggu → Perak (200) → Emas (800).
+    const next = l.poin < 200 ? 200 : l.poin < 800 ? 800 : null;
+    const floor = l.poin < 200 ? 0 : 200;
+    const progress = next ? Math.min(100, Math.round(((l.poin - floor) / (next - floor)) * 100)) : 100;
+    const nextTier = l.poin < 200 ? "Perak" : "Emas";
 
     return (
         <div className="nalar-root mx-auto min-h-screen max-w-md pb-24">
@@ -30,6 +36,15 @@ export default function PelangganHome() {
                         <div className="text-right">
                             <div className="nalar-chip" style={{ background: "var(--kuning)", color: "#3a2c00" }}>Tier {l.tier}</div>
                             <div className="mt-1 text-xs opacity-85">Total hemat {rp(l.hemat)}</div>
+                        </div>
+                    </div>
+                    {/* Tier progress */}
+                    <div className="mt-4">
+                        <div className="h-2 w-full overflow-hidden rounded-full bg-white/20">
+                            <div className="h-full rounded-full bg-white transition-[width] duration-700" style={{ width: `${progress}%` }} />
+                        </div>
+                        <div className="mt-1.5 text-[11px] opacity-90">
+                            {next ? <>{(next - l.poin).toLocaleString("id-ID")} poin lagi menuju <strong>Tier {nextTier}</strong></> : <>Tier tertinggi tercapai 🎉</>}
                         </div>
                     </div>
                 </div>
@@ -60,23 +75,8 @@ export default function PelangganHome() {
 
                 {/* Struk Saya */}
                 <h2 className="mt-7 text-sm font-bold">Struk Saya</h2>
-                <div className="mt-3 space-y-2.5">
-                    {receipts.map((r) => (
-                        <Link key={r.txId} href={`/hackathon/pelanggan/struk/${r.txId}`} className="nalar-card flex items-center gap-3 p-4 transition active:scale-[.99]">
-                            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl text-lg" style={{ background: "var(--hijau-terang)" }}>🛍️</span>
-                            <div className="min-w-0 flex-1">
-                                <div className="flex items-center gap-2">
-                                    <span className="truncate font-semibold">{r.items.length} barang</span>
-                                    {r.tebusMurah && <span className="nalar-chip shrink-0" style={{ background: "var(--kertas)", color: "var(--kuning)" }}>Tebus Murah</span>}
-                                </div>
-                                <div className="text-[12px]" style={{ color: "var(--kabur)" }}>{r.tgl} · {String(r.jam).padStart(2, "0")}:00 · {r.sales.split(" ")[0]}</div>
-                            </div>
-                            <div className="text-right">
-                                <div className="font-extrabold tabular-nums">{rp(r.total)}</div>
-                                <div className="text-[11px]" style={{ color: "var(--hijau)" }}>✓ Tersimpan aman</div>
-                            </div>
-                        </Link>
-                    ))}
+                <div className="mt-3">
+                    <ReceiptList receipts={receipts} />
                 </div>
 
                 <p className="mt-6 text-center text-[11px]" style={{ color: "var(--kabur)" }}>

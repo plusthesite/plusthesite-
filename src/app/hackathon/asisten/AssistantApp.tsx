@@ -1,8 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { QUICK_PROMPTS } from "@/lib/hackathon/assistant";
+import { kpi, healthScore, setLiveTx, setLiveReviews, rpShort } from "@/lib/hackathon/analytics";
+import { DATES } from "@/lib/hackathon/seed";
 import { askAssistant, type AssistantReply } from "./actions";
 import LogoutButton from "../_components/LogoutButton";
 import type { NalarRole } from "@/lib/hackathon/auth";
@@ -23,9 +25,31 @@ export default function AssistantApp({ nama, role }: { nama: string; role: Nalar
         },
     ]);
     const [busy, setBusy] = useState(false);
+    const [snap, setSnap] = useState<{ omzet: number; tx: number; health: number; status: string } | null>(null);
     const endRef = useRef<HTMLDivElement>(null);
 
     const scroll = () => setTimeout(() => endRef.current?.scrollIntoView({ behavior: "smooth" }), 40);
+
+    // Live snapshot (last 3 days) so the director sees the pulse before asking —
+    // a summary, not a raw table. Refreshes with new POS sales / reviews.
+    useEffect(() => {
+        let alive = true;
+        async function pull() {
+            try {
+                const r = await fetch("/api/hackathon/events", { cache: "no-store" });
+                const ev = await r.json();
+                if (ev?.ok) { setLiveTx(ev.sales ?? []); setLiveReviews(ev.reviews ?? []); }
+            } catch { /* seed baseline */ }
+            if (!alive) return;
+            const p = { dari: DATES[DATES.length - 3], sampai: DATES[DATES.length - 1] };
+            const k = kpi(p);
+            const h = healthScore();
+            setSnap({ omzet: k.omzet, tx: k.transaksi, health: h.skor, status: h.status });
+        }
+        pull();
+        const id = setInterval(pull, 8000);
+        return () => { alive = false; clearInterval(id); };
+    }, []);
 
     async function ask(id: string, label: string) {
         if (busy) return;
@@ -74,6 +98,17 @@ export default function AssistantApp({ nama, role }: { nama: string; role: Nalar
                     </div>
                 </div>
             </header>
+
+            {snap && (
+                <div className="mx-auto w-full max-w-3xl px-5 pt-4">
+                    <div className="grid grid-cols-3 gap-2">
+                        <Snap label="Omzet 3 hari" value={rpShort(snap.omzet)} />
+                        <Snap label="Transaksi" value={snap.tx.toLocaleString("id-ID")} />
+                        <Snap label="Kesehatan" value={`${snap.health}`} note={snap.status} />
+                    </div>
+                    <p className="mt-1.5 text-center text-[10px]" style={{ color: "var(--kabur)" }}>Ringkasan hidup · perbarui otomatis</p>
+                </div>
+            )}
 
             <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-5 py-6">
                 <div className="flex-1 space-y-4">
@@ -131,6 +166,16 @@ export default function AssistantApp({ nama, role }: { nama: string; role: Nalar
                     </p>
                 </div>
             </main>
+        </div>
+    );
+}
+
+function Snap({ label, value, note }: { label: string; value: string; note?: string }) {
+    return (
+        <div className="nalar-card px-3 py-2 text-center" title={`${label}: ${value}`}>
+            <div className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: "var(--kabur)" }}>{label}</div>
+            <div className="text-lg font-extrabold tabular-nums" style={{ color: "var(--hijau)" }}>{value}</div>
+            {note && <div className="text-[10px]" style={{ color: "var(--kabur)" }}>{note}</div>}
         </div>
     );
 }

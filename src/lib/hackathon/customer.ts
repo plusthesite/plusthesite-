@@ -86,7 +86,7 @@ export function loyalty() {
     const belanja = rs.reduce((s, r) => s + r.total, 0);
     const hemat = rs.reduce((s, r) => s + r.hemat, 0);
     const poin = Math.floor(belanja / 1000);
-    const tier = poin >= 300 ? "Emas" : poin >= 120 ? "Perak" : "Perunggu";
+    const tier = poin >= 800 ? "Emas" : poin >= 200 ? "Perak" : "Perunggu";
     return { belanja, hemat, poin, tier, transaksi: rs.length };
 }
 
