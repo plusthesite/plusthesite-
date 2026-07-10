@@ -9,7 +9,7 @@ const LNG_MIN = 95, LNG_MAX = 141, LAT_MIN = -11, LAT_MAX = 6;
 const HIJAU = "#12854F", KUNING = "#E9A800";
 
 declare global {
-    interface Window { google?: { maps?: unknown }; __nalarMapCb?: () => void }
+    interface Window { google?: { maps?: unknown }; __nalarMapCb?: () => void; gm_authFailure?: () => void }
 }
 
 export default function KoperasiMap({ points, mapsKey }: { points: KoperasiPoint[]; mapsKey?: string }) {
@@ -19,14 +19,19 @@ export default function KoperasiMap({ points, mapsKey }: { points: KoperasiPoint
 
     useEffect(() => {
         if (!mapsKey || !ref.current) { setMode("svg"); return; }
-        let done = false;
-        const fail = () => { if (!done) { done = true; setMode("svg"); } };
-        const timer = setTimeout(fail, 6000); // never hang the demo
+        let cancelled = false;
+        // Force SVG fallback — even if a Google map object was already created,
+        // because auth errors (invalid key / API not enabled / billing / referrer)
+        // surface AFTER init as Google's own "Oops" overlay.
+        const toSvg = () => { if (!cancelled) setMode("svg"); };
+        const timer = setTimeout(toSvg, 6000); // never hang the demo
+
+        // Google invokes this global on any auth/config failure → degrade to SVG.
+        window.gm_authFailure = toSvg;
 
         function init() {
-            if (done) return;
-            done = true;
             clearTimeout(timer);
+            if (cancelled) return;
             try {
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const g = (window as any).google.maps;
@@ -42,18 +47,21 @@ export default function KoperasiMap({ points, mapsKey }: { points: KoperasiPoint
                         fillColor: p.tx ? HIJAU : KUNING, fillOpacity: p.tx ? 0.85 : 0.55,
                     });
                 }
-                setMode("google");
-            } catch { setMode("svg"); }
+                if (!cancelled) setMode("google");
+            } catch { toSvg(); }
         }
 
-        if ((window as unknown as { google?: { maps?: unknown } }).google?.maps) { init(); return () => clearTimeout(timer); }
+        if ((window as unknown as { google?: { maps?: unknown } }).google?.maps) {
+            init();
+            return () => { cancelled = true; clearTimeout(timer); };
+        }
         window.__nalarMapCb = init;
         const s = document.createElement("script");
         s.src = `https://maps.googleapis.com/maps/api/js?key=${mapsKey}&callback=__nalarMapCb&loading=async`;
         s.async = true;
-        s.onerror = fail;
+        s.onerror = toSvg;
         document.head.appendChild(s);
-        return () => clearTimeout(timer);
+        return () => { cancelled = true; clearTimeout(timer); };
     }, [mapsKey, points]);
 
     return (
