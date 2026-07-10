@@ -31,7 +31,7 @@ export default function ReceiptList({ receipts }: { receipts: ReceiptView[] }) {
                         </div>
                         <div className="text-right">
                             <div className="font-extrabold tabular-nums">{rp(r.total)}</div>
-                            <div className="text-[11px]" style={{ color: "var(--hijau)" }}>✓ Tersimpan aman</div>
+                            <div className="text-[11px]" style={{ color: "var(--navy)" }}>✓ Tersimpan aman</div>
                         </div>
                     </Link>
                 ))}

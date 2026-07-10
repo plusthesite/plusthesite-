@@ -11,7 +11,7 @@ const pct = (a: number, b: number) => (b ? Math.round((a / b) * 100) : 0);
 const ribu = (n: number) => n.toLocaleString("id-ID");
 const titlecase = (s: string) => s.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
 const shorten = (s: string, n = 24) => (s.length > n ? s.slice(0, n - 1) + "…" : s);
-const SEKTOR_COLORS = ["#12854F", "#E9A800", "#3B82A0", "#9E6B4A", "#7A5AA0", "#B0521F"];
+const SEKTOR_COLORS = ["#D6222A", "#1B3A6B", "#F2B807", "#9E6B4A", "#7A5AA0", "#B0521F"];
 
 type Status = "all" | "tx" | "notx";
 
@@ -66,7 +66,7 @@ export default function NasionalView({ bundle, forecast, mapsKey }: {
             <header className="sticky top-0 z-20 border-b backdrop-blur" style={{ borderColor: "var(--garis)", background: "rgba(241,244,239,.85)" }}>
                 <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3">
                     <Link href="/hackathon" className="flex items-center gap-2 font-extrabold">
-                        <span className="grid h-8 w-8 place-items-center rounded-lg text-white" style={{ background: "var(--hijau)" }}>S</span>
+                        <img src="/nalar-logo.jpg" alt="NALAR" className="h-8 w-8 rounded-lg object-cover object-left" />
                         <span>NALAR<span className="ml-1 text-xs font-semibold" style={{ color: "var(--kabur)" }}>Nasional</span></span>
                     </Link>
                     <div className="flex items-center gap-3">
@@ -144,10 +144,10 @@ export default function NasionalView({ bundle, forecast, mapsKey }: {
                         </div>
                     </Panel>
                     <Panel title="Status Gerai">
-                        <Donut data={[{ label: "Aktif", value: ov.geraiAktif, color: "#12854F" }, { label: "Belum Aktif", value: Math.max(0, ov.gerai - ov.geraiAktif), color: "#E9A800" }]} format={ribu} />
+                        <Donut data={[{ label: "Aktif", value: ov.geraiAktif, color: "#1B3A6B" }, { label: "Belum Aktif", value: Math.max(0, ov.gerai - ov.geraiAktif), color: "#F2B807" }]} format={ribu} />
                     </Panel>
                     <Panel title="Status Keanggotaan">
-                        <Donut data={[{ label: "Aktif", value: ov.anggotaAktif, color: "#12854F" }, { label: "Menunggu", value: Math.max(0, ov.anggota - ov.anggotaAktif), color: "#3B82A0" }]} format={ribu} />
+                        <Donut data={[{ label: "Aktif", value: ov.anggotaAktif, color: "#1B3A6B" }, { label: "Menunggu", value: Math.max(0, ov.anggota - ov.anggotaAktif), color: "#F2B807" }]} format={ribu} />
                     </Panel>
                 </div>
 

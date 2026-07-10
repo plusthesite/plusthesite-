@@ -87,7 +87,7 @@ export default function AssistantApp({ nama, role }: { nama: string; role: Nalar
             <header className="sticky top-0 z-20 border-b backdrop-blur" style={{ borderColor: "var(--garis)", background: "rgba(241,244,239,.85)" }}>
                 <div className="mx-auto flex max-w-3xl items-center justify-between px-5 py-3">
                     <Link href="/hackathon" className="flex items-center gap-2 font-extrabold">
-                        <span className="grid h-8 w-8 place-items-center rounded-lg text-white" style={{ background: "var(--hijau)" }}>S</span>
+                        <img src="/nalar-logo.jpg" alt="NALAR" className="h-8 w-8 rounded-lg object-cover object-left" />
                         <span>NALAR<span className="ml-1 text-xs font-semibold" style={{ color: "var(--kabur)" }}>Asisten Direktur</span></span>
                     </Link>
                     <div className="flex items-center gap-3">

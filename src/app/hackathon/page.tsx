@@ -155,11 +155,12 @@ export default function HackathonLanding() {
 
 function SiteNav() {
     return (
-        <nav className="sticky top-0 z-20 border-b backdrop-blur" style={{ borderColor: "var(--garis)", background: "rgba(241,244,239,.8)" }}>
-            <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
-                <Link href="/hackathon" className="flex items-center gap-2 font-extrabold tracking-tight">
-                    <span className="grid h-8 w-8 place-items-center rounded-lg text-white" style={{ background: "var(--hijau)" }}>S</span>
-                    SUARA WARGA
+        <nav className="sticky top-0 z-20 border-b backdrop-blur" style={{ borderColor: "var(--garis)", background: "rgba(246,243,242,.85)" }}>
+            <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
+                <Link href="/hackathon" className="flex items-center gap-2.5 font-extrabold tracking-tight">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/nalar-logo.jpg" alt="NALAR" className="h-8 w-auto" />
+                    <span className="hidden text-sm font-bold sm:inline" style={{ color: "var(--kabur)" }}>× SUARA WARGA</span>
                 </Link>
                 <div className="flex items-center gap-2">
                     <Link href="/hackathon/nasional" className="hidden rounded-lg px-3 py-2 text-sm font-semibold sm:block" style={{ color: "var(--hijau)" }}>Nasional</Link>
@@ -205,22 +206,22 @@ function Pillar({ tag, name, tagline, desc, points, cta, dark }: {
     tag: string; name: string; tagline: string; desc: string; points: string[]; cta: { href: string; label: string }; dark?: boolean;
 }) {
     return (
-        <div className="nalar-card flex flex-col p-7" style={dark ? { background: "var(--hijau)", color: "#fff", borderColor: "var(--hijau)" } : undefined}>
-            <div className="text-xs font-bold uppercase tracking-widest" style={{ color: dark ? "#9FE3BF" : "var(--kuning)" }}>{tag}</div>
+        <div className="nalar-card flex flex-col p-7" style={dark ? { background: "var(--navy)", color: "#fff", borderColor: "var(--navy)" } : undefined}>
+            <div className="text-xs font-bold uppercase tracking-widest" style={{ color: dark ? "#A9C2E6" : "var(--kuning)" }}>{tag}</div>
             <div className="mt-2 flex items-baseline gap-3">
                 <h3 className="text-3xl font-black">{name}</h3>
-                <span className="text-sm font-semibold" style={{ color: dark ? "#CFEFDC" : "var(--hijau-aksi)" }}>{tagline}</span>
+                <span className="text-sm font-semibold" style={{ color: dark ? "#CBD9EE" : "var(--hijau-aksi)" }}>{tagline}</span>
             </div>
             <p className="mt-3 text-sm" style={{ color: dark ? "rgba(255,255,255,.85)" : "var(--kabur)" }}>{desc}</p>
             <ul className="mt-5 flex flex-col gap-2">
                 {points.map((p) => (
                     <li key={p} className="flex items-start gap-2 text-sm">
-                        <span style={{ color: dark ? "#9FE3BF" : "var(--hijau-aksi)" }}>✓</span> {p}
+                        <span style={{ color: dark ? "#A9C2E6" : "var(--hijau-aksi)" }}>✓</span> {p}
                     </li>
                 ))}
             </ul>
             <Link href={cta.href} className="mt-6 inline-block self-start rounded-xl px-5 py-2.5 text-sm font-bold transition hover:brightness-110"
-                style={dark ? { background: "#fff", color: "var(--hijau)" } : { background: "var(--hijau)", color: "#fff" }}>
+                style={dark ? { background: "#fff", color: "var(--navy)" } : { background: "var(--hijau)", color: "#fff" }}>
                 {cta.label} →
             </Link>
         </div>

@@ -6,7 +6,7 @@ export interface KoperasiPoint { lat: number; lng: number; tx: boolean; nama: st
 
 // Indonesia bounding box for the SVG fallback projection.
 const LNG_MIN = 95, LNG_MAX = 141, LAT_MIN = -11, LAT_MAX = 6;
-const HIJAU = "#12854F", KUNING = "#E9A800";
+const HIJAU = "#1B3A6B", KUNING = "#F2B807"; // navy = bertransaksi (positif), kuning = belum
 
 declare global {
     interface Window { google?: { maps?: unknown }; __nalarMapCb?: () => void; gm_authFailure?: () => void }

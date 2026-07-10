@@ -58,7 +58,7 @@ export default function KasirApp({ role, nama, employeeId }: { role: NalarRole; 
             <header className="sticky top-0 z-20 border-b backdrop-blur" style={{ borderColor: "var(--garis)", background: "rgba(241,244,239,.85)" }}>
                 <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-3">
                     <Link href="/hackathon/dashboard" className="flex items-center gap-2 font-extrabold">
-                        <span className="grid h-8 w-8 place-items-center rounded-lg text-white" style={{ background: "var(--hijau)" }}>S</span>
+                        <img src="/nalar-logo.jpg" alt="NALAR" className="h-8 w-8 rounded-lg object-cover object-left" />
                         <span>Kasir<span className="ml-1 text-xs font-semibold" style={{ color: "var(--kabur)" }}>SAKSI POS</span></span>
                     </Link>
                     <div className="flex items-center gap-3">

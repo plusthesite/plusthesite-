@@ -9,7 +9,7 @@ export default function VerifikasiPage() {
             <nav className="border-b" style={{ borderColor: "var(--garis)" }}>
                 <div className="mx-auto flex max-w-3xl items-center justify-between px-5 py-3.5">
                     <Link href="/hackathon" className="flex items-center gap-2 font-extrabold">
-                        <span className="grid h-8 w-8 place-items-center rounded-lg text-white" style={{ background: "var(--hijau)" }}>S</span>
+                        <img src="/nalar-logo.jpg" alt="NALAR" className="h-8 w-8 rounded-lg object-cover object-left" />
                         SUARA WARGA
                     </Link>
                     <Link href="/hackathon/login" className="rounded-lg px-4 py-2 text-sm font-bold text-white" style={{ background: "var(--hijau)" }}>Masuk</Link>

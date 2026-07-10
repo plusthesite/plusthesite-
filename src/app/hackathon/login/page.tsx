@@ -12,7 +12,7 @@ export default async function LoginPage() {
         <div className="nalar-root grid min-h-screen place-items-center px-5 py-10">
             <div className="w-full max-w-md">
                 <Link href="/hackathon" className="mb-6 flex items-center justify-center gap-2 font-extrabold tracking-tight">
-                    <span className="grid h-8 w-8 place-items-center rounded-lg text-white" style={{ background: "var(--hijau)" }}>S</span>
+                    <img src="/nalar-logo.jpg" alt="NALAR" className="h-8 w-8 rounded-lg object-cover object-left" />
                     SUARA WARGA
                 </Link>
                 <div className="nalar-card nalar-rise p-7">

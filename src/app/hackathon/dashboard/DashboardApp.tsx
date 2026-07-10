@@ -16,7 +16,7 @@ import LogoutButton from "../_components/LogoutButton";
 import type { NalarRole } from "@/lib/hackathon/auth";
 
 const KAT_COLOR: Record<Kategori, string> = {
-    minuman: "#12854F", makanan: "#E9A800", perawatan: "#3B82A0", rumah: "#9E6B4A",
+    minuman: "#D6222A", makanan: "#F2B807", perawatan: "#1B3A6B", rumah: "#9E6B4A",
 };
 const jamLabel = (h: number) => `${String(h).padStart(2, "0")}:00`;
 
@@ -111,7 +111,7 @@ export default function DashboardApp({ role, nama, employeeId }: { role: NalarRo
             <header className="sticky top-0 z-20 border-b backdrop-blur" style={{ borderColor: "var(--garis)", background: "rgba(241,244,239,.85)" }}>
                 <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3">
                     <Link href="/hackathon" className="flex items-center gap-2 font-extrabold">
-                        <span className="grid h-8 w-8 place-items-center rounded-lg text-white" style={{ background: "var(--hijau)" }}>S</span>
+                        <img src="/nalar-logo.jpg" alt="NALAR" className="h-8 w-8 rounded-lg object-cover object-left" />
                         <span>NALAR<span className="ml-1 text-xs font-semibold" style={{ color: "var(--kabur)" }}>Dashboard</span></span>
                     </Link>
                     <div className="flex items-center gap-3">
@@ -203,8 +203,8 @@ export default function DashboardApp({ role, nama, employeeId }: { role: NalarRo
                         chipColor={forecast.deltaPersen >= 0 ? "var(--hijau)" : "var(--merah)"}>
                         <LineTrend actual={days.map((d) => d.omzet)} forecast={forecast.proyeksi} labels={[...dayLabels, ...forecastLabels]} format={rpShort} />
                         <div className="mt-2 flex gap-4 text-[11px]" style={{ color: "var(--kabur)" }}>
-                            <span className="flex items-center gap-1.5"><span className="h-0.5 w-4" style={{ background: "#12854F" }} /> Aktual</span>
-                            <span className="flex items-center gap-1.5"><span className="h-0.5 w-4 border-t-2 border-dashed" style={{ borderColor: "#E9A800" }} /> Prediksi (regresi tren)</span>
+                            <span className="flex items-center gap-1.5"><span className="h-0.5 w-4" style={{ background: "#D6222A" }} /> Aktual</span>
+                            <span className="flex items-center gap-1.5"><span className="h-0.5 w-4 border-t-2 border-dashed" style={{ borderColor: "#F2B807" }} /> Prediksi (regresi tren)</span>
                             <span className="ml-auto">Proyeksi minggu depan: <strong style={{ color: "var(--tinta)" }}>{rpShort(forecast.total)}</strong></span>
                         </div>
                     </Panel>
@@ -336,11 +336,11 @@ export default function DashboardApp({ role, nama, employeeId }: { role: NalarRo
                     <div className="mt-4 grid gap-4 lg:grid-cols-3">
                         <Panel title="Kehadiran Karyawan">
                             <div className="flex items-end justify-around py-2">
-                                <Stat n={att.hadir} l="Hadir" c="var(--hijau)" />
+                                <Stat n={att.hadir} l="Hadir" c="var(--navy)" />
                                 <Stat n={att.izin} l="Izin" c="var(--kuning)" />
                                 <Stat n={att.alpa} l="Alpa" c="var(--merah)" />
                             </div>
-                            <div className="mt-1 text-center text-[13px]" style={{ color: "var(--kabur)" }}>Tingkat kehadiran <strong style={{ color: "var(--hijau)" }}>{att.persenHadir.toFixed(1)}%</strong></div>
+                            <div className="mt-1 text-center text-[13px]" style={{ color: "var(--kabur)" }}>Tingkat kehadiran <strong style={{ color: "var(--navy)" }}>{att.persenHadir.toFixed(1)}%</strong></div>
                         </Panel>
                         <Panel title="Rating Pelanggan (Aktivitas)" className="lg:col-span-2">
                             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -399,7 +399,7 @@ export default function DashboardApp({ role, nama, employeeId }: { role: NalarRo
                         <div className="flex items-center gap-3 rounded-lg p-3" style={{ background: "var(--hijau-terang)" }}>
                             <span className="text-2xl">🛡️</span>
                             <div className="text-[13px]">
-                                <div className="font-bold" style={{ color: "var(--hijau)" }}>Rantai utuh · 0 anomali</div>
+                                <div className="font-bold" style={{ color: "var(--navy)" }}>Rantai utuh · 0 anomali</div>
                                 <div style={{ color: "var(--kabur)" }}>{k.transaksi} transaksi teratestasi ganda. Tidak ada scan-ganda / diskon tersembunyi terdeteksi.</div>
                             </div>
                         </div>

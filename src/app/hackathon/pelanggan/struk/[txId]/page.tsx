@@ -30,7 +30,7 @@ export default async function StrukPage({ params }: { params: Promise<{ txId: st
                 </div>
 
                 {/* Verified stamp */}
-                <div className="mx-5 mt-4 flex items-center justify-center gap-2 rounded-xl py-2.5" style={asli ? { background: "var(--hijau-terang)", color: "var(--hijau)" } : { background: "#FBE9E7", color: "var(--merah)" }}>
+                <div className="mx-5 mt-4 flex items-center justify-center gap-2 rounded-xl py-2.5" style={asli ? { background: "var(--navy-terang)", color: "var(--navy)" } : { background: "#FBE9E7", color: "var(--merah)" }}>
                     <span className="text-lg">{asli ? "✅" : "⛔"}</span>
                     <span className="text-sm font-extrabold">{asli ? "STRUK ASLI — TERCATAT" : "STRUK TIDAK COCOK"}</span>
                 </div>
@@ -76,7 +76,7 @@ export default async function StrukPage({ params }: { params: Promise<{ txId: st
 
                 {/* Hash proof + stamp */}
                 <div className="border-t px-5 py-3 text-center" style={{ borderColor: "#D9CFB4" }}>
-                    <div className="inline-block rotate-[-4deg] rounded-lg border-2 px-3 py-1 text-xs font-black tracking-wider" style={{ borderColor: "var(--hijau)", color: "var(--hijau)" }}>
+                    <div className="inline-block rotate-[-4deg] rounded-lg border-2 px-3 py-1 text-xs font-black tracking-wider" style={{ borderColor: "var(--navy)", color: "var(--navy)" }}>
                         TERCATAT ✓
                     </div>
                     <div className="mt-2 font-mono text-[10px] break-all" style={{ color: "var(--kabur)" }}>tx_hash: {r.txHash}</div>

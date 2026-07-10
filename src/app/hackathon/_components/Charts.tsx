@@ -5,11 +5,12 @@
 
 import { useState } from "react";
 
-const HIJAU = "#12854F";
-const HIJAU_D = "#0B5D3B";
-const KUNING = "#E9A800";
-const KABUR = "#5B6B62";
-const GARIS = "#DCE5DE";
+const HIJAU = "#D6222A";   // primary series (merah brand)
+const HIJAU_D = "#B01B22"; // darker red (highlight/tooltip)
+const NAVY = "#1B3A6B";    // positive / gauge-good
+const KUNING = "#F2B807";
+const KABUR = "#6B6F76";
+const GARIS = "#E6E3E4";
 
 export function BarChartH({
     data,
@@ -193,7 +194,7 @@ export function Gauge({ value, status }: { value: number; status: string }) {
     const R = 60;
     const C = Math.PI * R;
     const frac = Math.max(0, Math.min(100, value)) / 100;
-    const color = value >= 80 ? HIJAU : value >= 60 ? KUNING : "#BE2B22";
+    const color = value >= 80 ? NAVY : value >= 60 ? KUNING : "#C1121F";
     return (
         <div className="relative flex flex-col items-center">
             <svg viewBox="0 0 160 92" className="w-44">

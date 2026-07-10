@@ -21,16 +21,19 @@ export default function HackathonLayout({ children }: { children: React.ReactNod
             <body className="nalar-root antialiased">
                 <style>{`
           .nalar-root {
-            --hijau: #0B5D3B;
-            --hijau-aksi: #12854F;
-            --hijau-terang: #E7F1EB;
-            --latar: #F1F4EF;
-            --kertas: #FAF6EC;
-            --kuning: #E9A800;
-            --merah: #BE2B22;
-            --tinta: #12211A;
-            --kabur: #5B6B62;
-            --garis: #DCE5DE;
+            /* Brand palette — NALAR (merah) + navy sekunder */
+            --hijau: #D6222A;          /* PRIMARY (merah) — brand, tombol, judul */
+            --hijau-aksi: #B01B22;     /* merah gelap — hover/aksen */
+            --hijau-terang: #FBEAEA;   /* merah muda — latar chip */
+            --navy: #1B3A6B;           /* SEKUNDER / sukses / valid */
+            --navy-terang: #E9EEF6;    /* navy muda — latar */
+            --latar: #F6F3F2;
+            --kertas: #FBF6EC;
+            --kuning: #F2B807;         /* warning / pending */
+            --merah: #C1121F;          /* error / fraud (⛔) */
+            --tinta: #2D2D2D;          /* font */
+            --kabur: #6B6F76;
+            --garis: #E6E3E4;
             font-family: var(--font-jakarta), system-ui, sans-serif;
             background: var(--latar);
             color: var(--tinta);
@@ -39,10 +42,10 @@ export default function HackathonLayout({ children }: { children: React.ReactNod
           }
           .nalar-root select { max-width: 100%; }
           .nalar-root table { min-width: max-content; }
-          .nalar-root ::selection { background: #12854F; color: #fff; }
+          .nalar-root ::selection { background: #D6222A; color: #fff; }
           .nalar-card {
             background: #fff; border: 1px solid var(--garis);
-            border-radius: 18px; box-shadow: 0 1px 2px rgba(18,33,26,.04);
+            border-radius: 18px; box-shadow: 0 1px 2px rgba(45,45,45,.05);
           }
           .nalar-chip {
             display:inline-flex; align-items:center; gap:.4rem;

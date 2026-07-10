@@ -66,11 +66,11 @@ function ResultCard({ res }: { res: VerifyResult }) {
     }
     const asli = res.status === "asli";
     return (
-        <div className="mt-4 rounded-xl p-5" style={asli ? { background: "var(--hijau-terang)", border: "1px solid var(--hijau-aksi)" } : { background: "#FBE9E7", border: "1px solid var(--merah)" }}>
+        <div className="mt-4 rounded-xl p-5" style={asli ? { background: "var(--navy-terang)", border: "1px solid var(--navy)" } : { background: "#FBE9E7", border: "1px solid var(--merah)" }}>
             <div className="flex items-center gap-3">
                 <span className="text-3xl">{asli ? "✅" : "⛔"}</span>
                 <div>
-                    <div className="text-xl font-extrabold" style={{ color: asli ? "var(--hijau)" : "var(--merah)" }}>
+                    <div className="text-xl font-extrabold" style={{ color: asli ? "var(--navy)" : "var(--merah)" }}>
                         {asli ? "STRUK ASLI" : "STRUK TIDAK COCOK"}
                     </div>
                     <div className="text-[13px]" style={{ color: "var(--kabur)" }}>
