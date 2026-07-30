@@ -152,6 +152,45 @@ export const ViewPlanner: React.FC<{
 
   return (
     <div className="space-y-6 pb-24 animate-in fade-in duration-500">
+      <div className="grid gap-4 xl:grid-cols-[1.08fr_0.92fr]">
+        <div className="rounded-[1.75rem] border border-border bg-card-bg p-5 shadow-sm">
+          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-primary">
+            Planner Surface
+          </p>
+          <h2 className="mt-3 text-2xl font-bold tracking-tight text-foreground">
+            Bentuk roadmap campaign dari input bisnis yang lebih terarah.
+          </h2>
+          <p className="mt-3 max-w-2xl text-sm leading-7 text-muted">
+            Surface ini membantu tim bergerak dari konteks bisnis, target market,
+            dan fokus campaign menuju draft kalender konten yang siap direview
+            atau diteruskan ke eksekusi.
+          </p>
+        </div>
+
+        <div className="rounded-[1.75rem] border border-border bg-card-bg p-5 shadow-sm">
+          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-primary">
+            Cara pakai
+          </p>
+          <div className="mt-4 grid gap-3">
+            {[
+              "Isi konteks bisnis dan target market dengan jelas.",
+              "Jelaskan fokus campaign bulan ini sependek mungkin tapi tetap spesifik.",
+              "Generate dulu, lalu pilih ide yang paling layak diteruskan ke tim konten.",
+            ].map((item, index) => (
+              <div
+                key={item}
+                className="rounded-2xl border border-border bg-surface px-4 py-3"
+              >
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted">
+                  Langkah 0{index + 1}
+                </p>
+                <p className="mt-1 text-xs leading-6 text-foreground">{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <AIVoiceAssistant
         onAutoFill={handleVoiceFill}
         addNotification={addNotification}
@@ -159,10 +198,28 @@ export const ViewPlanner: React.FC<{
 
       <div className="bg-card-bg backdrop-blur-sm border border-border p-6 rounded-2xl relative overflow-hidden group shadow-sm transition-colors">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        <h3 className="font-bold text-foreground mb-6 flex gap-2 relative z-10">
-          <Zap size={20} className="text-yellow-500 fill-yellow-500" />
-          AI Campaign Architect
-        </h3>
+        <div className="relative z-10 mb-6 grid gap-4 lg:grid-cols-[1.08fr_0.92fr] lg:items-start">
+          <div>
+            <h3 className="flex gap-2 font-bold text-foreground">
+              <Zap size={20} className="fill-yellow-500 text-yellow-500" />
+              AI Campaign Architect
+            </h3>
+            <p className="mt-3 max-w-xl text-sm leading-7 text-muted">
+              Masukkan konteks inti bisnis dulu, lalu biarkan planner menyusun
+              draft roadmap konten yang lebih rapi dan lebih cepat untuk direview.
+            </p>
+          </div>
+
+          <div className="rounded-[1.5rem] border border-border bg-surface/90 p-4">
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted">
+              Planner note
+            </p>
+            <p className="mt-2 text-xs leading-6 text-foreground">
+              Input yang lebih spesifik biasanya menghasilkan kalender yang lebih
+              usable daripada brief yang terlalu umum.
+            </p>
+          </div>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 relative z-10">
           {plannerFields.map((field) => (
             <div key={field.key} className="space-y-2">
@@ -211,10 +268,20 @@ export const ViewPlanner: React.FC<{
       </div>
 
       {saved.length > 0 && (
-        <div>
-          <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-muted">
-            Riwayat Campaign - tersimpan otomatis
-          </p>
+        <div className="rounded-[1.75rem] border border-border bg-card-bg p-5 shadow-sm">
+          <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-muted">
+                Riwayat Campaign
+              </p>
+              <p className="mt-1 text-sm text-foreground">
+                Campaign yang tersimpan otomatis bisa dipanggil lagi sebagai titik mulai.
+              </p>
+            </div>
+            <div className="rounded-full border border-border bg-surface px-3 py-1.5 text-[11px] font-medium text-muted">
+              {saved.length} tersimpan
+            </div>
+          </div>
           <div className="flex gap-2 overflow-x-auto pb-1 custom-scrollbar">
             {saved.map((campaign) => (
               <div key={campaign.id} className="group relative shrink-0">
@@ -253,10 +320,15 @@ export const ViewPlanner: React.FC<{
 
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
-            <Calendar size={20} className="text-primary" />
-            Content Roadmap
-          </h3>
+          <div>
+            <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
+              <Calendar size={20} className="text-primary" />
+              Content Roadmap
+            </h3>
+            <p className="mt-2 text-sm text-muted">
+              Review output campaign dalam mode list atau grid, lalu bawa ide yang paling kuat ke eksekusi.
+            </p>
+          </div>
           <div className="flex gap-2 bg-surface p-1 rounded-lg border border-border self-end shadow-sm">
             <button
               onClick={() => setViewMode("list")}
@@ -299,54 +371,83 @@ export const ViewPlanner: React.FC<{
             </p>
           </div>
         ) : (
-          <div
-            className={`grid gap-4 ${
-              viewMode === "grid"
-                ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-                : "grid-cols-1"
-            }`}
-          >
-            {calendarData.map((item, index) => (
-              <div
-                key={index}
-                className={`bg-card-bg border border-border rounded-xl hover:border-primary/30 transition-all hover:-translate-y-1 hover:shadow-lg hover:bg-surface-hover group relative overflow-hidden ${
-                  viewMode === "list"
-                    ? "flex flex-col md:flex-row gap-4 p-4 items-start md:items-center"
-                    : "p-5 flex flex-col h-full"
-                }`}
-              >
+          <div className="space-y-4">
+            <div className="grid gap-3 md:grid-cols-3">
+              <div className="rounded-2xl border border-border bg-card-bg px-4 py-4 shadow-sm">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted">
+                  Hari aktif
+                </p>
+                <p className="mt-2 text-2xl font-bold text-foreground">
+                  {calendarData.length}
+                </p>
+              </div>
+              <div className="rounded-2xl border border-border bg-card-bg px-4 py-4 shadow-sm">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted">
+                  Fokus utama
+                </p>
+                <p className="mt-2 text-sm font-semibold text-foreground">
+                  {form.idea || "Belum diisi"}
+                </p>
+              </div>
+              <div className="rounded-2xl border border-border bg-card-bg px-4 py-4 shadow-sm">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted">
+                  Bisnis
+                </p>
+                <p className="mt-2 text-sm font-semibold text-foreground">
+                  {form.name || "Belum diisi"}
+                </p>
+              </div>
+            </div>
+
+            <div
+              className={`grid gap-4 ${
+                viewMode === "grid"
+                  ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                  : "grid-cols-1"
+              }`}
+            >
+              {calendarData.map((item, index) => (
                 <div
-                  className={`flex items-center justify-center bg-surface rounded-lg shrink-0 border border-border text-primary ${
-                    viewMode === "list" ? "w-12 h-12" : "w-full h-10 mb-3"
+                  key={index}
+                  className={`bg-card-bg border border-border rounded-xl hover:border-primary/30 transition-all hover:-translate-y-1 hover:shadow-lg hover:bg-surface-hover group relative overflow-hidden ${
+                    viewMode === "list"
+                      ? "flex flex-col md:flex-row gap-4 p-4 items-start md:items-center"
+                      : "p-5 flex flex-col h-full"
                   }`}
                 >
-                  <span className="text-xs font-bold uppercase tracking-wider">
-                    Day {item.day}
-                  </span>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-bold text-foreground truncate pr-2 text-base">
-                      {item.title}
-                    </h4>
-                    <span
-                      className={`text-[10px] px-2 py-0.5 rounded border font-medium ${
-                        item.category === "Sales"
-                          ? "bg-green-100 dark:bg-green-500/10 text-green-700 dark:text-green-400 border-green-200 dark:border-green-500/20"
-                          : item.category === "Awareness"
-                            ? "bg-sky-100 dark:bg-sky-500/10 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-500/20"
-                            : "bg-primary/10 text-primary border-primary/20"
-                      }`}
-                    >
-                      {item.category}
+                  <div
+                    className={`flex items-center justify-center bg-surface rounded-lg shrink-0 border border-border text-primary ${
+                      viewMode === "list" ? "w-12 h-12" : "w-full h-10 mb-3"
+                    }`}
+                  >
+                    <span className="text-xs font-bold uppercase tracking-wider">
+                      Day {item.day}
                     </span>
                   </div>
-                  <p className="text-sm text-muted line-clamp-3 leading-relaxed">
-                    {item.desc}
-                  </p>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex justify-between items-start mb-2">
+                      <h4 className="font-bold text-foreground truncate pr-2 text-base">
+                        {item.title}
+                      </h4>
+                      <span
+                        className={`text-[10px] px-2 py-0.5 rounded border font-medium ${
+                          item.category === "Sales"
+                            ? "bg-green-100 dark:bg-green-500/10 text-green-700 dark:text-green-400 border-green-200 dark:border-green-500/20"
+                            : item.category === "Awareness"
+                              ? "bg-sky-100 dark:bg-sky-500/10 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-500/20"
+                              : "bg-primary/10 text-primary border-primary/20"
+                        }`}
+                      >
+                        {item.category}
+                      </span>
+                    </div>
+                    <p className="text-sm text-muted line-clamp-3 leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
       </div>
