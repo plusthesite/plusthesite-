@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Clock, Star, Users } from "lucide-react";
-import { ACADEMY_CLASSES } from "@/lib/mockData";
+import { ACADEMY_CLASSES } from "@/lib/studioData";
 
 export const Mentoring = () => {
     return (

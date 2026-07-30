@@ -12,7 +12,7 @@ import {
     Sparkles,
     Wand2,
 } from "lucide-react";
-import { STUDIO_FAQ, STUDIO_TUTORIALS } from "@/lib/mockData";
+import { STUDIO_FAQ, STUDIO_TUTORIALS } from "@/lib/studioData";
 
 export const UserGuide: React.FC<{ onStartTour: (tab: string) => void }> = ({
     onStartTour,

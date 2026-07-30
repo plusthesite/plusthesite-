@@ -35,7 +35,7 @@ import { ViewLiveStream } from "./views/growth/ViewLiveStream";
 import { ViewKOL } from "./views/growth/ViewKOL";
 import { ViewSubscription } from "./views/growth/ViewSubscription";
 import { ViewAnalytics } from "./views/growth/ViewAnalytics";
-import { TOUR_STEPS } from "@/lib/mockData";
+import { TOUR_STEPS } from "@/lib/studioData";
 import { Notification } from "@/types";
 import { useTheme } from "@/components/ThemeProvider";
 import Logo from "@/components/Logo";

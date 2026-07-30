@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Check, Calculator, ShoppingCart } from "lucide-react";
-import { PLANS, ALACARTE_FEATURES } from "@/lib/mockData";
+import { PLANS, ALACARTE_FEATURES } from "@/lib/studioData";
 import { useLocale } from "@/i18n/I18nProvider";
 
 export const ViewSubscription: React.FC<{
