@@ -85,7 +85,24 @@ type LandingProps = {
     systemIcons: React.ReactNode[];
 };
 
-function HeroSection({ copy, theme }: Pick<LandingProps, "copy" | "theme">) {
+function HeroSection({ copy, theme, locale }: Pick<LandingProps, "copy" | "theme" | "locale">) {
+    const summaryCards = [
+        {
+            label: locale === "id" ? "Pandangan operasi" : "Operating view",
+            body:
+                locale === "id"
+                    ? "Tool generator bekerja paling baik saat masuk ke alur review, produksi, dan distribusi yang sama."
+                    : "Generator tools work best when they sit inside the same review, production, and distribution flow.",
+        },
+        {
+            label: locale === "id" ? "Paling cocok" : "Best fit",
+            body:
+                locale === "id"
+                    ? "Untuk tim lean yang butuh output lebih cepat tanpa menurunkan rasa editorial atau kontrol brand."
+                    : "For lean teams that need faster output without lowering editorial taste or brand control.",
+        },
+    ];
+
     return (
         <section className={`relative overflow-hidden ${theme.heroBg} pb-24 pt-28 text-white sm:pb-28 lg:pb-32`}>
             <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
@@ -125,6 +142,20 @@ function HeroSection({ copy, theme }: Pick<LandingProps, "copy" | "theme">) {
                                 >
                                     {chip}
                                 </span>
+                            ))}
+                        </div>
+
+                        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                            {summaryCards.map((card) => (
+                                <div
+                                    key={card.label}
+                                    className="rounded-[1.5rem] border border-white/10 bg-white/[0.06] p-4 backdrop-blur"
+                                >
+                                    <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/52">
+                                        {card.label}
+                                    </p>
+                                    <p className="mt-3 text-sm leading-6 text-white/74">{card.body}</p>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -170,29 +201,56 @@ function HeroSection({ copy, theme }: Pick<LandingProps, "copy" | "theme">) {
     );
 }
 
-function UseCasesSection({ copy, cardIcons }: Pick<LandingProps, "copy" | "cardIcons">) {
+function UseCasesSection({ copy, cardIcons, locale }: Pick<LandingProps, "copy" | "cardIcons" | "locale">) {
     const ref = useScrollReveal();
 
     return (
         <section id="use-cases" className="bg-[#f8f7f3] py-24 lg:py-28">
             <div ref={ref} className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="max-w-3xl">
-                    <p className="fade-up text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
-                        {copy.useCases.eyebrow}
-                    </p>
-                    <h2 className="fade-up fade-up-delay-1 mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl lg:text-5xl">
-                        {copy.useCases.title}
-                    </h2>
-                    <p className="fade-up fade-up-delay-2 mt-5 text-base leading-7 text-slate-600 sm:text-lg">
-                        {copy.useCases.subtitle}
-                    </p>
+                <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+                    <div className="max-w-3xl">
+                        <p className="fade-up text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
+                            {copy.useCases.eyebrow}
+                        </p>
+                        <h2 className="fade-up fade-up-delay-1 mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl lg:text-5xl">
+                            {copy.useCases.title}
+                        </h2>
+                        <p className="fade-up fade-up-delay-2 mt-5 text-base leading-7 text-slate-600 sm:text-lg">
+                            {copy.useCases.subtitle}
+                        </p>
+                    </div>
+
+                    <div className="fade-up fade-up-delay-3 rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_16px_48px_rgba(15,23,42,0.08)]">
+                        <div className="grid gap-5 sm:grid-cols-2">
+                            <div>
+                                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+                                    {locale === "id" ? "Tensi inti" : "Core tension"}
+                                </p>
+                                <p className="mt-3 text-sm leading-6 text-slate-600">
+                                    {locale === "id"
+                                        ? "Masalah utamanya sering bukan kurang tool, tapi terlalu banyak langkah kreatif yang pecah dan tidak nyambung."
+                                        : "The core problem is often not missing tools, but too many creative steps split across disconnected workflows."}
+                                </p>
+                            </div>
+                            <div>
+                                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+                                    {locale === "id" ? "Target perbaikan" : "Repair goal"}
+                                </p>
+                                <p className="mt-3 text-sm leading-6 text-slate-600">
+                                    {locale === "id"
+                                        ? "Membuat generator terasa seperti bagian dari mesin produksi, bukan eksperimen lepas yang sulit dipakai tim."
+                                        : "Make the generator feel like part of a production engine, not a detached experiment the team cannot reliably use."}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div className="fade-up fade-up-delay-3 mt-14 grid gap-5 md:grid-cols-2">
+                <div className="fade-up fade-up-delay-4 mt-14 grid gap-5 md:grid-cols-2">
                     {copy.useCases.items.map((item, index) => (
                         <article
                             key={item.title}
-                            className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-[0_12px_40px_rgba(15,23,42,0.06)] transition hover:-translate-y-1"
+                            className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-[0_12px_40px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:shadow-[0_22px_60px_rgba(15,23,42,0.12)]"
                         >
                             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-950 text-white">
                                 {cardIcons[index]}
@@ -207,7 +265,7 @@ function UseCasesSection({ copy, cardIcons }: Pick<LandingProps, "copy" | "cardI
     );
 }
 
-function SystemSection({ copy, systemIcons }: Pick<LandingProps, "copy" | "systemIcons">) {
+function SystemSection({ copy, systemIcons, locale }: Pick<LandingProps, "copy" | "systemIcons" | "locale">) {
     const ref = useScrollReveal();
 
     return (
@@ -223,13 +281,24 @@ function SystemSection({ copy, systemIcons }: Pick<LandingProps, "copy" | "syste
                     <p className="fade-up fade-up-delay-2 mt-5 max-w-xl text-base leading-7 text-slate-600 sm:text-lg">
                         {copy.system.subtitle}
                     </p>
+
+                    <div className="fade-up fade-up-delay-3 mt-8 rounded-[1.6rem] border border-slate-200 bg-slate-50 p-5">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+                            {locale === "id" ? "Sikap sistem" : "System stance"}
+                        </p>
+                        <p className="mt-3 text-sm leading-6 text-slate-600">
+                            {locale === "id"
+                                ? "Generator yang bagus bukan sekadar mengeluarkan aset. Ia harus membantu tim menyaring, memilih, lalu meneruskan output ke langkah kerja berikutnya."
+                                : "A good generator should not just output assets. It should help the team filter, choose, and move the result into the next working step."}
+                        </p>
+                    </div>
                 </div>
 
-                <div className="fade-up fade-up-delay-3 grid gap-5">
+                <div className="fade-up fade-up-delay-4 grid gap-5">
                     {copy.system.items.map((item, index) => (
                         <div
                             key={item.title}
-                            className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6 sm:p-7"
+                            className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6 transition hover:-translate-y-1 hover:shadow-[0_20px_55px_rgba(15,23,42,0.1)] sm:p-7"
                         >
                             <div className="flex items-start gap-4">
                                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-slate-950 shadow-sm">
@@ -285,7 +354,7 @@ function WorkflowSection({ copy, theme }: Pick<LandingProps, "copy" | "theme">) 
     );
 }
 
-function OutputsSection({ copy }: Pick<LandingProps, "copy">) {
+function OutputsSection({ copy, locale }: Pick<LandingProps, "copy" | "locale">) {
     const ref = useScrollReveal();
 
     return (
@@ -299,13 +368,24 @@ function OutputsSection({ copy }: Pick<LandingProps, "copy">) {
                         <h2 className="fade-up fade-up-delay-1 mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl">
                             {copy.outputs.title}
                         </h2>
+
+                        <div className="fade-up fade-up-delay-2 mt-8 rounded-[1.6rem] border border-slate-200 bg-white p-5">
+                            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+                                {locale === "id" ? "Bundle umum" : "Typical bundle"}
+                            </p>
+                            <p className="mt-3 text-sm leading-6 text-slate-600">
+                                {locale === "id"
+                                    ? "Biasanya tim tidak butuh semua output sekaligus. Yang dibutuhkan adalah paket hasil yang paling cepat membuka jalur campaign atau produksi konten."
+                                    : "Teams usually do not need every output at once. They need the package that opens the next campaign or content production step fastest."}
+                            </p>
+                        </div>
                     </div>
 
-                    <div className="fade-up fade-up-delay-2 grid gap-4 sm:grid-cols-2">
+                    <div className="fade-up fade-up-delay-3 grid gap-4 sm:grid-cols-2">
                         {copy.outputs.items.map((item) => (
                             <div
                                 key={item}
-                                className="flex items-start gap-3 rounded-[1.4rem] border border-slate-200 bg-white px-5 py-4 text-sm leading-7 text-slate-700"
+                                className="flex items-start gap-3 rounded-[1.4rem] border border-slate-200 bg-white px-5 py-4 text-sm leading-7 text-slate-700 shadow-[0_10px_34px_rgba(15,23,42,0.05)]"
                             >
                                 <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-950 text-white">
                                     <Check className="h-3.5 w-3.5" />
@@ -356,6 +436,29 @@ function CTASection({ copy, locale, theme }: Pick<LandingProps, "copy" | "locale
                             </Link>
                         </div>
                     </div>
+
+                    <div className="mt-8 grid gap-4 lg:grid-cols-2">
+                        <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.05] p-5">
+                            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/48">
+                                {locale === "id" ? "Apa yang dibuka dulu" : "What gets unlocked first"}
+                            </p>
+                            <p className="mt-3 text-sm leading-6 text-white/68">
+                                {locale === "id"
+                                    ? "Diskusi awal biasanya langsung menunjukkan titik lemah di workflow, quality control, dan jalur handoff output generator."
+                                    : "The first discussion usually reveals the weak spots in workflow, quality control, and how generated output is handed off."}
+                            </p>
+                        </div>
+                        <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.05] p-5">
+                            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/48">
+                                {locale === "id" ? "Titik masuk umum" : "Common entry point"}
+                            </p>
+                            <p className="mt-3 text-sm leading-6 text-white/68">
+                                {locale === "id"
+                                    ? "Biasanya tim masuk lewat kebutuhan campaign aktif, workflow aset berulang, atau produksi draft yang sedang macet."
+                                    : "Teams usually enter through an active campaign need, a repeated asset workflow, or a draft-production bottleneck."}
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -373,13 +476,13 @@ export default function AIGeneratorLanding({
         <>
             <Navbar />
             <main>
-                <HeroSection copy={copy} theme={theme} />
-                <UseCasesSection copy={copy} cardIcons={cardIcons} />
-                <SystemSection copy={copy} systemIcons={systemIcons} />
+                <HeroSection copy={copy} theme={theme} locale={locale} />
+                <UseCasesSection copy={copy} cardIcons={cardIcons} locale={locale} />
+                <SystemSection copy={copy} systemIcons={systemIcons} locale={locale} />
                 <WorkflowSection copy={copy} theme={theme} />
                 <ProofBand />
                 <HowWeWork />
-                <OutputsSection copy={copy} />
+                <OutputsSection copy={copy} locale={locale} />
                 <CTASection copy={copy} locale={locale} theme={theme} />
             </main>
             <Footer />
