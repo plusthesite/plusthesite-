@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { useT, useLocale } from "@/i18n/I18nProvider";
+import { useLocale, useT } from "@/i18n/I18nProvider";
 import { formatIDR } from "@/lib/services";
 
 type Billing = "monthly" | "annual";
@@ -24,7 +24,6 @@ function PaymentContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    // The selected plan arrives via query params from the pricing CTAs.
     const planParam = searchParams.get("plan");
     const planKey: PlanKey | null = isPlanKey(planParam) ? planParam : null;
     const billing: Billing = searchParams.get("billing") === "annual" ? "annual" : "monthly";
@@ -37,11 +36,11 @@ function PaymentContent() {
 
     const p = t.payment;
 
-    // Resolve the active plan into a single display model the UI can read.
     const summary = useMemo(() => {
         if (planKey) {
             const plan = t.pricing.plans[planKey];
             const amount = billing === "annual" ? plan.annual : plan.monthly;
+
             return {
                 mode: "plan" as const,
                 name: plan.name,
@@ -50,20 +49,23 @@ function PaymentContent() {
                 priceLabel: formatIDR(amount),
             };
         }
+
         if (customName) {
             return {
                 mode: "custom" as const,
                 name: customName,
                 tagline: p.custom,
                 features: [] as readonly string[],
-                priceLabel: customPrice || "—",
+                priceLabel: customPrice || "-",
             };
         }
+
         return null;
-    }, [planKey, billing, customName, customPrice, t.pricing.plans, p.custom]);
+    }, [billing, customName, customPrice, p.custom, planKey, t.pricing.plans]);
 
     const handleContinue = (e: React.FormEvent) => {
         e.preventDefault();
+
         const params = new URLSearchParams();
         if (planKey) {
             params.set("plan", planKey);
@@ -72,6 +74,7 @@ function PaymentContent() {
             params.set("name", customName);
             if (customPrice) params.set("price", customPrice);
         }
+
         params.set("method", method);
         router.push(`/${locale}/payment/redirect?${params.toString()}`);
     };
@@ -87,7 +90,7 @@ function PaymentContent() {
             <div className="mx-auto max-w-2xl text-center">
                 <Link
                     href={`/${locale}#pricing`}
-                    className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-primary hover:text-primary-dark mb-6 transition-colors"
+                    className="mb-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-primary transition-colors hover:text-primary-dark"
                 >
                     <svg className="h-3 w-3 rotate-180" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -102,8 +105,7 @@ function PaymentContent() {
                 </p>
             </div>
 
-            {/* Placeholder gateway notice */}
-            <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-amber-200 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-500/10 p-4 flex items-start gap-3">
+            <div className="mx-auto mt-8 flex max-w-3xl items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-500/30 dark:bg-amber-500/10">
                 <span className="mt-0.5 inline-flex h-6 shrink-0 items-center rounded-full bg-amber-500/15 px-2.5 text-[10px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400">
                     {p.dummyBadge}
                 </span>
@@ -111,20 +113,22 @@ function PaymentContent() {
             </div>
 
             {!summary ? (
-                <div className="mx-auto mt-12 max-w-xl rounded-2xl border border-slate-200 dark:border-[#1E293B] bg-white dark:bg-slate-900/80 p-10 text-center shadow-xl">
+                <div className="mx-auto mt-12 max-w-xl rounded-2xl border border-slate-200 bg-white p-10 text-center shadow-xl dark:border-[#1E293B] dark:bg-slate-900/80">
                     <h2 className="text-xl font-bold text-[#0F172A] dark:text-[#F8FAFC]">{p.emptyTitle}</h2>
                     <p className="mt-3 text-sm text-[#475569] dark:text-[#94A3B8]">{p.emptyDesc}</p>
                     <Link
                         href={`/${locale}#pricing`}
-                        className="mt-8 inline-flex items-center justify-center rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/25 hover:scale-105 transition-all"
+                        className="mt-8 inline-flex items-center justify-center rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:scale-105"
                     >
                         {p.choosePlan}
                     </Link>
                 </div>
             ) : (
                 <div className="mt-12 grid gap-8 lg:grid-cols-5">
-                    {/* ── Payment method ── */}
-                    <form onSubmit={handleContinue} className="lg:col-span-3 rounded-2xl border border-slate-200 dark:border-[#1E293B] bg-white dark:bg-slate-900/80 p-8 shadow-xl backdrop-blur-md">
+                    <form
+                        onSubmit={handleContinue}
+                        className="rounded-2xl border border-slate-200 bg-white p-8 shadow-xl backdrop-blur-md dark:border-[#1E293B] dark:bg-slate-900/80 lg:col-span-3"
+                    >
                         <div>
                             <h2 className="text-lg font-bold text-[#0F172A] dark:text-[#F8FAFC]">{p.methodTitle}</h2>
                             <p className="mt-1 text-sm text-[#64748B] dark:text-[#94A3B8]">{p.methodSubtitle}</p>
@@ -136,10 +140,11 @@ function PaymentContent() {
                                     type="button"
                                     key={m.id}
                                     onClick={() => setMethod(m.id)}
-                                    className={`flex items-center gap-3 rounded-xl border px-4 py-3.5 text-left text-sm font-semibold transition-all ${method === m.id
-                                        ? "border-primary bg-primary/5 text-[#0F172A] dark:text-[#F8FAFC] ring-1 ring-primary/20"
-                                        : "border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 text-[#475569] dark:text-[#CBD5E1] hover:border-slate-300 dark:hover:border-slate-600"
-                                        }`}
+                                    className={`flex items-center gap-3 rounded-xl border px-4 py-3.5 text-left text-sm font-semibold transition-all ${
+                                        method === m.id
+                                            ? "border-primary bg-primary/5 text-[#0F172A] ring-1 ring-primary/20 dark:text-[#F8FAFC]"
+                                            : "border-slate-200 bg-slate-50 text-[#475569] hover:border-slate-300 dark:border-slate-700 dark:bg-slate-900/50 dark:text-[#CBD5E1] dark:hover:border-slate-600"
+                                    }`}
                                 >
                                     <span className={`flex h-5 w-5 items-center justify-center rounded-full border-2 ${method === m.id ? "border-primary" : "border-slate-300 dark:border-slate-600"}`}>
                                         {method === m.id && <span className="h-2.5 w-2.5 rounded-full bg-primary" />}
@@ -159,7 +164,7 @@ function PaymentContent() {
                                     id="cardName"
                                     value={cardName}
                                     onChange={(e) => setCardName(e.target.value)}
-                                    className="mt-2 block w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 px-4 py-3 text-sm text-[#0F172A] dark:text-[#F8FAFC] placeholder-slate-400 focus:border-primary focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-primary transition-all"
+                                    className="mt-2 block w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-[#0F172A] placeholder-slate-400 transition-all focus:border-primary focus:bg-white focus:outline-none focus:ring-1 focus:ring-primary dark:border-slate-700 dark:bg-slate-900/50 dark:text-[#F8FAFC] dark:focus:bg-slate-900"
                                     placeholder={p.cardNamePlaceholder}
                                 />
                             </div>
@@ -168,8 +173,8 @@ function PaymentContent() {
                                 <label htmlFor="cardNumber" className="block text-xs font-bold uppercase tracking-wider text-[#475569] dark:text-[#94A3B8]">
                                     {p.cardNumber}
                                 </label>
-                                <div className="mt-2 flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-900/40 px-4 py-3 text-sm tracking-widest text-slate-400 select-none">
-                                    •••• •••• •••• ••••
+                                <div className="mt-2 flex items-center rounded-xl border border-slate-200 bg-slate-100 px-4 py-3 text-sm tracking-widest text-slate-400 select-none dark:border-slate-700 dark:bg-slate-900/40">
+                                    **** **** **** ****
                                 </div>
                             </div>
 
@@ -182,7 +187,7 @@ function PaymentContent() {
                                     id="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="mt-2 block w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 px-4 py-3 text-sm text-[#0F172A] dark:text-[#F8FAFC] placeholder-slate-400 focus:border-primary focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-primary transition-all"
+                                    className="mt-2 block w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-[#0F172A] placeholder-slate-400 transition-all focus:border-primary focus:bg-white focus:outline-none focus:ring-1 focus:ring-primary dark:border-slate-700 dark:bg-slate-900/50 dark:text-[#F8FAFC] dark:focus:bg-slate-900"
                                     placeholder={p.emailPlaceholder}
                                 />
                             </div>
@@ -190,7 +195,7 @@ function PaymentContent() {
 
                         <button
                             type="submit"
-                            className="mt-8 flex w-full items-center justify-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/25 hover:scale-[1.02] active:scale-100 transition-all"
+                            className="mt-8 flex w-full items-center justify-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:scale-[1.02] active:scale-100"
                         >
                             {summary.mode === "plan" ? `${p.payButton} ${summary.priceLabel}` : p.continueButton}
                             <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
@@ -206,14 +211,13 @@ function PaymentContent() {
                         </p>
                     </form>
 
-                    {/* ── Order summary ── */}
                     <aside className="lg:col-span-2">
-                        <div className="rounded-2xl border border-slate-200 dark:border-[#1E293B] bg-white dark:bg-slate-900/80 p-8 shadow-xl backdrop-blur-md lg:sticky lg:top-28">
+                        <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-xl backdrop-blur-md dark:border-[#1E293B] dark:bg-slate-900/80 lg:sticky lg:top-28">
                             <p className="text-xs font-semibold uppercase tracking-wider text-[#64748B] dark:text-[#94A3B8]">
                                 {p.orderSummary}
                             </p>
 
-                            <div className="mt-5 flex items-start justify-between gap-4 border-b border-slate-100 dark:border-[#1E293B] pb-5">
+                            <div className="mt-5 flex items-start justify-between gap-4 border-b border-slate-100 pb-5 dark:border-[#1E293B]">
                                 <div>
                                     <p className="text-base font-bold text-[#0F172A] dark:text-[#F8FAFC]">{summary.name}</p>
                                     <p className="mt-1 text-xs text-[#64748B] dark:text-[#94A3B8]">{summary.tagline}</p>
@@ -224,7 +228,7 @@ function PaymentContent() {
                             </div>
 
                             {summary.mode === "plan" && (
-                                <div className="flex items-center justify-between border-b border-slate-100 dark:border-[#1E293B] py-4 text-sm">
+                                <div className="flex items-center justify-between border-b border-slate-100 py-4 text-sm dark:border-[#1E293B]">
                                     <span className="text-[#64748B] dark:text-[#94A3B8]">{p.billingLabel}</span>
                                     <span className="font-semibold text-[#0F172A] dark:text-[#F8FAFC]">
                                         {billing === "annual" ? p.annual : p.monthly}
@@ -233,14 +237,14 @@ function PaymentContent() {
                             )}
 
                             {summary.features.length > 0 && (
-                                <div className="border-b border-slate-100 dark:border-[#1E293B] py-5">
+                                <div className="border-b border-slate-100 py-5 dark:border-[#1E293B]">
                                     <p className="text-xs font-semibold uppercase tracking-wider text-[#64748B] dark:text-[#94A3B8]">
                                         {p.whatsIncluded}
                                     </p>
                                     <ul className="mt-4 flex flex-col gap-3">
                                         {summary.features.map((feat, i) => (
                                             <li key={i} className="flex items-center gap-3">
-                                                <svg className="h-4 w-4 flex-shrink-0 text-primary" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                                                <svg className="h-4 w-4 shrink-0 text-primary" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                                                 </svg>
                                                 <span className="text-sm text-[#475569] dark:text-[#CBD5E1]">{feat}</span>
@@ -254,13 +258,14 @@ function PaymentContent() {
                                 <div className="flex items-center justify-between text-sm">
                                     <span className="text-[#64748B] dark:text-[#94A3B8]">{p.subtotal}</span>
                                     <span className="font-semibold text-[#0F172A] dark:text-[#F8FAFC]">
-                                        {summary.priceLabel}{summary.mode === "plan" ? ` ${p.perMonth}` : ""}
+                                        {summary.priceLabel}
+                                        {summary.mode === "plan" ? ` ${p.perMonth}` : ""}
                                     </span>
                                 </div>
                                 <div className="mt-2 flex items-center justify-between text-xs text-[#94A3B8]">
                                     <span>{p.tax}</span>
                                 </div>
-                                <div className="mt-4 flex items-end justify-between border-t border-slate-100 dark:border-[#1E293B] pt-4">
+                                <div className="mt-4 flex items-end justify-between border-t border-slate-100 pt-4 dark:border-[#1E293B]">
                                     <span className="text-sm font-semibold text-[#0F172A] dark:text-[#F8FAFC]">{p.total}</span>
                                     <span className="text-2xl font-bold tracking-tight text-[#0F172A] dark:text-[#F8FAFC]">
                                         {summary.priceLabel}
@@ -279,7 +284,7 @@ export default function PaymentPage() {
     return (
         <>
             <Navbar />
-            <main className="min-h-screen bg-slate-50 dark:bg-[#0B1120] bg-grid pt-28 pb-16 lg:pt-36">
+            <main className="min-h-screen bg-grid bg-slate-50 pb-16 pt-28 dark:bg-[#0B1120] lg:pt-36">
                 <div className="glow-ambient glow-ambient-1" aria-hidden="true" />
                 <div className="glow-ambient glow-ambient-2" aria-hidden="true" />
                 <Suspense fallback={null}>
