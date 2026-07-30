@@ -1,22 +1,36 @@
 import type { Metadata } from "next";
-import { isLocale, defaultLocale } from "@/i18n/config";
+import { defaultLocale, isLocale } from "@/i18n/config";
 
 const SITE = "https://plusthe.site";
 
 const meta = {
     en: {
-        title: "Mobile Game Development — Android & iOS | plus.",
+        title: "Mobile Game Development - Production, Backend & Live Ops | plus.",
         description:
-            "Professional mobile game development for Android & iOS: from concept to launch. Cross-platform, multiplayer, and live ops powered by Unity & Unreal Engine.",
-        keywords: ["mobile game development", "Android game developer", "iOS game development", "Unity game studio", "cross-platform games", "game studio"],
+            "Mobile game development support for gameplay systems, Unity production, backend planning, and live-ops-ready launch execution.",
+        keywords: [
+            "mobile game development",
+            "Unity game studio",
+            "game backend planning",
+            "live ops support",
+            "multiplayer game production",
+            "mobile game studio",
+        ],
     },
     id: {
-        title: "Jasa Pembuatan Game Mobile — Android & iOS | plus.",
+        title: "Jasa Pembuatan Game Mobile - Produksi, Backend & Live Ops | plus.",
         description:
-            "Jasa pengembangan game mobile profesional untuk Android & iOS: dari konsep hingga rilis. Cross-platform, multiplayer, dan live ops dengan Unity & Unreal Engine.",
-        keywords: ["jasa pembuatan game mobile", "pengembangan game Android", "game development Indonesia", "jasa bikin game iOS", "Unity game developer", "mobile game studio"],
+            "Support pengembangan game mobile untuk gameplay system, produksi Unity, perencanaan backend, dan eksekusi launch yang siap live ops.",
+        keywords: [
+            "jasa pembuatan game mobile",
+            "studio game Unity",
+            "perencanaan backend game",
+            "live ops game",
+            "pengembangan game multiplayer",
+            "mobile game studio Indonesia",
+        ],
     },
-};
+} as const;
 
 export async function generateMetadata({
     params,
@@ -26,10 +40,11 @@ export async function generateMetadata({
     const { locale } = await params;
     const loc = isLocale(locale) ? locale : defaultLocale;
     const m = meta[loc];
+
     return {
         title: m.title,
         description: m.description,
-        keywords: m.keywords,
+        keywords: [...m.keywords],
         alternates: {
             canonical: `${SITE}/${loc}/mobile-game`,
             languages: {
@@ -45,10 +60,14 @@ export async function generateMetadata({
             url: `${SITE}/${loc}/mobile-game`,
             locale: loc === "id" ? "id_ID" : "en_US",
         },
-        twitter: { card: "summary_large_image", title: m.title, description: m.description },
+        twitter: {
+            card: "summary_large_image",
+            title: m.title,
+            description: m.description,
+        },
     };
 }
 
-export default function MobileGameLayout({ children }: { children: React.ReactNode }) {
+export default function MobileGameLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return <>{children}</>;
 }
