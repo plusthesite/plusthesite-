@@ -91,7 +91,7 @@ export default function Pricing() {
 
           <div className="fade-up fade-up-delay-3 rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-white/[0.04]">
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl bg-slate-950 p-5 text-white dark:bg-white/10">
+              <div className="rounded-2xl bg-slate-950 p-5 text-white shadow-[0_18px_45px_rgba(15,23,42,0.12)] dark:bg-white/10">
                 <Sparkles className="h-5 w-5 text-sky-300" />
                 <p className="mt-6 text-2xl font-semibold tracking-tight">
                   {locale === "id"
@@ -104,7 +104,7 @@ export default function Pricing() {
                     : "Pricing is shaped for teams that want to grow without buying complexity before they actually need it."}
                 </p>
               </div>
-              <div className="rounded-2xl bg-slate-100 p-5 dark:bg-white/5">
+              <div className="rounded-2xl bg-slate-100 p-5 shadow-[0_10px_30px_rgba(15,23,42,0.04)] dark:bg-white/5">
                 <ShieldCheck className="h-5 w-5 text-emerald-600 dark:text-emerald-300" />
                 <p className="mt-6 text-lg font-semibold text-slate-950 dark:text-white">
                   {locale === "id"
@@ -128,7 +128,7 @@ export default function Pricing() {
             return (
               <article
                 key={`${plan.key}-${isAnnual ? "annual" : "monthly"}`}
-                className={`relative flex h-full flex-col rounded-[1.8rem] border p-7 transition ${
+                className={`relative flex h-full flex-col rounded-[1.8rem] border p-7 transition-all hover:-translate-y-1 ${
                   plan.highlighted
                     ? "border-sky-500 bg-slate-950 text-white shadow-[0_24px_80px_rgba(14,165,233,0.16)] dark:border-sky-400"
                     : "border-slate-200 bg-white shadow-[0_12px_35px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white/[0.04]"

@@ -78,7 +78,7 @@ export default function About() {
               {stats.map((stat) => (
                 <div
                   key={stat.label}
-                  className="rounded-[1.4rem] border border-slate-200 bg-slate-50 px-5 py-5 dark:border-white/10 dark:bg-white/[0.04]"
+                  className="rounded-[1.4rem] border border-slate-200 bg-slate-50 px-5 py-5 shadow-[0_10px_28px_rgba(15,23,42,0.04)] dark:border-white/10 dark:bg-white/[0.04]"
                 >
                   <p className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
                     {stat.value}
@@ -92,7 +92,7 @@ export default function About() {
 
             <Link
               href={`/${locale}/digital-agency`}
-              className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-slate-950 transition hover:text-sky-700 dark:text-white dark:hover:text-sky-300"
+                  className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-slate-950 transition hover:translate-x-0.5 hover:text-sky-700 dark:text-white dark:hover:text-sky-300"
             >
               <span>
                 {locale === "id"
@@ -138,7 +138,7 @@ export default function About() {
                 return (
                   <div
                     key={pillar.title}
-                    className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5 dark:border-white/10 dark:bg-white/[0.04]"
+                  className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5 shadow-[0_12px_32px_rgba(15,23,42,0.04)] dark:border-white/10 dark:bg-white/[0.04]"
                   >
                     <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-sky-100 text-sky-700 dark:bg-sky-400/10 dark:text-sky-300">
                       <Icon className="h-5 w-5" />
