@@ -955,3 +955,21 @@ html.lang-transition::view-transition-new(root) {
   animation: vtFadeIn 0.32s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html.lang-transition::view-transition-old(root),
+  html.lang-transition::view-transition-new(root),
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
+

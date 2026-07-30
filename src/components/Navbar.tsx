@@ -1,45 +1,85 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { useTheme } from "next-themes";
-import Logo from "@/components/Logo";
+import type { LucideIcon } from "lucide-react";
+import {
+    Bot,
+    ChevronDown,
+    ChevronRight,
+    Headphones,
+    LayoutDashboard,
+    Menu,
+    Moon,
+    Rocket,
+    Sun,
+    X,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useT, useLocale } from "@/i18n/I18nProvider";
+import Logo from "@/components/Logo";
+import { useLocale, useT } from "@/i18n/I18nProvider";
 import { locales, localeShort, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/en";
 
-/* ── Product dropdown items (locale-aware) ── */
-function getProducts(t: Dictionary, locale: Locale) {
+type ProductItem = {
+    icon: LucideIcon;
+    label: string;
+    desc: string;
+    href: string;
+    badge?: string;
+};
+
+type ViewTransitionDocument = Document & {
+    startViewTransition?: (callback: () => void) => {
+        ready: Promise<void>;
+        finished: Promise<void>;
+    };
+};
+
+function getProducts(t: Dictionary, locale: Locale): ProductItem[] {
     const p = t.products.items;
+
     return [
-        { icon: "🤖", label: p.chatbot.title, desc: t.nav.aiFeatures, href: `/${locale}/chat-bot`, internal: true },
-        { icon: "🎧", label: p.support.title, desc: t.products.tag, href: "https://plusthe.site/customer-support/", internal: false },
-        { icon: "📊", label: p.crm.title, desc: t.products.tag, href: "https://plusthe.site/crm/", internal: false },
-        { icon: "🚀", label: p.agency.title, desc: t.products.tag, href: `/${locale}/digital-agency`, internal: true },
+        {
+            icon: Bot,
+            label: p.chatbot.title,
+            desc: t.nav.aiFeatures,
+            href: `/${locale}/chat-bot`,
+            badge: t.products.badgePopular,
+        },
+        {
+            icon: Headphones,
+            label: p.support.title,
+            desc: t.products.tag,
+            href: `/${locale}/customer-support`,
+        },
+        {
+            icon: LayoutDashboard,
+            label: p.crm.title,
+            desc: t.products.tag,
+            href: `/${locale}/crm`,
+        },
+        {
+            icon: Rocket,
+            label: p.agency.title,
+            desc: t.products.tag,
+            href: `/${locale}/digital-agency`,
+            badge: t.products.badgeNew,
+        },
     ];
 }
 
-/* ── Theme Toggle ── */
 function ThemeToggle() {
-    const { theme, setTheme } = useTheme();
-    const [mounted, setMounted] = useState(false);
+    const { resolvedTheme, setTheme } = useTheme();
+    const isLight = (resolvedTheme ?? "light") === "light";
 
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    if (!mounted) {
-        return <div className="h-6 w-6" />; // Placeholder
-    }
-
-    const isLight = theme === "light";
-
-    const toggleTheme = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const toggleTheme = (event: MouseEvent<HTMLButtonElement>) => {
         const nextTheme = isLight ? "dark" : "light";
+        const doc = document as ViewTransitionDocument;
+
         if (
-            typeof document !== "undefined" &&
-            (document as any).startViewTransition &&
+            typeof doc.startViewTransition === "function" &&
             !window.matchMedia("(prefers-reduced-motion: reduce)").matches
         ) {
             const x = event.clientX;
@@ -49,18 +89,17 @@ function ThemeToggle() {
                 Math.max(y, window.innerHeight - y)
             );
 
-            const transition = (document as any).startViewTransition(() => {
+            const transition = doc.startViewTransition(() => {
                 setTheme(nextTheme);
             });
 
             transition.ready.then(() => {
-                const clipPath = [
-                    `circle(0px at ${x}px ${y}px)`,
-                    `circle(${endRadius}px at ${x}px ${y}px)`
-                ];
                 document.documentElement.animate(
                     {
-                        clipPath: clipPath,
+                        clipPath: [
+                            `circle(0px at ${x}px ${y}px)`,
+                            `circle(${endRadius}px at ${x}px ${y}px)`,
+                        ],
                     },
                     {
                         duration: 500,
@@ -69,9 +108,11 @@ function ThemeToggle() {
                     }
                 );
             });
-        } else {
-            setTheme(nextTheme);
+
+            return;
         }
+
+        setTheme(nextTheme);
     };
 
     return (
@@ -81,28 +122,11 @@ function ThemeToggle() {
             aria-label={`Switch to ${isLight ? "dark" : "light"} mode`}
             title={`Switch to ${isLight ? "dark" : "light"} mode`}
         >
-            {isLight ? (
-                <svg className="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-            ) : (
-                <svg className="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                    <circle cx="12" cy="12" r="5" />
-                    <line x1="12" y1="1" x2="12" y2="3" strokeLinecap="round" />
-                    <line x1="12" y1="21" x2="12" y2="23" strokeLinecap="round" />
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" strokeLinecap="round" />
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" strokeLinecap="round" />
-                    <line x1="1" y1="12" x2="3" y2="12" strokeLinecap="round" />
-                    <line x1="21" y1="12" x2="23" y2="12" strokeLinecap="round" />
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" strokeLinecap="round" />
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" strokeLinecap="round" />
-                </svg>
-            )}
+            {isLight ? <Moon className="theme-icon" /> : <Sun className="theme-icon" />}
         </button>
     );
 }
 
-/* ── Locale helpers (module scope to keep them out of render analysis) ── */
 function persistLocale(target: string) {
     document.cookie = `NEXT_LOCALE=${target};path=/;max-age=31536000;samesite=lax`;
 }
@@ -113,7 +137,6 @@ function swapLocaleInPath(pathname: string, target: string) {
     return next.join("/") || `/${target}`;
 }
 
-/* ── Language Toggle (EN / ID) ── */
 function LanguageToggle() {
     const locale = useLocale();
     const pathname = usePathname();
@@ -122,32 +145,29 @@ function LanguageToggle() {
 
     const switchTo = (target: Locale) => {
         if (target === locale) return;
+
         persistLocale(target);
-        // Preserve query string + hash so deep-linked state (e.g. the payment
-        // page's ?plan=…&billing=… or a #section anchor) survives a language swap.
+
         const navigate = () => {
             const suffix = window.location.search + window.location.hash;
             router.push(swapLocaleInPath(pathname, target) + suffix);
         };
-        // Smooth crossfade between languages. The `lang-transition` class
-        // re-enables a root fade just for this (theme toggle keeps its own
-        // circular-reveal animation untouched).
-        const doc = document as Document & {
-            startViewTransition?: (cb: () => void) => { finished: Promise<void> };
-        };
+
+        const doc = document as ViewTransitionDocument;
         if (typeof doc.startViewTransition === "function") {
             const root = document.documentElement;
             root.classList.add("lang-transition");
-            const t = doc.startViewTransition(navigate);
-            t.finished.finally(() => root.classList.remove("lang-transition"));
-        } else {
-            navigate();
+            const transition = doc.startViewTransition(navigate);
+            transition.finished.finally(() => root.classList.remove("lang-transition"));
+            return;
         }
+
+        navigate();
     };
 
     return (
         <div
-            className="inline-flex items-center rounded-full border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-0.5 backdrop-blur-sm"
+            className="inline-flex items-center rounded-full border border-slate-200 bg-white/60 p-0.5 backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/60"
             role="group"
             aria-label={t.nav.switchLanguage}
         >
@@ -156,10 +176,11 @@ function LanguageToggle() {
                     key={l}
                     onClick={() => switchTo(l)}
                     aria-pressed={l === locale}
-                    className={`rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider transition-all ${l === locale
-                        ? "bg-foreground text-background shadow-sm"
-                        : "text-[#64748B] dark:text-[#94A3B8] hover:text-foreground"
-                        }`}
+                    className={`rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider transition-all ${
+                        l === locale
+                            ? "bg-foreground text-background shadow-sm"
+                            : "text-[#64748B] hover:text-foreground dark:text-[#94A3B8]"
+                    }`}
                 >
                     {localeShort[l]}
                 </button>
@@ -168,22 +189,38 @@ function LanguageToggle() {
     );
 }
 
-/* ── Chevron icon ── */
-function ChevronDown({ open, className }: { open: boolean; className?: string }) {
+function ProductItemInner({
+    icon: Icon,
+    label,
+    desc,
+    badge,
+}: {
+    icon: LucideIcon;
+    label: string;
+    desc: string;
+    badge?: string;
+}) {
     return (
-        <svg
-            className={`h-3 w-3 transition-transform duration-200 ${open ? "rotate-180" : ""} ${className ?? ""}`}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2.5}
-            viewBox="0 0 24 24"
-        >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-        </svg>
+        <>
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-700 transition-transform group-hover:scale-110 dark:bg-slate-800 dark:text-slate-100">
+                <Icon className="h-4 w-4" />
+            </span>
+            <div className="min-w-0">
+                <p className="flex items-center gap-2 text-sm font-semibold text-[#0F172A] dark:text-[#F8FAFC]">
+                    {label}
+                    {badge ? (
+                        <span className="rounded bg-blue-100 px-1.5 py-0.5 text-[9px] font-bold uppercase text-blue-600 dark:bg-blue-500/20 dark:text-blue-400">
+                            {badge}
+                        </span>
+                    ) : null}
+                </p>
+                <p className="truncate text-xs text-[#64748B] dark:text-[#94A3B8]">{desc}</p>
+            </div>
+            <ChevronRight className="ml-auto h-3.5 w-3.5 shrink-0 text-[#94A3B8] opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100 dark:text-[#64748B]" />
+        </>
     );
 }
 
-/* ── Desktop Dropdown ── */
 function ProductsDropdown({ scrolled }: { scrolled: boolean }) {
     const [open, setOpen] = useState(false);
     const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
@@ -201,13 +238,13 @@ function ProductsDropdown({ scrolled }: { scrolled: boolean }) {
         timeoutRef.current = setTimeout(() => setOpen(false), 150);
     };
 
-    // Close on click outside
     useEffect(() => {
-        const handleClick = (e: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        const handleClick = (event: globalThis.MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
                 setOpen(false);
             }
         };
+
         document.addEventListener("mousedown", handleClick);
         return () => document.removeEventListener("mousedown", handleClick);
     }, []);
@@ -219,69 +256,56 @@ function ProductsDropdown({ scrolled }: { scrolled: boolean }) {
             onMouseEnter={handleEnter}
             onMouseLeave={handleLeave}
         >
-            {/* Trigger */}
             <button
-                onClick={() => setOpen(!open)}
-                className={`nav-link inline-flex items-center gap-1.5 text-[13px] font-semibold uppercase tracking-widest transition-colors ${scrolled
-                    ? "text-muted hover:text-foreground"
-                    : "text-[#0F172A] hover:text-primary dark:text-white/90 dark:hover:text-white"
-                    }`}
+                onClick={() => setOpen((value) => !value)}
+                className={`nav-link inline-flex items-center gap-1.5 text-[13px] font-semibold uppercase tracking-widest transition-colors ${
+                    scrolled
+                        ? "text-muted hover:text-foreground"
+                        : "text-[#0F172A] hover:text-primary dark:text-white/90 dark:hover:text-white"
+                }`}
             >
                 {t.nav.products}
-                <ChevronDown open={open} />
+                <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
             </button>
 
-            {/* Dropdown Panel */}
             <div
-                className={`absolute left-1/2 top-full -translate-x-1/2 pt-4 transition-all duration-200 ${open
-                    ? "pointer-events-auto translate-y-0 opacity-100"
-                    : "pointer-events-none -translate-y-2 opacity-0"
-                    }`}
+                className={`absolute left-1/2 top-full -translate-x-1/2 pt-4 transition-all duration-200 ${
+                    open
+                        ? "pointer-events-auto translate-y-0 opacity-100"
+                        : "pointer-events-none -translate-y-2 opacity-0"
+                }`}
             >
-                <div className="w-[340px] rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 shadow-2xl backdrop-blur-xl">
-                    {/* Header */}
-                    <div className="px-3 py-2 mb-1">
+                <div className="w-[340px] rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl backdrop-blur-xl dark:border-slate-700 dark:bg-slate-900">
+                    <div className="mb-1 px-3 py-2">
                         <p className="text-[10px] font-bold uppercase tracking-widest text-[#64748B] dark:text-[#94A3B8]">
                             {t.nav.ourProducts}
                         </p>
                     </div>
 
-                    {/* Items */}
-                    {products.map((p) =>
-                        p.internal ? (
-                            <Link
-                                key={p.label}
-                                href={p.href}
-                                onClick={() => setOpen(false)}
-                                className="group flex items-center gap-3.5 rounded-xl px-3 py-3 transition-all hover:bg-blue-50 dark:hover:bg-slate-800"
-                            >
-                                <ProductItemInner icon={p.icon} label={p.label} desc={p.desc} internal />
-                            </Link>
-                        ) : (
-                            <a
-                                key={p.label}
-                                href={p.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={() => setOpen(false)}
-                                className="group flex items-center gap-3.5 rounded-xl px-3 py-3 transition-all hover:bg-blue-50 dark:hover:bg-slate-800"
-                            >
-                                <ProductItemInner icon={p.icon} label={p.label} desc={p.desc} />
-                            </a>
-                        )
-                    )}
+                    {products.map((product) => (
+                        <Link
+                            key={product.label}
+                            href={product.href}
+                            onClick={() => setOpen(false)}
+                            className="group flex items-center gap-3.5 rounded-xl px-3 py-3 transition-all hover:bg-blue-50 dark:hover:bg-slate-800"
+                        >
+                            <ProductItemInner
+                                icon={product.icon}
+                                label={product.label}
+                                desc={product.desc}
+                                badge={product.badge}
+                            />
+                        </Link>
+                    ))}
 
-                    {/* Footer link */}
-                    <div className="mt-1 border-t border-slate-200 dark:border-slate-700 px-3 py-3">
+                    <div className="mt-1 border-t border-slate-200 px-3 py-3 dark:border-slate-700">
                         <Link
                             href={`/${locale}#products`}
                             onClick={() => setOpen(false)}
-                            className="flex items-center justify-center gap-2 text-xs font-semibold text-blue-600 dark:text-blue-400 transition-colors hover:text-blue-800 dark:hover:text-blue-300"
+                            className="flex items-center justify-center gap-2 text-xs font-semibold text-blue-600 transition-colors hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
                         >
                             {t.nav.viewAllProducts}
-                            <svg className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                            </svg>
+                            <ChevronRight className="h-3 w-3" />
                         </Link>
                     </div>
                 </div>
@@ -290,43 +314,13 @@ function ProductsDropdown({ scrolled }: { scrolled: boolean }) {
     );
 }
 
-function ProductItemInner({ icon, label, desc, internal }: { icon: string; label: string; desc: string; internal?: boolean }) {
-    return (
-        <>
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-lg transition-transform group-hover:scale-110">
-                {icon}
-            </span>
-            <div className="min-w-0">
-                <p className="text-sm font-semibold text-[#0F172A] dark:text-[#F8FAFC] flex items-center gap-2">
-                    {label}
-                    {internal && (
-                        <span className="rounded bg-blue-100 dark:bg-blue-500/20 px-1.5 py-0.5 text-[9px] font-bold uppercase text-blue-600 dark:text-blue-400">
-                            ★
-                        </span>
-                    )}
-                </p>
-                <p className="text-xs text-[#64748B] dark:text-[#94A3B8] truncate">{desc}</p>
-            </div>
-            <svg
-                className="ml-auto h-3.5 w-3.5 shrink-0 text-[#94A3B8] dark:text-[#64748B] opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-0.5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2.5}
-                viewBox="0 0 24 24"
-            >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-        </>
-    );
-}
-
-/* ── Navbar ── */
 export default function Navbar() {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
-    const { theme } = useTheme();
-    const [mounted, setMounted] = useState(false);
+    const [scrolled, setScrolled] = useState(
+        typeof window !== "undefined" ? window.scrollY > 50 : false
+    );
+    const { resolvedTheme } = useTheme();
     const pathname = usePathname();
     const t = useT();
     const locale = useLocale();
@@ -357,28 +351,22 @@ export default function Navbar() {
     const ctaLabel = isHome ? t.nav.contactUs : t.nav.viewPricing;
 
     useEffect(() => {
-        setMounted(true);
         const onScroll = () => setScrolled(window.scrollY > 50);
         window.addEventListener("scroll", onScroll, { passive: true });
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
 
-    // Safety check for hydration mismatch on logo variant
-    const currentTheme = mounted ? theme : "light"; // Default to light on server/hydration
+    const currentTheme = resolvedTheme ?? "light";
 
     return (
         <nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-                ? "navbar-scrolled py-3"
-                : "bg-transparent border-b border-transparent py-5"
-                }`}
+            className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
+                scrolled ? "navbar-scrolled py-3" : "border-b border-transparent bg-transparent py-5"
+            }`}
         >
             <div className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8">
-                {/* Logo */}
-                {/* Logic: Dark mode = white logo, Light mode = dark logo */}
-                <Logo variant={currentTheme === 'dark' ? "light" : "dark"} href={`/${locale}`} />
+                <Logo variant={currentTheme === "dark" ? "light" : "dark"} href={`/${locale}`} />
 
-                {/* Desktop nav */}
                 <div className="hidden items-center gap-10 md:flex">
                     {navLinks.map((link) =>
                         link.hasDropdown ? (
@@ -387,10 +375,11 @@ export default function Navbar() {
                             <Link
                                 key={link.label}
                                 href={link.href}
-                                className={`nav-link text-[13px] font-semibold uppercase tracking-widest transition-colors ${scrolled
-                                    ? "text-muted hover:text-foreground"
-                                    : "text-[#0F172A] hover:text-primary dark:text-white/90 dark:hover:text-white"
-                                    }`}
+                                className={`nav-link text-[13px] font-semibold uppercase tracking-widest transition-colors ${
+                                    scrolled
+                                        ? "text-muted hover:text-foreground"
+                                        : "text-[#0F172A] hover:text-primary dark:text-white/90 dark:hover:text-white"
+                                }`}
                             >
                                 {link.label}
                             </Link>
@@ -398,92 +387,72 @@ export default function Navbar() {
                     )}
                 </div>
 
-                {/* Right side: language + theme toggle + CTA */}
                 <div className="hidden items-center gap-3 md:flex">
                     <LanguageToggle />
                     <ThemeToggle />
                     <Link
                         href={ctaHref}
-                        className={`rounded-full px-6 py-2.5 text-sm font-semibold transition-all hover:scale-105 bg-foreground text-background hover:opacity-90 shadow-md`}
+                        className="rounded-full bg-foreground px-6 py-2.5 text-sm font-semibold text-background shadow-md transition-all hover:scale-105 hover:opacity-90"
                     >
                         {ctaLabel}
                     </Link>
                 </div>
 
-                {/* Mobile: language + theme toggle + hamburger */}
                 <div className="flex items-center gap-2 md:hidden">
                     <LanguageToggle />
                     <ThemeToggle />
                     <button
-                        onClick={() => setMobileOpen(!mobileOpen)}
-                        className="flex flex-col gap-1.5"
+                        onClick={() => setMobileOpen((value) => !value)}
+                        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white/70 text-slate-900 backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/70 dark:text-white"
                         aria-label="Toggle menu"
                     >
-                        {[0, 1, 2].map((idx) => (
-                            <span
-                                key={idx}
-                                className={`h-0.5 w-6 transition-all duration-300 ${scrolled
-                                    ? "bg-foreground"
-                                    : "bg-foreground dark:bg-white"
-                                    } ${idx === 0 && mobileOpen ? "translate-y-2 rotate-45" : ""
-                                    } ${idx === 1 && mobileOpen ? "opacity-0" : ""
-                                    } ${idx === 2 && mobileOpen ? "-translate-y-2 -rotate-45" : ""
-                                    }`}
-                            />
-                        ))}
+                        {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
                     </button>
                 </div>
             </div>
 
-            {/* Mobile menu */}
             <div
-                className={`overflow-hidden transition-all duration-500 ease-in-out md:hidden ${mobileOpen ? "max-h-[800px] opacity-100" : "max-h-0 opacity-0"
-                    }`}
+                className={`overflow-hidden transition-all duration-500 ease-in-out md:hidden ${
+                    mobileOpen ? "max-h-[800px] opacity-100" : "max-h-0 opacity-0"
+                }`}
             >
-                <div className="flex flex-col gap-1 px-6 py-6 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 shadow-xl">
+                <div className="flex flex-col gap-1 border-t border-slate-200 bg-white px-6 py-6 shadow-xl dark:border-slate-700 dark:bg-slate-900">
                     {navLinks.map((link) =>
                         link.hasDropdown ? (
                             <div key={link.label}>
-                                {/* Products accordion trigger */}
                                 <button
-                                    onClick={() => setMobileProductsOpen(!mobileProductsOpen)}
-                                    className="flex w-full items-center justify-between py-2 text-sm font-semibold uppercase tracking-widest text-[#64748B] dark:text-[#94A3B8] hover:text-[#0F172A] dark:hover:text-white"
+                                    onClick={() => setMobileProductsOpen((value) => !value)}
+                                    className="flex w-full items-center justify-between py-2 text-sm font-semibold uppercase tracking-widest text-[#64748B] hover:text-[#0F172A] dark:text-[#94A3B8] dark:hover:text-white"
                                 >
                                     {t.nav.products}
-                                    <ChevronDown open={mobileProductsOpen} />
+                                    <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${mobileProductsOpen ? "rotate-180" : ""}`} />
                                 </button>
 
-                                {/* Products accordion content */}
                                 <div
-                                    className={`overflow-hidden transition-all duration-300 ${mobileProductsOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-                                        }`}
+                                    className={`overflow-hidden transition-all duration-300 ${
+                                        mobileProductsOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                                    }`}
                                 >
                                     <div className="grid grid-cols-2 gap-2 pb-3 pt-1">
-                                        {products.map((p) =>
-                                            p.internal ? (
+                                        {products.map((product) => {
+                                            const Icon = product.icon;
+                                            return (
                                                 <Link
-                                                    key={p.label}
-                                                    href={p.href}
-                                                    onClick={() => { setMobileOpen(false); setMobileProductsOpen(false); }}
-                                                    className="flex items-center gap-2 rounded-lg bg-slate-50 dark:bg-slate-800 px-3 py-2.5 transition-colors hover:bg-blue-50 dark:hover:bg-slate-700"
+                                                    key={product.label}
+                                                    href={product.href}
+                                                    onClick={() => {
+                                                        setMobileOpen(false);
+                                                        setMobileProductsOpen(false);
+                                                    }}
+                                                    className="flex items-center gap-2 rounded-lg bg-slate-50 px-3 py-2.5 transition-colors hover:bg-blue-50 dark:bg-slate-800 dark:hover:bg-slate-700"
                                                 >
-                                                    <span className="text-base">{p.icon}</span>
-                                                    <span className="text-xs font-semibold text-[#0F172A] dark:text-[#F8FAFC]">{p.label}</span>
+                                                    <Icon className="h-4 w-4 text-slate-600 dark:text-slate-300" />
+                                                    <span className="text-xs font-semibold text-[#0F172A] dark:text-[#F8FAFC]">
+                                                        {product.label}
+                                                    </span>
                                                 </Link>
-                                            ) : (
-                                                <a
-                                                    key={p.label}
-                                                    href={p.href}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    onClick={() => { setMobileOpen(false); setMobileProductsOpen(false); }}
-                                                    className="flex items-center gap-2 rounded-lg bg-slate-50 dark:bg-slate-800 px-3 py-2.5 transition-colors hover:bg-blue-50 dark:hover:bg-slate-700"
-                                                >
-                                                    <span className="text-base">{p.icon}</span>
-                                                    <span className="text-xs font-semibold text-[#0F172A] dark:text-[#F8FAFC]">{p.label}</span>
-                                                </a>
-                                            )
-                                        )}
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             </div>
@@ -492,7 +461,7 @@ export default function Navbar() {
                                 key={link.label}
                                 href={link.href}
                                 onClick={() => setMobileOpen(false)}
-                                className="py-2 text-sm font-semibold uppercase tracking-widest text-[#64748B] dark:text-[#94A3B8] hover:text-[#0F172A] dark:hover:text-white"
+                                className="py-2 text-sm font-semibold uppercase tracking-widest text-[#64748B] hover:text-[#0F172A] dark:text-[#94A3B8] dark:hover:text-white"
                             >
                                 {link.label}
                             </Link>
@@ -501,7 +470,7 @@ export default function Navbar() {
                     <Link
                         href={ctaHref}
                         onClick={() => setMobileOpen(false)}
-                        className="mt-2 inline-block rounded-full bg-slate-900 dark:bg-white px-6 py-2.5 text-center text-sm font-semibold text-white dark:text-slate-900"
+                        className="mt-2 inline-block rounded-full bg-slate-900 px-6 py-2.5 text-center text-sm font-semibold text-white dark:bg-white dark:text-slate-900"
                     >
                         {ctaLabel}
                     </Link>
