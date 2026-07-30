@@ -22,12 +22,12 @@ export default function ContactUsPage() {
     const [phone, setPhone] = useState("");
     const [service, setService] = useState(getInitialService);
     const [message, setMessage] = useState("");
-
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
     const [errorMessage, setErrorMessage] = useState("");
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
+
         if (!name.trim() || !email.trim() || !message.trim()) {
             setStatus("error");
             setErrorMessage(t.contact.requiredFields);
@@ -35,6 +35,7 @@ export default function ContactUsPage() {
         }
 
         setStatus("loading");
+
         try {
             const response = await fetch("/api/contact", {
                 method: "POST",
@@ -43,6 +44,7 @@ export default function ContactUsPage() {
             });
 
             const data = await response.json();
+
             if (response.ok) {
                 setStatus("success");
                 setName("");
@@ -61,175 +63,276 @@ export default function ContactUsPage() {
         }
     };
 
+    const fieldClassName =
+        "mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder-slate-400 transition-all focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary disabled:opacity-50 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-100 dark:focus:bg-slate-900";
+
     return (
         <>
             <Navbar />
-            <main className="min-h-screen bg-slate-50 dark:bg-[#0B1120] bg-grid pt-28 pb-16 lg:pt-36">
-                <div className="glow-ambient glow-ambient-1" aria-hidden="true" />
-                <div className="glow-ambient glow-ambient-2" aria-hidden="true" />
+            <main className="relative overflow-hidden bg-[#f5f4ef] pb-16 pt-28 dark:bg-slate-950 lg:pt-36">
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(56,189,248,0.10),_transparent_24%),radial-gradient(circle_at_bottom_right,_rgba(251,191,36,0.10),_transparent_20%)]" />
 
                 <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="mx-auto max-w-2xl text-center">
-                        <Link
-                            href={`/${locale}`}
-                            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-primary hover:text-primary-dark mb-6 transition-colors"
-                        >
-                            <svg className="h-3 w-3 rotate-180" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                            </svg>
-                            {t.contact.backToHome}
-                        </Link>
-                        <h1 className="text-3xl font-bold tracking-tight text-[#0F172A] dark:text-[#F8FAFC] sm:text-4xl lg:text-5xl">
-                            {t.contact.title} <span className="gradient-text">{t.contact.titleHighlight}</span>
-                        </h1>
-                        <p className="mt-4 text-base leading-relaxed text-[#475569] dark:text-[#94A3B8]">
-                            {t.contact.subtitle}
-                        </p>
-                    </div>
-
-                    <div className="mx-auto mt-12 max-w-xl rounded-2xl border border-slate-200 dark:border-[#1E293B] bg-white dark:bg-slate-900/80 p-8 shadow-xl backdrop-blur-md">
-                        {status === "success" ? (
-                            <div className="text-center py-8">
-                                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 mb-6">
-                                    <svg className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-bold text-[#0F172A] dark:text-[#F8FAFC]">{t.contact.successTitle}</h3>
-                                <p className="mt-3 text-sm text-[#475569] dark:text-[#94A3B8]">
-                                    {t.contact.successMessage}
-                                </p>
-                                <button
-                                    onClick={() => setStatus("idle")}
-                                    className="mt-8 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/25 hover:scale-105 transition-all"
+                    <div className="grid gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
+                        <div className="max-w-2xl">
+                            <Link
+                                href={`/${locale}`}
+                                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-sky-700 transition-colors hover:text-sky-900 dark:text-sky-300 dark:hover:text-white"
+                            >
+                                <svg
+                                    className="h-3 w-3 rotate-180"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth={2.5}
+                                    viewBox="0 0 24 24"
                                 >
-                                    {t.contact.sendAnother}
-                                </button>
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M13 7l5 5m0 0l-5 5m5-5H6"
+                                    />
+                                </svg>
+                                {t.contact.backToHome}
+                            </Link>
+
+                            <h1 className="mt-7 text-4xl font-semibold tracking-[-0.05em] text-slate-950 sm:text-5xl dark:text-white">
+                                {t.contact.title}{" "}
+                                <span className="text-sky-700 dark:text-sky-300">
+                                    {t.contact.titleHighlight}
+                                </span>
+                            </h1>
+
+                            <p className="mt-5 max-w-xl text-base leading-8 text-slate-600 dark:text-slate-300">
+                                {t.contact.subtitle}
+                            </p>
+
+                            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                                <div className="rounded-[1.5rem] bg-slate-950 p-5 text-white dark:bg-white/10">
+                                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-sky-300">
+                                        Response flow
+                                    </p>
+                                    <p className="mt-4 text-lg font-semibold">
+                                        {locale === "id"
+                                            ? "Masuk ke tim yang tepat lebih cepat."
+                                            : "Get routed to the right team faster."}
+                                    </p>
+                                </div>
+
+                                <div className="rounded-[1.5rem] bg-white p-5 shadow-sm ring-1 ring-slate-200 dark:bg-white/5 dark:ring-white/10">
+                                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+                                        Good for
+                                    </p>
+                                    <p className="mt-4 text-lg font-semibold text-slate-950 dark:text-white">
+                                        {locale === "id"
+                                            ? "Scope baru, penawaran, atau exploratory call."
+                                            : "New scopes, proposals, or exploratory calls."}
+                                    </p>
+                                </div>
                             </div>
-                        ) : (
-                            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-                                {status === "error" && (
-                                    <div className="rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800/30 p-4 text-sm text-rose-600 dark:text-rose-400">
-                                        <strong>{t.contact.errorLabel} </strong> {errorMessage}
-                                    </div>
-                                )}
+                        </div>
 
-                                <div>
-                                    <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-[#475569] dark:text-[#94A3B8]">
-                                        {t.contact.nameLabel} <span className="text-rose-500">*</span>
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        required
-                                        disabled={status === "loading"}
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                        className="mt-2 block w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 px-4 py-3 text-sm text-[#0F172A] dark:text-[#F8FAFC] placeholder-slate-400 focus:border-primary focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-primary transition-all disabled:opacity-50"
-                                        placeholder={t.contact.namePlaceholder}
-                                    />
-                                </div>
-
-                                <div>
-                                    <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-[#475569] dark:text-[#94A3B8]">
-                                        {t.contact.emailLabel} <span className="text-rose-500">*</span>
-                                    </label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        required
-                                        disabled={status === "loading"}
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        className="mt-2 block w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 px-4 py-3 text-sm text-[#0F172A] dark:text-[#F8FAFC] placeholder-slate-400 focus:border-primary focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-primary transition-all disabled:opacity-50"
-                                        placeholder={t.contact.emailPlaceholder}
-                                    />
-                                </div>
-
-                                <div>
-                                    <label htmlFor="company" className="block text-xs font-bold uppercase tracking-wider text-[#475569] dark:text-[#94A3B8]">
-                                        {t.contact.companyLabel} <span className="text-slate-400 font-normal">({t.contact.optional})</span>
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="company"
-                                        disabled={status === "loading"}
-                                        value={company}
-                                        onChange={(e) => setCompany(e.target.value)}
-                                        className="mt-2 block w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 px-4 py-3 text-sm text-[#0F172A] dark:text-[#F8FAFC] placeholder-slate-400 focus:border-primary focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-primary transition-all disabled:opacity-50"
-                                        placeholder={t.contact.companyPlaceholder}
-                                    />
-                                </div>
-
-                                <div className="grid gap-6 sm:grid-cols-2">
-                                    <div>
-                                        <label htmlFor="service" className="block text-xs font-bold uppercase tracking-wider text-[#475569] dark:text-[#94A3B8]">
-                                            {t.contact.serviceLabel}
-                                        </label>
-                                        <select
-                                            id="service"
-                                            disabled={status === "loading"}
-                                            value={service}
-                                            onChange={(e) => setService(e.target.value)}
-                                            className="mt-2 block w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 px-4 py-3 text-sm text-[#0F172A] dark:text-[#F8FAFC] focus:border-primary focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-primary transition-all disabled:opacity-50"
+                        <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-[0_22px_70px_rgba(15,23,42,0.10)] dark:border-white/10 dark:bg-slate-900/85">
+                            {status === "success" ? (
+                                <div className="py-10 text-center">
+                                    <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400">
+                                        <svg
+                                            className="h-7 w-7"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth={2.5}
+                                            viewBox="0 0 24 24"
                                         >
-                                            <option value="">{t.contact.serviceGeneral}</option>
-                                            {ACTIVE_SERVICES.map((s) => (
-                                                <option key={s.slug} value={s.slug}>{serviceName(s.slug, locale)}</option>
-                                            ))}
-                                        </select>
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M5 13l4 4L19 7"
+                                            />
+                                        </svg>
                                     </div>
+                                    <h3 className="text-2xl font-semibold text-slate-950 dark:text-white">
+                                        {t.contact.successTitle}
+                                    </h3>
+                                    <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                                        {t.contact.successMessage}
+                                    </p>
+                                    <button
+                                        onClick={() => setStatus("idle")}
+                                        className="mt-8 rounded-full bg-slate-950 px-8 py-3 text-sm font-semibold text-white transition-all hover:scale-[1.02] hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100"
+                                    >
+                                        {t.contact.sendAnother}
+                                    </button>
+                                </div>
+                            ) : (
+                                <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                                    {status === "error" ? (
+                                        <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-600 dark:border-rose-800/30 dark:bg-rose-950/20 dark:text-rose-400">
+                                            <strong>{t.contact.errorLabel} </strong>
+                                            {errorMessage}
+                                        </div>
+                                    ) : null}
+
+                                    <div className="grid gap-6 sm:grid-cols-2">
+                                        <div>
+                                            <label
+                                                htmlFor="name"
+                                                className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400"
+                                            >
+                                                {t.contact.nameLabel} <span className="text-rose-500">*</span>
+                                            </label>
+                                            <input
+                                                type="text"
+                                                id="name"
+                                                required
+                                                disabled={status === "loading"}
+                                                value={name}
+                                                onChange={(event) => setName(event.target.value)}
+                                                className={fieldClassName}
+                                                placeholder={t.contact.namePlaceholder}
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <label
+                                                htmlFor="email"
+                                                className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400"
+                                            >
+                                                {t.contact.emailLabel} <span className="text-rose-500">*</span>
+                                            </label>
+                                            <input
+                                                type="email"
+                                                id="email"
+                                                required
+                                                disabled={status === "loading"}
+                                                value={email}
+                                                onChange={(event) => setEmail(event.target.value)}
+                                                className={fieldClassName}
+                                                placeholder={t.contact.emailPlaceholder}
+                                            />
+                                        </div>
+                                    </div>
+
                                     <div>
-                                        <label htmlFor="phone" className="block text-xs font-bold uppercase tracking-wider text-[#475569] dark:text-[#94A3B8]">
-                                            {t.contact.phoneLabel} <span className="text-slate-400 font-normal">({t.contact.optional})</span>
+                                        <label
+                                            htmlFor="company"
+                                            className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400"
+                                        >
+                                            {t.contact.companyLabel}{" "}
+                                            <span className="font-normal text-slate-400">
+                                                ({t.contact.optional})
+                                            </span>
                                         </label>
                                         <input
-                                            type="tel"
-                                            id="phone"
+                                            type="text"
+                                            id="company"
                                             disabled={status === "loading"}
-                                            value={phone}
-                                            onChange={(e) => setPhone(e.target.value)}
-                                            className="mt-2 block w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 px-4 py-3 text-sm text-[#0F172A] dark:text-[#F8FAFC] placeholder-slate-400 focus:border-primary focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-primary transition-all disabled:opacity-50"
-                                            placeholder={t.contact.phonePlaceholder}
+                                            value={company}
+                                            onChange={(event) => setCompany(event.target.value)}
+                                            className={fieldClassName}
+                                            placeholder={t.contact.companyPlaceholder}
                                         />
                                     </div>
-                                </div>
 
-                                <div>
-                                    <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-[#475569] dark:text-[#94A3B8]">
-                                        {t.contact.messageLabel} <span className="text-rose-500">*</span>
-                                    </label>
-                                    <textarea
-                                        id="message"
-                                        required
-                                        rows={4}
+                                    <div className="grid gap-6 sm:grid-cols-2">
+                                        <div>
+                                            <label
+                                                htmlFor="service"
+                                                className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400"
+                                            >
+                                                {t.contact.serviceLabel}
+                                            </label>
+                                            <select
+                                                id="service"
+                                                disabled={status === "loading"}
+                                                value={service}
+                                                onChange={(event) => setService(event.target.value)}
+                                                className={fieldClassName}
+                                            >
+                                                <option value="">{t.contact.serviceGeneral}</option>
+                                                {ACTIVE_SERVICES.map((item) => (
+                                                    <option key={item.slug} value={item.slug}>
+                                                        {serviceName(item.slug, locale)}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label
+                                                htmlFor="phone"
+                                                className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400"
+                                            >
+                                                {t.contact.phoneLabel}{" "}
+                                                <span className="font-normal text-slate-400">
+                                                    ({t.contact.optional})
+                                                </span>
+                                            </label>
+                                            <input
+                                                type="tel"
+                                                id="phone"
+                                                disabled={status === "loading"}
+                                                value={phone}
+                                                onChange={(event) => setPhone(event.target.value)}
+                                                className={fieldClassName}
+                                                placeholder={t.contact.phonePlaceholder}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label
+                                            htmlFor="message"
+                                            className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400"
+                                        >
+                                            {t.contact.messageLabel} <span className="text-rose-500">*</span>
+                                        </label>
+                                        <textarea
+                                            id="message"
+                                            required
+                                            rows={5}
+                                            disabled={status === "loading"}
+                                            value={message}
+                                            onChange={(event) => setMessage(event.target.value)}
+                                            className={`${fieldClassName} rounded-[1.5rem]`}
+                                            placeholder={t.contact.messagePlaceholder}
+                                        />
+                                    </div>
+
+                                    <button
+                                        type="submit"
                                         disabled={status === "loading"}
-                                        value={message}
-                                        onChange={(e) => setMessage(e.target.value)}
-                                        className="mt-2 block w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 px-4 py-3 text-sm text-[#0F172A] dark:text-[#F8FAFC] placeholder-slate-400 focus:border-primary focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:ring-1 focus:ring-primary transition-all disabled:opacity-50"
-                                        placeholder={t.contact.messagePlaceholder}
-                                    />
-                                </div>
-
-                                <button
-                                    type="submit"
-                                    disabled={status === "loading"}
-                                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/25 hover:scale-[1.02] active:scale-100 transition-all disabled:opacity-50 disabled:pointer-events-none"
-                                >
-                                    {status === "loading" ? (
-                                        <>
-                                            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                            </svg>
-                                            {t.contact.sending}
-                                        </>
-                                    ) : (
-                                        t.contact.submitButton
-                                    )}
-                                </button>
-                            </form>
-                        )}
+                                        className="mt-2 flex w-full items-center justify-center gap-2 rounded-full bg-slate-950 px-8 py-3.5 text-sm font-semibold text-white transition-all hover:scale-[1.02] hover:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100"
+                                    >
+                                        {status === "loading" ? (
+                                            <>
+                                                <svg
+                                                    className="h-5 w-5 animate-spin text-white dark:text-slate-950"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <circle
+                                                        className="opacity-25"
+                                                        cx="12"
+                                                        cy="12"
+                                                        r="10"
+                                                        stroke="currentColor"
+                                                        strokeWidth="4"
+                                                    />
+                                                    <path
+                                                        className="opacity-75"
+                                                        fill="currentColor"
+                                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                                    />
+                                                </svg>
+                                                {t.contact.sending}
+                                            </>
+                                        ) : (
+                                            t.contact.submitButton
+                                        )}
+                                    </button>
+                                </form>
+                            )}
+                        </div>
                     </div>
                 </div>
             </main>

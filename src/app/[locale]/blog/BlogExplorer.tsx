@@ -117,6 +117,7 @@ export default function BlogExplorer({
     return (
         <div className="mt-12">
             {/* Controls */}
+            <div className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-[0_18px_50px_rgba(15,23,42,0.06)] dark:border-[#1E293B] dark:bg-[#0B1120] lg:p-6">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
                 {/* Search */}
                 <div className="relative flex-1">
@@ -139,7 +140,7 @@ export default function BlogExplorer({
                 </div>
 
                 {/* Language segmented */}
-                <div className="inline-flex shrink-0 items-center rounded-full border border-slate-200 dark:border-[#1E293B] bg-white dark:bg-[#0B1120] p-1">
+                <div className="inline-flex shrink-0 items-center rounded-full border border-slate-200 dark:border-[#1E293B] bg-slate-50 dark:bg-slate-950 p-1">
                     {langOptions.map((o) => (
                         <button
                             key={o.value}
@@ -156,7 +157,7 @@ export default function BlogExplorer({
                 </div>
 
                 {/* Sort segmented */}
-                <div className="inline-flex shrink-0 items-center rounded-full border border-slate-200 dark:border-[#1E293B] bg-white dark:bg-[#0B1120] p-1">
+                <div className="inline-flex shrink-0 items-center rounded-full border border-slate-200 dark:border-[#1E293B] bg-slate-50 dark:bg-slate-950 p-1">
                     {sortOptions.map((o) => (
                         <button
                             key={o.value}
@@ -194,6 +195,7 @@ export default function BlogExplorer({
             <p className="mt-6 text-center text-xs font-medium text-[#64748B] dark:text-[#94A3B8]">
                 {results.length} {labels.articlesWord}
             </p>
+            </div>
 
             {/* Grid */}
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -201,7 +203,7 @@ export default function BlogExplorer({
                     <Link
                         key={`${article.locale}-${article.slug}`}
                         href={`/${article.locale}/blog/${article.slug}`}
-                        className="feature-card group flex flex-col overflow-hidden rounded-2xl border border-slate-200 dark:border-[#1E293B] bg-white dark:bg-[#0B1120] transition-colors"
+                        className="feature-card group flex flex-col overflow-hidden rounded-[1.7rem] border border-slate-200 dark:border-[#1E293B] bg-white dark:bg-[#0B1120] transition-all hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(15,23,42,0.08)]"
                     >
                         <div className="relative h-48 w-full overflow-hidden">
                             <Image
