@@ -1,101 +1,235 @@
+"use client";
+
 import React, { useEffect } from "react";
-import { ArrowRight, Wand2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, PlayCircle, Sparkles, Wand2 } from "lucide-react";
 import Logo from "@/components/Logo";
 import { useTheme } from "@/components/ThemeProvider";
 import { useLocale } from "@/i18n/I18nProvider";
 
 const COPY = {
     en: {
-        badge: "New: Viral Strategy Generator V2.0",
-        title: "One AI for\nAll Business Needs",
-        subtitle: "More than just tools. PLUS is a smart ecosystem that automatically manages your content, strategy, and business growth.",
-        ctaPrimary: "Try Free Now",
-        ctaDemo: "Book Demo",
-        pills: ["Auto-Posting", "KOL Finder", "Live Stream Avatar", "Competitor Spy"],
+        badge: "New workspace: Strategy, creative, and growth in one flow",
+        title: "Your AI Growth Desk,\nNot Just Another Tool",
+        subtitle:
+            "PLUS Studio helps small teams plan campaigns, generate visuals, repurpose assets, and move from idea to launch without jumping across five tabs.",
+        ctaPrimary: "Open Studio",
+        ctaDemo: "Talk to Our Team",
+        login: "Sign In",
+        studio: "Studio",
+        proofLabel: "Trusted workflow",
+        proofValue: "One workspace for planning, visual production, and launch prep.",
+        stats: [
+            { value: "8", label: "core tools" },
+            { value: "< 10m", label: "from brief to draft" },
+            { value: "1 flow", label: "strategy to output" },
+        ],
+        pills: ["Campaign Planner", "Visual Generator", "Repurpose Engine", "Growth Toolkit"],
+        checklist: [
+            "Build monthly campaign plans in minutes",
+            "Generate on-brand visuals faster",
+            "Turn one idea into multiple content formats",
+        ],
+        previewTitle: "Today's launch board",
+        previewEyebrow: "Live workspace",
+        previewItems: [
+            "Campaign brief approved",
+            "3 visual drafts generated",
+            "Repurpose pack ready for posting",
+        ],
+        previewFoot: "Everything stays in one working rhythm.",
     },
     id: {
-        badge: "Baru: Viral Strategy Generator V2.0",
-        title: "Satu AI untuk\nSemua Kebutuhan Bisnis",
-        subtitle: "Lebih dari sekadar tools. PLUS adalah ekosistem pintar yang mengelola konten, strategi, dan pertumbuhan bisnis Anda secara otomatis.",
-        ctaPrimary: "Coba Gratis Sekarang",
-        ctaDemo: "Book Demo",
-        pills: ["Auto-Posting", "KOL Finder", "Live Stream Avatar", "Competitor Spy"],
+        badge: "Workspace baru: strategi, kreatif, dan growth dalam satu alur",
+        title: "Meja Kerja AI untuk Growth,\nBukan Sekadar Tool",
+        subtitle:
+            "PLUS Studio membantu tim kecil menyusun campaign, membuat visual, mengolah ulang aset, dan bergerak dari ide ke eksekusi tanpa pindah-pindah lima tab.",
+        ctaPrimary: "Masuk ke Studio",
+        ctaDemo: "Ngobrol dengan Tim Kami",
+        login: "Masuk",
+        studio: "Studio",
+        proofLabel: "Alur kerja tepercaya",
+        proofValue: "Satu workspace untuk planning, produksi visual, dan persiapan launch.",
+        stats: [
+            { value: "8", label: "tool inti" },
+            { value: "< 10 mnt", label: "dari brief ke draft" },
+            { value: "1 alur", label: "dari strategi ke output" },
+        ],
+        pills: ["Campaign Planner", "Visual Generator", "Repurpose Engine", "Growth Toolkit"],
+        checklist: [
+            "Susun rencana campaign bulanan dalam hitungan menit",
+            "Buat visual yang konsisten dengan brand lebih cepat",
+            "Ubah satu ide menjadi banyak format konten",
+        ],
+        previewTitle: "Launch board hari ini",
+        previewEyebrow: "Workspace aktif",
+        previewItems: [
+            "Brief campaign sudah disetujui",
+            "3 draft visual berhasil dibuat",
+            "Paket repurpose siap diposting",
+        ],
+        previewFoot: "Semua kerja tetap rapi dalam satu ritme.",
     },
-};
+} as const;
 
-export const StudioLanding: React.FC<{ onStart: () => void, onLoginClick: () => void }> = ({ onStart, onLoginClick }) => {
+export const StudioLanding: React.FC<{ onStart: () => void; onLoginClick: () => void }> = ({ onStart, onLoginClick }) => {
     const { theme } = useTheme();
     const locale = useLocale();
     const c = COPY[locale] ?? COPY.en;
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
-            document.querySelectorAll('.parallax').forEach((el) => {
-                const speed = parseFloat((el as HTMLElement).getAttribute('data-speed') || '1');
+            document.querySelectorAll(".parallax").forEach((el) => {
+                const speed = parseFloat((el as HTMLElement).getAttribute("data-speed") || "1");
                 const x = (window.innerWidth - e.pageX * speed) / 100;
                 const y = (window.innerHeight - e.pageY * speed) / 100;
                 (el as HTMLElement).style.transform = `translateX(${x}px) translateY(${y}px)`;
             });
         };
-        document.addEventListener('mousemove', handleMouseMove);
-        return () => document.removeEventListener('mousemove', handleMouseMove);
+
+        document.addEventListener("mousemove", handleMouseMove);
+        return () => document.removeEventListener("mousemove", handleMouseMove);
     }, []);
 
     return (
-        <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-white overflow-hidden relative transition-colors duration-500">
-            {/* Animated Background */}
+        <div className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.12),_transparent_28%),linear-gradient(180deg,_#f8fbff_0%,_#eef4ff_48%,_#f8fafc_100%)] text-slate-950 transition-colors duration-500 dark:bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.10),_transparent_24%),linear-gradient(180deg,_#020617_0%,_#0f172a_55%,_#020617_100%)] dark:text-white">
             <div className="absolute inset-0 z-0 overflow-hidden">
-                <div className="parallax absolute top-[10%] left-[10%] w-[40vw] h-[40vw] bg-blue-500/10 dark:bg-blue-500/5 rounded-full blur-[120px]" data-speed="2"></div>
-                <div className="parallax absolute bottom-[10%] right-[10%] w-[35vw] h-[35vw] bg-purple-500/10 dark:bg-purple-500/5 rounded-full blur-[100px]" data-speed="-1"></div>
-                <div className="absolute top-0 left-0 w-full h-full bg-[url('/textures/noise.svg')] opacity-[0.02] dark:opacity-[0.04]"></div>
+                <div className="parallax absolute left-[4%] top-[8%] h-[34vw] w-[34vw] rounded-full bg-blue-500/12 blur-[130px] dark:bg-blue-500/10" data-speed="2" />
+                <div className="parallax absolute bottom-[8%] right-[8%] h-[28vw] w-[28vw] rounded-full bg-cyan-400/10 blur-[120px] dark:bg-cyan-400/8" data-speed="-1.4" />
+                <div className="absolute inset-0 bg-[url('/textures/noise.svg')] opacity-[0.03] dark:opacity-[0.05]" />
             </div>
 
-            {/* Header */}
-            <nav className="relative z-20 flex justify-between items-center px-6 lg:px-8 py-5">
+            <nav className="relative z-20 flex items-center justify-between px-6 py-5 lg:px-8">
                 <div className="flex items-center gap-3">
-                    <Logo variant={theme === 'dark' ? 'light' : 'dark'} size="default" href={`/${locale}/studio`} />
-                    <span className="text-[10px] font-bold tracking-widest text-blue-600 dark:text-blue-400 uppercase mt-1 bg-blue-50 dark:bg-slate-900/50 px-2 py-0.5 rounded border border-blue-200 dark:border-slate-800 backdrop-blur-sm">Studio</span>
+                    <Logo variant={theme === "dark" ? "light" : "dark"} size="default" href={`/${locale}/studio`} />
+                    <span className="mt-1 rounded-full border border-blue-200 bg-white/80 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-blue-700 shadow-sm backdrop-blur-sm dark:border-white/10 dark:bg-white/5 dark:text-blue-300">
+                        {c.studio}
+                    </span>
                 </div>
-                <button onClick={onLoginClick} className="rounded-full bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 px-6 py-2.5 text-sm font-semibold transition-all hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 backdrop-blur-sm shadow-sm hover:shadow-md">
-                    Login Account
+                <button
+                    onClick={onLoginClick}
+                    className="rounded-full border border-slate-200 bg-white/80 px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-slate-100 dark:hover:bg-white/10"
+                >
+                    {c.login}
                 </button>
             </nav>
 
-            {/* Hero Section */}
-            <main className="relative z-10 container mx-auto px-6 h-[calc(100vh-100px)] flex flex-col items-center justify-center text-center">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 backdrop-blur-md mb-8 animate-in slide-in-from-top-4 duration-700 shadow-sm">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{c.badge}</span>
-                </div>
+            <main className="relative z-10 mx-auto grid min-h-[calc(100vh-92px)] max-w-7xl items-center gap-14 px-6 pb-14 pt-4 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:pb-20">
+                <section className="max-w-3xl">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-xs font-semibold text-slate-600 shadow-sm backdrop-blur-md animate-in slide-in-from-top-4 duration-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
+                        <Sparkles className="h-3.5 w-3.5 text-blue-600 dark:text-blue-300" />
+                        {c.badge}
+                    </div>
 
-                <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight text-slate-900 dark:text-white animate-in zoom-in-95 duration-700 delay-100 whitespace-pre-line">
-                    {c.title}
-                </h1>
+                    <h1 className="mt-7 whitespace-pre-line text-5xl font-semibold leading-[0.95] tracking-[-0.06em] text-slate-950 animate-in zoom-in-95 duration-700 delay-100 md:text-6xl xl:text-7xl dark:text-white">
+                        {c.title}
+                    </h1>
 
-                <p className="text-lg md:text-xl text-slate-500 dark:text-slate-400 max-w-2xl mb-10 leading-relaxed animate-in fade-in duration-700 delay-200">
-                    {c.subtitle}
-                </p>
+                    <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 animate-in fade-in duration-700 delay-200 dark:text-slate-300">
+                        {c.subtitle}
+                    </p>
 
-                <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto animate-in slide-in-from-bottom-8 duration-700 delay-300">
-                    <button onClick={onStart} className="group relative px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-950 rounded-full font-bold text-lg overflow-hidden transition-all hover:scale-105 shadow-xl shadow-blue-500/10">
-                        <span className="relative z-10 flex items-center justify-center gap-2">
+                    <div className="mt-9 flex flex-col gap-3 sm:flex-row animate-in slide-in-from-bottom-8 duration-700 delay-300">
+                        <button
+                            onClick={onStart}
+                            className="group inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-7 py-4 text-base font-bold text-white shadow-[0_20px_60px_rgba(15,23,42,0.16)] transition-all hover:-translate-y-0.5 hover:bg-blue-700 dark:bg-white dark:text-slate-950 dark:hover:bg-blue-100"
+                        >
                             {c.ctaPrimary}
-                            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                        </span>
-                    </button>
-                    <a href="mailto:plusthesite@gmail.com" className="px-8 py-4 bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-full font-bold text-lg hover:bg-slate-200 dark:hover:bg-slate-900 transition-all backdrop-blur-sm flex items-center justify-center gap-2 text-slate-700 dark:text-white">
-                        {c.ctaDemo}
-                    </a>
-                </div>
+                            <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+                        </button>
+                        <a
+                            href="mailto:plusthesite@gmail.com"
+                            className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white/75 px-7 py-4 text-base font-bold text-slate-800 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+                        >
+                            <PlayCircle size={18} />
+                            {c.ctaDemo}
+                        </a>
+                    </div>
 
-                {/* Feature Pills */}
-                <div className="mt-20 flex flex-wrap justify-center gap-4 opacity-0 animate-in fade-in duration-700 delay-500 fill-mode-forwards">
-                    {c.pills.map((f, i) => (
-                        <div key={i} className="px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 text-xs font-medium text-slate-500 dark:text-slate-400 flex items-center gap-2 hover:bg-slate-200 dark:hover:bg-slate-800 hover:border-blue-300 dark:hover:border-blue-500/30 hover:text-slate-700 dark:hover:text-white transition-all cursor-default shadow-sm">
-                            <Wand2 size={12} className="text-blue-600 dark:text-blue-500" /> {f}
+                    <div className="mt-10 rounded-3xl border border-slate-200/80 bg-white/80 p-5 shadow-[0_20px_70px_rgba(148,163,184,0.12)] backdrop-blur-xl animate-in fade-in duration-700 delay-500 dark:border-white/10 dark:bg-white/5">
+                        <div className="flex flex-wrap items-center gap-3">
+                            <span className="rounded-full bg-blue-50 px-3 py-1 text-[11px] font-semibold text-blue-700 dark:bg-blue-400/10 dark:text-blue-300">
+                                {c.proofLabel}
+                            </span>
+                            <p className="text-sm text-slate-600 dark:text-slate-300">{c.proofValue}</p>
                         </div>
-                    ))}
-                </div>
+
+                        <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                            {c.stats.map((item) => (
+                                <div key={item.label} className="rounded-2xl border border-slate-200 bg-slate-50/80 p-4 dark:border-white/10 dark:bg-slate-950/40">
+                                    <p className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">{item.value}</p>
+                                    <p className="mt-1 text-xs uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">{item.label}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="mt-8 flex flex-wrap gap-3 animate-in fade-in duration-700 delay-700">
+                        {c.pills.map((pill) => (
+                            <span
+                                key={pill}
+                                className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/75 px-4 py-2 text-xs font-medium text-slate-600 shadow-sm backdrop-blur-sm dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
+                            >
+                                <Wand2 size={12} className="text-blue-600 dark:text-blue-300" />
+                                {pill}
+                            </span>
+                        ))}
+                    </div>
+                </section>
+
+                <section className="animate-in slide-in-from-right-8 duration-700 delay-200">
+                    <div className="overflow-hidden rounded-[32px] border border-slate-200/80 bg-white/85 p-4 shadow-[0_35px_120px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+                        <div className="rounded-[28px] border border-slate-200 bg-slate-950 p-5 text-white dark:border-white/10">
+                            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                                <div>
+                                    <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-blue-300">{c.previewEyebrow}</p>
+                                    <h2 className="mt-1 text-2xl font-semibold tracking-tight">{c.previewTitle}</h2>
+                                </div>
+                                <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-semibold text-emerald-200">
+                                    Live
+                                </span>
+                            </div>
+
+                            <div className="mt-4 grid gap-3">
+                                {c.previewItems.map((item, index) => (
+                                    <div
+                                        key={item}
+                                        className={`rounded-2xl border border-white/10 p-4 ${index === 1 ? "bg-blue-500/20" : "bg-white/[0.06]"}`}
+                                    >
+                                        <div className="flex items-start gap-3">
+                                            <div className="mt-0.5 rounded-full bg-white/10 p-2">
+                                                <CheckCircle2 className="h-4 w-4 text-blue-200" />
+                                            </div>
+                                            <div className="min-w-0">
+                                                <p className="text-sm font-semibold text-white">{item}</p>
+                                                <p className="mt-1 text-xs text-slate-400">
+                                                    {index === 0 && "Strategy locked, ready for production."}
+                                                    {index === 1 && "Creative output aligned with the active campaign."}
+                                                    {index === 2 && "Distribution assets queued for the next publish wave."}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="mt-5 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-400 p-4 text-slate-950">
+                                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-900/70">Operator note</p>
+                                <p className="mt-2 text-sm font-semibold">{c.previewFoot}</p>
+                            </div>
+                        </div>
+
+                        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                            {c.checklist.map((item) => (
+                                <div key={item} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm text-slate-700 dark:border-white/10 dark:bg-slate-950/40 dark:text-slate-200">
+                                    <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600/10 text-blue-700 dark:bg-blue-400/10 dark:text-blue-300">
+                                        <Sparkles size={16} />
+                                    </div>
+                                    {item}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
             </main>
         </div>
     );
