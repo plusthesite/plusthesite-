@@ -265,7 +265,24 @@ const FRICTION_ICONS = [MessageSquareReply, Clock3, BookOpenText, Headphones];
 const MODEL_ICONS = [MessagesSquare, Workflow, Bot];
 
 function HeroSection() {
-    const copy = COPY[useLocale()].hero;
+    const locale = useLocale();
+    const copy = COPY[locale].hero;
+    const summaryCards = [
+        {
+            label: locale === "id" ? "Response mode" : "Response mode",
+            value:
+                locale === "id"
+                    ? "Triage, knowledge, dan handoff bergerak dalam satu alur."
+                    : "Triage, knowledge, and handoff move inside one flow.",
+        },
+        {
+            label: locale === "id" ? "Best fit" : "Best fit",
+            value:
+                locale === "id"
+                    ? "Brand dan service team yang ingin support tetap tenang saat volume naik."
+                    : "Brands and service teams that want support to stay calm as volume rises.",
+        },
+    ];
 
     return (
         <section className="relative overflow-hidden bg-[#11161f] pb-24 pt-28 text-white sm:pb-28 lg:pb-32">
@@ -309,6 +326,22 @@ function HeroSection() {
                                 </span>
                             ))}
                         </div>
+
+                        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                            {summaryCards.map((card) => (
+                                <div
+                                    key={card.label}
+                                    className="rounded-[1.5rem] border border-white/10 bg-white/[0.07] p-5 backdrop-blur"
+                                >
+                                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/52">
+                                        {card.label}
+                                    </p>
+                                    <p className="mt-4 text-sm font-semibold leading-7 text-white/86">
+                                        {card.value}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
                     <div className="relative">
@@ -317,35 +350,53 @@ function HeroSection() {
                         <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 shadow-[0_30px_80px_rgba(0,0,0,0.28)] backdrop-blur">
                             <div className="flex items-center justify-between border-b border-white/10 pb-4">
                                 <div>
-                                    <p className="text-sm font-semibold text-white">support routing</p>
-                                    <p className="mt-1 text-xs text-white/54">triage, knowledge, handoff, resolution</p>
+                                    <p className="text-sm font-semibold text-white">
+                                        {locale === "id" ? "support routing" : "support routing"}
+                                    </p>
+                                    <p className="mt-1 text-xs text-white/54">
+                                        {locale === "id"
+                                            ? "triage, knowledge, handoff, resolution"
+                                            : "triage, knowledge, handoff, resolution"}
+                                    </p>
                                 </div>
                                 <span className="rounded-full bg-cyan-400/12 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-200">
-                                    Stable
+                                    {locale === "id" ? "Stable" : "Stable"}
                                 </span>
                             </div>
 
                             <div className="mt-5 space-y-4">
                                 <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                    <p className="text-xs uppercase tracking-[0.2em] text-white/42">Current support pain</p>
+                                    <p className="text-xs uppercase tracking-[0.2em] text-white/42">
+                                        {locale === "id" ? "Current support pain" : "Current support pain"}
+                                    </p>
                                     <p className="mt-2 text-sm leading-6 text-white/78">
-                                        Volume rises, context gets buried, and senior staff spend too much time rescuing conversations that should have been routed better.
+                                        {locale === "id"
+                                            ? "Volume naik, konteks tenggelam, dan operator senior terlalu sering menyelamatkan percakapan yang seharusnya sudah diroute lebih baik sejak awal."
+                                            : "Volume rises, context gets buried, and senior staff spend too much time rescuing conversations that should have been routed better."}
                                     </p>
                                 </div>
                                 <div className="rounded-2xl border border-white/10 bg-[#edf4ff] p-4 text-slate-900">
-                                    <p className="text-xs uppercase tracking-[0.2em] text-slate-500">What improves</p>
+                                    <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
+                                        {locale === "id" ? "What improves" : "What improves"}
+                                    </p>
                                     <ul className="mt-3 space-y-2 text-sm leading-6">
                                         <li className="flex gap-2">
                                             <Check className="mt-0.5 h-4 w-4 text-cyan-700" />
-                                            Faster first response with clearer answer patterns.
+                                            {locale === "id"
+                                                ? "First response lebih cepat dengan pola jawaban yang lebih jelas."
+                                                : "Faster first response with clearer answer patterns."}
                                         </li>
                                         <li className="flex gap-2">
                                             <Check className="mt-0.5 h-4 w-4 text-cyan-700" />
-                                            Better signal for urgent and trust-heavy cases.
+                                            {locale === "id"
+                                                ? "Sinyal yang lebih jelas untuk kasus urgent dan trust-heavy."
+                                                : "Better signal for urgent and trust-heavy cases."}
                                         </li>
                                         <li className="flex gap-2">
                                             <Check className="mt-0.5 h-4 w-4 text-cyan-700" />
-                                            Cleaner operator handoff with less rereading.
+                                            {locale === "id"
+                                                ? "Handoff operator lebih bersih dengan lebih sedikit baca ulang."
+                                                : "Cleaner operator handoff with less rereading."}
                                         </li>
                                     </ul>
                                 </div>
@@ -361,20 +412,48 @@ function HeroSection() {
 function FrictionSection() {
     const ref = useScrollReveal();
     const copy = COPY[useLocale()].friction;
+    const locale = useLocale();
 
     return (
         <section id="friction" className="bg-[#f4f6fb] py-24 lg:py-28">
             <div ref={ref} className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="max-w-3xl">
-                    <p className="fade-up text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
-                        {copy.eyebrow}
-                    </p>
-                    <h2 className="fade-up fade-up-delay-1 mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl lg:text-5xl">
-                        {copy.title}
-                    </h2>
-                    <p className="fade-up fade-up-delay-2 mt-5 text-base leading-7 text-slate-600 sm:text-lg">
-                        {copy.subtitle}
-                    </p>
+                <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+                    <div className="max-w-3xl">
+                        <p className="fade-up text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
+                            {copy.eyebrow}
+                        </p>
+                        <h2 className="fade-up fade-up-delay-1 mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl lg:text-5xl">
+                            {copy.title}
+                        </h2>
+                        <p className="fade-up fade-up-delay-2 mt-5 text-base leading-7 text-slate-600 sm:text-lg">
+                            {copy.subtitle}
+                        </p>
+                    </div>
+
+                    <div className="fade-up fade-up-delay-3 rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
+                        <div className="grid gap-4 sm:grid-cols-2">
+                            <div className="rounded-2xl bg-slate-950 p-5 text-white">
+                                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-200">
+                                    {locale === "id" ? "Core tension" : "Core tension"}
+                                </p>
+                                <p className="mt-4 text-sm leading-7 text-white/78">
+                                    {locale === "id"
+                                        ? "Masalahnya sering bukan kurang orang. Masalahnya adalah routing, knowledge, dan ownership tidak cukup jelas saat tekanan naik."
+                                        : "The problem is often not a lack of people. It is that routing, knowledge, and ownership are not clear enough when pressure rises."}
+                                </p>
+                            </div>
+                            <div className="rounded-2xl bg-slate-100 p-5">
+                                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                                    {locale === "id" ? "Repair goal" : "Repair goal"}
+                                </p>
+                                <p className="mt-4 text-sm leading-7 text-slate-600">
+                                    {locale === "id"
+                                        ? "Membuat support lebih cepat dibaca, lebih mudah dioperasikan, dan lebih konsisten di bawah volume."
+                                        : "Make support faster to read, easier to operate, and more consistent under volume."}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="fade-up fade-up-delay-3 mt-14 grid gap-5 md:grid-cols-2">
@@ -383,7 +462,7 @@ function FrictionSection() {
                         return (
                             <article
                                 key={item.title}
-                                className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-[0_12px_40px_rgba(15,23,42,0.06)] transition hover:-translate-y-1"
+                                className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-[0_12px_40px_rgba(15,23,42,0.06)] transition-all hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(15,23,42,0.08)]"
                             >
                                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-950 text-white">
                                     <Icon className="h-5 w-5" />
@@ -402,6 +481,7 @@ function FrictionSection() {
 function ModelSection() {
     const ref = useScrollReveal();
     const copy = COPY[useLocale()].model;
+    const locale = useLocale();
 
     return (
         <section className="bg-white py-24 lg:py-28">
@@ -416,6 +496,17 @@ function ModelSection() {
                     <p className="fade-up fade-up-delay-2 mt-5 max-w-xl text-base leading-7 text-slate-600 sm:text-lg">
                         {copy.subtitle}
                     </p>
+
+                    <div className="fade-up fade-up-delay-3 mt-8 rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                            {locale === "id" ? "Design stance" : "Design stance"}
+                        </p>
+                        <p className="mt-4 text-sm leading-7 text-slate-600">
+                            {locale === "id"
+                                ? "Targetnya bukan membuat support terasa otomatis. Targetnya adalah membuat operator lebih siap, lebih cepat, dan lebih konsisten saat menjawab."
+                                : "The goal is not to make support feel automated. The goal is to make operators more prepared, faster, and more consistent when they respond."}
+                        </p>
+                    </div>
                 </div>
 
                 <div className="fade-up fade-up-delay-3 grid gap-5">
@@ -424,7 +515,7 @@ function ModelSection() {
                         return (
                             <div
                                 key={pillar.title}
-                                className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6 sm:p-7"
+                                className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6 transition-all hover:-translate-y-1 hover:shadow-[0_16px_35px_rgba(15,23,42,0.06)] sm:p-7"
                             >
                                 <div className="flex items-start gap-4">
                                     <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-slate-950 shadow-sm">
@@ -485,6 +576,7 @@ function ProcessSection() {
 function LayersSection() {
     const ref = useScrollReveal();
     const copy = COPY[useLocale()].layers;
+    const locale = useLocale();
 
     return (
         <section className="bg-[#f4f6fb] py-24 lg:py-28">
@@ -497,13 +589,24 @@ function LayersSection() {
                         <h2 className="fade-up fade-up-delay-1 mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl">
                             {copy.title}
                         </h2>
+
+                        <div className="fade-up fade-up-delay-2 mt-8 rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_12px_35px_rgba(15,23,42,0.05)]">
+                            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                                {locale === "id" ? "Typical bundle" : "Typical bundle"}
+                            </p>
+                            <p className="mt-4 text-sm leading-7 text-slate-600">
+                                {locale === "id"
+                                    ? "Tidak semua tim membutuhkan seluruh lapisan support sekaligus. Biasanya kami mulai dari triage, knowledge, dan handoff yang paling membuat operasi berat."
+                                    : "Not every team needs every support layer at once. We usually begin with the triage, knowledge, and handoff points that make operations feel heaviest."}
+                            </p>
+                        </div>
                     </div>
 
                     <div className="fade-up fade-up-delay-2 grid gap-4 sm:grid-cols-2">
                         {copy.items.map((item) => (
                             <div
                                 key={item}
-                                className="flex items-start gap-3 rounded-[1.4rem] border border-slate-200 bg-white px-5 py-4 text-sm leading-7 text-slate-700"
+                                className="flex items-start gap-3 rounded-[1.4rem] border border-slate-200 bg-white px-5 py-4 text-sm leading-7 text-slate-700 shadow-[0_10px_24px_rgba(15,23,42,0.04)]"
                             >
                                 <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-950 text-white">
                                     <Check className="h-3.5 w-3.5" />
@@ -554,6 +657,19 @@ function CTASection() {
                             >
                                 {copy.secondary}
                             </Link>
+                        </div>
+                    </div>
+
+                    <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-4 text-sm leading-7 text-white/72">
+                            {locale === "id"
+                                ? "Diskusi awal biasanya cukup untuk menemukan pola support yang paling sering membuat tim lambat, bingung, atau bolak-balik."
+                                : "An initial discussion is usually enough to find the support patterns that make the team slow, uncertain, or repeatedly backtrack."}
+                        </div>
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-4 text-sm leading-7 text-white/72">
+                            {locale === "id"
+                                ? "Kalau sistem dasar sudah ada, kami bisa masuk lewat quality guardrail, escalation logic, atau support knowledge flow."
+                                : "If the basic system already exists, we can enter through quality guardrails, escalation logic, or the support knowledge flow."}
                         </div>
                     </div>
                 </div>
