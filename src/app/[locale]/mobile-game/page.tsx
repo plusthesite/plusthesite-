@@ -265,7 +265,24 @@ const CAPABILITY_ICONS = [Gamepad2, Layers2, Users, Rocket];
 const GENRE_ICONS = [Trophy, Radar, Swords];
 
 function HeroSection() {
-    const copy = COPY[useLocale()].hero;
+    const locale = useLocale();
+    const copy = COPY[locale].hero;
+    const summaryCards = [
+        {
+            label: locale === "id" ? "Pandangan produksi" : "Production view",
+            body:
+                locale === "id"
+                    ? "Core loop, backend, dan live-ops dibentuk sebagai satu sistem yang saling nyambung."
+                    : "Core loop, backend, and live-ops are shaped as one connected system.",
+        },
+        {
+            label: locale === "id" ? "Paling cocok" : "Best fit",
+            body:
+                locale === "id"
+                    ? "Untuk studio, founder, dan publisher yang butuh partner produksi game yang serius."
+                    : "For studios, founders, and publishers that need a serious game production partner.",
+        },
+    ];
 
     return (
         <section className="relative overflow-hidden bg-[#040816] pb-24 pt-28 text-white sm:pb-28 lg:pb-32">
@@ -316,6 +333,20 @@ function HeroSection() {
                                 </span>
                             ))}
                         </div>
+
+                        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                            {summaryCards.map((card) => (
+                                <div
+                                    key={card.label}
+                                    className="rounded-[1.5rem] border border-white/10 bg-white/[0.06] p-4 backdrop-blur"
+                                >
+                                    <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200/72">
+                                        {card.label}
+                                    </p>
+                                    <p className="mt-3 text-sm leading-6 text-white/74">{card.body}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
                     <div className="relative">
@@ -326,55 +357,67 @@ function HeroSection() {
                         <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 shadow-[0_30px_80px_rgba(0,0,0,0.32)] backdrop-blur">
                             <div className="flex items-center justify-between border-b border-white/10 pb-4">
                                 <div>
-                                    <p className="text-sm font-semibold text-white">live production board</p>
-                                    <p className="mt-1 text-xs text-white/54">from prototype to content ops</p>
+                                    <p className="text-sm font-semibold text-white">
+                                        {locale === "id" ? "papan produksi live" : "live production board"}
+                                    </p>
+                                    <p className="mt-1 text-xs text-white/54">
+                                        {locale === "id" ? "dari prototype sampai content ops" : "from prototype to content ops"}
+                                    </p>
                                 </div>
                                 <span className="rounded-full bg-emerald-400/12 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-300">
-                                    Release mode
+                                    {locale === "id" ? "Mode rilis" : "Release mode"}
                                 </span>
                             </div>
 
                             <div className="mt-5 grid gap-4">
                                 <div className="rounded-2xl border border-white/10 bg-[#0f1630] p-4">
-                                    <p className="text-xs uppercase tracking-[0.2em] text-cyan-200/70">Foundation</p>
+                                    <p className="text-xs uppercase tracking-[0.2em] text-cyan-200/70">
+                                        {locale === "id" ? "Fondasi" : "Foundation"}
+                                    </p>
                                     <p className="mt-2 text-sm leading-6 text-white/78">
-                                        Core loop, progression, content scale, and service architecture are framed before expensive implementation spreads everywhere.
+                                        {locale === "id"
+                                            ? "Core loop, progression, skala konten, dan arsitektur service dibingkai lebih dulu sebelum implementasi mahal menyebar ke mana-mana."
+                                            : "Core loop, progression, content scale, and service architecture are framed before expensive implementation spreads everywhere."}
                                     </p>
                                 </div>
 
                                 <div className="grid gap-4 sm:grid-cols-2">
                                     <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                        <p className="text-xs uppercase tracking-[0.2em] text-white/42">Build tracks</p>
+                                        <p className="text-xs uppercase tracking-[0.2em] text-white/42">
+                                            {locale === "id" ? "Track build" : "Build tracks"}
+                                        </p>
                                         <ul className="mt-3 space-y-2 text-sm text-white/74">
                                             <li className="flex gap-2">
                                                 <Check className="mt-0.5 h-4 w-4 text-cyan-300" />
-                                                Client gameplay systems
+                                                {locale === "id" ? "Sistem gameplay client" : "Client gameplay systems"}
                                             </li>
                                             <li className="flex gap-2">
                                                 <Check className="mt-0.5 h-4 w-4 text-cyan-300" />
-                                                UI and economy surfaces
+                                                {locale === "id" ? "Surface UI dan ekonomi" : "UI and economy surfaces"}
                                             </li>
                                             <li className="flex gap-2">
                                                 <Check className="mt-0.5 h-4 w-4 text-cyan-300" />
-                                                Backend and event prep
+                                                {locale === "id" ? "Persiapan backend dan event" : "Backend and event prep"}
                                             </li>
                                         </ul>
                                     </div>
 
                                     <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                        <p className="text-xs uppercase tracking-[0.2em] text-white/42">After launch</p>
+                                        <p className="text-xs uppercase tracking-[0.2em] text-white/42">
+                                            {locale === "id" ? "Lensa operasi" : "Operating lens"}
+                                        </p>
                                         <ul className="mt-3 space-y-2 text-sm text-white/74">
                                             <li className="flex gap-2">
                                                 <Check className="mt-0.5 h-4 w-4 text-violet-300" />
-                                                Content cadence
+                                                {locale === "id" ? "Pacing retensi yang sensitif" : "Retention-sensitive pacing"}
                                             </li>
                                             <li className="flex gap-2">
                                                 <Check className="mt-0.5 h-4 w-4 text-violet-300" />
-                                                Live balancing workflow
+                                                {locale === "id" ? "Perencanaan cadence konten" : "Content cadence planning"}
                                             </li>
                                             <li className="flex gap-2">
                                                 <Check className="mt-0.5 h-4 w-4 text-violet-300" />
-                                                Event release planning
+                                                {locale === "id" ? "Kesiapan event live" : "Live event readiness"}
                                             </li>
                                         </ul>
                                     </div>
@@ -390,30 +433,58 @@ function HeroSection() {
 
 function CapabilitiesSection() {
     const ref = useScrollReveal();
-    const copy = COPY[useLocale()].capabilities;
+    const locale = useLocale();
+    const copy = COPY[locale].capabilities;
 
     return (
         <section id="capabilities" className="bg-[#f4f6fb] py-24 lg:py-28">
             <div ref={ref} className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="max-w-3xl">
-                    <p className="fade-up text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
-                        {copy.eyebrow}
-                    </p>
-                    <h2 className="fade-up fade-up-delay-1 mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl lg:text-5xl">
-                        {copy.title}
-                    </h2>
-                    <p className="fade-up fade-up-delay-2 mt-5 text-base leading-7 text-slate-600 sm:text-lg">
-                        {copy.subtitle}
-                    </p>
+                <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+                    <div className="max-w-3xl">
+                        <p className="fade-up text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
+                            {copy.eyebrow}
+                        </p>
+                        <h2 className="fade-up fade-up-delay-1 mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl lg:text-5xl">
+                            {copy.title}
+                        </h2>
+                        <p className="fade-up fade-up-delay-2 mt-5 text-base leading-7 text-slate-600 sm:text-lg">
+                            {copy.subtitle}
+                        </p>
+                    </div>
+
+                    <div className="fade-up fade-up-delay-3 rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_16px_48px_rgba(15,23,42,0.08)]">
+                        <div className="grid gap-5 sm:grid-cols-2">
+                            <div>
+                                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+                                    {locale === "id" ? "Tensi inti" : "Core tension"}
+                                </p>
+                                <p className="mt-3 text-sm leading-6 text-slate-600">
+                                    {locale === "id"
+                                        ? "Masalahnya sering bukan kekurangan fitur, tapi arah produksi yang pecah antara gameplay, ekonomi, dan operasi setelah rilis."
+                                        : "The problem is often not missing features, but a production path that splits gameplay, economy, and post-launch operations apart."}
+                                </p>
+                            </div>
+                            <div>
+                                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+                                    {locale === "id" ? "Target perbaikan" : "Repair goal"}
+                                </p>
+                                <p className="mt-3 text-sm leading-6 text-slate-600">
+                                    {locale === "id"
+                                        ? "Membuat jalur produksi game terasa lebih terarah, lebih sinkron, dan lebih siap dipakai tumbuh setelah launch."
+                                        : "Make the game production path feel more directed, more aligned, and more ready to keep growing after launch."}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div className="fade-up fade-up-delay-3 mt-14 grid gap-5 md:grid-cols-2">
+                <div className="fade-up fade-up-delay-4 mt-14 grid gap-5 md:grid-cols-2">
                     {copy.items.map((item, index) => {
                         const Icon = CAPABILITY_ICONS[index];
                         return (
                             <article
                                 key={item.title}
-                                className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-[0_12px_40px_rgba(15,23,42,0.06)] transition hover:-translate-y-1"
+                                className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-[0_12px_40px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:shadow-[0_22px_60px_rgba(15,23,42,0.12)]"
                             >
                                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-950 text-white">
                                     <Icon className="h-5 w-5" />
@@ -431,7 +502,8 @@ function CapabilitiesSection() {
 
 function GenreSection() {
     const ref = useScrollReveal();
-    const copy = COPY[useLocale()].genres;
+    const locale = useLocale();
+    const copy = COPY[locale].genres;
 
     return (
         <section className="bg-white py-24 lg:py-28">
@@ -447,15 +519,26 @@ function GenreSection() {
                         <p className="fade-up fade-up-delay-2 mt-5 max-w-xl text-base leading-7 text-slate-600 sm:text-lg">
                             {copy.subtitle}
                         </p>
+
+                        <div className="fade-up fade-up-delay-3 mt-8 rounded-[1.6rem] border border-slate-200 bg-slate-50 p-5">
+                            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+                                {locale === "id" ? "Sikap desain" : "Design stance"}
+                            </p>
+                            <p className="mt-3 text-sm leading-6 text-slate-600">
+                                {locale === "id"
+                                    ? "Kami tidak memaksa satu pola monetisasi, retention, atau content cadence ke semua game. Bentuk sistemnya mengikuti genre dan tujuan produknya."
+                                    : "We do not force one monetization, retention, or content cadence pattern into every game. The system shape follows the genre and product goal."}
+                            </p>
+                        </div>
                     </div>
 
-                    <div className="fade-up fade-up-delay-3 grid gap-5">
+                    <div className="fade-up fade-up-delay-4 grid gap-5">
                         {copy.items.map((item, index) => {
                             const Icon = GENRE_ICONS[index];
                             return (
                                 <article
                                     key={item.title}
-                                    className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6 sm:p-7"
+                                    className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6 transition hover:-translate-y-1 hover:shadow-[0_20px_55px_rgba(15,23,42,0.1)] sm:p-7"
                                 >
                                     <div className="flex items-start gap-4">
                                         <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-slate-950 shadow-sm">
@@ -516,7 +599,8 @@ function ProductionSection() {
 
 function SystemsSection() {
     const ref = useScrollReveal();
-    const copy = COPY[useLocale()].systems;
+    const locale = useLocale();
+    const copy = COPY[locale].systems;
 
     return (
         <section className="bg-[#f4f6fb] py-24 lg:py-28">
@@ -529,13 +613,24 @@ function SystemsSection() {
                         <h2 className="fade-up fade-up-delay-1 mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl">
                             {copy.title}
                         </h2>
+
+                        <div className="fade-up fade-up-delay-2 mt-8 rounded-[1.6rem] border border-slate-200 bg-white p-5">
+                            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+                                {locale === "id" ? "Bundle umum" : "Typical bundle"}
+                            </p>
+                            <p className="mt-3 text-sm leading-6 text-slate-600">
+                                {locale === "id"
+                                    ? "Tidak semua tim butuh semua layer game sekaligus. Biasanya kami masuk dari area yang paling cepat membuka jalur produksi dan operasional."
+                                    : "Not every team needs every game layer at once. We usually enter through the layer that opens the production and operating path fastest."}
+                            </p>
+                        </div>
                     </div>
 
-                    <div className="fade-up fade-up-delay-2 grid gap-4 sm:grid-cols-2">
+                    <div className="fade-up fade-up-delay-3 grid gap-4 sm:grid-cols-2">
                         {copy.items.map((item) => (
                             <div
                                 key={item}
-                                className="flex items-start gap-3 rounded-[1.4rem] border border-slate-200 bg-white px-5 py-4 text-sm leading-7 text-slate-700"
+                                className="flex items-start gap-3 rounded-[1.4rem] border border-slate-200 bg-white px-5 py-4 text-sm leading-7 text-slate-700 shadow-[0_10px_34px_rgba(15,23,42,0.05)]"
                             >
                                 <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-950 text-white">
                                     <Check className="h-3.5 w-3.5" />
@@ -586,6 +681,29 @@ function CTASection() {
                             >
                                 {copy.secondary}
                             </Link>
+                        </div>
+                    </div>
+
+                    <div className="mt-8 grid gap-4 lg:grid-cols-2">
+                        <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.05] p-5">
+                            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/48">
+                                {locale === "id" ? "Apa yang dibuka lebih dulu" : "What gets surfaced first"}
+                            </p>
+                            <p className="mt-3 text-sm leading-6 text-white/68">
+                                {locale === "id"
+                                    ? "Diskusi awal biasanya langsung membuka problem di core loop, struktur produksi, dan live-ops yang paling berisiko kalau dibiarkan kabur."
+                                    : "The first discussion usually surfaces the core loop, production structure, and live-ops problems that are riskiest to leave fuzzy."}
+                            </p>
+                        </div>
+                        <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.05] p-5">
+                            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/48">
+                                {locale === "id" ? "Titik masuk umum" : "Common entry point"}
+                            </p>
+                            <p className="mt-3 text-sm leading-6 text-white/68">
+                                {locale === "id"
+                                    ? "Tim bisa masuk lewat fondasi playable, struktur sistem, atau jalur rilis, tergantung bottleneck produksi yang paling terasa sekarang."
+                                    : "Teams can enter through the playable foundation, system structure, or release path, depending on which production bottleneck is most active now."}
+                            </p>
                         </div>
                     </div>
                 </div>
