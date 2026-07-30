@@ -165,14 +165,40 @@ export const ViewGenerator: React.FC<{
     return (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pb-24 animate-in fade-in duration-500 h-full lg:h-[calc(100vh-140px)]">
             <div className="lg:col-span-4 flex flex-col gap-4 h-full">
+                <div className="rounded-[1.75rem] border border-border bg-card-bg p-5 shadow-sm">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-primary">
+                        Generator Surface
+                    </p>
+                    <h2 className="mt-3 text-2xl font-bold tracking-tight text-foreground">
+                        Bangun visual draft lebih cepat dari prompt yang lebih terarah.
+                    </h2>
+                    <p className="mt-3 text-sm leading-7 text-muted">
+                        Surface ini cocok untuk eksplorasi visual cepat, draft
+                        campaign, dan produksi ide awal sebelum tim masuk ke tahap
+                        seleksi atau polish final.
+                    </p>
+                </div>
+
                 <div className="bg-card-bg backdrop-blur-sm border border-border p-6 rounded-2xl flex-1 flex flex-col shadow-lg transition-colors">
-                    <div className="mb-6">
-                        <h3 className="text-lg font-bold text-foreground mb-1 flex items-center gap-2">
-                            <Wand2 size={18} className="text-primary" /> AI Studio
-                        </h3>
-                        <p className="text-muted text-xs">
-                            Powered by Gemini 2.0 Flash Image.
-                        </p>
+                    <div className="mb-6 grid gap-4 lg:grid-cols-1">
+                        <div>
+                            <h3 className="text-lg font-bold text-foreground mb-1 flex items-center gap-2">
+                                <Wand2 size={18} className="text-primary" /> AI Studio
+                            </h3>
+                            <p className="text-muted text-xs">
+                                Powered by Gemini 2.0 Flash Image.
+                            </p>
+                        </div>
+
+                        <div className="rounded-[1.5rem] border border-border bg-surface/90 p-4">
+                            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted">
+                                Prompt note
+                            </p>
+                            <p className="mt-2 text-xs leading-6 text-foreground">
+                                Prompt yang lebih spesifik biasanya memberi hasil
+                                yang lebih usable daripada deskripsi visual yang terlalu umum.
+                            </p>
+                        </div>
                     </div>
 
                     <div className="space-y-6 flex-1 overflow-y-auto custom-scrollbar pr-2">
@@ -238,6 +264,31 @@ export const ViewGenerator: React.FC<{
                                 ))}
                             </div>
                         </div>
+
+                        <div className="rounded-[1.5rem] border border-border bg-surface/80 p-4">
+                            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted">
+                                Cara pakai
+                            </p>
+                            <div className="mt-3 grid gap-3">
+                                {[
+                                    "Mulai dari subjek, suasana, dan konteks visual yang paling penting.",
+                                    "Pilih style lebih dulu jika tim sudah punya arah art yang jelas.",
+                                    "Gunakan ratio sesuai placement akhir: feed, story, atau presentasi.",
+                                ].map((item, index) => (
+                                    <div
+                                        key={item}
+                                        className="rounded-2xl border border-border bg-card-bg px-4 py-3"
+                                    >
+                                        <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted">
+                                            Langkah 0{index + 1}
+                                        </p>
+                                        <p className="mt-1 text-xs leading-6 text-foreground">
+                                            {item}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
 
                     <button
@@ -257,6 +308,54 @@ export const ViewGenerator: React.FC<{
             </div>
 
             <div className="lg:col-span-8 flex h-full flex-col gap-4">
+                <div className="grid gap-4 xl:grid-cols-[1.05fr_0.95fr]">
+                    <div className="rounded-[1.75rem] border border-border bg-card-bg p-5 shadow-sm">
+                        <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-primary">
+                            Output Canvas
+                        </p>
+                        <h3 className="mt-3 text-xl font-bold tracking-tight text-foreground">
+                            Review hasil visual sebelum disimpan, diperbesar, atau dipakai ulang.
+                        </h3>
+                        <p className="mt-3 text-sm leading-7 text-muted">
+                            Setelah visual muncul, tim bisa menilai apakah arah art,
+                            ratio, dan detailnya sudah cukup kuat untuk dilanjutkan
+                            ke campaign, mockup, atau bahan eksplorasi berikutnya.
+                        </p>
+                    </div>
+
+                    <div className="rounded-[1.75rem] border border-border bg-card-bg p-5 shadow-sm">
+                        <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-primary">
+                            Current Setup
+                        </p>
+                        <div className="mt-4 grid gap-3 md:grid-cols-3">
+                            <div className="rounded-2xl border border-border bg-surface px-4 py-4">
+                                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted">
+                                    Style
+                                </p>
+                                <p className="mt-2 text-sm font-semibold text-foreground">
+                                    {style}
+                                </p>
+                            </div>
+                            <div className="rounded-2xl border border-border bg-surface px-4 py-4">
+                                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted">
+                                    Ratio
+                                </p>
+                                <p className="mt-2 text-sm font-semibold text-foreground">
+                                    {ratio}
+                                </p>
+                            </div>
+                            <div className="rounded-2xl border border-border bg-surface px-4 py-4">
+                                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted">
+                                    Gallery
+                                </p>
+                                <p className="mt-2 text-sm font-semibold text-foreground">
+                                    {history.length} tersimpan
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div
                     id="gen-result-area"
                     className="flex-1 bg-surface border border-border rounded-2xl flex items-center justify-center relative overflow-hidden group min-h-[400px] shadow-inner transition-colors"
@@ -327,10 +426,20 @@ export const ViewGenerator: React.FC<{
                 </div>
 
                 {history.length > 0 && (
-                    <div className="shrink-0">
-                        <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-muted">
-                            Galeri Anda - tersimpan otomatis
-                        </p>
+                    <div className="shrink-0 rounded-[1.75rem] border border-border bg-card-bg p-5 shadow-sm">
+                        <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                            <div>
+                                <p className="text-[10px] font-bold uppercase tracking-wider text-muted">
+                                    Galeri Anda
+                                </p>
+                                <p className="mt-1 text-sm text-foreground">
+                                    Hasil generate tersimpan otomatis dan bisa dipanggil lagi untuk review cepat.
+                                </p>
+                            </div>
+                            <div className="rounded-full border border-border bg-surface px-3 py-1.5 text-[11px] font-medium text-muted">
+                                {history.length} item
+                            </div>
+                        </div>
                         <div className="flex gap-2 overflow-x-auto pb-1 custom-scrollbar">
                             {history.map((item) => (
                                 <div
