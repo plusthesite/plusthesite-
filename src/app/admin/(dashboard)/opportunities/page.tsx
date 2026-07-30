@@ -210,7 +210,7 @@ export default async function OpportunitiesPage({
             <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
               Weighted Forecast
             </p>
-            <p className="mt-2 text-2xl font-extrabold text-blue-600">
+            <p className="mt-2 text-2xl font-extrabold text-sky-600">
               {formatIDR(weighted, true)}
             </p>
             <p className="mt-1 text-xs text-slate-400">
@@ -407,7 +407,7 @@ export default async function OpportunitiesPage({
                     <td className="px-4 py-3">
                       <Link
                         href={`/admin/opportunities/${opp.id}`}
-                        className="font-semibold text-slate-800 hover:text-blue-600 transition-colors"
+                        className="font-semibold text-slate-800 hover:text-sky-600 transition-colors"
                       >
                         {opp.name}
                       </Link>
@@ -480,7 +480,7 @@ export default async function OpportunitiesPage({
                         {mail && (
                           <a
                             href={mail}
-                            className="text-blue-600 hover:text-blue-800 transition-colors"
+                            className="text-sky-600 hover:text-sky-800 transition-colors"
                             title="Email dengan follow-up siap pakai"
                           >
                             Email

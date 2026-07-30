@@ -27,7 +27,7 @@ interface Lead {
 
 const STATUS_COLOR: Record<string, string> = {
   new: "bg-slate-100 text-slate-600",
-  contacted: "bg-blue-50 text-blue-700",
+  contacted: "bg-sky-50 text-sky-700",
   qualified: "bg-indigo-50 text-indigo-700",
   unqualified: "bg-rose-50 text-rose-700",
   converted: "bg-emerald-50 text-emerald-700",
@@ -239,7 +239,7 @@ export default async function LeadsPage({
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
+            <span className="rounded-full bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700">
               {newCount} baru
             </span>
             <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
@@ -514,7 +514,7 @@ export default async function LeadsPage({
                       <div className="flex items-center gap-2">
                         <Link
                           href={`/admin/leads/${lead.id}`}
-                          className="font-semibold text-slate-800 hover:text-blue-600 transition-colors"
+                          className="font-semibold text-slate-800 hover:text-sky-600 transition-colors"
                         >
                           {lead.name ?? "(tanpa nama)"}
                         </Link>
@@ -604,7 +604,7 @@ export default async function LeadsPage({
                           }`}
                         />
                         <button
-                          className="text-[10px] font-semibold text-blue-600 hover:text-blue-800"
+                          className="text-[10px] font-semibold text-sky-600 hover:text-sky-800"
                           title="Simpan next step"
                         >
                           Simpan
@@ -635,7 +635,7 @@ export default async function LeadsPage({
                         {mail && (
                           <a
                             href={mail}
-                            className="text-blue-600 hover:text-blue-800 transition-colors"
+                            className="text-sky-600 hover:text-sky-800 transition-colors"
                             title="Email dengan opener siap pakai"
                           >
                             Email
@@ -661,7 +661,7 @@ export default async function LeadsPage({
                         {status !== "converted" && (
                           <form action={convertLeadToOpportunity}>
                             <input type="hidden" name="id" value={lead.id} />
-                            <button className="whitespace-nowrap text-xs font-semibold text-blue-600 hover:text-blue-800 transition-colors">
+                            <button className="whitespace-nowrap text-xs font-semibold text-sky-600 hover:text-sky-800 transition-colors">
                               Convert
                             </button>
                           </form>
