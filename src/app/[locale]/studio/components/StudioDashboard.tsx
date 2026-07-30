@@ -96,7 +96,7 @@ export const StudioDashboard: React.FC<{
 
   // States for Documentation
   const [isDocsOpen, setIsDocsOpen] = useState(false);
-  const [docsInitialTab, setDocsInitialTab] = useState("user-guide");
+  const [docsInitialTab, setDocsInitialTab] = useState("guide");
   const [isFloatingDockOpen, setIsFloatingDockOpen] = useState(false);
 
   useEffect(() => {
@@ -195,13 +195,13 @@ export const StudioDashboard: React.FC<{
         {isFloatingDockOpen && (
           <div className="flex flex-col gap-2 mb-2 animate-in slide-in-from-bottom-4">
             <button
-              onClick={() => openDocs("user-guide")}
+              onClick={() => openDocs("guide")}
               className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-500 text-white rounded-full shadow-lg text-xs font-bold transition-all hover:scale-105"
             >
               <LifeBuoy size={16} /> Panduan
             </button>
             <button
-              onClick={() => openDocs("flowchart")}
+              onClick={() => openDocs("network")}
               className="flex items-center gap-2 rounded-full bg-sky-600 px-4 py-2 text-xs font-bold text-white shadow-lg transition-all hover:scale-105 hover:bg-sky-500"
             >
               <GitBranch size={16} /> Flowchart
@@ -338,7 +338,7 @@ export const StudioDashboard: React.FC<{
                   </button>
                   <button
                     onClick={() => {
-                      openDocs("user-guide");
+                      openDocs("guide");
                       setAccountMenuOpen(false);
                     }}
                     className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:bg-surface-hover transition-colors border-t border-border"

@@ -33,20 +33,20 @@ export const ALACARTE_FEATURES = [
     { id: 'f4', name: 'Auto-Posting Bot', price: 100000 },
 ];
 
-export const MOCK_CLASSES: ClassItem[] = [
+export const ACADEMY_CLASSES: ClassItem[] = [
     { id: 1, title: "Jago Jualan di TikTok Shop", mentor: "Coach Rian", role: "TikTok Expert", date: "25 Nov", time: "19:00", rating: 4.9, students: 1250, price: "Gratis", image: "bg-brand" },
     { id: 2, title: "Fotografi Produk Modal HP", mentor: "Siska Visuals", role: "Photographer", date: "26 Nov", time: "10:00", rating: 4.8, students: 850, price: "Rp 50.000", image: "bg-sky-600" },
     { id: 3, title: "AI untuk Copywriting Kilat", mentor: "Dr. Prompt", role: "AI Specialist", date: "28 Nov", time: "15:00", rating: 5.0, students: 2100, price: "Rp 75.000", image: "bg-sky-600" },
     { id: 4, title: "Financial Planning UMKM", mentor: "Budi Cuan", role: "Financial Advisor", date: "30 Nov", time: "13:00", rating: 4.7, students: 600, price: "Gratis", image: "bg-green-600" },
 ];
 
-export const MOCK_TUTORIALS: VideoTutorial[] = [
+export const STUDIO_TUTORIALS: VideoTutorial[] = [
     { id: 'v1', title: 'Cara Riset Kompetitor dalam 3 Menit', duration: '03:45', thumbnail: 'from-brand to-blue-900', views: '12K' },
     { id: 'v2', title: 'Prompt Engineering untuk Foto Makanan', duration: '05:12', thumbnail: 'from-sky-600 to-blue-900', views: '8.5K' },
     { id: 'v3', title: 'Setup Live Streaming Pertama', duration: '04:20', thumbnail: 'from-blue-600 to-brand', views: '15K' },
 ];
 
-export const MOCK_FAQ: FAQItem[] = [
+export const STUDIO_FAQ: FAQItem[] = [
     { q: 'Apakah hasil gambar AI bebas copyright?', a: 'Ya, semua gambar yang dihasilkan oleh Generator PLUS bebas royalti dan milik Anda sepenuhnya untuk keperluan komersial.' },
     { q: 'Bagaimana cara AI menentukan jadwal posting?', a: 'AI menganalisis tren industri Anda dan perilaku audiens target (misal: Gen Z aktif malam hari) untuk menyarankan waktu terbaik.' },
     { q: 'Apakah saya bisa membatalkan langganan?', a: 'Tentu saja. Anda bisa membatalkan kapan saja melalui menu Settings, tanpa biaya tambahan.' },

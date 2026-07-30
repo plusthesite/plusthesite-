@@ -12,15 +12,15 @@ import {
     Sparkles,
     Wand2,
 } from "lucide-react";
-import { MOCK_FAQ, MOCK_TUTORIALS } from "@/lib/mockData";
+import { STUDIO_FAQ, STUDIO_TUTORIALS } from "@/lib/mockData";
 
 export const UserGuide: React.FC<{ onStartTour: (tab: string) => void }> = ({
     onStartTour,
 }) => {
-    const [activeVideo, setActiveVideo] = useState<string | null>(MOCK_TUTORIALS[0]?.id ?? null);
+    const [activeVideo, setActiveVideo] = useState<string | null>(STUDIO_TUTORIALS[0]?.id ?? null);
     const [openFAQ, setOpenFAQ] = useState<number | null>(0);
 
-    const currentVideo = MOCK_TUTORIALS.find((video) => video.id === activeVideo) ?? null;
+    const currentVideo = STUDIO_TUTORIALS.find((video) => video.id === activeVideo) ?? null;
 
     return (
         <div className="animate-in fade-in space-y-8 duration-500">
@@ -119,7 +119,7 @@ export const UserGuide: React.FC<{ onStartTour: (tab: string) => void }> = ({
                     </div>
 
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                        {MOCK_TUTORIALS.map((video) => (
+                        {STUDIO_TUTORIALS.map((video) => (
                             <button
                                 key={video.id}
                                 onClick={() => setActiveVideo(video.id)}
@@ -162,7 +162,7 @@ export const UserGuide: React.FC<{ onStartTour: (tab: string) => void }> = ({
                     </h3>
 
                     <div className="space-y-3">
-                        {MOCK_FAQ.map((item, index) => (
+                        {STUDIO_FAQ.map((item, index) => (
                             <div
                                 key={index}
                                 className="overflow-hidden rounded-[1.2rem] border border-slate-200 bg-white dark:border-white/10 dark:bg-slate-800/30"

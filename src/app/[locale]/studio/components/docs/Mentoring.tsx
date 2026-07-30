@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Clock, Star, Users } from "lucide-react";
-import { MOCK_CLASSES } from "@/lib/mockData";
+import { ACADEMY_CLASSES } from "@/lib/mockData";
 
 export const Mentoring = () => {
     return (
@@ -27,7 +27,7 @@ export const Mentoring = () => {
             </div>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2">
-                {MOCK_CLASSES.map((course) => (
+                {ACADEMY_CLASSES.map((course) => (
                     <div
                         key={course.id}
                         className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 transition-all hover:border-brand hover:shadow-lg dark:border-white/5 dark:bg-slate-800/30 dark:hover:border-brand/40 dark:hover:bg-slate-800/50"
