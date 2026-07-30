@@ -36,24 +36,24 @@ export default function PostForm({ post }: { post?: PostFormData }) {
             {isEdit && <input type="hidden" name="id" value={post!.id} />}
 
             <div>
-                <label className={labelCls}>Title</label>
-                <input name="title" required defaultValue={post?.title ?? ""} className={inputCls} placeholder="Article title" />
+                <label className={labelCls}>Judul</label>
+                <input name="title" required defaultValue={post?.title ?? ""} className={inputCls} placeholder="Judul artikel" />
             </div>
 
             <div className="grid gap-5 sm:grid-cols-2">
                 <div>
                     <label className={labelCls}>Slug</label>
-                    <input name="slug" required defaultValue={post?.slug ?? ""} className={inputCls} placeholder="my-article-slug" />
+                    <input name="slug" required defaultValue={post?.slug ?? ""} className={inputCls} placeholder="judul-artikel-anda" />
                 </div>
                 <div>
-                    <label className={labelCls}>Category</label>
-                    <input name="category" defaultValue={post?.category ?? ""} className={inputCls} placeholder="AI & Technology" />
+                    <label className={labelCls}>Kategori</label>
+                    <input name="category" defaultValue={post?.category ?? ""} className={inputCls} placeholder="AI, marketing, growth, dll." />
                 </div>
             </div>
 
             <div className="grid gap-5 sm:grid-cols-3">
                 <div>
-                    <label className={labelCls}>Language</label>
+                    <label className={labelCls}>Bahasa</label>
                     <select name="locale" defaultValue={post?.locale ?? "en"} className={inputCls}>
                         <option value="en">English</option>
                         <option value="id">Indonesia</option>
@@ -67,37 +67,43 @@ export default function PostForm({ post }: { post?: PostFormData }) {
                     </select>
                 </div>
                 <div>
-                    <label className={labelCls}>Read time</label>
+                    <label className={labelCls}>Estimasi baca</label>
                     <input name="read_time" defaultValue={post?.read_time ?? "5 min"} className={inputCls} placeholder="5 min" />
                 </div>
             </div>
 
             <div>
-                <label className={labelCls}>Cover image URL</label>
+                <label className={labelCls}>URL cover image</label>
                 <input name="image" defaultValue={post?.image ?? ""} className={inputCls} placeholder="https://images.unsplash.com/..." />
             </div>
 
             <div>
-                <label className={labelCls}>Tags (comma separated)</label>
+                <label className={labelCls}>Tag (pisahkan dengan koma)</label>
                 <input name="tags" defaultValue={(post?.tags ?? []).join(", ")} className={inputCls} placeholder="AI, Marketing, SEO" />
             </div>
 
             <div>
-                <label className={labelCls}>Description (meta)</label>
-                <textarea name="description" rows={2} defaultValue={post?.description ?? ""} className={inputCls} placeholder="Short summary for SEO & cards" />
+                <label className={labelCls}>Deskripsi meta</label>
+                <textarea
+                    name="description"
+                    rows={2}
+                    defaultValue={post?.description ?? ""}
+                    className={inputCls}
+                    placeholder="Ringkasan singkat untuk SEO dan preview card"
+                />
             </div>
 
             <div>
-                <label className={labelCls}>Content</label>
+                <label className={labelCls}>Konten</label>
                 <RichTextEditor name="content" defaultValue={post?.content ?? ""} />
             </div>
 
             <div className="flex items-center gap-3 pt-2">
                 <button type="submit" className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700">
-                    {isEdit ? "Save changes" : "Create post"}
+                    {isEdit ? "Simpan perubahan" : "Buat artikel"}
                 </button>
                 <Link href="/admin/posts" className="text-sm font-medium text-slate-500 hover:text-slate-700">
-                    Cancel
+                    Batal
                 </Link>
             </div>
         </form>

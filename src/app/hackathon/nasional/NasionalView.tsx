@@ -191,7 +191,7 @@ export default function NasionalView({
                                 className="h-2 w-2 animate-pulse rounded-full"
                                 style={{ background: "var(--hijau-aksi)" }}
                             />
-                            Data Kemenkop · live
+                            Data Kemenkop - live
                         </span>
                         <Link
                             href="/hackathon/dashboard"
@@ -217,7 +217,7 @@ export default function NasionalView({
                     </h1>
                     <p className="mt-1 text-sm" style={{ color: "var(--kabur)" }}>
                         Business Intelligence interaktif di atas{" "}
-                        <strong>{ribu(all.length)} koperasi</strong> nyata - dataset
+                        <strong>{ribu(all.length)} koperasi</strong> nyata, berbasis dataset
                         Hackathon Kementerian Koperasi 2026.
                     </p>
                 </div>
@@ -441,7 +441,7 @@ export default function NasionalView({
                     <Panel
                         title="Pertumbuhan Anggota & Prediksi 6 Bulan"
                         className="lg:col-span-2"
-                        chip={`proyeksi +${ribu(forecast.total)} · nasional`}
+                        chip={`proyeksi +${ribu(forecast.total)} - nasional`}
                         chipColor="var(--hijau)"
                     >
                         {growthTail.length > 1 ? (
@@ -671,7 +671,7 @@ function RowStat({ l, v, w }: { l: string; v: string; w: number }) {
             </span>
             <span className="font-semibold tabular-nums">{v}</span>
             <span className="text-[10px]" style={{ color: "var(--kabur)" }}>
-                ·{w}%
+                -{w}%
             </span>
         </div>
     );
@@ -706,3 +706,4 @@ function Empty({ note = "Data belum tersedia." }: { note?: string }) {
         </p>
     );
 }
+
