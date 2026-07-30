@@ -2,7 +2,7 @@ name: CI
 
 # Typecheck + production build on every push / PR to main, so a broken build
 # can never silently reach production. Set this as a required check in
-# GitHub → Settings → Branches → Branch protection to block bad merges.
+# GitHub -> Settings -> Branches -> Branch protection to block bad merges.
 
 on:
   push:
@@ -34,7 +34,7 @@ jobs:
 
       - name: Lint
         # Report-only for now: the repo has pre-existing lint debt across ~20
-        # files. This surfaces issues (and any NEW ones) in the CI logs without
+        # files. This surfaces issues (and any new ones) in the CI logs without
         # blocking merges. Flip to blocking (remove continue-on-error) once the
         # existing debt is cleared.
         run: npm run lint
