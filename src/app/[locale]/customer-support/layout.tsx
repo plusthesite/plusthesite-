@@ -1,17 +1,22 @@
 import type { Metadata } from "next";
 import { productMetadata } from "@/lib/seo";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+    params,
+}: Readonly<{ params: Promise<{ locale: string }> }>): Promise<Metadata> {
     const { locale } = await params;
+
     return productMetadata({
         locale,
         path: "/customer-support",
-        title: "Customer Support — plus.",
-        description: "Smarter decisions, faster resolutions, happier customers. AI-powered support platform that scales with your business.",
+        title: "Customer Support - Response Flow, Escalation & Knowledge Support | plus.",
+        description:
+            "Customer support workflow support for faster response handling, cleaner escalation, operator handoff, and AI-assisted knowledge flow.",
     });
 }
 
-// Service + Offer (IDR) + Breadcrumb JSON-LD is emitted by ProductPageTemplate.
-export default function CustomerSupportLayout({ children }: { children: React.ReactNode }) {
+export default function CustomerSupportLayout({
+    children,
+}: Readonly<{ children: React.ReactNode }>) {
     return <>{children}</>;
 }
