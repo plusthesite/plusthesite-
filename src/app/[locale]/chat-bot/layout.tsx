@@ -5,18 +5,32 @@ const SITE = "https://plusthe.site";
 
 const meta = {
     en: {
-        title: "AI Chatbot for Business — 24/7 Customer Service | plus.",
+        title: "AI Chatbot for Business - 24/7 Customer Service | plus.",
         description:
             "Smart AI chatbot for your business: automate customer replies 24/7, boost conversions, and cut support costs. Try the plus. AI Marketing Studio.",
-        keywords: ["AI chatbot", "chatbot for business", "customer service AI", "WhatsApp chatbot", "AI marketing studio", "conversational AI"],
+        keywords: [
+            "AI chatbot",
+            "chatbot for business",
+            "customer service AI",
+            "WhatsApp chatbot",
+            "AI marketing studio",
+            "conversational AI",
+        ],
     },
     id: {
-        title: "AI Chatbot untuk Bisnis — Layanan Pelanggan 24/7 | plus.",
+        title: "AI Chatbot untuk Bisnis - Layanan Pelanggan 24/7 | plus.",
         description:
             "Chatbot AI cerdas untuk bisnis: balas pelanggan otomatis 24/7, tingkatkan konversi, dan hemat biaya customer service. Coba AI Marketing Studio dari plus.",
-        keywords: ["AI chatbot", "chatbot untuk bisnis", "chatbot AI Indonesia", "customer service AI", "chatbot WhatsApp", "otomasi layanan pelanggan"],
+        keywords: [
+            "AI chatbot",
+            "chatbot untuk bisnis",
+            "chatbot AI Indonesia",
+            "customer service AI",
+            "chatbot WhatsApp",
+            "otomasi layanan pelanggan",
+        ],
     },
-};
+} as const;
 
 export async function generateMetadata({
     params,
@@ -29,7 +43,7 @@ export async function generateMetadata({
     return {
         title: m.title,
         description: m.description,
-        keywords: m.keywords,
+        keywords: [...m.keywords],
         alternates: {
             canonical: `${SITE}/${loc}/chat-bot`,
             languages: {
@@ -45,10 +59,18 @@ export async function generateMetadata({
             url: `${SITE}/${loc}/chat-bot`,
             locale: loc === "id" ? "id_ID" : "en_US",
         },
-        twitter: { card: "summary_large_image", title: m.title, description: m.description },
+        twitter: {
+            card: "summary_large_image",
+            title: m.title,
+            description: m.description,
+        },
     };
 }
 
-export default function ChatBotLayout({ children }: { children: React.ReactNode }) {
+export default function ChatBotLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
     return <>{children}</>;
 }

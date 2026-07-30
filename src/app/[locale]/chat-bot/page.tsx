@@ -1,226 +1,448 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import {
+    ArrowRight,
+    BadgeCheck,
+    Bot,
+    Brain,
+    Check,
+    Clock3,
+    Headphones,
+    MessageSquareQuote,
+    SearchCheck,
+    ShieldCheck,
+    Sparkles,
+    WandSparkles,
+    Zap,
+} from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useLocale } from "@/i18n/I18nProvider";
 
-/* ─────────────────────── DATA (bilingual) ─────────────────────── */
+type Locale = "en" | "id";
 
-const capIcons = ["🧠", "🎨", "📊", "🎙️", "👥", "⚡"] as const;
-const capColors = ["primary", "secondary", "tertiary", "primary", "secondary", "tertiary"] as const;
-const chatMeta = [
-    { role: "bot" as const, delay: 0 },
-    { role: "user" as const, delay: 1200 },
-    { role: "bot" as const, delay: 2800 },
-    { role: "user" as const, delay: 5000 },
-    { role: "bot" as const, delay: 6500 },
-];
-const planMeta = [
-    { name: "Starter", price: "$25", period: "/month", highlight: false },
-    { name: "Premium", price: "$50", period: "/month", highlight: true },
-];
-const tmMeta = [
-    { name: "Mary Jones", avatar: "MJ" },
-    { name: "Andrew Walker", avatar: "AW" },
-    { name: "Kate Doe", avatar: "KD" },
-];
-
-type Copy = {
-    hero: { badge: string; titleA: string; titleB: string; desc: string; studio: string; pills: string[]; ctaTry: string; ctaView: string; trust: string; assistant: string; status: string; placeholder: string };
-    caps: { tag: string; titleA: string; titleB: string; subtitle: string; learnMore: string; items: { title: string; desc: string }[] };
+type PageCopy = {
+    hero: {
+        badge: string;
+        title: string;
+        subtitle: string;
+        primaryCta: string;
+        secondaryCta: string;
+        proof: string;
+        pills: string[];
+        assistant: string;
+        status: string;
+        inputPlaceholder: string;
+    };
+    metrics: { value: string; label: string }[];
+    features: {
+        eyebrow: string;
+        title: string;
+        subtitle: string;
+        items: { title: string; body: string }[];
+    };
+    workflow: {
+        title: string;
+        subtitle: string;
+        steps: { title: string; body: string }[];
+    };
+    pricing: {
+        eyebrow: string;
+        title: string;
+        subtitle: string;
+        plans: {
+            name: string;
+            price: string;
+            period: string;
+            highlight?: boolean;
+            features: string[];
+        }[];
+        cta: string;
+    };
+    testimonials: {
+        title: string;
+        items: { quote: string; role: string; name: string }[];
+    };
+    faq: {
+        title: string;
+        items: { q: string; a: string }[];
+    };
+    cta: {
+        title: string;
+        subtitle: string;
+        primary: string;
+        secondary: string;
+    };
     chat: string[];
-    pricing: { tag: string; title: string; subtitle: string; mostPopular: string; choose: string; teamStat: React.ReactNode; plans: { features: string[] }[] };
-    testimonials: { tag: string; title: string; items: { quote: string; role: string }[] };
-    faq: { tag: string; title: string; items: { q: string; a: string }[] };
-    cta: { tag: string; titleA: string; titleB: string; subtitle: string; launch: string; back: string };
 };
 
-const COPY: Record<"en" | "id", Copy> = {
+const COPY: Record<Locale, PageCopy> = {
     en: {
         hero: {
-            badge: "AI-Powered Chat Bot",
-            titleA: "Simplify Your Life",
-            titleB: "With Our Chatbot",
-            desc: "Your Smartest AI Chatbot — Always Ready to Assist! Experience seamless conversations, instant answers, and 24/7 support. Powered by cutting-edge AI from the",
-            studio: "plus. AI Marketing Studio",
-            pills: ["AI Content Planner", "Image Generator", "KOL Finder", "Live Ops"],
-            ctaTry: "Try AI Studio",
-            ctaView: "View Capabilities",
-            trust: "Trusted by 120+ professionals",
+            badge: "AI chatbot for faster customer replies",
+            title: "A business chatbot that feels helpful, fast, and always on-brand.",
+            subtitle:
+                "Handle first-response support, qualify leads, and guide buyers into your next best offer without making your team live inside WhatsApp all day.",
+            primaryCta: "Open AI Studio",
+            secondaryCta: "See capabilities",
+            proof: "Used by lean teams that need speed without losing tone.",
+            pills: [
+                "Lead qualification",
+                "24/7 auto-replies",
+                "WhatsApp-friendly tone",
+                "Campaign handoff",
+            ],
             assistant: "plus. AI Assistant",
-            status: "Online — Always ready",
-            placeholder: "Type your message...",
+            status: "Online now",
+            inputPlaceholder: "Ask about pricing, delivery, promos, or support...",
         },
-        caps: {
-            tag: "Capabilities",
-            titleA: "Your Virtual Agent for",
-            titleB: "Smarter Interactions",
-            subtitle: "We harness the power of AI and collaboration to deliver tailored marketing solutions that drive success for MSMEs.",
-            learnMore: "Learn more →",
-            items: [
-                { title: "AI Content Planner", desc: "Generate smart content calendars with AI-driven suggestions tailored to your brand and audience." },
-                { title: "Visual Generator", desc: "Create stunning marketing visuals, banners, and social media assets with AI image generation." },
-                { title: "Strategy Analyzer", desc: "Analyze viral potential, predict engagement, and optimize your content strategy in real-time." },
-                { title: "Live Stream Tools", desc: "AI-powered live streaming assistant with auto-captions, real-time analytics, and audience engagement." },
-                { title: "KOL Database", desc: "Find verified influencers with engagement rates, pricing, and audience demographics at your fingertips." },
-                { title: "AI Voice Assistant", desc: "Hands-free marketing automation — dictate briefs, get AI suggestions, and manage campaigns by voice." },
-            ],
-        },
-        chat: [
-            "Hi! 👋 I'm plus. AI assistant. How can I help your business today?",
-            "I need a content plan for my coffee shop's Instagram",
-            "Great! I'll create a 7-day content calendar for your coffee shop. Here's what I suggest:\n\n📅 Mon: Behind-the-scenes brewing\n📅 Tue: Customer testimonial repost\n📅 Wed: Tips & tricks (latte art)\n📅 Thu: New menu highlight\n📅 Fri: Weekend promo teaser\n📅 Sat: User-generated content\n📅 Sun: Relaxing vibes reel",
-            "That's perfect! Can you also generate a visual for Monday's post?",
-            "Absolutely! 🎨 I'm generating a warm, aesthetic behind-the-scenes visual with your brand colors... Done! You can download it from the Visual Generator tab.",
+        metrics: [
+            { value: "< 30 sec", label: "first response" },
+            { value: "24/7", label: "always available" },
+            { value: "1 workspace", label: "reply to campaign flow" },
         ],
-        pricing: {
-            tag: "Flexible Pricing",
-            title: "Pick the Perfect Plan for Your Team",
-            subtitle: "Customized pricing solutions crafted to deliver value while ensuring satisfaction.",
-            mostPopular: "Most Popular",
-            choose: "Choose Plan",
-            teamStat: <>We are a team of <strong className="text-slate-900 dark:text-white">120+ dedicated professionals</strong> united by vision.</>,
-            plans: [
-                { features: ["1,000 AI messages/month", "Basic content planner", "5 image generations/day", "Email support"] },
-                { features: ["Unlimited AI messages", "Advanced content planner", "Unlimited image generation", "KOL database access", "Live stream tools", "Priority support 24/7"] },
+        features: {
+            eyebrow: "Capabilities",
+            title: "Built for the messy reality of modern customer conversations.",
+            subtitle:
+                "Not just canned replies. The system connects customer chat, campaign context, and operator handoff in one cleaner workflow.",
+            items: [
+                {
+                    title: "Instant brand-safe replies",
+                    body: "Answer FAQs, product questions, and support prompts with a tone that stays consistent with your business.",
+                },
+                {
+                    title: "Lead capture with context",
+                    body: "Turn every conversation into structured lead notes, urgency signals, and next-step recommendations for your team.",
+                },
+                {
+                    title: "Creative handoff to Studio",
+                    body: "When buyers ask for promos, launches, or bundles, continue directly into content planning and asset generation.",
+                },
+                {
+                    title: "Escalation that feels human",
+                    body: "Route edge cases to a real operator with cleaner notes, recent intent, and suggested response framing.",
+                },
             ],
+        },
+        workflow: {
+            title: "From incoming chat to campaign action in three moves.",
+            subtitle:
+                "The chatbot should not stop at support. It should help the team decide what to do next.",
+            steps: [
+                {
+                    title: "Reply instantly",
+                    body: "Open with product facts, service answers, and qualifying questions that sound calm and specific.",
+                },
+                {
+                    title: "Read buying intent",
+                    body: "Spot when someone is browsing, comparing, ready to order, or needs a real person.",
+                },
+                {
+                    title: "Trigger the next workflow",
+                    body: "Move the conversation into a lead, a promo concept, a follow-up task, or a human handoff.",
+                },
+            ],
+        },
+        pricing: {
+            eyebrow: "Pricing",
+            title: "Start simple, then scale the workflow when volume grows.",
+            subtitle:
+                "Choose a plan based on how often your team needs the AI to reply, qualify, and coordinate with Studio.",
+            plans: [
+                {
+                    name: "Starter",
+                    price: "$25",
+                    period: "/month",
+                    features: [
+                        "1,000 AI replies per month",
+                        "Basic FAQ and lead capture",
+                        "Simple brand tone setup",
+                        "Email support",
+                    ],
+                },
+                {
+                    name: "Premium",
+                    price: "$50",
+                    period: "/month",
+                    highlight: true,
+                    features: [
+                        "Unlimited AI replies",
+                        "Advanced lead qualification",
+                        "Studio workflow handoff",
+                        "Priority support 24/7",
+                    ],
+                },
+            ],
+            cta: "Choose plan",
         },
         testimonials: {
-            tag: "Testimonials",
-            title: "What Our Clients Say",
+            title: "Teams use it when fast response time starts affecting revenue.",
             items: [
-                { quote: "Collaborating with plus. was an exceptional journey. They truly grasped our goals and produced a solution that aligned perfectly with our vision.", role: "CEO, Laketown OH" },
-                { quote: "Working with plus. was a game changer. Their team crafted a platform that's both beautiful and intuitive, elevating our user engagement.", role: "CTO, ITactics CA" },
-                { quote: "Their expertise in blending technology with design truly impressed me. The platform transformed our digital engagement completely.", role: "CMO, Los Angeles CA" },
+                {
+                    quote: "We cut dead-air in customer chat and stopped losing warm leads overnight.",
+                    role: "Growth Lead, retail brand",
+                    name: "Maya",
+                },
+                {
+                    quote: "The best part is not the auto-reply. It is the cleaner context handoff to our sales team.",
+                    role: "Sales Ops, service business",
+                    name: "Ryan",
+                },
+                {
+                    quote: "Our operator tone stayed human, but the response speed finally became consistent.",
+                    role: "Founder, F&B business",
+                    name: "Claire",
+                },
             ],
         },
         faq: {
-            tag: "Need Assistance?",
-            title: "Frequently Asked Questions",
+            title: "Common questions before teams switch their support flow.",
             items: [
-                { q: "What are the first steps?", a: "Simply sign up, connect your social accounts, and our AI will analyze your brand to provide tailored content suggestions within minutes." },
-                { q: "Do you offer virtual consultations?", a: "Yes! Our AI assistant provides 24/7 virtual consultations. Premium users also get access to human marketing experts for strategy sessions." },
-                { q: "What industries do you specialize in?", a: "We serve MSMEs across F&B, fashion, beauty, tech, travel, and more. Our AI adapts to any industry's unique marketing needs." },
-                { q: "Do you collaborate with startups?", a: "Absolutely! We specialize in empowering startups with tailored AI solutions that drive growth and efficiency. Our Starter plan is perfect for new ventures." },
+                {
+                    q: "Can this replace our support team completely?",
+                    a: "No. It handles repetitive first-response work, qualification, and routing. Human operators still matter for edge cases and trust-heavy moments.",
+                },
+                {
+                    q: "Does it work for WhatsApp-style conversations?",
+                    a: "Yes. The reply style is designed to feel concise, natural, and useful in messaging-first environments.",
+                },
+                {
+                    q: "Can it help with marketing, not just support?",
+                    a: "Yes. The same workflow can push useful conversation signals into planning promos, content ideas, and follow-up campaigns.",
+                },
             ],
         },
         cta: {
-            tag: "Get Started",
-            titleA: "Ready to Transform Your",
-            titleB: "Marketing with AI?",
-            subtitle: "Join 120+ businesses already using plus. AI Marketing Studio to grow their brand faster and smarter.",
-            launch: "Launch AI Studio",
-            back: "Back to Home",
+            title: "Ready to turn scattered customer chat into cleaner business action?",
+            subtitle:
+                "Launch inside plus. AI Studio and move from reply automation to lead growth in one system.",
+            primary: "Launch AI Studio",
+            secondary: "Back to home",
         },
+        chat: [
+            "Hi, I am plus. AI Assistant. What can I help you with today?",
+            "Do you have a promo package for new cafe openings?",
+            "Yes. We can help with chatbot setup, promo copy, and launch visuals. Are you opening this month or next month?",
+            "This month. I also need replies for WhatsApp inquiries.",
+            "Perfect. I can route this into a launch workflow and prepare a follow-up brief for your team.",
+        ],
     },
     id: {
         hero: {
-            badge: "Chatbot AI Bertenaga AI",
-            titleA: "Permudah Hidup Anda",
-            titleB: "Dengan Chatbot Kami",
-            desc: "Chatbot AI tercerdas Anda — selalu siap membantu! Rasakan percakapan mulus, jawaban instan, dan dukungan 24/7. Didukung AI mutakhir dari",
-            studio: "plus. AI Marketing Studio",
-            pills: ["AI Content Planner", "Image Generator", "Pencari KOL", "Live Ops"],
-            ctaTry: "Coba AI Studio",
-            ctaView: "Lihat Kemampuan",
-            trust: "Dipercaya 120+ profesional",
-            assistant: "Asisten AI plus.",
-            status: "Online — Selalu siap",
-            placeholder: "Ketik pesan Anda...",
-        },
-        caps: {
-            tag: "Kemampuan",
-            titleA: "Agen Virtual Anda untuk",
-            titleB: "Interaksi yang Lebih Cerdas",
-            subtitle: "Kami memanfaatkan kekuatan AI dan kolaborasi untuk menghadirkan solusi marketing yang disesuaikan demi kesuksesan UKM.",
-            learnMore: "Selengkapnya →",
-            items: [
-                { title: "AI Content Planner", desc: "Buat kalender konten cerdas dengan saran berbasis AI yang disesuaikan dengan brand dan audiens Anda." },
-                { title: "Visual Generator", desc: "Ciptakan visual marketing, banner, dan aset media sosial yang memukau dengan AI image generation." },
-                { title: "Strategy Analyzer", desc: "Analisis potensi viral, prediksi engagement, dan optimalkan strategi konten Anda secara real-time." },
-                { title: "Live Stream Tools", desc: "Asisten live streaming bertenaga AI dengan auto-caption, analitik real-time, dan engagement audiens." },
-                { title: "Database KOL", desc: "Temukan influencer terverifikasi lengkap dengan engagement rate, harga, dan demografi audiens dalam genggaman." },
-                { title: "AI Voice Assistant", desc: "Otomasi marketing hands-free — diktekan brief, dapatkan saran AI, dan kelola kampanye dengan suara." },
+            badge: "AI chatbot untuk balasan pelanggan yang lebih cepat",
+            title: "Chatbot bisnis yang terasa membantu, cepat, dan tetap sesuai brand.",
+            subtitle:
+                "Balas pertanyaan awal, kualifikasi lead, dan arahkan calon pembeli ke penawaran terbaik berikutnya tanpa membuat tim Anda hidup di WhatsApp seharian.",
+            primaryCta: "Masuk AI Studio",
+            secondaryCta: "Lihat kemampuan",
+            proof: "Dipakai tim kecil yang butuh cepat tanpa kehilangan rasa personal.",
+            pills: [
+                "Kualifikasi lead",
+                "Auto-reply 24/7",
+                "Tone ramah WhatsApp",
+                "Handoff ke campaign",
             ],
+            assistant: "plus. AI Assistant",
+            status: "Sedang online",
+            inputPlaceholder: "Tanya soal harga, pengiriman, promo, atau bantuan...",
         },
-        chat: [
-            "Hai! 👋 Saya asisten AI plus. Ada yang bisa saya bantu untuk bisnis Anda hari ini?",
-            "Saya butuh rencana konten untuk Instagram kedai kopi saya",
-            "Bagus! Saya akan membuat kalender konten 7 hari untuk kedai kopi Anda. Berikut saran saya:\n\n📅 Sen: Behind-the-scenes proses seduh\n📅 Sel: Repost testimoni pelanggan\n📅 Rab: Tips & trik (latte art)\n📅 Kam: Highlight menu baru\n📅 Jum: Teaser promo akhir pekan\n📅 Sab: Konten dari pengguna\n📅 Min: Reel suasana santai",
-            "Sempurna! Bisa juga buatkan visual untuk postingan hari Senin?",
-            "Tentu! 🎨 Saya sedang membuat visual behind-the-scenes yang hangat dan estetik dengan warna brand Anda... Selesai! Anda bisa mengunduhnya dari tab Visual Generator.",
+        metrics: [
+            { value: "< 30 detik", label: "respon pertama" },
+            { value: "24/7", label: "selalu aktif" },
+            { value: "1 workspace", label: "dari chat ke campaign" },
         ],
-        pricing: {
-            tag: "Harga Fleksibel",
-            title: "Pilih Paket yang Tepat untuk Tim Anda",
-            subtitle: "Solusi harga yang disesuaikan untuk memberi nilai sekaligus memastikan kepuasan Anda.",
-            mostPopular: "Paling Populer",
-            choose: "Pilih Paket",
-            teamStat: <>Kami adalah tim beranggotakan <strong className="text-slate-900 dark:text-white">120+ profesional berdedikasi</strong> yang bersatu dalam satu visi.</>,
-            plans: [
-                { features: ["1.000 pesan AI/bulan", "Content planner dasar", "5 generasi gambar/hari", "Dukungan email"] },
-                { features: ["Pesan AI tanpa batas", "Content planner lanjutan", "Generasi gambar tanpa batas", "Akses database KOL", "Tools live stream", "Dukungan prioritas 24/7"] },
+        features: {
+            eyebrow: "Kemampuan",
+            title: "Dibuat untuk realita percakapan pelanggan yang sering berantakan.",
+            subtitle:
+                "Bukan sekadar balasan template. Sistem ini menghubungkan chat pelanggan, konteks campaign, dan handoff operator dalam alur yang lebih rapi.",
+            items: [
+                {
+                    title: "Balasan instan yang tetap aman buat brand",
+                    body: "Jawab FAQ, pertanyaan produk, dan support dengan tone yang konsisten sesuai bisnis Anda.",
+                },
+                {
+                    title: "Tangkap lead lengkap dengan konteks",
+                    body: "Ubah setiap percakapan menjadi catatan lead, sinyal urgensi, dan saran next step untuk tim.",
+                },
+                {
+                    title: "Nyambung ke Studio untuk kebutuhan kreatif",
+                    body: "Saat pembeli bertanya soal promo, peluncuran, atau bundling, alur bisa langsung lanjut ke planning dan pembuatan aset.",
+                },
+                {
+                    title: "Eskalasi ke manusia yang tetap terasa mulus",
+                    body: "Kasus khusus bisa diarahkan ke operator dengan ringkasan intent, catatan terbaru, dan framing balasan yang sudah siap.",
+                },
             ],
+        },
+        workflow: {
+            title: "Dari chat masuk ke aksi campaign dalam tiga langkah.",
+            subtitle:
+                "Chatbot tidak berhenti di support. Ia membantu tim memutuskan tindakan berikutnya.",
+            steps: [
+                {
+                    title: "Balas cepat",
+                    body: "Buka percakapan dengan fakta produk, jawaban layanan, dan pertanyaan kualifikasi yang tetap natural.",
+                },
+                {
+                    title: "Baca intent beli",
+                    body: "Bedakan siapa yang baru browsing, sedang membandingkan, siap order, atau butuh manusia.",
+                },
+                {
+                    title: "Picu workflow berikutnya",
+                    body: "Lanjutkan percakapan menjadi lead, ide promo, tugas follow-up, atau handoff ke operator.",
+                },
+            ],
+        },
+        pricing: {
+            eyebrow: "Harga",
+            title: "Mulai sederhana, lalu naikkan workflow saat volume bertambah.",
+            subtitle:
+                "Pilih paket berdasarkan seberapa sering tim Anda butuh AI untuk membalas, mengkualifikasi, dan terhubung ke Studio.",
+            plans: [
+                {
+                    name: "Starter",
+                    price: "$25",
+                    period: "/bulan",
+                    features: [
+                        "1.000 balasan AI per bulan",
+                        "FAQ dan lead capture dasar",
+                        "Setup tone brand sederhana",
+                        "Dukungan email",
+                    ],
+                },
+                {
+                    name: "Premium",
+                    price: "$50",
+                    period: "/bulan",
+                    highlight: true,
+                    features: [
+                        "Balasan AI tanpa batas",
+                        "Kualifikasi lead lanjutan",
+                        "Handoff workflow ke Studio",
+                        "Dukungan prioritas 24/7",
+                    ],
+                },
+            ],
+            cta: "Pilih paket",
         },
         testimonials: {
-            tag: "Testimoni",
-            title: "Apa Kata Klien Kami",
+            title: "Dipakai tim yang sadar kecepatan respon mulai berpengaruh ke omzet.",
             items: [
-                { quote: "Berkolaborasi dengan plus. adalah perjalanan yang luar biasa. Mereka benar-benar memahami tujuan kami dan menghasilkan solusi yang selaras sempurna dengan visi kami.", role: "CEO, Laketown OH" },
-                { quote: "Bekerja dengan plus. mengubah segalanya. Tim mereka merancang platform yang indah sekaligus intuitif, meningkatkan engagement pengguna kami.", role: "CTO, ITactics CA" },
-                { quote: "Keahlian mereka memadukan teknologi dengan desain sungguh mengesankan. Platform ini benar-benar mengubah engagement digital kami.", role: "CMO, Los Angeles CA" },
+                {
+                    quote: "Kami berhenti kehilangan lead hangat cuma karena chat pertama telat dibalas.",
+                    role: "Growth Lead, brand retail",
+                    name: "Maya",
+                },
+                {
+                    quote: "Nilai terbesarnya bukan auto-reply, tapi handoff konteks yang jauh lebih rapi ke tim sales.",
+                    role: "Sales Ops, bisnis jasa",
+                    name: "Ryan",
+                },
+                {
+                    quote: "Tone operator tetap terasa manusia, tapi kecepatan balas akhirnya konsisten.",
+                    role: "Founder, bisnis F&B",
+                    name: "Claire",
+                },
             ],
         },
         faq: {
-            tag: "Butuh Bantuan?",
-            title: "Pertanyaan yang Sering Diajukan",
+            title: "Pertanyaan umum sebelum tim mengganti alur support mereka.",
             items: [
-                { q: "Apa langkah pertamanya?", a: "Cukup daftar, hubungkan akun media sosial Anda, dan AI kami akan menganalisis brand Anda untuk memberikan saran konten yang disesuaikan dalam hitungan menit." },
-                { q: "Apakah ada konsultasi virtual?", a: "Ya! Asisten AI kami menyediakan konsultasi virtual 24/7. Pengguna Premium juga mendapat akses ke pakar marketing manusia untuk sesi strategi." },
-                { q: "Industri apa yang menjadi spesialisasi Anda?", a: "Kami melayani UKM di bidang F&B, fashion, kecantikan, teknologi, travel, dan lainnya. AI kami beradaptasi dengan kebutuhan marketing unik setiap industri." },
-                { q: "Apakah Anda bekerja sama dengan startup?", a: "Tentu saja! Kami mengkhususkan diri memberdayakan startup dengan solusi AI yang mendorong pertumbuhan dan efisiensi. Paket Starter kami sempurna untuk usaha baru." },
+                {
+                    q: "Apakah ini bisa menggantikan tim support sepenuhnya?",
+                    a: "Tidak. Sistem ini paling efektif untuk balasan awal yang repetitif, kualifikasi, dan routing. Operator manusia tetap penting untuk kasus khusus dan momen yang butuh kepercayaan tinggi.",
+                },
+                {
+                    q: "Apakah cocok untuk percakapan gaya WhatsApp?",
+                    a: "Ya. Gaya balasannya dirancang singkat, natural, dan terasa pas untuk lingkungan chat yang serba cepat.",
+                },
+                {
+                    q: "Apakah bisa membantu marketing juga, bukan cuma support?",
+                    a: "Bisa. Sinyal percakapan yang masuk bisa dipakai lagi untuk planning promo, ide konten, dan campaign follow-up.",
+                },
             ],
         },
         cta: {
-            tag: "Mulai Sekarang",
-            titleA: "Siap Mengubah",
-            titleB: "Marketing Anda dengan AI?",
-            subtitle: "Bergabunglah dengan 120+ bisnis yang sudah menggunakan plus. AI Marketing Studio untuk menumbuhkan brand mereka lebih cepat dan cerdas.",
-            launch: "Luncurkan AI Studio",
-            back: "Kembali ke Beranda",
+            title: "Siap mengubah chat pelanggan yang tercecer jadi aksi bisnis yang lebih rapi?",
+            subtitle:
+                "Masuk ke plus. AI Studio dan lanjutkan dari automasi balasan ke pertumbuhan lead dalam satu sistem.",
+            primary: "Luncurkan AI Studio",
+            secondary: "Kembali ke beranda",
         },
+        chat: [
+            "Halo, saya plus. AI Assistant. Ada yang bisa saya bantu hari ini?",
+            "Ada paket promo untuk pembukaan cafe baru?",
+            "Ada. Kami bisa bantu setup chatbot, copy promo, dan visual peluncuran. Bukanya bulan ini atau bulan depan?",
+            "Bulan ini. Saya juga butuh balasan untuk inquiry WhatsApp.",
+            "Cocok. Saya bisa arahkan ini ke workflow launch dan siapkan brief follow-up untuk tim Anda.",
+        ],
     },
 };
 
-const colorMap = {
-    primary: { bg: "bg-primary/10", text: "text-primary", border: "border-primary/20", glow: "group-hover:shadow-primary/10" },
-    secondary: { bg: "bg-secondary/10", text: "text-secondary", border: "border-secondary/20", glow: "group-hover:shadow-secondary/10" },
-    tertiary: { bg: "bg-tertiary/10", text: "text-tertiary", border: "border-tertiary/20", glow: "group-hover:shadow-tertiary/10" },
-};
+const featureIcons = [Bot, Brain, WandSparkles, Headphones] as const;
+const workflowIcons = [Clock3, SearchCheck, Zap] as const;
 
-/* ─────────────────────── COMPONENTS ─────────────────────── */
+function ScrollStyles() {
+    return (
+        <style jsx global>{`
+            .fade-up {
+                opacity: 0;
+                transform: translateY(24px);
+                filter: blur(8px);
+                transition:
+                    opacity 800ms cubic-bezier(0.22, 1, 0.36, 1),
+                    transform 800ms cubic-bezier(0.22, 1, 0.36, 1),
+                    filter 800ms cubic-bezier(0.22, 1, 0.36, 1);
+            }
 
-function ChatDemo() {
-    const [visibleMessages, setVisibleMessages] = useState<number>(0);
+            .fade-up.visible {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+
+            .fade-up-delay-1 {
+                transition-delay: 80ms;
+            }
+
+            .fade-up-delay-2 {
+                transition-delay: 160ms;
+            }
+
+            .fade-up-delay-3 {
+                transition-delay: 240ms;
+            }
+        `}</style>
+    );
+}
+
+function ChatDemo({
+    messages,
+    assistant,
+    status,
+    placeholder,
+}: {
+    messages: string[];
+    assistant: string;
+    status: string;
+    placeholder: string;
+}) {
+    const [visibleMessages, setVisibleMessages] = useState(0);
     const messagesRef = useRef<HTMLDivElement>(null);
-    const locale = useLocale();
-    const c = COPY[locale];
 
     useEffect(() => {
-        const timers: ReturnType<typeof setTimeout>[] = [];
-        chatMeta.forEach((msg, i) => {
-            timers.push(
-                setTimeout(() => setVisibleMessages((prev) => Math.max(prev, i + 1)), msg.delay)
-            );
-        });
+        const timers = messages.map((_, index) =>
+            setTimeout(() => setVisibleMessages(index + 1), index * 1300)
+        );
         return () => timers.forEach(clearTimeout);
-    }, []);
+    }, [messages]);
 
     useEffect(() => {
-        // Scroll only the chat container — never the whole page
         const el = messagesRef.current;
         if (el) {
             el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
@@ -228,168 +450,170 @@ function ChatDemo() {
     }, [visibleMessages]);
 
     return (
-        <div className="mx-auto max-w-md rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xl overflow-hidden">
-            <div className="flex items-center gap-3 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 px-5 py-4">
-                <div className="relative">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-purple-600 text-white text-sm font-bold">AI</div>
-                    <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-white dark:border-slate-900 bg-emerald-500" />
+        <div className="rounded-[2rem] bg-black/5 p-2 ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10">
+            <div className="rounded-[calc(2rem-0.5rem)] border border-white/70 bg-white shadow-[0_30px_80px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-slate-950 dark:shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
+                <div className="flex items-center gap-3 border-b border-slate-200/80 px-5 py-4 dark:border-slate-800">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 text-white">
+                        <Bot size={18} />
+                    </div>
+                    <div>
+                        <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+                            {assistant}
+                        </p>
+                        <p className="text-xs font-medium text-emerald-600 dark:text-emerald-400">
+                            {status}
+                        </p>
+                    </div>
                 </div>
-                <div>
-                    <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{c.hero.assistant}</p>
-                    <p className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">{c.hero.status}</p>
-                </div>
-                <div className="ml-auto flex gap-1"><span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" /></div>
-            </div>
 
-            {/* Messages */}
-            <div ref={messagesRef} className="h-80 overflow-y-auto p-4 space-y-3 bg-slate-50 dark:bg-slate-950/50">
-                {c.chat.slice(0, visibleMessages).map((text, i) => (
-                    <div
-                        key={i}
-                        className={`flex ${chatMeta[i].role === "user" ? "justify-end" : "justify-start"}`}
-                        style={{
-                            animation: "fadeSlideUp 0.3s ease-out forwards",
-                        }}
-                    >
-                        <div
-                            className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-line ${chatMeta[i].role === "user"
-                                ? "bg-blue-600 text-white rounded-br-md"
-                                : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-bl-md"
-                                }`}
-                        >
-                            {text}
+                <div
+                    ref={messagesRef}
+                    className="h-80 space-y-3 overflow-y-auto bg-slate-50/70 px-4 py-4 dark:bg-slate-950/70"
+                >
+                    {messages.slice(0, visibleMessages).map((message, index) => {
+                        const user = index % 2 === 1;
+                        return (
+                            <div
+                                key={`${message}-${index}`}
+                                className={`flex ${user ? "justify-end" : "justify-start"}`}
+                            >
+                                <div
+                                    className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
+                                        user
+                                            ? "rounded-br-md bg-slate-900 text-white dark:bg-white dark:text-slate-900"
+                                            : "rounded-bl-md border border-slate-200 bg-white text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200"
+                                    }`}
+                                >
+                                    {message}
+                                </div>
+                            </div>
+                        );
+                    })}
+
+                    {visibleMessages < messages.length && visibleMessages > 0 && (
+                        <div className="flex justify-start">
+                            <div className="flex gap-1 rounded-2xl rounded-bl-md border border-slate-200 bg-white px-4 py-3 dark:border-slate-800 dark:bg-slate-900">
+                                {[0, 1, 2].map((item) => (
+                                    <span
+                                        key={item}
+                                        className="h-2 w-2 rounded-full bg-slate-400"
+                                        style={{ animation: `pulse 1s ${item * 0.12}s infinite` }}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                <div className="border-t border-slate-200/80 px-4 py-3 dark:border-slate-800">
+                    <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-2.5 dark:border-slate-800 dark:bg-slate-900">
+                        <input
+                            type="text"
+                            placeholder={placeholder}
+                            className="flex-1 bg-transparent text-sm text-slate-900 placeholder:text-slate-400 outline-none dark:text-slate-100"
+                            readOnly
+                        />
+                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-white dark:bg-white dark:text-slate-900">
+                            <ArrowRight size={16} />
                         </div>
                     </div>
-                ))}
-
-                {/* Typing indicator */}
-                {visibleMessages < c.chat.length && visibleMessages > 0 && (
-                    <div className="flex justify-start">
-                        <div className="flex gap-1 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-bl-md">
-                            <span className="h-2 w-2 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "0ms" }} />
-                            <span className="h-2 w-2 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "150ms" }} />
-                            <span className="h-2 w-2 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "300ms" }} />
-                        </div>
-                    </div>
-                )}
-            </div>
-            <div className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3">
-                <div className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-4 py-2">
-                    <input
-                        type="text"
-                        placeholder={c.hero.placeholder}
-                        className="flex-1 bg-transparent text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 outline-none"
-                        readOnly
-                    />
-                    <button className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white transition-transform hover:scale-110">
-                        <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
-                    </button>
                 </div>
             </div>
         </div>
     );
 }
 
-/* ─────────────────────── SECTIONS ─────────────────────── */
-
-function HeroSection() {
+function HeroSection({ copy }: { copy: PageCopy }) {
+    const ref = useScrollReveal();
     const locale = useLocale();
-    const c = COPY[locale];
+
     return (
-        <section className="relative min-h-screen overflow-hidden flex items-center">
-            {/* Background */}
-            <div className="absolute inset-0 bg-background">
-                {/* Animated gradient mesh */}
-                <div className="absolute inset-0 opacity-30"
-                    style={{
-                        background: "radial-gradient(ellipse at 20% 50%, rgba(79,110,247,0.15) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(124,92,252,0.12) 0%, transparent 50%), radial-gradient(ellipse at 60% 80%, rgba(16,185,129,0.08) 0%, transparent 50%)",
-                    }}
-                />
-                {/* Dot grid */}
-                <div
-                    className="absolute inset-0 opacity-[0.03]"
-                    style={{
-                        backgroundImage: "radial-gradient(circle, currentColor 1px, transparent 1px)",
-                        backgroundSize: "24px 24px",
-                    }}
-                />
+        <section className="relative overflow-hidden bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.12),_transparent_28%),linear-gradient(180deg,_#f8fbff_0%,_#eff6ff_45%,_#ffffff_100%)] dark:bg-[radial-gradient(circle_at_top_left,_rgba(56,189,248,0.12),_transparent_24%),linear-gradient(180deg,_#020617_0%,_#0f172a_55%,_#020617_100%)]">
+            <div className="pointer-events-none absolute inset-0 overflow-hidden">
+                <div className="absolute left-[5%] top-[8%] h-[24rem] w-[24rem] rounded-full bg-blue-500/10 blur-[120px]" />
+                <div className="absolute right-[6%] top-[20%] h-[20rem] w-[20rem] rounded-full bg-cyan-400/10 blur-[120px]" />
+                <div className="absolute inset-0 bg-[url('/textures/noise.svg')] opacity-[0.035]" />
             </div>
 
-            <div className="relative z-10 mx-auto max-w-7xl px-6 pt-28 pb-16 lg:px-8">
-                <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
-                    {/* Left: content */}
-                    <div>
-                        <div className="hero-animate inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5">
-                            <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                            <span className="text-xs font-semibold tracking-wider text-primary uppercase">
-                                {c.hero.badge}
+            <div
+                ref={ref}
+                className="relative mx-auto grid min-h-[100dvh] max-w-7xl gap-14 px-6 pb-16 pt-24 lg:grid-cols-[1.05fr_0.95fr] lg:px-8"
+            >
+                <div className="flex flex-col justify-center">
+                    <span className="fade-up inline-flex w-max items-center gap-2 rounded-full border border-slate-200/80 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
+                        <Sparkles size={14} className="text-blue-600 dark:text-cyan-300" />
+                        {copy.hero.badge}
+                    </span>
+
+                    <h1 className="fade-up fade-up-delay-1 mt-7 max-w-3xl text-5xl font-semibold leading-[1.02] tracking-[-0.06em] text-slate-950 md:text-6xl xl:text-7xl dark:text-white">
+                        {copy.hero.title}
+                    </h1>
+
+                    <p className="fade-up fade-up-delay-2 mt-6 max-w-2xl text-base leading-8 text-slate-600 dark:text-slate-300 md:text-lg">
+                        {copy.hero.subtitle}
+                    </p>
+
+                    <div className="fade-up fade-up-delay-3 mt-9 flex flex-col gap-3 sm:flex-row">
+                        <Link
+                            href={`/${locale}/studio`}
+                            className="group inline-flex items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-semibold text-white shadow-[0_20px_60px_rgba(15,23,42,0.18)] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-blue-700 active:scale-[0.98] dark:bg-white dark:text-slate-950 dark:hover:bg-blue-100"
+                        >
+                            {copy.hero.primaryCta}
+                            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105 dark:bg-slate-900/10">
+                                <ArrowRight size={16} />
                             </span>
-                        </div>
+                        </Link>
+                        <a
+                            href="#capabilities"
+                            className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white/80 px-7 py-4 text-sm font-semibold text-slate-800 shadow-sm transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-white active:scale-[0.98] dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+                        >
+                            {copy.hero.secondaryCta}
+                        </a>
+                    </div>
 
-                        <h1 className="hero-animate hero-animate-delay-1 mt-6 text-4xl font-extrabold leading-[1.1] tracking-tight text-[#0F172A] dark:text-[#F8FAFC] sm:text-5xl lg:text-6xl">
-                            {c.hero.titleA}
-                            <br />
-                            <span className="gradient-text">{c.hero.titleB}</span>
-                        </h1>
-
-                        <p className="hero-animate hero-animate-delay-2 mt-5 max-w-lg text-base leading-relaxed text-[#475569] dark:text-[#CBD5E1]">
-                            {c.hero.desc}{" "}
-                            <Link
-                                href={`/${locale}/studio`}
-                                className="font-semibold text-primary hover:underline"
+                    <div className="fade-up fade-up-delay-3 mt-8 flex flex-wrap gap-2">
+                        {copy.hero.pills.map((pill) => (
+                            <span
+                                key={pill}
+                                className="rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-medium text-slate-600 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
                             >
-                                {c.hero.studio}
-                            </Link>.
-                        </p>
+                                {pill}
+                            </span>
+                        ))}
+                    </div>
 
-                        {/* Feature pills */}
-                        <div className="hero-animate hero-animate-delay-2 mt-6 flex flex-wrap gap-2">
-                            {c.hero.pills.map((f) => (
-                                <span key={f} className="rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-3 py-1 text-xs font-medium text-[#64748B] dark:text-[#94A3B8]">
-                                    {f}
-                                </span>
-                            ))}
-                        </div>
-
-                        <div className="hero-animate hero-animate-delay-3 mt-8 flex flex-col gap-3 sm:flex-row">
-                            <Link
-                                href={`/${locale}/studio`}
-                                className="btn-glow inline-flex items-center justify-center gap-2 rounded-full bg-slate-900 dark:bg-white px-8 py-3.5 text-sm font-semibold text-white dark:text-slate-900 transition-all hover:scale-105 hover:shadow-2xl"
-                            >
-                                <span>🚀</span>
-                                {c.hero.ctaTry}
-                                <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                </svg>
-                            </Link>
-                            <a
-                                href="#capabilities"
-                                className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-8 py-3.5 text-sm font-semibold text-[#0F172A] dark:text-[#F8FAFC] transition-all hover:bg-slate-100 dark:hover:bg-slate-800 hover:scale-105"
-                            >
-                                {c.hero.ctaView}
-                            </a>
-                        </div>
-
-                        {/* Trust badge */}
-                        <div className="hero-animate hero-animate-delay-3 mt-6 flex items-center gap-3 text-sm text-[#64748B] dark:text-[#94A3B8]">
-                            <div className="flex -space-x-2">
-                                {["bg-primary", "bg-secondary", "bg-tertiary", "bg-primary-dark"].map((bg, i) => (
-                                    <div key={i} className={`h-7 w-7 rounded-full ${bg} border-2 border-white dark:border-slate-950 flex items-center justify-center text-[10px] font-bold text-white`}>
-                                        {["MJ", "AW", "KD", "EC"][i]}
+                    <div className="fade-up fade-up-delay-3 mt-10 rounded-[2rem] bg-black/5 p-1.5 ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10">
+                        <div className="rounded-[calc(2rem-0.375rem)] bg-white px-5 py-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] dark:bg-slate-950">
+                            <p className="text-sm text-slate-600 dark:text-slate-300">
+                                {copy.hero.proof}
+                            </p>
+                            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                                {copy.metrics.map((metric) => (
+                                    <div
+                                        key={metric.label}
+                                        className="rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-4 dark:border-slate-800 dark:bg-slate-900"
+                                    >
+                                        <p className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
+                                            {metric.value}
+                                        </p>
+                                        <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+                                            {metric.label}
+                                        </p>
                                     </div>
                                 ))}
                             </div>
-                            <span className="font-medium text-[#0F172A] dark:text-[#F8FAFC]">{c.hero.trust}</span>
                         </div>
                     </div>
+                </div>
 
-                    {/* Right: live chat demo */}
-                    <div className="hero-animate hero-animate-delay-2 relative">
-                        {/* Glow behind */}
-                        <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-primary/10 via-secondary/5 to-tertiary/10 blur-2xl" />
-                        <div className="relative">
-                            <ChatDemo />
-                        </div>
+                <div className="flex items-center">
+                    <div className="fade-up fade-up-delay-2 w-full">
+                        <ChatDemo
+                            messages={copy.chat}
+                            assistant={copy.hero.assistant}
+                            status={copy.hero.status}
+                            placeholder={copy.hero.inputPlaceholder}
+                        />
                     </div>
                 </div>
             </div>
@@ -397,45 +621,51 @@ function HeroSection() {
     );
 }
 
-function CapabilitiesSection() {
+function FeaturesSection({ copy }: { copy: PageCopy }) {
     const ref = useScrollReveal();
-    const c = COPY[useLocale()];
 
     return (
-        <section id="capabilities" className="py-24 lg:py-32 bg-slate-50 dark:bg-slate-900/[0.2]">
+        <section id="capabilities" className="bg-slate-50/70 py-24 dark:bg-slate-950">
             <div ref={ref} className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="text-center">
-                    <span className="fade-up inline-flex items-center gap-2 rounded-full bg-purple-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-purple-600 dark:text-purple-400">
-                        <span>⚡</span> {c.caps.tag}
+                <div className="max-w-3xl">
+                    <span className="fade-up inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-blue-700 dark:text-blue-300">
+                        <BadgeCheck size={14} />
+                        {copy.features.eyebrow}
                     </span>
-                    <h2 className="fade-up fade-up-delay-1 mt-5 text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl lg:text-5xl">
-                        {c.caps.titleA}
-                        <br />
-                        <span className="gradient-text">{c.caps.titleB}</span>
+                    <h2 className="fade-up fade-up-delay-1 mt-6 max-w-4xl text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl dark:text-white">
+                        {copy.features.title}
                     </h2>
-                    <p className="fade-up fade-up-delay-2 mx-auto mt-4 max-w-xl text-base text-slate-600 dark:text-slate-400">
-                        {c.caps.subtitle}
+                    <p className="fade-up fade-up-delay-2 mt-4 max-w-2xl text-base leading-8 text-slate-600 dark:text-slate-300">
+                        {copy.features.subtitle}
                     </p>
                 </div>
 
-                <div className="fade-up fade-up-delay-3 mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    {c.caps.items.map((item, i) => {
-                        const colors = colorMap[capColors[i]];
+                <div className="fade-up fade-up-delay-3 mt-16 grid gap-6 lg:grid-cols-12">
+                    {copy.features.items.map((item, index) => {
+                        const Icon = featureIcons[index];
+                        const span =
+                            index === 0
+                                ? "lg:col-span-7"
+                                : index === 1
+                                  ? "lg:col-span-5"
+                                  : index === 2
+                                    ? "lg:col-span-5"
+                                    : "lg:col-span-7";
                         return (
                             <div
-                                key={i}
-                                className={`group relative overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-7 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl ${colors.glow}`}
+                                key={item.title}
+                                className={`rounded-[2rem] bg-black/5 p-1.5 ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10 ${span}`}
                             >
-                                <div className="absolute -top-8 -right-8 h-24 w-24 rounded-full bg-blue-500/5 blur-2xl transition-all group-hover:bg-blue-500/10 group-hover:scale-150" />
-                                <div className="relative z-10">
-                                    <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${colors.bg} text-2xl`}>
-                                        {capIcons[i]}
+                                <div className="h-full rounded-[calc(2rem-0.375rem)] border border-white/60 bg-white p-7 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(15,23,42,0.10)] dark:border-white/10 dark:bg-slate-950">
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-700 dark:text-blue-300">
+                                        <Icon size={20} strokeWidth={1.75} />
                                     </div>
-                                    <h3 className="mt-5 text-lg font-bold text-slate-900 dark:text-white">{item.title}</h3>
-                                    <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">{item.desc}</p>
-                                    <div className={`mt-4 text-xs font-semibold ${colors.text} opacity-0 transition-opacity group-hover:opacity-100`}>
-                                        {c.caps.learnMore}
-                                    </div>
+                                    <h3 className="mt-6 text-xl font-semibold text-slate-950 dark:text-white">
+                                        {item.title}
+                                    </h3>
+                                    <p className="mt-3 max-w-xl text-sm leading-7 text-slate-600 dark:text-slate-300">
+                                        {item.body}
+                                    </p>
                                 </div>
                             </div>
                         );
@@ -446,174 +676,157 @@ function CapabilitiesSection() {
     );
 }
 
-function PricingSection() {
+function WorkflowSection({ copy }: { copy: PageCopy }) {
     const ref = useScrollReveal();
-    const locale = useLocale();
-    const c = COPY[locale];
 
     return (
-        <section id="pricing-plans" className="py-24 lg:py-32 bg-white dark:bg-slate-950">
-            <div ref={ref} className="mx-auto max-w-5xl px-6 lg:px-8">
-                <div className="text-center">
-                    <span className="fade-up inline-block rounded-full bg-blue-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400">
-                        {c.pricing.tag}
+        <section className="bg-white py-24 dark:bg-slate-950">
+            <div ref={ref} className="mx-auto max-w-7xl px-6 lg:px-8">
+                <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+                    <div>
+                        <h2 className="fade-up max-w-xl text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl dark:text-white">
+                            {copy.workflow.title}
+                        </h2>
+                        <p className="fade-up fade-up-delay-1 mt-4 max-w-lg text-base leading-8 text-slate-600 dark:text-slate-300">
+                            {copy.workflow.subtitle}
+                        </p>
+                    </div>
+
+                    <div className="space-y-4">
+                        {copy.workflow.steps.map((step, index) => {
+                            const Icon = workflowIcons[index];
+                            return (
+                                <div
+                                    key={step.title}
+                                    className={`fade-up rounded-[2rem] bg-black/5 p-1.5 ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10 fade-up-delay-${Math.min(index + 1, 3)}`}
+                                >
+                                    <div className="rounded-[calc(2rem-0.375rem)] border border-white/70 bg-white px-6 py-6 dark:border-white/10 dark:bg-slate-950">
+                                        <div className="flex items-start gap-4">
+                                            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-slate-900 text-white dark:bg-white dark:text-slate-900">
+                                                <Icon size={20} strokeWidth={1.75} />
+                                            </div>
+                                            <div>
+                                                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-400">
+                                                    Step 0{index + 1}
+                                                </p>
+                                                <h3 className="mt-2 text-lg font-semibold text-slate-950 dark:text-white">
+                                                    {step.title}
+                                                </h3>
+                                                <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                                                    {step.body}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function PricingSection({ copy }: { copy: PageCopy }) {
+    const ref = useScrollReveal();
+    const locale = useLocale();
+
+    return (
+        <section className="bg-slate-50/70 py-24 dark:bg-slate-900/30">
+            <div ref={ref} className="mx-auto max-w-6xl px-6 lg:px-8">
+                <div className="mx-auto max-w-3xl text-center">
+                    <span className="fade-up inline-flex items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white dark:bg-white dark:text-slate-900">
+                        <ShieldCheck size={14} />
+                        {copy.pricing.eyebrow}
                     </span>
-                    <h2 className="fade-up fade-up-delay-1 mt-5 text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
-                        {c.pricing.title}
+                    <h2 className="fade-up fade-up-delay-1 mt-6 text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl dark:text-white">
+                        {copy.pricing.title}
                     </h2>
-                    <p className="fade-up fade-up-delay-2 mx-auto mt-4 max-w-lg text-base text-slate-600 dark:text-slate-400">
-                        {c.pricing.subtitle}
+                    <p className="fade-up fade-up-delay-2 mt-4 text-base leading-8 text-slate-600 dark:text-slate-300">
+                        {copy.pricing.subtitle}
                     </p>
                 </div>
 
-                <div className="fade-up fade-up-delay-3 mt-14 grid gap-8 sm:grid-cols-2">
-                    {c.pricing.plans.map((plan, i) => (
+                <div className="fade-up fade-up-delay-3 mt-14 grid gap-6 md:grid-cols-2">
+                    {copy.pricing.plans.map((plan) => (
                         <div
-                            key={i}
-                            className={`group relative overflow-hidden rounded-2xl border p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${planMeta[i].highlight
-                                ? "border-blue-500 bg-white dark:bg-slate-900 shadow-blue-500/10 scale-[1.02]"
-                                : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
+                            key={plan.name}
+                            className="rounded-[2rem] bg-black/5 p-1.5 ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10"
+                        >
+                            <div
+                                className={`h-full rounded-[calc(2rem-0.375rem)] border px-7 py-8 ${
+                                    plan.highlight
+                                        ? "border-blue-500/30 bg-slate-950 text-white dark:bg-white dark:text-slate-950"
+                                        : "border-white/70 bg-white text-slate-950 dark:border-white/10 dark:bg-slate-950 dark:text-white"
                                 }`}
-                        >
-                            {planMeta[i].highlight && (
-                                <span className="absolute top-4 right-4 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
-                                    {c.pricing.mostPopular}
-                                </span>
-                            )}
+                            >
+                                <div className="flex items-start justify-between gap-4">
+                                    <div>
+                                        <p
+                                            className={`text-sm font-semibold uppercase tracking-[0.16em] ${
+                                                plan.highlight
+                                                    ? "text-blue-200 dark:text-blue-700"
+                                                    : "text-slate-400"
+                                            }`}
+                                        >
+                                            {plan.name}
+                                        </p>
+                                        <div className="mt-4 flex items-baseline gap-1">
+                                            <span className="text-5xl font-semibold tracking-tight">
+                                                {plan.price}
+                                            </span>
+                                            <span
+                                                className={`text-sm ${
+                                                    plan.highlight
+                                                        ? "text-slate-300 dark:text-slate-600"
+                                                        : "text-slate-500 dark:text-slate-400"
+                                                }`}
+                                            >
+                                                {plan.period}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    {plan.highlight && (
+                                        <span className="rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white dark:bg-slate-900/10 dark:text-slate-900">
+                                            Popular
+                                        </span>
+                                    )}
+                                </div>
 
-                            <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{planMeta[i].name}</p>
-                            <div className="mt-3 flex items-baseline gap-1">
-                                <span className="text-5xl font-extrabold text-slate-900 dark:text-white">{planMeta[i].price}</span>
-                                <span className="text-base text-slate-500 dark:text-slate-400">{planMeta[i].period}</span>
-                            </div>
+                                <ul className="mt-8 space-y-3">
+                                    {plan.features.map((feature) => (
+                                        <li
+                                            key={feature}
+                                            className={`flex items-start gap-3 text-sm leading-7 ${
+                                                plan.highlight
+                                                    ? "text-slate-200 dark:text-slate-700"
+                                                    : "text-slate-600 dark:text-slate-300"
+                                            }`}
+                                        >
+                                            <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-full bg-blue-500/15 text-blue-300 dark:text-blue-600">
+                                                <Check size={12} strokeWidth={2.4} />
+                                            </span>
+                                            {feature}
+                                        </li>
+                                    ))}
+                                </ul>
 
-                            <ul className="mt-8 space-y-3">
-                                {plan.features.map((f, j) => (
-                                    <li key={j} className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
-                                        <svg className={`h-4 w-4 shrink-0 ${planMeta[i].highlight ? "text-blue-500" : "text-emerald-500"}`} fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                                        </svg>
-                                        {f}
-                                    </li>
-                                ))}
-                            </ul>
-
-                            <Link
-                                href={`/${locale}/payment?name=${encodeURIComponent(planMeta[i].name)}&price=${encodeURIComponent(planMeta[i].price + planMeta[i].period)}`}
-                                className={`mt-8 block rounded-full py-3 text-center text-sm font-semibold transition-all hover:scale-105 ${planMeta[i].highlight
-                                    ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90"
-                                    : "border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700"
+                                <Link
+                                    href={`/${locale}/payment?name=${encodeURIComponent(
+                                        plan.name
+                                    )}&price=${encodeURIComponent(
+                                        `${plan.price}${plan.period}`
+                                    )}`}
+                                    className={`mt-8 inline-flex w-full items-center justify-center gap-3 rounded-full px-6 py-3.5 text-sm font-semibold transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 active:scale-[0.98] ${
+                                        plan.highlight
+                                            ? "bg-white text-slate-950 hover:bg-blue-50 dark:bg-slate-950 dark:text-white dark:hover:bg-slate-900"
+                                            : "bg-slate-950 text-white hover:bg-blue-700 dark:bg-white dark:text-slate-950 dark:hover:bg-blue-100"
                                     }`}
-                            >
-                                {c.pricing.choose}
-                            </Link>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Team stat */}
-                <p className="fade-up mt-10 text-center text-sm text-slate-500">
-                    {c.pricing.teamStat}
-                </p>
-            </div>
-        </section>
-    );
-}
-
-function TestimonialsSection() {
-    const ref = useScrollReveal();
-    const c = COPY[useLocale()];
-
-    return (
-        <section className="py-24 lg:py-32 bg-slate-50 dark:bg-[#0B1120]">
-            <div ref={ref} className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="text-center">
-                    <span className="fade-up inline-flex items-center gap-2 rounded-full bg-tertiary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-tertiary">
-                        <span>💬</span> {c.testimonials.tag}
-                    </span>
-                    <h2 className="fade-up fade-up-delay-1 mt-5 text-3xl font-bold tracking-tight text-[#0F172A] dark:text-[#F8FAFC] sm:text-4xl">
-                        {c.testimonials.title}
-                    </h2>
-                </div>
-
-                <div className="fade-up fade-up-delay-2 mt-14 grid gap-8 sm:grid-cols-3">
-                    {c.testimonials.items.map((t, i) => (
-                        <div
-                            key={i}
-                            className="group relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-                        >
-                            <svg className="h-8 w-8 text-primary/15 mb-4" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                            </svg>
-                            <p className="text-sm leading-relaxed text-[#475569] dark:text-[#CBD5E1] italic">&ldquo;{t.quote}&rdquo;</p>
-                            <div className="mt-6 flex items-center gap-3">
-                                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-xs font-bold text-white">
-                                    {tmMeta[i].avatar}
-                                </div>
-                                <div>
-                                    <p className="text-sm font-semibold text-[#0F172A] dark:text-[#F8FAFC]">{tmMeta[i].name}</p>
-                                    <p className="text-xs text-[#64748B] dark:text-[#94A3B8]">{t.role}</p>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
-}
-
-function FAQSection() {
-    const ref = useScrollReveal();
-    const [openIdx, setOpenIdx] = useState<number | null>(null);
-    const c = COPY[useLocale()];
-
-    const faqSchema = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        mainEntity: c.faq.items.map((faq) => ({
-            "@type": "Question",
-            name: faq.q,
-            acceptedAnswer: { "@type": "Answer", text: faq.a },
-        })),
-    };
-
-    return (
-        <section className="py-24 lg:py-32 bg-white dark:bg-slate-950">
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-            <div ref={ref} className="mx-auto max-w-3xl px-6 lg:px-8">
-                <div className="text-center">
-                    <span className="fade-up inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary">
-                        {c.faq.tag}
-                    </span>
-                    <h2 className="fade-up fade-up-delay-1 mt-5 text-3xl font-bold tracking-tight text-[#0F172A] dark:text-[#F8FAFC] sm:text-4xl">
-                        {c.faq.title}
-                    </h2>
-                </div>
-
-                <div className="fade-up fade-up-delay-2 mt-14 space-y-3">
-                    {c.faq.items.map((faq, i) => (
-                        <div
-                            key={i}
-                            className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 transition-all hover:border-blue-500/20"
-                        >
-                            <button
-                                onClick={() => setOpenIdx(openIdx === i ? null : i)}
-                                className="flex w-full items-center justify-between px-6 py-5 text-left"
-                            >
-                                <span className="text-sm font-semibold text-[#0F172A] dark:text-[#F8FAFC] pr-4">{faq.q}</span>
-                                <svg
-                                    className={`h-4 w-4 shrink-0 text-[#94A3B8] dark:text-[#64748B] transition-transform duration-200 ${openIdx === i ? "rotate-180" : ""}`}
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth={2.5}
-                                    viewBox="0 0 24 24"
                                 >
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-                            <div className={`overflow-hidden transition-all duration-300 ${openIdx === i ? "max-h-48 opacity-100" : "max-h-0 opacity-0"}`}>
-                                <p className="px-6 pb-5 text-sm leading-relaxed text-[#475569] dark:text-[#CBD5E1]">{faq.a}</p>
+                                    {copy.pricing.cta}
+                                    <ArrowRight size={16} />
+                                </Link>
                             </div>
                         </div>
                     ))}
@@ -623,49 +836,132 @@ function FAQSection() {
     );
 }
 
-function CTASection() {
+function TestimonialsSection({ copy }: { copy: PageCopy }) {
+    const ref = useScrollReveal();
+
+    return (
+        <section className="bg-white py-24 dark:bg-slate-950">
+            <div ref={ref} className="mx-auto max-w-7xl px-6 lg:px-8">
+                <h2 className="fade-up max-w-3xl text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl dark:text-white">
+                    {copy.testimonials.title}
+                </h2>
+
+                <div className="fade-up fade-up-delay-2 mt-14 grid gap-6 lg:grid-cols-3">
+                    {copy.testimonials.items.map((item) => (
+                        <div
+                            key={item.name}
+                            className="rounded-[2rem] bg-black/5 p-1.5 ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10"
+                        >
+                            <div className="h-full rounded-[calc(2rem-0.375rem)] border border-white/70 bg-white p-7 dark:border-white/10 dark:bg-slate-950">
+                                <MessageSquareQuote
+                                    size={28}
+                                    className="text-blue-600 dark:text-blue-300"
+                                    strokeWidth={1.75}
+                                />
+                                <p className="mt-5 text-sm leading-8 text-slate-600 dark:text-slate-300">
+                                    &ldquo;{item.quote}&rdquo;
+                                </p>
+                                <div className="mt-8">
+                                    <p className="text-sm font-semibold text-slate-950 dark:text-white">
+                                        {item.name}
+                                    </p>
+                                    <p className="mt-1 text-xs uppercase tracking-[0.14em] text-slate-400">
+                                        {item.role}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function FAQSection({ copy }: { copy: PageCopy }) {
+    const ref = useScrollReveal();
+    const [openIdx, setOpenIdx] = useState<number | null>(0);
+
+    return (
+        <section className="bg-slate-50/70 py-24 dark:bg-slate-900/30">
+            <div ref={ref} className="mx-auto max-w-4xl px-6 lg:px-8">
+                <h2 className="fade-up text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl dark:text-white">
+                    {copy.faq.title}
+                </h2>
+
+                <div className="fade-up fade-up-delay-2 mt-12 space-y-3">
+                    {copy.faq.items.map((item, index) => (
+                        <div
+                            key={item.q}
+                            className="rounded-[1.5rem] bg-black/5 p-1 ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10"
+                        >
+                            <div className="rounded-[calc(1.5rem-0.25rem)] border border-white/70 bg-white dark:border-white/10 dark:bg-slate-950">
+                                <button
+                                    onClick={() =>
+                                        setOpenIdx(openIdx === index ? null : index)
+                                    }
+                                    className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                                >
+                                    <span className="text-sm font-semibold text-slate-950 dark:text-white">
+                                        {item.q}
+                                    </span>
+                                    <span className="text-slate-400">
+                                        {openIdx === index ? "-" : "+"}
+                                    </span>
+                                </button>
+                                {openIdx === index && (
+                                    <p className="px-6 pb-6 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                                        {item.a}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function CTASection({ copy }: { copy: PageCopy }) {
     const ref = useScrollReveal();
     const locale = useLocale();
-    const c = COPY[locale];
 
     return (
-        <section className="py-24 lg:py-32 bg-slate-50 dark:bg-[#0B1120]">
+        <section className="bg-white py-24 dark:bg-slate-950">
             <div ref={ref} className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="fade-up relative overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-10 text-center sm:p-16">
-                    {/* Decoration */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
-                    <div className="absolute -top-20 -right-20 h-56 w-56 rounded-full bg-primary/8 blur-3xl" />
-                    <div className="absolute -bottom-20 -left-20 h-56 w-56 rounded-full bg-secondary/6 blur-3xl" />
+                <div className="fade-up rounded-[2.5rem] bg-black/5 p-2 ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10">
+                    <div className="relative overflow-hidden rounded-[calc(2.5rem-0.5rem)] border border-white/70 bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.18),_transparent_25%),linear-gradient(180deg,_#eff6ff_0%,_#ffffff_100%)] px-8 py-16 text-center dark:border-white/10 dark:bg-[radial-gradient(circle_at_top_left,_rgba(56,189,248,0.14),_transparent_25%),linear-gradient(180deg,_#0f172a_0%,_#020617_100%)] sm:px-14">
+                        <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-blue-500/15 blur-[90px]" />
+                        <div className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-cyan-400/15 blur-[90px]" />
 
-                    <div className="relative z-10">
-                        <span className="inline-flex items-center gap-2 rounded-full bg-tertiary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-tertiary">
-                            <span>🚀</span> {c.cta.tag}
-                        </span>
-                        <h2 className="mt-5 text-3xl font-bold tracking-tight text-[#0F172A] dark:text-[#F8FAFC] sm:text-4xl">
-                            {c.cta.titleA}
-                            <br />
-                            <span className="gradient-text">{c.cta.titleB}</span>
-                        </h2>
-                        <p className="mx-auto mt-4 max-w-lg text-base text-[#475569] dark:text-[#CBD5E1]">
-                            {c.cta.subtitle}
-                        </p>
-
-                        <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-                            <Link
-                                href={`/${locale}/studio`}
-                                className="btn-glow inline-flex items-center gap-2 rounded-full bg-slate-900 dark:bg-white px-8 py-3.5 text-sm font-semibold text-white dark:text-slate-900 transition-all hover:scale-105 hover:shadow-2xl"
-                            >
-                                {c.cta.launch}
-                                <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                </svg>
-                            </Link>
-                            <Link
-                                href={`/${locale}`}
-                                className="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-8 py-3.5 text-sm font-semibold text-[#0F172A] dark:text-[#F8FAFC] transition-all hover:bg-slate-100 dark:hover:bg-slate-800 hover:scale-105"
-                            >
-                                {c.cta.back}
-                            </Link>
+                        <div className="relative z-10 mx-auto max-w-3xl">
+                            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-300">
+                                Conversion-ready support flow
+                            </p>
+                            <h2 className="mt-5 text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl dark:text-white">
+                                {copy.cta.title}
+                            </h2>
+                            <p className="mt-4 text-base leading-8 text-slate-600 dark:text-slate-300">
+                                {copy.cta.subtitle}
+                            </p>
+                            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                                <Link
+                                    href={`/${locale}/studio`}
+                                    className="group inline-flex items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-semibold text-white transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-blue-700 active:scale-[0.98] dark:bg-white dark:text-slate-950 dark:hover:bg-blue-100"
+                                >
+                                    {copy.cta.primary}
+                                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105 dark:bg-slate-900/10">
+                                        <ArrowRight size={16} />
+                                    </span>
+                                </Link>
+                                <Link
+                                    href={`/${locale}`}
+                                    className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white/80 px-7 py-4 text-sm font-semibold text-slate-800 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-white active:scale-[0.98] dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+                                >
+                                    {copy.cta.secondary}
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -674,19 +970,22 @@ function CTASection() {
     );
 }
 
-/* ─────────────────────── PAGE ─────────────────────── */
-
 export default function ChatBotPage() {
+    const locale = useLocale();
+    const copy = COPY[locale];
+
     return (
         <>
+            <ScrollStyles />
             <Navbar />
             <main>
-                <HeroSection />
-                <CapabilitiesSection />
-                <PricingSection />
-                <TestimonialsSection />
-                <FAQSection />
-                <CTASection />
+                <HeroSection copy={copy} />
+                <FeaturesSection copy={copy} />
+                <WorkflowSection copy={copy} />
+                <PricingSection copy={copy} />
+                <TestimonialsSection copy={copy} />
+                <FAQSection copy={copy} />
+                <CTASection copy={copy} />
             </main>
             <Footer />
         </>
