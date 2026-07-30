@@ -265,7 +265,24 @@ const OFFER_ICONS = [BrainCircuit, Brush, Megaphone, Bot];
 const PILLAR_ICONS = [Layers3, MonitorSmartphone, Sparkles];
 
 function HeroSection() {
-    const copy = COPY[useLocale()].hero;
+    const locale = useLocale();
+    const copy = COPY[locale].hero;
+    const summaryCards = [
+        {
+            label: locale === "id" ? "Growth view" : "Growth view",
+            value:
+                locale === "id"
+                    ? "Brand, campaign, dan launch surface bergerak dalam satu ritme."
+                    : "Brand, campaign, and launch surfaces move in one rhythm.",
+        },
+        {
+            label: locale === "id" ? "Best fit" : "Best fit",
+            value:
+                locale === "id"
+                    ? "Tim lean yang butuh arah lebih tajam tanpa menambah kekacauan eksekusi."
+                    : "Lean teams that need sharper direction without adding execution chaos.",
+        },
+    ];
 
     return (
         <section className="relative overflow-hidden bg-[#07111f] pb-24 pt-28 text-white sm:pb-28 lg:pb-32">
@@ -316,6 +333,22 @@ function HeroSection() {
                                 </span>
                             ))}
                         </div>
+
+                        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                            {summaryCards.map((card) => (
+                                <div
+                                    key={card.label}
+                                    className="rounded-[1.5rem] border border-white/10 bg-white/[0.07] p-5 backdrop-blur"
+                                >
+                                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/52">
+                                        {card.label}
+                                    </p>
+                                    <p className="mt-4 text-sm font-semibold leading-7 text-white/86">
+                                        {card.value}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
                     <div className="relative">
@@ -324,35 +357,53 @@ function HeroSection() {
                         <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 shadow-[0_30px_80px_rgba(0,0,0,0.28)] backdrop-blur">
                             <div className="flex items-center justify-between border-b border-white/10 pb-4">
                                 <div>
-                                    <p className="text-sm font-semibold text-white">plus. growth system</p>
-                                    <p className="mt-1 text-xs text-white/54">brand, page, content, and launch logic</p>
+                                    <p className="text-sm font-semibold text-white">
+                                        {locale === "id" ? "plus. growth system" : "plus. growth system"}
+                                    </p>
+                                    <p className="mt-1 text-xs text-white/54">
+                                        {locale === "id"
+                                            ? "brand, page, content, and launch logic"
+                                            : "brand, page, content, and launch logic"}
+                                    </p>
                                 </div>
                                 <span className="rounded-full bg-emerald-400/12 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-300">
-                                    Active
+                                    {locale === "id" ? "Active" : "Active"}
                                 </span>
                             </div>
 
                             <div className="mt-5 space-y-4">
                                 <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                    <p className="text-xs uppercase tracking-[0.2em] text-white/45">Current pain</p>
+                                    <p className="text-xs uppercase tracking-[0.2em] text-white/45">
+                                        {locale === "id" ? "Current pain" : "Current pain"}
+                                    </p>
                                     <p className="mt-2 text-sm leading-6 text-white/78">
-                                        Brand feels busy, offers are unclear, page quality is uneven, and campaigns depend on last-minute manual fixes.
+                                        {locale === "id"
+                                            ? "Brand terasa ramai tapi tidak tajam, offer tidak cukup jelas, kualitas page tidak rata, dan campaign masih terlalu bergantung pada tambal sulam menit terakhir."
+                                            : "Brand feels busy, offers are unclear, page quality is uneven, and campaigns depend on last-minute manual fixes."}
                                     </p>
                                 </div>
                                 <div className="rounded-2xl border border-white/10 bg-[#f7efe2] p-4 text-slate-900">
-                                    <p className="text-xs uppercase tracking-[0.2em] text-slate-500">What we improve</p>
+                                    <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
+                                        {locale === "id" ? "What we improve" : "What we improve"}
+                                    </p>
                                     <ul className="mt-3 space-y-2 text-sm leading-6">
                                         <li className="flex gap-2">
                                             <Check className="mt-0.5 h-4 w-4 text-emerald-600" />
-                                            One sharper market story across site and campaign.
+                                            {locale === "id"
+                                                ? "Satu cerita pasar yang lebih tajam di site dan campaign."
+                                                : "One sharper market story across site and campaign."}
                                         </li>
                                         <li className="flex gap-2">
                                             <Check className="mt-0.5 h-4 w-4 text-emerald-600" />
-                                            Cleaner launch surfaces with stronger visual consistency.
+                                            {locale === "id"
+                                                ? "Permukaan launch yang lebih rapi dengan konsistensi visual yang lebih kuat."
+                                                : "Cleaner launch surfaces with stronger visual consistency."}
                                         </li>
                                         <li className="flex gap-2">
                                             <Check className="mt-0.5 h-4 w-4 text-emerald-600" />
-                                            Faster content and promo production with less guesswork.
+                                            {locale === "id"
+                                                ? "Produksi konten dan promo yang lebih cepat dengan lebih sedikit tebak-tebakan."
+                                                : "Faster content and promo production with less guesswork."}
                                         </li>
                                     </ul>
                                 </div>
@@ -367,21 +418,49 @@ function HeroSection() {
 
 function OfferSection() {
     const ref = useScrollReveal();
-    const copy = COPY[useLocale()].offer;
+    const locale = useLocale();
+    const copy = COPY[locale].offer;
 
     return (
         <section id="offer" className="bg-[#f8f4ec] py-24 text-slate-950 lg:py-28">
             <div ref={ref} className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="max-w-3xl">
-                    <p className="fade-up text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
-                        {copy.eyebrow}
-                    </p>
-                    <h2 className="fade-up fade-up-delay-1 mt-4 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl lg:text-5xl">
-                        {copy.title}
-                    </h2>
-                    <p className="fade-up fade-up-delay-2 mt-5 text-base leading-7 text-slate-600 sm:text-lg">
-                        {copy.subtitle}
-                    </p>
+                <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+                    <div className="max-w-3xl">
+                        <p className="fade-up text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
+                            {copy.eyebrow}
+                        </p>
+                        <h2 className="fade-up fade-up-delay-1 mt-4 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl lg:text-5xl">
+                            {copy.title}
+                        </h2>
+                        <p className="fade-up fade-up-delay-2 mt-5 text-base leading-7 text-slate-600 sm:text-lg">
+                            {copy.subtitle}
+                        </p>
+                    </div>
+
+                    <div className="fade-up fade-up-delay-3 rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
+                        <div className="grid gap-4 sm:grid-cols-2">
+                            <div className="rounded-2xl bg-slate-950 p-5 text-white">
+                                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-200">
+                                    {locale === "id" ? "Core tension" : "Core tension"}
+                                </p>
+                                <p className="mt-4 text-sm leading-7 text-white/78">
+                                    {locale === "id"
+                                        ? "Masalahnya sering bukan kurang output. Masalahnya adalah positioning, visual, dan campaign berjalan tanpa sistem yang sama."
+                                        : "The problem is often not a lack of output. It is that positioning, visuals, and campaigns move without the same system."}
+                                </p>
+                            </div>
+                            <div className="rounded-2xl bg-slate-100 p-5">
+                                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                                    {locale === "id" ? "Repair goal" : "Repair goal"}
+                                </p>
+                                <p className="mt-4 text-sm leading-7 text-slate-600">
+                                    {locale === "id"
+                                        ? "Membuat brand terasa lebih jelas, lebih sengaja, dan lebih mudah dijalankan oleh tim sehari-hari."
+                                        : "Make the brand feel clearer, more deliberate, and easier for the day-to-day team to operate."}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="fade-up fade-up-delay-3 mt-14 grid gap-5 md:grid-cols-2">
@@ -390,7 +469,7 @@ function OfferSection() {
                         return (
                             <article
                                 key={item.title}
-                                className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-[0_12px_40px_rgba(15,23,42,0.06)] transition hover:-translate-y-1"
+                                className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-[0_12px_40px_rgba(15,23,42,0.06)] transition-all hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(15,23,42,0.08)]"
                             >
                                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-950 text-white">
                                     <Icon className="h-5 w-5" />
@@ -408,7 +487,8 @@ function OfferSection() {
 
 function SystemSection() {
     const ref = useScrollReveal();
-    const copy = COPY[useLocale()].system;
+    const locale = useLocale();
+    const copy = COPY[locale].system;
 
     return (
         <section className="bg-white py-24 lg:py-28">
@@ -423,6 +503,17 @@ function SystemSection() {
                     <p className="fade-up fade-up-delay-2 mt-5 max-w-xl text-base leading-7 text-slate-600 sm:text-lg">
                         {copy.subtitle}
                     </p>
+
+                    <div className="fade-up fade-up-delay-3 mt-8 rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                            {locale === "id" ? "Design stance" : "Design stance"}
+                        </p>
+                        <p className="mt-4 text-sm leading-7 text-slate-600">
+                            {locale === "id"
+                                ? "Targetnya bukan sekadar campaign yang terlihat sibuk. Targetnya adalah sistem growth yang lebih mudah diarahkan, dipakai ulang, dan dijalankan tim."
+                                : "The goal is not just campaigns that look busy. It is a growth system that is easier to direct, reuse, and operate as a team."}
+                        </p>
+                    </div>
                 </div>
 
                 <div className="fade-up fade-up-delay-3 grid gap-5">
@@ -431,7 +522,7 @@ function SystemSection() {
                         return (
                             <div
                                 key={pillar.title}
-                                className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6 sm:p-7"
+                                className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6 transition-all hover:-translate-y-1 hover:shadow-[0_16px_35px_rgba(15,23,42,0.06)] sm:p-7"
                             >
                                 <div className="flex items-start gap-4">
                                     <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-slate-950 shadow-sm">
@@ -491,7 +582,8 @@ function ProcessSection() {
 
 function DeliverablesSection() {
     const ref = useScrollReveal();
-    const copy = COPY[useLocale()].deliverables;
+    const locale = useLocale();
+    const copy = COPY[locale].deliverables;
 
     return (
         <section className="bg-[#f8f4ec] py-24 lg:py-28">
@@ -504,13 +596,24 @@ function DeliverablesSection() {
                         <h2 className="fade-up fade-up-delay-1 mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl">
                             {copy.title}
                         </h2>
+
+                        <div className="fade-up fade-up-delay-2 mt-8 rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_12px_35px_rgba(15,23,42,0.05)]">
+                            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                                {locale === "id" ? "Typical bundle" : "Typical bundle"}
+                            </p>
+                            <p className="mt-4 text-sm leading-7 text-slate-600">
+                                {locale === "id"
+                                    ? "Sebagian besar tim tidak membutuhkan seluruh lapisan agency sekaligus. Biasanya kami mulai dari cerita, permukaan launch, lalu konten dan campaign yang paling dekat ke hasil."
+                                    : "Most teams do not need every agency layer at once. We usually begin with the story, the launch surface, then the content and campaigns closest to outcomes."}
+                            </p>
+                        </div>
                     </div>
 
                     <div className="fade-up fade-up-delay-2 grid gap-4 sm:grid-cols-2">
                         {copy.items.map((item) => (
                             <div
                                 key={item}
-                                className="flex items-start gap-3 rounded-[1.4rem] border border-slate-200 bg-white px-5 py-4 text-sm leading-7 text-slate-700"
+                                className="flex items-start gap-3 rounded-[1.4rem] border border-slate-200 bg-white px-5 py-4 text-sm leading-7 text-slate-700 shadow-[0_10px_24px_rgba(15,23,42,0.04)]"
                             >
                                 <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-950 text-white">
                                     <Check className="h-3.5 w-3.5" />
@@ -561,6 +664,19 @@ function CTASection() {
                             >
                                 {copy.secondary}
                             </Link>
+                        </div>
+                    </div>
+
+                    <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-4 text-sm leading-7 text-white/72">
+                            {locale === "id"
+                                ? "Diskusi awal biasanya cukup untuk melihat apakah masalah terbesarnya ada di positioning, kualitas page, atau ritme campaign yang tidak sinkron."
+                                : "An initial discussion is usually enough to see whether the main issue sits in positioning, page quality, or an unsynced campaign rhythm."}
+                        </div>
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-4 text-sm leading-7 text-white/72">
+                            {locale === "id"
+                                ? "Kalau tim Anda sudah bergerak aktif, kami bisa masuk lewat lapisan yang paling mengganggu momentum: story, launch surface, atau content system."
+                                : "If your team is already active, we can enter through the layer hurting momentum most: story, launch surface, or the content system."}
                         </div>
                     </div>
                 </div>
