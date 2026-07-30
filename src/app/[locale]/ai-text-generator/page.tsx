@@ -121,31 +121,31 @@ const COPY = {
     id: {
         hero: {
             badge: "AI text generation untuk tim yang butuh output lebih cepat dengan kontrol editorial yang lebih rapat",
-            title: "Draft copy, konten panjang, dan variasi bahasa lebih cepat tanpa membuat suara brand jadi bubur.",
+            title: "Draft copy, konten panjang, dan variasi bahasa lebih cepat tanpa membuat suara brand terasa generik atau berantakan.",
             subtitle:
-                "Layanan ini dibangun untuk tim yang ingin AI writing duduk di dalam workflow konten nyata, di mana arah, editing, dan disiplin publikasi tetap penting.",
-            primaryCta: "Bahas workflow writing",
+                "Layanan ini dibangun untuk tim yang ingin AI writing duduk di dalam workflow konten yang nyata, di mana arah pesan, editing, dan disiplin publikasi tetap dijaga.",
+            primaryCta: "Bahas workflow penulisan",
             secondaryCta: "Lihat area pakainya",
-            note: "Cocok untuk tim marketing, operator, dan bisnis yang berat di konten dan butuh output lebih banyak tanpa kehilangan kejelasan.",
-            chips: ["Copy campaign", "Draft panjang", "Support SEO", "Lokalisasi"],
-            panelTitle: "workflow text generation",
-            panelSubtitle: "briefing, drafting, review, publishing",
-            panelStatus: "Active",
+            note: "Cocok untuk tim marketing, operator, dan bisnis yang berat di konten dan butuh output lebih banyak tanpa mengorbankan kejernihan atau kontrol suara brand.",
+            chips: ["Copy campaign", "Draft long-form", "Dukungan SEO", "Lokalisasi"],
+            panelTitle: "workflow generasi teks",
+            panelSubtitle: "brief, drafting, review, publikasi",
+            panelStatus: "Aktif",
             panelProblemLabel: "Yang sering bikin macet",
             panelProblemBody:
-                "Permintaan konten naik lebih cepat daripada kapasitas editorial, sehingga tim akhirnya menerbitkan copy yang terburu-buru atau justru menahan produksi saat antrean makin panjang.",
+                "Permintaan konten sering naik lebih cepat daripada kapasitas editorial, sehingga tim berakhir dengan copy yang terburu-buru atau workflow yang tertahan oleh antrean revisi.",
             panelValueLabel: "Yang jadi lebih baik",
             panelValueBullets: [
-                "Draft awal lebih cepat untuk campaign dan content ops",
+                "Draft awal lebih cepat untuk campaign dan operasi konten",
                 "Lebih banyak ruang untuk menguji angle pesan sebelum publish",
-                "Support penulisan yang lebih rapi lintas bahasa dan format",
+                "Dukungan penulisan yang lebih rapi lintas bahasa, channel, dan format",
             ],
         },
         useCases: {
             eyebrow: "Area pakai",
             title: "Paling berguna saat tim butuh throughput penulisan dengan standar review yang nyata.",
             subtitle:
-                "Nilainya bukan mengganti judgment. Nilainya membantu tim bergerak dari blank page ke draft yang bisa dipakai jauh lebih cepat di banyak jenis kerja konten.",
+                "Nilainya bukan mengganti judgment editorial. Nilainya membantu tim bergerak dari blank page ke draft yang benar-benar bisa dipakai jauh lebih cepat di banyak jenis kerja konten.",
             items: [
                 {
                     title: "Copy campaign dan testing offer",
@@ -153,11 +153,11 @@ const COPY = {
                 },
                 {
                     title: "Support drafting long-form",
-                    body: "Bergerak dari outline ke draft artikel yang usable lebih cepat supaya tim bisa menghabiskan lebih banyak energi untuk editing, struktur, dan kejernihan.",
+                    body: "Bergerak dari outline ke draft artikel yang usable lebih cepat supaya energi tim bisa dialihkan ke editing, struktur, akurasi, dan kejernihan pesan.",
                 },
                 {
                     title: "SEO dan operasi konten",
-                    body: "Dukung rencana konten berbasis keyword, siklus refresh konten, dan antrean penulisan internal dengan persiapan draft yang lebih cepat.",
+                    body: "Dukung rencana konten berbasis keyword, siklus refresh konten, dan antrean penulisan internal dengan persiapan draft yang lebih cepat dan lebih terstruktur.",
                 },
                 {
                     title: "Lokalisasi dan kerja variasi",
@@ -169,15 +169,15 @@ const COPY = {
             eyebrow: "Pendekatan sistem",
             title: "Text generator paling efektif saat dipakai sebagai mesin draft di dalam proses editorial yang lebih tajam.",
             subtitle:
-                "Kami membingkai workflow penulisan di sekitar input, logika review, dan kualitas publish supaya AI mengurangi friksi, bukan menambah noise.",
+                "Kami membingkai workflow penulisan di sekitar kualitas input, logika review, dan standar publish supaya AI mengurangi friksi, bukan menambah noise atau repetisi generik.",
             items: [
                 {
                     title: "Brief dulu sebelum generate",
-                    body: "Tulisan yang lebih baik dimulai dari instruksi yang lebih jelas soal audiens, tujuan, tone, dan aksi yang harus didorong teks itu.",
+                    body: "Tulisan yang lebih baik dimulai dari instruksi yang lebih jelas soal audiens, tujuan, tone, dan aksi yang memang harus didorong teks itu.",
                 },
                 {
                     title: "Edit dengan niat",
-                    body: "Drafting memang cepat, tapi leverage sebenarnya datang dari seleksi, rewriting, dan pembersihan pesan yang lebih kuat sebelum publish.",
+                    body: "Drafting memang cepat, tapi leverage sebenarnya datang dari seleksi, rewriting, dan pembersihan pesan yang lebih kuat sebelum sesuatu dipublikasikan.",
                 },
                 {
                     title: "Sesuaikan output dengan channel",
@@ -189,7 +189,7 @@ const COPY = {
             eyebrow: "Workflow",
             title: "Jalur yang lebih bersih dari content brief ke draft yang layak dipublish.",
             subtitle:
-                "Proses ini menjaga tim tetap fokus untuk sampai ke working copy yang kuat lebih cepat, lalu memperbaikinya dengan judgment dan review yang lebih baik.",
+                "Proses ini menjaga tim tetap fokus untuk sampai ke working copy yang kuat lebih cepat, lalu memperbaikinya dengan judgment, penyuntingan, dan review yang lebih baik.",
             steps: [
                 {
                     step: "01",
@@ -199,7 +199,7 @@ const COPY = {
                 {
                     step: "02",
                     title: "Generate lalu bandingkan",
-                    body: "Buat banyak versi, bandingkan struktur dan kejernihannya, lalu simpan hanya angle yang layak dikembangkan lebih lanjut.",
+                    body: "Buat beberapa versi, bandingkan struktur dan kejernihannya, lalu simpan hanya angle yang memang layak dikembangkan lebih lanjut.",
                 },
                 {
                     step: "03",
@@ -222,10 +222,10 @@ const COPY = {
         },
         cta: {
             kicker: "plus. ai text generator",
-            title: "Kalau tim butuh volume tulisan lebih tinggi tanpa membiarkan setiap draft jadi generik, di sinilah AI berguna.",
+            title: "Kalau tim butuh volume tulisan lebih tinggi tanpa membiarkan setiap draft jatuh jadi generik, di sinilah AI berguna.",
             subtitle:
-                "Kami bisa bantu membentuk workflow di mana text generation mempercepat tahap drafting sementara editing, kecocokan brand, dan kualitas publish tetap di tangan manusia.",
-            primary: "Mulai diskusi writing",
+                "Kami bisa bantu membentuk workflow di mana text generation mempercepat tahap drafting sementara editing, kecocokan brand, dan kualitas publish tetap berada di tangan tim manusia.",
+            primary: "Mulai diskusi penulisan",
             secondary: "Lihat pricing",
         },
     },

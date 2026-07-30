@@ -121,31 +121,31 @@ const COPY = {
     id: {
         hero: {
             badge: "AI music generation untuk tim yang butuh produksi audio lebih cepat tanpa rasa stock-library generik",
-            title: "Buat arah musik, variasi sonic, dan support produksi lebih cepat untuk konten, produk, dan experience.",
+            title: "Buat arah musik, variasi sonic, dan support produksi lebih cepat untuk konten, produk, dan experience tanpa kehilangan rasa yang disengaja.",
             subtitle:
-                "Layanan ini dibangun untuk tim yang ingin AI music duduk di dalam workflow audio nyata, di mana mood, konteks pemakaian, dan seleksi akhir tetap penting.",
+                "Layanan ini dibangun untuk tim yang ingin AI music duduk di dalam workflow audio yang nyata, di mana mood, konteks pemakaian, dan seleksi akhir tetap penting.",
             primaryCta: "Bahas workflow musik",
             secondaryCta: "Lihat area pakainya",
-            note: "Cocok untuk tim konten, pembuat game, operator media, dan brand yang butuh output audio lebih banyak tanpa memesan setiap cue dari nol.",
-            chips: ["Mood track", "Variasi sound", "Audio konten", "Support prototype"],
-            panelTitle: "workflow music generation",
-            panelSubtitle: "brief, prompt, variation, review, release",
-            panelStatus: "Active",
+            note: "Cocok untuk tim konten, pembuat game, operator media, dan brand yang butuh output audio lebih banyak tanpa harus memesan setiap cue dari nol.",
+            chips: ["Mood track", "Variasi sonic", "Audio konten", "Dukungan prototype"],
+            panelTitle: "workflow generasi musik",
+            panelSubtitle: "brief, prompt, variasi, review, rilis",
+            panelStatus: "Aktif",
             panelProblemLabel: "Yang sering bikin macet",
             panelProblemBody:
-                "Kebutuhan audio sering datang terlambat di produksi, sementara scoring kustom lambat dan musik stok biasanya terasa generik atau tidak cocok dengan kontennya.",
+                "Kebutuhan audio sering datang terlambat di produksi, sementara scoring kustom memakan waktu dan musik stok sering terasa generik atau tidak pas dengan kontennya.",
             panelValueLabel: "Yang jadi lebih baik",
             panelValueBullets: [
                 "Arah sonic lebih cepat sebelum produksi musik mahal",
                 "Lebih banyak opsi untuk format konten dan siklus iterasi",
-                "Support yang lebih rapi untuk tim yang butuh audio fungsional dalam skala",
+                "Dukungan yang lebih rapi untuk tim yang butuh audio fungsional dalam skala",
             ],
         },
         useCases: {
             eyebrow: "Area pakai",
             title: "Paling berguna saat tim butuh lebih banyak opsi audio yang usable di banyak kerja konten berulang.",
             subtitle:
-                "Leverage paling kuat muncul saat AI music mendukung arah sound, packaging konten, atau produksi cepat yang tetap butuh taste di dalam loop.",
+                "Leverage paling kuat muncul saat AI music mendukung arah sound, packaging konten, atau produksi cepat yang tetap butuh taste dan keputusan manusia di dalam loop.",
             items: [
                 {
                     title: "Track latar untuk konten dan promo",
@@ -153,7 +153,7 @@ const COPY = {
                 },
                 {
                     title: "Audio prototype dan konsep",
-                    body: "Dukung demo produk, prototype app, konsep podcast, dan motion draft dengan sound yang membuat idenya terasa lebih utuh lebih awal.",
+                    body: "Dukung demo produk, prototype app, konsep podcast, dan motion draft dengan sound yang membuat ide terasa lebih utuh sejak fase awal.",
                 },
                 {
                     title: "Eksperimen game dan interaktif",
@@ -169,7 +169,7 @@ const COPY = {
             eyebrow: "Pendekatan sistem",
             title: "Music generator paling berguna saat mendukung seleksi, arah, dan produksi iteratif.",
             subtitle:
-                "Kami memperlakukan audio hasil generate sebagai bagian dari sistem kreatif yang lebih besar: mood apa yang dilayani, di mana ia dipakai, dan bagaimana ia bergerak ke stack aset final.",
+                "Kami memperlakukan audio hasil generate sebagai bagian dari sistem kreatif yang lebih besar: mood apa yang dilayani, di mana ia dipakai, dan bagaimana ia bergerak ke stack aset final tanpa kehilangan konteks.",
             items: [
                 {
                     title: "Mulai dari mood dan tujuan",
@@ -177,7 +177,7 @@ const COPY = {
                 },
                 {
                     title: "Generate alternatif yang layak dibandingkan",
-                    body: "Variasi menjadi berguna saat tim bisa menilai emotional fit, pacing, dan kualitas pemakaian, bukan cuma mengumpulkan track acak.",
+                    body: "Variasi menjadi berguna saat tim bisa menilai emotional fit, pacing, dan kualitas pemakaian, bukan cuma mengumpulkan track acak yang sulit dipilih.",
                 },
                 {
                     title: "Masukkan track yang tepat ke produksi",
@@ -189,12 +189,12 @@ const COPY = {
             eyebrow: "Workflow",
             title: "Jalur yang lebih bersih dari kebutuhan audio ke lapisan soundtrack yang usable.",
             subtitle:
-                "Proses ini berfokus membawa tim ke arah sound yang tepat lebih cepat, lalu menentukan seberapa jauh output hasil generate masuk ke aset final.",
+                "Proses ini berfokus membawa tim ke arah sound yang tepat lebih cepat, lalu menentukan seberapa jauh output hasil generate memang layak masuk ke aset final.",
             steps: [
                 {
                     step: "01",
                     title: "Bingkai peran audionya",
-                    body: "Tentukan format, tone emosional, durasi, dan konteks konten supaya proses generation tahu pekerjaan apa yang harus dikerjakan audio itu.",
+                    body: "Tentukan format, tone emosional, durasi, dan konteks konten supaya proses generation tahu pekerjaan apa yang benar-benar harus dikerjakan audio itu.",
                 },
                 {
                     step: "02",
@@ -224,7 +224,7 @@ const COPY = {
             kicker: "plus. ai music generator",
             title: "Kalau tim butuh output audio lebih banyak tanpa jatuh ke sound stok yang generik, di sinilah AI berguna.",
             subtitle:
-                "Kami bisa bantu membentuk workflow di mana music generation mempercepat eksplorasi sound dan produksi berulang sementara seleksi akhirnya tetap disengaja.",
+                "Kami bisa bantu membentuk workflow di mana music generation mempercepat eksplorasi sound dan produksi berulang sementara seleksi akhirnya tetap disengaja dan relevan dengan konteks pakainya.",
             primary: "Mulai diskusi musik",
             secondary: "Lihat pricing",
         },
