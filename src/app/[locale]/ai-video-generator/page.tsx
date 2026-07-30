@@ -123,14 +123,14 @@ const COPY = {
             badge: "AI video generation untuk tim yang butuh kecepatan konten lebih tinggi tanpa merusak ruang edit",
             title: "Ubah skrip, ide visual, dan format berulang menjadi workflow produksi video yang lebih cepat.",
             subtitle:
-                "Layanan ini dibangun untuk tim yang ingin AI video menjadi bagian dari content engine nyata, bukan jalan pintas yang menghasilkan output mencolok tanpa kecocokan operasional.",
+                "Layanan ini dibangun untuk tim yang ingin AI video menjadi bagian dari content engine yang nyata, bukan jalan pintas yang menghasilkan output mencolok tanpa kecocokan operasional.",
             primaryCta: "Bahas workflow video",
             secondaryCta: "Lihat area pakainya",
-            note: "Cocok untuk tim konten, marketer, edukator, dan operator yang butuh lebih banyak permukaan video dengan turnaround lebih rapat.",
-            chips: ["Script-to-video", "Potongan sosial", "Alur subtitle", "Scaling format"],
-            panelTitle: "workflow video generation",
-            panelSubtitle: "script, scene, draft, edit, export",
-            panelStatus: "Active",
+            note: "Cocok untuk tim konten, marketer, edukator, dan operator yang butuh lebih banyak output video dengan turnaround yang lebih rapat.",
+            chips: ["Script-to-video", "Potongan sosial", "Alur subtitle", "Skala format"],
+            panelTitle: "workflow generasi video",
+            panelSubtitle: "skrip, scene, draft, edit, ekspor",
+            panelStatus: "Aktif",
             panelProblemLabel: "Yang sering bikin macet",
             panelProblemBody:
                 "Permintaan video terus naik, tapi scripting, editing, subtitle, dan output multi-format masih memakan waktu lebih banyak daripada yang bisa ditahan kebanyakan tim.",
@@ -138,14 +138,14 @@ const COPY = {
             panelValueBullets: [
                 "Pembuatan video first-pass lebih cepat untuk format berulang",
                 "Friksi manual lebih kecil di subtitle dan repurposing",
-                "Lebih banyak ruang untuk menguji konsep video sebelum biaya produksi penuh",
+                "Lebih banyak ruang untuk menguji konsep video sebelum biaya produksi penuh keluar",
             ],
         },
         useCases: {
             eyebrow: "Area pakai",
             title: "Paling berguna saat tim butuh throughput video lebih cepat di banyak format konten berulang.",
             subtitle:
-                "Leverage paling kuat muncul saat AI video mendukung kebutuhan produksi rutin seperti promo, explainer, klip sosial, atau konten pembelajaran internal.",
+                "Leverage paling kuat muncul saat AI video mendukung kebutuhan produksi rutin seperti promo, explainer, klip sosial, atau konten pembelajaran internal dengan ritme yang konsisten.",
             items: [
                 {
                     title: "Draft video promo dan campaign",
@@ -157,7 +157,7 @@ const COPY = {
                 },
                 {
                     title: "Adaptasi short-form sosial",
-                    body: "Ubah pesan menjadi potongan video vertikal atau spesifik platform dengan lebih efisien saat tim butuh cadence publish rutin.",
+                    body: "Ubah pesan menjadi potongan video vertikal atau spesifik platform dengan lebih efisien saat tim butuh cadence publish yang rutin.",
                 },
                 {
                     title: "Support operasional untuk tim konten",
@@ -169,7 +169,7 @@ const COPY = {
             eyebrow: "Pendekatan sistem",
             title: "Video generator bekerja lebih baik saat melayani pipeline produksi yang berulang dan terstruktur.",
             subtitle:
-                "Kami memikirkan video generation di sekitar disiplin format, ritme review, dan cara output draft berubah menjadi sesuatu yang benar-benar bisa dipublish dengan baik.",
+                "Kami memikirkan video generation di sekitar disiplin format, ritme review, dan cara output draft berubah menjadi sesuatu yang benar-benar bisa dipublish dengan baik oleh tim.",
             items: [
                 {
                     title: "Susun formatnya dulu",
@@ -177,7 +177,7 @@ const COPY = {
                 },
                 {
                     title: "Gunakan AI untuk repetisi yang berat",
-                    body: "Assembly draft, persiapan visual, captioning, dan versioning adalah area di mana AI bisa menghilangkan banyak beban produksi yang membosankan.",
+                    body: "Assembly draft, persiapan visual, captioning, dan versioning adalah area di mana AI bisa menghilangkan banyak beban produksi yang repetitif dan membosankan.",
                 },
                 {
                     title: "Jaga review final tetap manusia",
@@ -189,7 +189,7 @@ const COPY = {
             eyebrow: "Workflow",
             title: "Jalur yang lebih bersih dari ide skrip ke output video yang layak dipublish.",
             subtitle:
-                "Targetnya bukan menghapus pemikiran produksi. Targetnya memendekkan jalur repetitif antara input mentah dan versi yang layak direview.",
+                "Targetnya bukan menghapus pemikiran produksi. Targetnya memendekkan jalur repetitif antara input mentah dan versi yang memang layak direview.",
             steps: [
                 {
                     step: "01",
@@ -199,7 +199,7 @@ const COPY = {
                 {
                     step: "02",
                     title: "Generate lalu rakit",
-                    body: "Buat draft visual, struktur scene, dukungan narasi, dan caption menjadi lapisan video pertama yang usable dengan lebih cepat.",
+                    body: "Buat draft visual, struktur scene, dukungan narasi, dan caption menjadi lapisan video pertama yang usable dengan lebih cepat dan lebih terarah.",
                 },
                 {
                     step: "03",
@@ -224,7 +224,7 @@ const COPY = {
             kicker: "plus. ai video generator",
             title: "Kalau tim butuh output video lebih banyak tanpa melipatgandakan kekacauan produksi, di sinilah AI berguna.",
             subtitle:
-                "Kami bisa bantu membentuk workflow di mana video generation mempercepat produksi berulang sementara judgment edit dan kualitas publish tetap terkendali.",
+                "Kami bisa bantu membentuk workflow di mana video generation mempercepat produksi berulang sementara judgment edit dan kualitas publish tetap terkendali di tangan tim.",
             primary: "Mulai diskusi video",
             secondary: "Lihat pricing",
         },

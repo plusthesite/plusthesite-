@@ -123,29 +123,29 @@ const COPY = {
             badge: "AI image generation untuk tim kreatif yang butuh cepat tanpa hasil murahan",
             title: "Hasilkan arah visual, aset campaign, dan concept frame lebih cepat tanpa kehilangan art direction.",
             subtitle:
-                "Layanan ini dibentuk untuk tim yang butuh AI image generation sebagai bagian dari workflow kreatif nyata, bukan sekadar prompt toy tanpa disiplin produksi.",
-            primaryCta: "Bahas workflow image",
+                "Layanan ini dibentuk untuk tim yang butuh AI image generation sebagai bagian dari workflow kreatif yang nyata, bukan sekadar prompt toy tanpa disiplin produksi.",
+            primaryCta: "Bahas workflow visual",
             secondaryCta: "Lihat area pakainya",
-            note: "Cocok untuk tim marketing, operator konten, dan bisnis yang kuat di desain dan butuh volume lebih tanpa menurunkan taste.",
-            chips: ["Concept frame", "Visual campaign", "Variation testing", "Creative support"],
-            panelTitle: "workflow image generation",
-            panelSubtitle: "prompting, variation, refinement, handoff",
-            panelStatus: "Active",
+            note: "Cocok untuk tim marketing, operator konten, dan bisnis yang kuat di desain dan butuh volume lebih tanpa menurunkan taste atau kontrol kualitas visual.",
+            chips: ["Concept frame", "Visual campaign", "Uji variasi", "Dukungan kreatif"],
+            panelTitle: "workflow generasi visual",
+            panelSubtitle: "prompting, variasi, refinement, handoff",
+            panelStatus: "Aktif",
             panelProblemLabel: "Yang sering bikin macet",
             panelProblemBody:
-                "Produksi visual tersangkut di antara ide mentah, iterasi yang lambat, dan terlalu banyak variasi aset manual saat campaign harus bergerak cepat.",
+                "Produksi visual sering tersangkut di antara ide mentah, iterasi yang lambat, dan terlalu banyak variasi aset manual saat campaign harus bergerak cepat.",
             panelValueLabel: "Yang jadi lebih baik",
             panelValueBullets: [
                 "Eksplorasi kreatif lebih cepat sebelum desain final penuh",
                 "Lebih banyak arah visual untuk testing campaign dan konten",
-                "Handoff lebih rapi dari output AI ke kerja brand final",
+                "Handoff lebih rapi dari output AI ke eksekusi brand final",
             ],
         },
         useCases: {
             eyebrow: "Area pakai",
             title: "Paling berguna saat tim butuh jangkauan visual, bukan sekadar novelty.",
             subtitle:
-                "Nilainya paling terasa saat gambar AI mendukung kerja brand, concepting, atau produksi campaign dengan standar review nyata di belakangnya.",
+                "Nilainya paling terasa saat gambar AI mendukung kerja brand, concepting, atau produksi campaign dengan standar review yang nyata di belakangnya.",
             items: [
                 {
                     title: "Eksplorasi konsep untuk campaign",
@@ -153,7 +153,7 @@ const COPY = {
                 },
                 {
                     title: "Variasi aset dalam skala yang berguna",
-                    body: "Buat komposisi, style, dan treatment visual alternatif untuk testing konten dan promo tanpa membangun semuanya ulang secara manual.",
+                    body: "Buat komposisi, style, dan treatment visual alternatif untuk testing konten dan promo tanpa harus membangun semuanya ulang secara manual.",
                 },
                 {
                     title: "Moodboard dan referensi yang bergerak lebih cepat",
@@ -169,7 +169,7 @@ const COPY = {
             eyebrow: "Pendekatan sistem",
             title: "Image generator bekerja lebih baik saat duduk di dalam proses review, bukan di luar itu.",
             subtitle:
-                "Kami melihat gambar AI sebagai bagian dari operasi kreatif: bagaimana prompt dibentuk, bagaimana opsi direview, dan bagaimana output bagus berubah jadi aset yang benar-benar bisa dipakai.",
+                "Kami melihat gambar AI sebagai bagian dari operasi kreatif: bagaimana prompt dibentuk, bagaimana opsi direview, dan bagaimana output yang kuat berubah jadi aset yang benar-benar bisa dipakai.",
             items: [
                 {
                     title: "Prompting dengan niat yang jelas",
@@ -181,7 +181,7 @@ const COPY = {
                 },
                 {
                     title: "Handoff ke produksi",
-                    body: "Output yang kuat harus bisa masuk ke editing, layout, adaptasi brand, dan deployment campaign tanpa menambah kekacauan.",
+                    body: "Output yang kuat harus bisa masuk ke editing, layout, adaptasi brand, dan deployment campaign tanpa menambah kekacauan baru.",
                 },
             ],
         },
@@ -194,7 +194,7 @@ const COPY = {
                 {
                     step: "01",
                     title: "Bingkai kebutuhan visualnya",
-                    body: "Tentukan konteks campaign, tujuan konten, tone, dan jenis aset supaya proses generation berangkat dari batasan yang lebih berguna.",
+                    body: "Tentukan konteks campaign, tujuan konten, tone, dan jenis aset supaya proses generation berangkat dari batasan yang lebih berguna dan lebih terarah.",
                 },
                 {
                     step: "02",
@@ -224,8 +224,8 @@ const COPY = {
             kicker: "plus. ai image generator",
             title: "Kalau tim butuh output visual lebih banyak tanpa menjatuhkan quality control, di sinilah AI berguna.",
             subtitle:
-                "Kami bisa bantu membentuk workflow di mana image generation mempercepat produksi kreatif sambil menjaga review, seleksi, dan kualitas akhir tetap membumi.",
-            primary: "Mulai diskusi image",
+                "Kami bisa bantu membentuk workflow di mana image generation mempercepat produksi kreatif sambil menjaga review, seleksi, dan kualitas akhir tetap terarah.",
+            primary: "Mulai diskusi visual",
             secondary: "Lihat pricing",
         },
     },
