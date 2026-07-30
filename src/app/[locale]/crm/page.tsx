@@ -9,7 +9,6 @@ import {
     Filter,
     KanbanSquare,
     MailCheck,
-    MessageSquareMore,
     UserRoundSearch,
     Workflow,
 } from "lucide-react";

@@ -8,10 +8,8 @@ import {
     Check,
     Clock3,
     Headphones,
-    LifeBuoy,
     MessageSquareReply,
     MessagesSquare,
-    ShieldCheck,
     Workflow,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";

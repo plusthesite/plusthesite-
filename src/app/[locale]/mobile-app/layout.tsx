@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
 import { productMetadata } from "@/lib/seo";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+    params,
+}: Readonly<{ params: Promise<{ locale: string }> }>): Promise<Metadata> {
     const { locale } = await params;
+
     return productMetadata({
         locale,
         path: "/mobile-app",
-        title: "Mobile App Development — plus.",
-        description: "Beautiful, performant mobile apps that users love. From concept to App Store — we handle the entire journey.",
+        title: "Mobile App Development - Product Framing, Launch Planning & Delivery | plus.",
+        description:
+            "Mobile app development offering in preparation, focused on product framing, launch planning, release workflow, and maintainable delivery.",
     });
 }
 
-// Service + Offer (IDR) + Breadcrumb JSON-LD is emitted by ProductPageTemplate.
-export default function MobileAppLayout({ children }: { children: React.ReactNode }) {
+export default function MobileAppLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return <>{children}</>;
 }
