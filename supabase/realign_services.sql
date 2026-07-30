@@ -1,34 +1,35 @@
 -- ============================================================
--- Realign CRM data to what we actually sell (run in Supabase SQL Editor).
+-- Realign CRM data to what we actually sell
+-- Run manually in the Supabase SQL Editor after previewing rows.
 --
--- Goal: keep the pipeline REAL so it forecasts real revenue.
---   1. Remove the fabricated demo opportunities + demo leads from seed_crm.sql
---      (they are not real prospects — they inflate the pipeline).
---   2. Mobile App Development is "coming soon" → re-tag its real leads to our
---      flagship Digital Agency line so the reach-out effort isn't wasted.
+-- Goal: keep the pipeline real so dashboards and forecasts stay useful.
+--   1. Remove fabricated demo opportunities + demo leads from seed_crm.sql.
+--   2. Review older service tags that may no longer reflect the active offer.
 --
--- SAFE / REVERSIBLE-MINDED: run each PREVIEW select first, eyeball the rows,
--- then run the matching write. Bulk writes on the live DB are human-signed-off.
+-- SAFE / REVERSIBLE-MINDED:
+--   - run each PREVIEW select first
+--   - confirm the row set by eye
+--   - only then run the matching write
 -- ============================================================
 
--- ---- 1a. PREVIEW the fabricated seed records ----------------
--- These exact emails come from supabase/seed_crm.sql (demo data only).
-select 'lead' as kind, name, company, service from public.leads
+-- ---- 1a. PREVIEW fabricated seed records -------------------
+select 'lead' as kind, name, company, service
+from public.leads
 where email in (
     'andi@batiknusantara.co.id','siti@kliniksehat.id','budi@edupintar.com',
     'maya@gofreshmart.id','rizky@fitlifegym.co.id','dewi@travelkita.id',
     'hendra@otomart.id','nina@fashionku.co.id','sarah@brightlabs.io','michael@playnova.gg'
 )
 union all
-select 'opportunity', name, company, service from public.opportunities
+select 'opportunity', name, company, service
+from public.opportunities
 where email in (
     'andi@batiknusantara.co.id','siti@kliniksehat.id','budi@edupintar.com',
     'maya@gofreshmart.id','rizky@fitlifegym.co.id','dewi@travelkita.id',
     'hendra@otomart.id','nina@fashionku.co.id','sarah@brightlabs.io','michael@playnova.gg'
 );
 
--- ---- 1b. DELETE the fabricated seed records -----------------
--- (uncomment to run once the preview looks right)
+-- ---- 1b. DELETE fabricated seed records --------------------
 -- delete from public.opportunities where email in (
 --     'andi@batiknusantara.co.id','siti@kliniksehat.id','budi@edupintar.com',
 --     'maya@gofreshmart.id','rizky@fitlifegym.co.id','dewi@travelkita.id',
@@ -40,25 +41,33 @@ where email in (
 --     'hendra@otomart.id','nina@fashionku.co.id','sarah@brightlabs.io','michael@playnova.gg'
 -- );
 
--- ---- 2a. PREVIEW mobile-app leads to re-tag -----------------
+-- ---- 2a. PREVIEW legacy mobile-app records -----------------
+-- Keep this preview because earlier sales logic sometimes re-tagged
+-- mobile-app interest into other lanes before the service became active.
 select count(*) as mobile_app_leads, coalesce(sum(value), 0) as current_value
-from public.leads where service = 'mobile-app';
+from public.leads
+where service = 'mobile-app';
 
--- ---- 2b. RE-TAG real mobile-app leads → digital-agency ------
--- (Digital Agency starting value is Rp 15jt — keep values realistic.)
+select count(*) as mobile_app_opportunities, coalesce(sum(value), 0) as current_value
+from public.opportunities
+where service = 'mobile-app';
+
+-- ---- 2b. OPTIONAL re-tagging example -----------------------
+-- Use only if your current commercial model needs to consolidate an old lane.
 -- update public.leads
 --    set service = 'digital-agency',
 --        value = case when value is null or value > 15000000 then 15000000 else value end
 --  where service = 'mobile-app';
 
--- Same for any real opportunities still tagged mobile-app:
 -- update public.opportunities
 --    set service = 'digital-agency'
 --  where service = 'mobile-app'
---    and email not in (  -- exclude the demo rows handled in step 1
+--    and email not in (
 --      'budi@edupintar.com','hendra@otomart.id'
 --    );
 
--- ---- 3. After: confirm the pipeline is real -----------------
--- select service, count(*), coalesce(sum(value),0) as pipeline
--- from public.leads group by service order by pipeline desc;
+-- ---- 3. AFTER: confirm pipeline shape ----------------------
+-- select service, count(*), coalesce(sum(value), 0) as pipeline
+-- from public.leads
+-- group by service
+-- order by pipeline desc;
