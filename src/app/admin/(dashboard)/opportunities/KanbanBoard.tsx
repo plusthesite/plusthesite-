@@ -18,8 +18,13 @@ export interface BoardOpp {
 }
 
 const STAGE_HEAD: Record<string, string> = {
-    new: "border-t-slate-300", contacted: "border-t-blue-400", qualified: "border-t-indigo-400",
-    proposal: "border-t-violet-400", negotiation: "border-t-amber-400", won: "border-t-emerald-400", lost: "border-t-rose-400",
+    new: "border-t-slate-300",
+    contacted: "border-t-sky-400",
+    qualified: "border-t-indigo-400",
+    proposal: "border-t-violet-400",
+    negotiation: "border-t-amber-400",
+    won: "border-t-emerald-400",
+    lost: "border-t-rose-400",
 };
 
 export function KanbanBoard({ initial }: { initial: BoardOpp[] }) {
@@ -29,9 +34,10 @@ export function KanbanBoard({ initial }: { initial: BoardOpp[] }) {
     const router = useRouter();
 
     async function move(id: string, stage: string) {
-        const current = opps.find((o) => o.id === id);
+        const current = opps.find((opp) => opp.id === id);
         if (!current || current.stage === stage) return;
-        setOpps((prev) => prev.map((o) => (o.id === id ? { ...o, stage } : o))); // optimistic
+
+        setOpps((prev) => prev.map((opp) => (opp.id === id ? { ...opp, stage } : opp)));
         await moveOpportunity(id, stage);
         router.refresh();
     }
@@ -39,40 +45,73 @@ export function KanbanBoard({ initial }: { initial: BoardOpp[] }) {
     return (
         <div className="flex gap-4 overflow-x-auto pb-4">
             {STAGES.map((stage) => {
-                const col = opps.filter((o) => o.stage === stage);
-                const total = col.reduce((s, o) => s + (o.value ?? 0), 0);
+                const column = opps.filter((opp) => opp.stage === stage);
+                const total = column.reduce((sum, opp) => sum + (opp.value ?? 0), 0);
+
                 return (
                     <div
                         key={stage}
-                        onDragOver={(e) => { e.preventDefault(); setOver(stage); }}
-                        onDragLeave={() => setOver((o) => (o === stage ? null : o))}
-                        onDrop={() => { if (dragId) move(dragId, stage); setDragId(null); setOver(null); }}
-                        className={`flex w-64 shrink-0 flex-col rounded-xl border-t-4 bg-slate-50 p-2 ${STAGE_HEAD[stage]} ${over === stage ? "ring-2 ring-blue-300" : ""}`}
+                        onDragOver={(event) => {
+                            event.preventDefault();
+                            setOver(stage);
+                        }}
+                        onDragLeave={() => setOver((current) => (current === stage ? null : current))}
+                        onDrop={() => {
+                            if (dragId) {
+                                void move(dragId, stage);
+                            }
+                            setDragId(null);
+                            setOver(null);
+                        }}
+                        className={`flex w-64 shrink-0 flex-col rounded-xl border-t-4 bg-slate-50 p-2 ${
+                            STAGE_HEAD[stage]
+                        } ${over === stage ? "ring-2 ring-sky-300" : ""}`}
                     >
                         <div className="flex items-center justify-between px-2 py-1.5">
-                            <span className="text-xs font-bold uppercase tracking-wide text-slate-600">{stage}</span>
-                            <span className="text-[10px] font-semibold text-slate-400">{col.length} · {formatIDR(total, true)}</span>
+                            <span className="text-xs font-bold uppercase tracking-wide text-slate-600">
+                                {stage}
+                            </span>
+                            <span className="text-[10px] font-semibold text-slate-400">
+                                {column.length} · {formatIDR(total, true)}
+                            </span>
                         </div>
+
                         <div className="flex flex-col gap-2">
-                            {col.map((o) => (
+                            {column.map((opp) => (
                                 <Link
-                                    key={o.id}
-                                    href={`/admin/opportunities/${o.id}`}
+                                    key={opp.id}
+                                    href={`/admin/opportunities/${opp.id}`}
                                     draggable
-                                    onDragStart={() => setDragId(o.id)}
-                                    onDragEnd={() => { setDragId(null); setOver(null); }}
+                                    onDragStart={() => setDragId(opp.id)}
+                                    onDragEnd={() => {
+                                        setDragId(null);
+                                        setOver(null);
+                                    }}
                                     className="cursor-grab rounded-lg border border-slate-200 bg-white p-3 shadow-sm hover:shadow active:cursor-grabbing"
                                 >
-                                    <p className="text-sm font-semibold text-slate-800">{o.name}</p>
-                                    {o.company && <p className="text-xs text-slate-500">{o.company}</p>}
+                                    <p className="text-sm font-semibold text-slate-800">{opp.name}</p>
+                                    {opp.company ? (
+                                        <p className="text-xs text-slate-500">{opp.company}</p>
+                                    ) : null}
+
                                     <div className="mt-2 flex items-center justify-between">
-                                        <span className="text-sm font-bold text-slate-900">{formatIDR(o.value ?? 0, true)}</span>
-                                        <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-medium text-slate-500">{serviceName(o.service)}</span>
+                                        <span className="text-sm font-bold text-slate-900">
+                                            {formatIDR(opp.value ?? 0, true)}
+                                        </span>
+                                        <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-medium text-slate-500">
+                                            {serviceName(opp.service)}
+                                        </span>
                                     </div>
-                                    {o.owner && <p className="mt-1 text-[10px] text-slate-400">{o.owner}</p>}
+
+                                    {opp.owner ? (
+                                        <p className="mt-1 text-[10px] text-slate-400">{opp.owner}</p>
+                                    ) : null}
                                 </Link>
                             ))}
-                            {col.length === 0 && <p className="px-2 py-4 text-center text-[11px] text-slate-300">Drop here</p>}
+
+                            {column.length === 0 ? (
+                                <p className="px-2 py-4 text-center text-[11px] text-slate-300">Drop here</p>
+                            ) : null}
                         </div>
                     </div>
                 );

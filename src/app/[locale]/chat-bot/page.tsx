@@ -530,7 +530,7 @@ function HeroSection({ copy }: { copy: PageCopy }) {
     return (
         <section className="relative overflow-hidden bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.12),_transparent_28%),linear-gradient(180deg,_#f8fbff_0%,_#eff6ff_45%,_#ffffff_100%)] dark:bg-[radial-gradient(circle_at_top_left,_rgba(56,189,248,0.12),_transparent_24%),linear-gradient(180deg,_#020617_0%,_#0f172a_55%,_#020617_100%)]">
             <div className="pointer-events-none absolute inset-0 overflow-hidden">
-                <div className="absolute left-[5%] top-[8%] h-[24rem] w-[24rem] rounded-full bg-blue-500/10 blur-[120px]" />
+                <div className="absolute left-[5%] top-[8%] h-[24rem] w-[24rem] rounded-full bg-sky-500/10 blur-[120px]" />
                 <div className="absolute right-[6%] top-[20%] h-[20rem] w-[20rem] rounded-full bg-cyan-400/10 blur-[120px]" />
                 <div className="absolute inset-0 bg-[url('/textures/noise.svg')] opacity-[0.035]" />
             </div>
@@ -541,7 +541,7 @@ function HeroSection({ copy }: { copy: PageCopy }) {
             >
                 <div className="flex flex-col justify-center">
                     <span className="fade-up inline-flex w-max items-center gap-2 rounded-full border border-slate-200/80 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
-                        <Sparkles size={14} className="text-blue-600 dark:text-cyan-300" />
+                        <Sparkles size={14} className="text-sky-600 dark:text-cyan-300" />
                         {copy.hero.badge}
                     </span>
 
@@ -556,7 +556,7 @@ function HeroSection({ copy }: { copy: PageCopy }) {
                     <div className="fade-up fade-up-delay-3 mt-9 flex flex-col gap-3 sm:flex-row">
                         <Link
                             href={`/${locale}/studio`}
-                            className="group inline-flex items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-semibold text-white shadow-[0_20px_60px_rgba(15,23,42,0.18)] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-blue-700 active:scale-[0.98] dark:bg-white dark:text-slate-950 dark:hover:bg-blue-100"
+                            className="group inline-flex items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-semibold text-white shadow-[0_20px_60px_rgba(15,23,42,0.18)] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-sky-700 active:scale-[0.98] dark:bg-white dark:text-slate-950 dark:hover:bg-sky-100"
                         >
                             {copy.hero.primaryCta}
                             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105 dark:bg-slate-900/10">
@@ -628,7 +628,7 @@ function FeaturesSection({ copy }: { copy: PageCopy }) {
         <section id="capabilities" className="bg-slate-50/70 py-24 dark:bg-slate-950">
             <div ref={ref} className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="max-w-3xl">
-                    <span className="fade-up inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-blue-700 dark:text-blue-300">
+                    <span className="fade-up inline-flex items-center gap-2 rounded-full bg-sky-500/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-sky-700 dark:text-sky-300">
                         <BadgeCheck size={14} />
                         {copy.features.eyebrow}
                     </span>
@@ -657,7 +657,7 @@ function FeaturesSection({ copy }: { copy: PageCopy }) {
                                 className={`rounded-[2rem] bg-black/5 p-1.5 ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10 ${span}`}
                             >
                                 <div className="h-full rounded-[calc(2rem-0.375rem)] border border-white/60 bg-white p-7 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(15,23,42,0.10)] dark:border-white/10 dark:bg-slate-950">
-                                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-700 dark:text-blue-300">
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-500/10 text-sky-700 dark:text-sky-300">
                                         <Icon size={20} strokeWidth={1.75} />
                                     </div>
                                     <h3 className="mt-6 text-xl font-semibold text-slate-950 dark:text-white">
@@ -757,7 +757,7 @@ function PricingSection({ copy }: { copy: PageCopy }) {
                             <div
                                 className={`h-full rounded-[calc(2rem-0.375rem)] border px-7 py-8 ${
                                     plan.highlight
-                                        ? "border-blue-500/30 bg-slate-950 text-white dark:bg-white dark:text-slate-950"
+                                        ? "border-sky-500/30 bg-slate-950 text-white dark:bg-white dark:text-slate-950"
                                         : "border-white/70 bg-white text-slate-950 dark:border-white/10 dark:bg-slate-950 dark:text-white"
                                 }`}
                             >
@@ -766,7 +766,7 @@ function PricingSection({ copy }: { copy: PageCopy }) {
                                         <p
                                             className={`text-sm font-semibold uppercase tracking-[0.16em] ${
                                                 plan.highlight
-                                                    ? "text-blue-200 dark:text-blue-700"
+                                                    ? "text-sky-200 dark:text-sky-700"
                                                     : "text-slate-400"
                                             }`}
                                         >
@@ -804,7 +804,7 @@ function PricingSection({ copy }: { copy: PageCopy }) {
                                                     : "text-slate-600 dark:text-slate-300"
                                             }`}
                                         >
-                                            <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-full bg-blue-500/15 text-blue-300 dark:text-blue-600">
+                                            <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-full bg-sky-500/15 text-sky-300 dark:text-sky-600">
                                                 <Check size={12} strokeWidth={2.4} />
                                             </span>
                                             {feature}
@@ -820,8 +820,8 @@ function PricingSection({ copy }: { copy: PageCopy }) {
                                     )}`}
                                     className={`mt-8 inline-flex w-full items-center justify-center gap-3 rounded-full px-6 py-3.5 text-sm font-semibold transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 active:scale-[0.98] ${
                                         plan.highlight
-                                            ? "bg-white text-slate-950 hover:bg-blue-50 dark:bg-slate-950 dark:text-white dark:hover:bg-slate-900"
-                                            : "bg-slate-950 text-white hover:bg-blue-700 dark:bg-white dark:text-slate-950 dark:hover:bg-blue-100"
+                                            ? "bg-white text-slate-950 hover:bg-sky-50 dark:bg-slate-950 dark:text-white dark:hover:bg-slate-900"
+                                            : "bg-slate-950 text-white hover:bg-sky-700 dark:bg-white dark:text-slate-950 dark:hover:bg-sky-100"
                                     }`}
                                 >
                                     {copy.pricing.cta}
@@ -855,7 +855,7 @@ function TestimonialsSection({ copy }: { copy: PageCopy }) {
                             <div className="h-full rounded-[calc(2rem-0.375rem)] border border-white/70 bg-white p-7 dark:border-white/10 dark:bg-slate-950">
                                 <MessageSquareQuote
                                     size={28}
-                                    className="text-blue-600 dark:text-blue-300"
+                                    className="text-sky-600 dark:text-sky-300"
                                     strokeWidth={1.75}
                                 />
                                 <p className="mt-5 text-sm leading-8 text-slate-600 dark:text-slate-300">
@@ -932,7 +932,7 @@ function CTASection({ copy }: { copy: PageCopy }) {
             <div ref={ref} className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="fade-up rounded-[2.5rem] bg-black/5 p-2 ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10">
                     <div className="relative overflow-hidden rounded-[calc(2.5rem-0.5rem)] border border-white/70 bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.18),_transparent_25%),linear-gradient(180deg,_#eff6ff_0%,_#ffffff_100%)] px-8 py-16 text-center dark:border-white/10 dark:bg-[radial-gradient(circle_at_top_left,_rgba(56,189,248,0.14),_transparent_25%),linear-gradient(180deg,_#0f172a_0%,_#020617_100%)] sm:px-14">
-                        <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-blue-500/15 blur-[90px]" />
+                        <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-sky-500/15 blur-[90px]" />
                         <div className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-cyan-400/15 blur-[90px]" />
 
                         <div className="relative z-10 mx-auto max-w-3xl">
@@ -948,7 +948,7 @@ function CTASection({ copy }: { copy: PageCopy }) {
                             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
                                 <Link
                                     href={`/${locale}/studio`}
-                                    className="group inline-flex items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-semibold text-white transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-blue-700 active:scale-[0.98] dark:bg-white dark:text-slate-950 dark:hover:bg-blue-100"
+                                    className="group inline-flex items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-semibold text-white transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-sky-700 active:scale-[0.98] dark:bg-white dark:text-slate-950 dark:hover:bg-sky-100"
                                 >
                                     {copy.cta.primary}
                                     <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105 dark:bg-slate-900/10">

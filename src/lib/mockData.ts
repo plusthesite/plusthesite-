@@ -35,7 +35,7 @@ export const ALACARTE_FEATURES = [
 
 export const MOCK_CLASSES: ClassItem[] = [
     { id: 1, title: "Jago Jualan di TikTok Shop", mentor: "Coach Rian", role: "TikTok Expert", date: "25 Nov", time: "19:00", rating: 4.9, students: 1250, price: "Gratis", image: "bg-brand" },
-    { id: 2, title: "Fotografi Produk Modal HP", mentor: "Siska Visuals", role: "Photographer", date: "26 Nov", time: "10:00", rating: 4.8, students: 850, price: "Rp 50.000", image: "bg-blue-600" },
+    { id: 2, title: "Fotografi Produk Modal HP", mentor: "Siska Visuals", role: "Photographer", date: "26 Nov", time: "10:00", rating: 4.8, students: 850, price: "Rp 50.000", image: "bg-sky-600" },
     { id: 3, title: "AI untuk Copywriting Kilat", mentor: "Dr. Prompt", role: "AI Specialist", date: "28 Nov", time: "15:00", rating: 5.0, students: 2100, price: "Rp 75.000", image: "bg-sky-600" },
     { id: 4, title: "Financial Planning UMKM", mentor: "Budi Cuan", role: "Financial Advisor", date: "30 Nov", time: "13:00", rating: 4.7, students: 600, price: "Gratis", image: "bg-green-600" },
 ];

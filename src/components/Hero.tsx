@@ -133,7 +133,7 @@ export default function Hero() {
                   <p className="mt-8 text-3xl font-semibold tracking-tight">
                     {locale === "id" ? "1 ritme tim" : "1 team rhythm"}
                   </p>
-                  <p className="mt-2 text-sm leading-6 text-blue-50">
+                  <p className="mt-2 text-sm leading-6 text-white/80">
                     {locale === "id"
                       ? "AI, creative, CRM, konten, dan app bergerak di jalur kerja yang sama."
                       : "AI, creative, CRM, content, and apps move inside the same operating path."}

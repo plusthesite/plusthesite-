@@ -58,7 +58,7 @@ export function MobileSidebar({ email, role }: { email: string; role?: Role }) {
                 <div className="flex items-center justify-between px-3 pb-6">
                     <div>
                         <div className="text-xl font-extrabold tracking-tight text-white">
-                            plus<span className="text-blue-500">.</span>
+                            plus<span className="text-rose-400">.</span>
                         </div>
                         <p className="text-xs text-slate-500">Operations cockpit</p>
                     </div>

@@ -42,7 +42,7 @@ export default async function DashboardLayout({
                 <div className="flex items-start justify-between px-3 pb-6">
                     <div>
                         <div className="text-xl font-extrabold tracking-tight text-white">
-                            plus<span className="text-blue-500">.</span>
+                            plus<span className="text-rose-400">.</span>
                         </div>
                         <p className="text-xs text-slate-500">Operations cockpit</p>
                     </div>
@@ -65,7 +65,7 @@ export default async function DashboardLayout({
                 <div className="sticky top-0 z-20 flex items-center justify-between border-b border-slate-200/80 bg-white/80 px-4 py-3 backdrop-blur-md lg:hidden">
                     <div className="flex items-center gap-3">
                         <div className="text-lg font-extrabold tracking-tight text-slate-900">
-                            plus<span className="text-blue-500">.</span>
+                            plus<span className="text-rose-500">.</span>
                         </div>
                     </div>
                     <div className="flex items-center gap-1">

@@ -15,13 +15,13 @@ export interface ServiceLine {
     id: string;
     /** Short value proposition (EN). */
     tagline: string;
-    /** Indicative starting deal value in IDR — sales reference, not a public price. */
+    /** Indicative starting deal value in IDR - sales reference, not a public price. */
     startingValue: number;
     /** Public-page route under /[locale]. */
     path: string;
     /** Tailwind chip color (light bg + text). */
     chip: string;
-    /** Not yet offered — shown as "Coming soon", excluded from lead-gen funnels. */
+    /** Not yet offered - shown as "Coming soon", excluded from lead-gen funnels. */
     comingSoon?: boolean;
 }
 
@@ -33,7 +33,7 @@ export const SERVICES: ServiceLine[] = [
         tagline: "24/7 conversational AI for sales & support",
         startingValue: 8_000_000,
         path: "/chat-bot",
-        chip: "bg-blue-50 text-blue-700",
+        chip: "bg-sky-50 text-sky-700",
     },
     {
         slug: "digital-agency",
@@ -92,30 +92,46 @@ export const SERVICES: ServiceLine[] = [
 ];
 
 /** Services we actively sell right now (excludes future "coming soon" lines). */
-export const ACTIVE_SERVICES = SERVICES.filter((s) => !s.comingSoon);
+export const ACTIVE_SERVICES = SERVICES.filter((service) => !service.comingSoon);
 
 export function isComingSoon(slug: string | null | undefined): boolean {
     return Boolean(getService(slug)?.comingSoon);
 }
 
-const SERVICE_MAP = new Map(SERVICES.map((s) => [s.slug, s]));
+const SERVICE_MAP = new Map(SERVICES.map((service) => [service.slug, service]));
 
 export function getService(slug: string | null | undefined): ServiceLine | null {
     return slug ? SERVICE_MAP.get(slug) ?? null : null;
 }
 
-export function serviceName(slug: string | null | undefined, locale: "en" | "id" = "en"): string {
-    const s = getService(slug);
-    if (!s) return "General";
-    return locale === "id" ? s.id : s.en;
+export function serviceName(
+    slug: string | null | undefined,
+    locale: "en" | "id" = "en"
+): string {
+    const service = getService(slug);
+    if (!service) return "General";
+    return locale === "id" ? service.id : service.en;
 }
 
 /** Format an IDR amount compactly, e.g. 15000000 -> "Rp 15 jt". */
 export function formatIDR(value: number, compact = false): string {
     if (compact) {
-        if (value >= 1_000_000_000) return `Rp ${(value / 1_000_000_000).toLocaleString("id-ID", { maximumFractionDigits: 1 })} M`;
-        if (value >= 1_000_000) return `Rp ${(value / 1_000_000).toLocaleString("id-ID", { maximumFractionDigits: 1 })} jt`;
-        if (value >= 1_000) return `Rp ${(value / 1_000).toLocaleString("id-ID", { maximumFractionDigits: 0 })} rb`;
+        if (value >= 1_000_000_000) {
+            return `Rp ${(value / 1_000_000_000).toLocaleString("id-ID", {
+                maximumFractionDigits: 1,
+            })} M`;
+        }
+        if (value >= 1_000_000) {
+            return `Rp ${(value / 1_000_000).toLocaleString("id-ID", {
+                maximumFractionDigits: 1,
+            })} jt`;
+        }
+        if (value >= 1_000) {
+            return `Rp ${(value / 1_000).toLocaleString("id-ID", {
+                maximumFractionDigits: 0,
+            })} rb`;
+        }
     }
+
     return `Rp ${Math.round(value).toLocaleString("id-ID")}`;
 }
