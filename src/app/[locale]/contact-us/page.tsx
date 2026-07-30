@@ -1,11 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useT, useLocale } from "@/i18n/I18nProvider";
 import { SERVICES, ACTIVE_SERVICES, serviceName } from "@/lib/services";
+
+function getInitialService() {
+    if (typeof window === "undefined") return "";
+    const slug = new URLSearchParams(window.location.search).get("service");
+    return slug && SERVICES.some((item) => item.slug === slug) ? slug : "";
+}
 
 export default function ContactUsPage() {
     const t = useT();
@@ -14,17 +20,11 @@ export default function ContactUsPage() {
     const [email, setEmail] = useState("");
     const [company, setCompany] = useState("");
     const [phone, setPhone] = useState("");
-    const [service, setService] = useState("");
+    const [service, setService] = useState(getInitialService);
     const [message, setMessage] = useState("");
 
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
     const [errorMessage, setErrorMessage] = useState("");
-
-    // Preselect the service when arriving from a product page (?service=slug).
-    useEffect(() => {
-        const slug = new URLSearchParams(window.location.search).get("service");
-        if (slug && SERVICES.some((s) => s.slug === slug)) setService(slug);
-    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

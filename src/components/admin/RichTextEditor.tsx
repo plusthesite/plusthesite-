@@ -5,7 +5,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
 import Underline from "@tiptap/extension-underline";
-import { useRef, useCallback } from "react";
+import { useRef } from "react";
 
 /* ─── toolbar button ─── */
 function Btn({
@@ -41,9 +41,8 @@ function Sep() {
 
 /* ─── toolbar ─── */
 function Toolbar({ editor }: { editor: ReturnType<typeof useEditor> }) {
-    if (!editor) return null;
-
-    const setLink = useCallback(() => {
+    const setLink = () => {
+        if (!editor) return;
         const prev = editor.getAttributes("link").href as string | undefined;
         const url = window.prompt("URL", prev ?? "https://");
         if (url === null) return;
@@ -52,12 +51,15 @@ function Toolbar({ editor }: { editor: ReturnType<typeof useEditor> }) {
         } else {
             editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
         }
-    }, [editor]);
+    };
 
-    const addImage = useCallback(() => {
+    const addImage = () => {
+        if (!editor) return;
         const url = window.prompt("Image URL");
         if (url) editor.chain().focus().setImage({ src: url }).run();
-    }, [editor]);
+    };
+
+    if (!editor) return null;
 
     return (
         <div className="flex flex-wrap items-center gap-0.5 border-b border-slate-200 bg-slate-50 px-2 py-1.5 rounded-t-lg">

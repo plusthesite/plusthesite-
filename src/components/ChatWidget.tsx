@@ -42,7 +42,7 @@ export function ChatWidget({ locale = "id" }: { locale?: Loc }) {
         setBusy(true);
         save("user", text);
 
-        await delay(450 + Math.random() * 500); // human-feel typing
+        await delay(700);
 
         const email = detectEmail(text);
         const phone = detectPhone(text);

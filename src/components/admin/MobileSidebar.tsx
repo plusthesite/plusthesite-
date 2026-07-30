@@ -10,7 +10,10 @@ export function MobileSidebar({ email, role }: { email: string; role?: Role }) {
     const pathname = usePathname();
 
     // Close on route change
-    useEffect(() => { setOpen(false); }, [pathname]);
+    useEffect(() => {
+        const frame = window.requestAnimationFrame(() => setOpen(false));
+        return () => window.cancelAnimationFrame(frame);
+    }, [pathname]);
 
     // Listen for the hamburger label click
     useEffect(() => {

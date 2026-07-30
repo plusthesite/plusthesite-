@@ -50,9 +50,14 @@ export function NotificationBell() {
     }, []);
 
     useEffect(() => {
-        fetchNotifications();
+        const timeout = window.setTimeout(() => {
+            void fetchNotifications();
+        }, 0);
         const interval = setInterval(fetchNotifications, 15_000);
-        return () => clearInterval(interval);
+        return () => {
+            window.clearTimeout(timeout);
+            clearInterval(interval);
+        };
     }, [fetchNotifications]);
 
     // Close panel when clicking outside
