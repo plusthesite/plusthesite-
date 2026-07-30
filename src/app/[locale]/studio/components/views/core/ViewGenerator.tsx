@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { Wand2, Loader2, Sparkles, Download, Maximize2, Image as ImageIcon, X, Trash2 } from "lucide-react";
 import { callGeminiImage, downloadImage } from "@/lib/ai";
 import { supabase } from "@/lib/supabase";
@@ -179,8 +180,10 @@ export const ViewGenerator: React.FC<{ addNotification: (t: 'success' | 'error',
                         <p className="text-xs text-muted-light mt-2">Estimasi: 5-10 detik</p>
                     </div>
                 ) : generatedImage ? (
-                    <div className="relative w-full h-full p-4 flex items-center justify-center">
-                        <img src={generatedImage} alt="Result" className="max-w-full max-h-full object-contain rounded-lg shadow-2xl animate-in zoom-in-95 duration-500" />
+                    <div className="relative flex h-full w-full items-center justify-center p-4">
+                        <div className="relative h-full w-full">
+                            <Image src={generatedImage} alt="Result" fill unoptimized sizes="(min-width: 1024px) 60vw, 100vw" className="rounded-lg object-contain shadow-2xl animate-in zoom-in-95 duration-500" />
+                        </div>
                         <div className="absolute bottom-6 flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 backdrop-blur rounded-full px-4 py-2 border border-white/10 translate-y-2 group-hover:translate-y-0 duration-300">
                             <button onClick={() => downloadImage(generatedImage, `plus-gen-${Date.now()}.png`)} className="text-white hover:text-primary transition-colors flex items-center gap-2 text-xs font-bold pr-3 border-r border-white/20"><Download size={16} /> Save</button>
                             <button onClick={() => setFullscreen(true)} title="Lihat penuh" className="text-white hover:text-primary transition-colors"><Maximize2 size={16} /></button>
@@ -204,7 +207,9 @@ export const ViewGenerator: React.FC<{ addNotification: (t: 'success' | 'error',
                         {history.map((h) => (
                             <div key={h.id} className="group relative h-16 w-16 shrink-0">
                                 <button onClick={() => setGeneratedImage(h.displayUrl)} title={h.prompt} className="h-full w-full overflow-hidden rounded-lg border border-border transition-all hover:border-primary hover:ring-1 hover:ring-primary">
-                                    <img src={h.displayUrl} alt={h.prompt} className="h-full w-full object-cover" />
+                                    <span className="relative block h-full w-full">
+                                        <Image src={h.displayUrl} alt={h.prompt} fill unoptimized sizes="64px" className="object-cover" />
+                                    </span>
                                 </button>
                                 <button onClick={() => deleteAsset(h.id)} title="Hapus" className="absolute -top-1.5 -right-1.5 rounded-full bg-red-500 p-1 text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100 hover:bg-red-600"><Trash2 size={11} /></button>
                             </div>
@@ -218,7 +223,7 @@ export const ViewGenerator: React.FC<{ addNotification: (t: 'success' | 'error',
             {fullscreen && generatedImage && (
                 <div onClick={() => setFullscreen(false)} className="fixed inset-0 z-[80] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 sm:p-10 animate-in fade-in duration-200">
                     <button onClick={() => setFullscreen(false)} className="absolute top-4 right-4 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors"><X size={22} /></button>
-                    <img src={generatedImage} alt="Result fullscreen" onClick={(e) => e.stopPropagation()} className="max-w-full max-h-full object-contain rounded-lg shadow-2xl animate-in zoom-in-95 duration-300" />
+                    <Image src={generatedImage} alt="Result fullscreen" width={1600} height={1600} unoptimized onClick={(e) => e.stopPropagation()} className="h-auto max-h-full w-auto max-w-full rounded-lg object-contain shadow-2xl animate-in zoom-in-95 duration-300" />
                     <button onClick={(e) => { e.stopPropagation(); downloadImage(generatedImage, `plus-gen-${Date.now()}.png`); }} className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white/10 hover:bg-white/20 backdrop-blur text-white text-sm font-bold px-5 py-2.5 rounded-full flex items-center gap-2 border border-white/20 transition-colors"><Download size={16} /> Save</button>
                 </div>
             )}

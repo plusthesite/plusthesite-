@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { kpi, healthScore, promoConversion, rp, rpShort } from "@/lib/hackathon/analytics";
+import { kpi, healthScore, promoConversion, rpShort } from "@/lib/hackathon/analytics";
 import { KOPERASI, DATES } from "@/lib/hackathon/seed";
 
 export default function HackathonLanding() {
@@ -158,8 +159,7 @@ function SiteNav() {
         <nav className="sticky top-0 z-20 border-b backdrop-blur" style={{ borderColor: "var(--garis)", background: "rgba(246,243,242,.85)" }}>
             <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
                 <Link href="/hackathon" className="flex items-center gap-2.5 font-extrabold tracking-tight">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/nalar-logo.jpg" alt="NALAR" className="h-8 w-auto" />
+                    <Image src="/nalar-logo.jpg" alt="NALAR" width={32} height={32} className="h-8 w-auto" />
                     <span className="hidden text-sm font-bold sm:inline" style={{ color: "var(--kabur)" }}>× SUARA WARGA</span>
                 </Link>
                 <div className="flex items-center gap-2">

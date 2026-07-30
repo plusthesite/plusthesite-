@@ -30,13 +30,11 @@ async function updateSession(request: NextRequest) {
 }
 
 function getPreferredLocale(request: NextRequest): string {
-    // 1. Cookie set by the language switcher
     const cookieLocale = request.cookies.get("NEXT_LOCALE")?.value;
     if (cookieLocale && (locales as readonly string[]).includes(cookieLocale)) {
         return cookieLocale;
     }
 
-    // 2. Accept-Language header
     const accept = request.headers.get("accept-language");
     if (accept) {
         const preferred = accept
@@ -50,20 +48,15 @@ function getPreferredLocale(request: NextRequest): string {
         }
     }
 
-    // 3. Fallback
     return defaultLocale;
 }
 
-export default async function middleware(request: NextRequest) {
+export default async function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
-    // --- Hackathon subdomain (hackathon.plusthe.site) ---
-    // Serve the NALAR × SAKSI microsite from the /hackathon route tree.
-    // No locale prefixing, no admin session handling — a standalone app.
     const host = request.headers.get("host")?.toLowerCase() ?? "";
     const isHackathonHost = host.startsWith("hackathon.");
     if (isHackathonHost) {
-        // Skip Next internals, API routes, and static files untouched.
         if (
             pathname.startsWith("/_next") ||
             pathname.startsWith("/api") ||
@@ -71,17 +64,16 @@ export default async function middleware(request: NextRequest) {
         ) {
             return NextResponse.next();
         }
-        // Already inside the route tree (internal rewrite target) → continue.
+
         if (pathname === "/hackathon" || pathname.startsWith("/hackathon/")) {
             return NextResponse.next();
         }
-        // Rewrite the subdomain root path onto /hackathon/*.
+
         const url = request.nextUrl.clone();
         url.pathname = `/hackathon${pathname === "/" ? "" : pathname}`;
         return NextResponse.rewrite(url);
     }
 
-    // Skip Next internals, API routes, and files with extensions
     if (
         pathname.startsWith("/_next") ||
         pathname.startsWith("/api") ||
@@ -95,18 +87,14 @@ export default async function middleware(request: NextRequest) {
         return NextResponse.next();
     }
 
-    // Admin area: refresh the Supabase session, never locale-redirect.
     if (pathname === "/admin" || pathname.startsWith("/admin/")) {
         return await updateSession(request);
     }
 
-    // Hackathon route tree reachable on the main domain too (local/dev,
-    // or /hackathon on plusthe.site) — never locale-redirect it.
     if (pathname === "/hackathon" || pathname.startsWith("/hackathon/")) {
         return NextResponse.next();
     }
 
-    // Already has a supported locale prefix? Continue.
     const hasLocale = locales.some(
         (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)
     );
@@ -114,7 +102,6 @@ export default async function middleware(request: NextRequest) {
         return NextResponse.next();
     }
 
-    // Redirect to the locale-prefixed URL
     const locale = getPreferredLocale(request);
     const url = request.nextUrl.clone();
     url.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
@@ -123,7 +110,6 @@ export default async function middleware(request: NextRequest) {
 
 export const config = {
     matcher: [
-        // Match all paths except Next internals and static assets
         "/((?!_next|api|.*\\..*).*)",
     ],
 };

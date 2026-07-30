@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Sparkles, Wand2, PlayCircle, ArrowRight, Pause, Play, Eye, HelpCircle, ChevronUp, ChevronDown } from "lucide-react";
 import { MOCK_TUTORIALS, MOCK_FAQ } from "@/lib/mockData";
-import { useLocale } from "@/i18n/I18nProvider";
 
 export const UserGuide: React.FC<{ onStartTour: (tab: string) => void }> = ({ onStartTour }) => {
-    const locale = useLocale();
     const [activeVideo, setActiveVideo] = useState<string | null>(null);
     const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 

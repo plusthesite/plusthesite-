@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 import {
-    ArrowRight, Loader2, Sparkles, User, Video, Mic, Settings, LogOut, Menu, Bell,
+    User, Video, Settings, LogOut, Menu, Bell,
     Sun, Moon, Calendar, Wand2, Target, BarChart3, Megaphone, CreditCard, LifeBuoy,
-    GitBranch, Code, BookOpen, X, ChevronRight, ShoppingCart, Recycle
+    GitBranch, Code, BookOpen, X, Recycle
 } from "lucide-react";
 import { ToastContainer } from "./ui/ToastContainer";
 import { InteractiveTour } from "./ui/InteractiveTour";
@@ -17,7 +18,7 @@ import { ViewLiveStream } from "./views/growth/ViewLiveStream";
 import { ViewKOL } from "./views/growth/ViewKOL";
 import { ViewSubscription } from "./views/growth/ViewSubscription";
 import { ViewAnalytics } from "./views/growth/ViewAnalytics";
-import { TOUR_STEPS, ALACARTE_FEATURES } from "@/lib/mockData";
+import { TOUR_STEPS } from "@/lib/mockData";
 import { Notification } from "@/types";
 import { useTheme } from "@/components/ThemeProvider";
 import Logo from "@/components/Logo";
@@ -197,7 +198,7 @@ export const StudioDashboard: React.FC<{ onLogout: () => void, user?: SupabaseUs
                         <button onClick={() => setAccountMenuOpen(o => !o)} className="w-full bg-background p-3 rounded-xl border border-border flex items-center gap-3 shadow-sm hover:shadow-md hover:border-primary/40 transition-all text-left group">
                             <div className="w-10 h-10 bg-surface-hover rounded-full overflow-hidden border-2 border-primary shrink-0">
                                 {avatarUrl
-                                    ? <img src={avatarUrl} alt={displayName} referrerPolicy="no-referrer" className="w-full h-full object-cover" />
+                                    ? <Image src={avatarUrl} alt={displayName} width={40} height={40} unoptimized referrerPolicy="no-referrer" className="h-full w-full object-cover" />
                                     : <User className="w-full h-full p-1 text-muted group-hover:text-foreground" />}
                             </div>
                             <div className="flex-1 min-w-0"><p className="text-sm font-bold text-foreground truncate">{displayName}</p><p className="text-[10px] text-tertiary font-medium truncate">{user?.email || "Studio Member"}</p></div>

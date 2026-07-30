@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BookOpen, X, ChevronRight, Layout, Network, Image as ImageIcon, Users, Code, Info } from "lucide-react";
+import { BookOpen, X, ChevronRight, Layout, Network, Users, Code, Info } from "lucide-react";
 import { UserGuide } from "./UserGuide";
 import { Mentoring } from "./Mentoring";
 import { SystemArchitecture } from "./SystemArchitecture";

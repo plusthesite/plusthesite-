@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { getSession } from "@/lib/hackathon/session";
 import { roleLanding } from "@/lib/hackathon/auth";
@@ -12,7 +13,7 @@ export default async function LoginPage() {
         <div className="nalar-root grid min-h-screen place-items-center px-5 py-10">
             <div className="w-full max-w-md">
                 <Link href="/hackathon" className="mb-6 flex items-center justify-center gap-2 font-extrabold tracking-tight">
-                    <img src="/nalar-logo.jpg" alt="NALAR" className="h-8 w-8 rounded-lg object-cover object-left" />
+                    <Image src="/nalar-logo.jpg" alt="NALAR" width={32} height={32} className="h-8 w-8 rounded-lg object-cover object-left" />
                     SUARA WARGA
                 </Link>
                 <div className="nalar-card nalar-rise p-7">

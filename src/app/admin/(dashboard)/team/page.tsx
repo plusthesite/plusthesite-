@@ -14,17 +14,6 @@ interface Rep {
     created_at: string;
 }
 
-interface LeadCount {
-    owner: string;
-    count: number;
-}
-
-interface OppCount {
-    owner: string;
-    count: number;
-    total_value: number;
-}
-
 export default async function TeamPage() {
     await requireRole(["admin", "manager"]);
     const supabase = getSupabaseAdmin();

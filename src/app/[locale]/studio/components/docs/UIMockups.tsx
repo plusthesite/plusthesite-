@@ -1,5 +1,5 @@
 import React from "react";
-import { Sidebar, Layout, Smartphone } from "lucide-react";
+import { Layout, Smartphone } from "lucide-react";
 
 export const UIMockups = () => (
     <div className="h-full flex flex-col">

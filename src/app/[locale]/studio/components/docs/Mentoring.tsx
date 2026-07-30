@@ -2,10 +2,8 @@ import React from "react";
 import Link from "next/link";
 import { Star, Users, Clock } from "lucide-react";
 import { MOCK_CLASSES } from "@/lib/mockData";
-import { useLocale } from "@/i18n/I18nProvider";
 
 export const Mentoring = () => {
-    const locale = useLocale();
     return (
     <div className="max-w-5xl mx-auto animate-in fade-in space-y-8">
         <div className="flex justify-between items-end">

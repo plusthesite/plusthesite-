@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import {
@@ -56,22 +57,24 @@ export default function DashboardApp({ role, nama, employeeId }: { role: NalarRo
         return { salesId, kategori, dari, sampai: DATES[DATES.length - 1], shift };
     }, [salesId, kategori, periode, shift]);
 
-    const k = useMemo(() => kpi(filter), [filter, tick]);
-    const reps = useMemo(() => salesByRep(filter), [filter, tick]);
-    const cats = useMemo(() => byCategory(filter), [filter, tick]);
-    const hours = useMemo(() => byHour(filter), [filter, tick]);
-    const days = useMemo(() => byDay(filter), [filter, tick]);
-    const skus = useMemo(() => bySku(filter), [filter, tick]);
-    const prime = useMemo(() => primeTime(filter), [filter, tick]);
-    const att = useMemo(() => attendanceSummary(filter), [filter, tick]);
-    const recoProd = useMemo(() => recommendProducts(filter), [filter, tick]);
-    const restock = useMemo(() => restockAlerts(filter), [filter, tick]);
-    const topKat = useMemo(() => topPerformerPerKategori(filter), [filter, tick]);
-    const promo = useMemo(() => promoConversion(), []);
-    const roster = useMemo(() => recommendRoster(filter), [filter, tick]);
-    const health = useMemo(() => healthScore(), [tick]);
-    const forecast = useMemo(() => forecastNextWeek({ salesId, kategori }), [salesId, kategori, tick]);
-    const reviews = useMemo(() => reviewSummary(), [tick]);
+    void tick;
+
+    const k = kpi(filter);
+    const reps = salesByRep(filter);
+    const cats = byCategory(filter);
+    const hours = byHour(filter);
+    const days = byDay(filter);
+    const skus = bySku(filter);
+    const prime = primeTime(filter);
+    const att = attendanceSummary(filter);
+    const recoProd = recommendProducts(filter);
+    const restock = restockAlerts(filter);
+    const topKat = topPerformerPerKategori(filter);
+    const promo = promoConversion();
+    const roster = recommendRoster(filter);
+    const health = healthScore();
+    const forecast = forecastNextWeek({ salesId, kategori });
+    const reviews = reviewSummary();
 
     const dayLabels = days.map((d) => d.tgl.slice(8) + "/" + d.tgl.slice(5, 7));
     const forecastLabels = forecast.proyeksi.map((_, i) => `+${i + 1}`);
@@ -111,7 +114,7 @@ export default function DashboardApp({ role, nama, employeeId }: { role: NalarRo
             <header className="sticky top-0 z-20 border-b backdrop-blur" style={{ borderColor: "var(--garis)", background: "rgba(241,244,239,.85)" }}>
                 <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3">
                     <Link href="/hackathon" className="flex items-center gap-2 font-extrabold">
-                        <img src="/nalar-logo.jpg" alt="NALAR" className="h-8 w-8 rounded-lg object-cover object-left" />
+                        <Image src="/nalar-logo.jpg" alt="NALAR" width={32} height={32} className="h-8 w-8 rounded-lg object-cover object-left" />
                         <span>NALAR<span className="ml-1 text-xs font-semibold" style={{ color: "var(--kabur)" }}>Dashboard</span></span>
                     </Link>
                     <div className="flex items-center gap-3">

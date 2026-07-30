@@ -5,6 +5,17 @@ import { useTheme } from "@/components/ThemeProvider";
 import { supabase } from "@/lib/supabase";
 import { useLocale } from "@/i18n/I18nProvider";
 
+function GoogleIcon() {
+    return (
+        <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5">
+            <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.55-.2-2.27H12v4.3h6.44a5.5 5.5 0 0 1-2.39 3.61v2.99h3.87c2.27-2.09 3.57-5.17 3.57-8.63Z" />
+            <path fill="#34A853" d="M12 24c3.24 0 5.96-1.07 7.95-2.9l-3.87-2.99c-1.07.72-2.45 1.14-4.08 1.14-3.13 0-5.79-2.12-6.73-4.96H1.27v3.08A12 12 0 0 0 12 24Z" />
+            <path fill="#FBBC05" d="M5.27 14.29A7.2 7.2 0 0 1 4.9 12c0-.79.14-1.55.37-2.29V6.63H1.27A12 12 0 0 0 0 12c0 1.94.46 3.78 1.27 5.37l4-3.08Z" />
+            <path fill="#EA4335" d="M12 4.77c1.76 0 3.34.61 4.58 1.8l3.44-3.44C17.95 1.19 15.23 0 12 0A12 12 0 0 0 1.27 6.63l4 3.08C6.21 6.89 8.87 4.77 12 4.77Z" />
+        </svg>
+    );
+}
+
 const StudioLoginLogo = () => {
     const { theme } = useTheme();
     return <Logo variant={theme === 'dark' ? 'light' : 'dark'} size="large" className="mx-auto" />;
@@ -177,7 +188,7 @@ export const StudioLogin: React.FC<{ onLoginSuccess: () => void, onBack: () => v
                         </div>
                         <div className="space-y-3">
                             <button onClick={handleGoogleLogin} disabled={loading} className="w-full py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-700 dark:text-white text-sm font-bold hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors flex items-center justify-center gap-3 disabled:opacity-70">
-                                <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-5 h-5" alt="Google" />
+                                <GoogleIcon />
                                 Masuk dengan Google
                             </button>
                         </div>

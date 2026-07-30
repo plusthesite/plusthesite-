@@ -16,10 +16,6 @@ interface DbRow {
     created_at: string;
 }
 
-function fmt(d: string | null) {
-    return d ? new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : "—";
-}
-
 export default async function PostsPage({
     searchParams,
 }: {
