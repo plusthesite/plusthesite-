@@ -24,7 +24,12 @@ export const ViewKOL: React.FC<{ addNotification: (t: 'success' | 'error', m: st
         if (data) setKols(data as KOL[]);
         setKolsLoading(false);
     }, []);
-    useEffect(() => { loadKOLs(); }, [loadKOLs]);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            void loadKOLs();
+        }, 0);
+        return () => clearTimeout(timer);
+    }, [loadKOLs]);
 
     // Load the signed-in user's saved KOL shortlist.
     const loadShortlist = useCallback(async () => {
@@ -36,7 +41,12 @@ export const ViewKOL: React.FC<{ addNotification: (t: 'success' | 'error', m: st
             .order('created_at', { ascending: false });
         if (data) setShortlist(data as ShortlistRow[]);
     }, []);
-    useEffect(() => { loadShortlist(); }, [loadShortlist]);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            void loadShortlist();
+        }, 0);
+        return () => clearTimeout(timer);
+    }, [loadShortlist]);
 
     const savedIds = new Set(shortlist.map((s) => s.kol_id));
 

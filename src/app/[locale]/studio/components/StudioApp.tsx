@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import type { User } from "@supabase/supabase-js";
 import { StudioDashboard } from "./StudioDashboard";
 import { StudioLogin } from "./StudioLogin";
 import { StudioLanding } from "./StudioLanding";
@@ -10,7 +11,7 @@ import { supabase } from "@/lib/supabase";
 // Theme is managed globally by src/components/ThemeProvider
 const StudioApp = () => {
     const [view, setView] = useState<'landing' | 'login' | 'app'>('landing');
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<User | null>(null);
 
     // Sync auth state on mount and listen to changes
     useEffect(() => {

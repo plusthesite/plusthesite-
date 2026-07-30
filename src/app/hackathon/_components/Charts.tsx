@@ -144,26 +144,30 @@ export function Donut({ data, format, onSelect, selectedLabel }: { data: { label
     const R = 52;
     const C = 2 * Math.PI * R;
     const [hov, setHov] = useState(-1);
-    let acc = 0;
     const center = hov >= 0 ? data[hov] : null;
+    const slices = data.map((d, i) => {
+        const prev = data.slice(0, i).reduce((sum, item) => sum + item.value, 0);
+        const frac = d.value / total;
+        return {
+            ...d,
+            index: i,
+            frac,
+            dash: frac * C,
+            offset: -(prev / total) * C,
+        };
+    });
     return (
         <div className="flex items-center gap-5">
             <div className="relative h-32 w-32">
                 <svg viewBox="0 0 140 140" className="h-32 w-32 -rotate-90">
-                    {data.map((d, i) => {
-                        const frac = d.value / total;
-                        const dash = frac * C;
-                        const el = (
-                            <circle key={`${d.label}-${i}`} cx="70" cy="70" r={R} fill="none" stroke={d.color} strokeWidth={i === hov || d.label === selectedLabel ? 20 : 16}
-                                strokeDasharray={`${dash} ${C - dash}`} strokeDashoffset={-acc * C}
+                    {slices.map((d) => (
+                            <circle key={`${d.label}-${d.index}`} cx="70" cy="70" r={R} fill="none" stroke={d.color} strokeWidth={d.index === hov || d.label === selectedLabel ? 20 : 16}
+                                strokeDasharray={`${d.dash} ${C - d.dash}`} strokeDashoffset={d.offset}
                                 style={{ cursor: onSelect ? "pointer" : "default", transition: "stroke-width .15s" }}
-                                onMouseEnter={() => setHov(i)} onMouseLeave={() => setHov(-1)} onClick={() => onSelect?.(d.label)}>
-                                <title>{`${d.label}: ${format(d.value)} (${Math.round(frac * 100)}%)`}</title>
+                                onMouseEnter={() => setHov(d.index)} onMouseLeave={() => setHov(-1)} onClick={() => onSelect?.(d.label)}>
+                                <title>{`${d.label}: ${format(d.value)} (${Math.round(d.frac * 100)}%)`}</title>
                             </circle>
-                        );
-                        acc += frac;
-                        return el;
-                    })}
+                    ))}
                 </svg>
                 <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center">
                     {center ? (

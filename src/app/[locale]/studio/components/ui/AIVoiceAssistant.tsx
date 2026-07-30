@@ -28,12 +28,11 @@ function getRecognitionCtor(): VoiceRecognitionCtor | null {
 export const AIVoiceAssistant: React.FC<{ onAutoFill?: (fields: VoiceFormFields) => void, addNotification?: (type: 'success' | 'error', msg: string) => void }> = ({ onAutoFill, addNotification }) => {
     const [isListening, setIsListening] = useState(false);
     const [processing, setProcessing] = useState(false);
-    const [supported, setSupported] = useState(true);
+    const [supported] = useState(() => !!getRecognitionCtor());
     const [minimized, setMinimized] = useState(true);
     const recognitionRef = useRef<VoiceRecognition | null>(null);
 
     useEffect(() => {
-        setSupported(!!getRecognitionCtor());
         const t = setTimeout(() => { if (window.innerWidth > 768) setMinimized(false); }, 2000);
         return () => clearTimeout(t);
     }, []);

@@ -18,7 +18,7 @@ export default function KoperasiMap({ points, mapsKey }: { points: KoperasiPoint
     const bertransaksi = points.filter((p) => p.tx).length;
 
     useEffect(() => {
-        if (!mapsKey || !ref.current) { setMode("svg"); return; }
+        if (!mapsKey || !ref.current) return;
         let cancelled = false;
         // Force SVG fallback — even if a Google map object was already created,
         // because auth errors (invalid key / API not enabled / billing / referrer)

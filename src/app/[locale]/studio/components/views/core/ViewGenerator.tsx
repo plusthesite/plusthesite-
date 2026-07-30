@@ -54,7 +54,12 @@ export const ViewGenerator: React.FC<{ addNotification: (t: 'success' | 'error',
         }
     }, []);
 
-    useEffect(() => { loadHistory(); }, [loadHistory]);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            void loadHistory();
+        }, 0);
+        return () => clearTimeout(timer);
+    }, [loadHistory]);
 
     // Close the fullscreen lightbox with Escape.
     useEffect(() => {

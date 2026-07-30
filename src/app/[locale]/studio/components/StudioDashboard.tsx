@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import type { User as SupabaseUser } from "@supabase/supabase-js";
 import {
     ArrowRight, Loader2, Sparkles, User, Video, Mic, Settings, LogOut, Menu, Bell,
     Sun, Moon, Calendar, Wand2, Target, BarChart3, Megaphone, CreditCard, LifeBuoy,
@@ -48,7 +49,7 @@ const TAB_TITLES: Record<string, string> = {
     subscription: 'Subscription',
 };
 
-export const StudioDashboard: React.FC<{ onLogout: () => void, user?: any }> = ({ onLogout, user }) => {
+export const StudioDashboard: React.FC<{ onLogout: () => void, user?: SupabaseUser | null }> = ({ onLogout, user }) => {
     const { theme, setTheme } = useTheme();
     const avatarUrl: string | undefined = user?.user_metadata?.avatar_url || user?.user_metadata?.picture;
     const displayName: string = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0] || "Studio User";
@@ -69,11 +70,16 @@ export const StudioDashboard: React.FC<{ onLogout: () => void, user?: any }> = (
 
     useEffect(() => {
         if (TOUR_STEPS[activeTab]) {
-            setIsTourActive(false);
-            setTimeout(() => setIsTourActive(true), 300);
-        } else {
-            setIsTourActive(false);
+            const stopTimer = setTimeout(() => setIsTourActive(false), 0);
+            const startTimer = setTimeout(() => setIsTourActive(true), 300);
+            return () => {
+                clearTimeout(stopTimer);
+                clearTimeout(startTimer);
+            };
         }
+
+        const timer = setTimeout(() => setIsTourActive(false), 0);
+        return () => clearTimeout(timer);
     }, [activeTab]);
 
     const addNotification = (type: 'success' | 'error' | 'info', message: string) => {

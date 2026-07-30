@@ -56,7 +56,12 @@ export const ViewRepurpose: React.FC<{ addNotification: (t: 'success' | 'error',
         const { data } = await supabase.from('content_packs').select('id, idea, tone, result, created_at').order('created_at', { ascending: false }).limit(8);
         if (data) setSaved(data as SavedPack[]);
     }, []);
-    useEffect(() => { loadSaved(); }, [loadSaved]);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            void loadSaved();
+        }, 0);
+        return () => clearTimeout(timer);
+    }, [loadSaved]);
 
     const deletePack = async (id: string) => {
         if (!supabase) return;

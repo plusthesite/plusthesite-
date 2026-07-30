@@ -23,7 +23,12 @@ export const ViewPlanner: React.FC<{ addNotification: (t: 'success' | 'error', m
         const { data } = await supabase.from('campaigns').select('id, name, industry, calendar_data, created_at').order('created_at', { ascending: false }).limit(10);
         if (data) setSaved(data as SavedCampaign[]);
     }, []);
-    useEffect(() => { loadSaved(); }, [loadSaved]);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            void loadSaved();
+        }, 0);
+        return () => clearTimeout(timer);
+    }, [loadSaved]);
 
     const deleteCampaign = async (id: string) => {
         if (!supabase) return;

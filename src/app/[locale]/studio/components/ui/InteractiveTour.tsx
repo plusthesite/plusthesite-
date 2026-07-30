@@ -7,7 +7,11 @@ export const InteractiveTour: React.FC<{ steps?: TourStep[], isActive: boolean, 
     const [position, setPosition] = useState<{ top: number, left: number, width: number, height: number, targetTop: number, targetLeft: number, arrowPos: string } | null>(null);
 
     useEffect(() => {
-        if (!isActive || !steps || steps.length === 0) { if (!isActive) setCurrentStep(0); return; }
+        if (!isActive) {
+            const frame = window.requestAnimationFrame(() => setCurrentStep(0));
+            return () => window.cancelAnimationFrame(frame);
+        }
+        if (!steps || steps.length === 0) return;
         const updatePosition = () => {
             const stepData = steps[currentStep];
             if (!stepData) return;
