@@ -265,7 +265,24 @@ const PROBLEM_ICONS = [UserRoundSearch, KanbanSquare, MailCheck, BadgeDollarSign
 const PILLAR_ICONS = [ClipboardList, Filter, Workflow];
 
 function HeroSection() {
-    const copy = COPY[useLocale()].hero;
+    const locale = useLocale();
+    const copy = COPY[locale].hero;
+    const summaryCards = [
+        {
+            label: locale === "id" ? "Response view" : "Response view",
+            value:
+                locale === "id"
+                    ? "Lead, owner, dan next action tetap terlihat."
+                    : "Lead, owner, and next action stay visible.",
+        },
+        {
+            label: locale === "id" ? "Best fit" : "Best fit",
+            value:
+                locale === "id"
+                    ? "Founder, sales ops, dan tim growth yang ingin pipeline lebih bersih."
+                    : "Founders, sales ops, and growth teams that want a cleaner pipeline.",
+        },
+    ];
 
     return (
         <section className="relative overflow-hidden bg-[#071b1b] pb-24 pt-28 text-white sm:pb-28 lg:pb-32">
@@ -309,6 +326,22 @@ function HeroSection() {
                                 </span>
                             ))}
                         </div>
+
+                        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                            {summaryCards.map((card) => (
+                                <div
+                                    key={card.label}
+                                    className="rounded-[1.5rem] border border-white/10 bg-white/[0.07] p-5 backdrop-blur"
+                                >
+                                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/52">
+                                        {card.label}
+                                    </p>
+                                    <p className="mt-4 text-sm font-semibold leading-7 text-white/86">
+                                        {card.value}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
                     <div className="relative">
@@ -317,35 +350,53 @@ function HeroSection() {
                         <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 shadow-[0_30px_80px_rgba(0,0,0,0.28)] backdrop-blur">
                             <div className="flex items-center justify-between border-b border-white/10 pb-4">
                                 <div>
-                                    <p className="text-sm font-semibold text-white">pipeline control</p>
-                                    <p className="mt-1 text-xs text-white/54">lead, owner, next action, close signal</p>
+                                    <p className="text-sm font-semibold text-white">
+                                        {locale === "id" ? "pipeline control" : "pipeline control"}
+                                    </p>
+                                    <p className="mt-1 text-xs text-white/54">
+                                        {locale === "id"
+                                            ? "lead, owner, next action, close signal"
+                                            : "lead, owner, next action, close signal"}
+                                    </p>
                                 </div>
                                 <span className="rounded-full bg-emerald-400/12 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-300">
-                                    Synced
+                                    {locale === "id" ? "Synced" : "Synced"}
                                 </span>
                             </div>
 
                             <div className="mt-5 space-y-4">
                                 <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                    <p className="text-xs uppercase tracking-[0.2em] text-white/42">What teams lose today</p>
+                                    <p className="text-xs uppercase tracking-[0.2em] text-white/42">
+                                        {locale === "id" ? "What teams lose today" : "What teams lose today"}
+                                    </p>
                                     <p className="mt-2 text-sm leading-6 text-white/78">
-                                        Deal notes disappear in chat, follow-ups depend on memory, and nobody is sure which lead is quietly dying.
+                                        {locale === "id"
+                                            ? "Catatan deal hilang di chat, follow-up bergantung pada ingatan, dan tidak ada yang benar-benar yakin lead mana yang sedang diam-diam mati."
+                                            : "Deal notes disappear in chat, follow-ups depend on memory, and nobody is sure which lead is quietly dying."}
                                     </p>
                                 </div>
                                 <div className="rounded-2xl border border-white/10 bg-[#f1f6ea] p-4 text-slate-900">
-                                    <p className="text-xs uppercase tracking-[0.2em] text-slate-500">What improves</p>
+                                    <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
+                                        {locale === "id" ? "What improves" : "What improves"}
+                                    </p>
                                     <ul className="mt-3 space-y-2 text-sm leading-6">
                                         <li className="flex gap-2">
                                             <Check className="mt-0.5 h-4 w-4 text-emerald-600" />
-                                            Lead source, owner, and urgency stay visible.
+                                            {locale === "id"
+                                                ? "Source lead, owner, dan urgency tetap terlihat."
+                                                : "Lead source, owner, and urgency stay visible."}
                                         </li>
                                         <li className="flex gap-2">
                                             <Check className="mt-0.5 h-4 w-4 text-emerald-600" />
-                                            Stalled deals become easier to catch early.
+                                            {locale === "id"
+                                                ? "Deal yang macet lebih cepat terlihat."
+                                                : "Stalled deals become easier to catch early."}
                                         </li>
                                         <li className="flex gap-2">
                                             <Check className="mt-0.5 h-4 w-4 text-emerald-600" />
-                                            Follow-up moves from memory into workflow.
+                                            {locale === "id"
+                                                ? "Follow-up pindah dari ingatan ke workflow."
+                                                : "Follow-up moves from memory into workflow."}
                                         </li>
                                     </ul>
                                 </div>
@@ -361,20 +412,48 @@ function HeroSection() {
 function ProblemsSection() {
     const ref = useScrollReveal();
     const copy = COPY[useLocale()].problems;
+    const locale = useLocale();
 
     return (
         <section id="problems" className="bg-[#f2f7f6] py-24 lg:py-28">
             <div ref={ref} className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="max-w-3xl">
-                    <p className="fade-up text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
-                        {copy.eyebrow}
-                    </p>
-                    <h2 className="fade-up fade-up-delay-1 mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl lg:text-5xl">
-                        {copy.title}
-                    </h2>
-                    <p className="fade-up fade-up-delay-2 mt-5 text-base leading-7 text-slate-600 sm:text-lg">
-                        {copy.subtitle}
-                    </p>
+                <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+                    <div className="max-w-3xl">
+                        <p className="fade-up text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
+                            {copy.eyebrow}
+                        </p>
+                        <h2 className="fade-up fade-up-delay-1 mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl lg:text-5xl">
+                            {copy.title}
+                        </h2>
+                        <p className="fade-up fade-up-delay-2 mt-5 text-base leading-7 text-slate-600 sm:text-lg">
+                            {copy.subtitle}
+                        </p>
+                    </div>
+
+                    <div className="fade-up fade-up-delay-3 rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
+                        <div className="grid gap-4 sm:grid-cols-2">
+                            <div className="rounded-2xl bg-slate-950 p-5 text-white">
+                                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-200">
+                                    {locale === "id" ? "Core tension" : "Core tension"}
+                                </p>
+                                <p className="mt-4 text-sm leading-7 text-white/78">
+                                    {locale === "id"
+                                        ? "Masalahnya sering bukan kurang tools. Masalahnya adalah sinyal lead, ownership, dan follow-up tidak tinggal dalam satu ritme."
+                                        : "The problem is rarely missing tools. It is usually that lead signals, ownership, and follow-up do not live in one rhythm."}
+                                </p>
+                            </div>
+                            <div className="rounded-2xl bg-slate-100 p-5">
+                                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                                    {locale === "id" ? "Repair goal" : "Repair goal"}
+                                </p>
+                                <p className="mt-4 text-sm leading-7 text-slate-600">
+                                    {locale === "id"
+                                        ? "Membuat pipeline kembali terbaca dan cukup jelas untuk ditindak, bukan sekadar diisi."
+                                        : "Make the pipeline readable and actionable again, not just filled in."}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="fade-up fade-up-delay-3 mt-14 grid gap-5 md:grid-cols-2">
@@ -383,7 +462,7 @@ function ProblemsSection() {
                         return (
                             <article
                                 key={item.title}
-                                className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-[0_12px_40px_rgba(15,23,42,0.06)] transition hover:-translate-y-1"
+                                className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-[0_12px_40px_rgba(15,23,42,0.06)] transition-all hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(15,23,42,0.08)]"
                             >
                                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-950 text-white">
                                     <Icon className="h-5 w-5" />
@@ -402,6 +481,7 @@ function ProblemsSection() {
 function SystemSection() {
     const ref = useScrollReveal();
     const copy = COPY[useLocale()].system;
+    const locale = useLocale();
 
     return (
         <section className="bg-white py-24 lg:py-28">
@@ -416,6 +496,17 @@ function SystemSection() {
                     <p className="fade-up fade-up-delay-2 mt-5 max-w-xl text-base leading-7 text-slate-600 sm:text-lg">
                         {copy.subtitle}
                     </p>
+
+                    <div className="fade-up fade-up-delay-3 mt-8 rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                            {locale === "id" ? "Design stance" : "Design stance"}
+                        </p>
+                        <p className="mt-4 text-sm leading-7 text-slate-600">
+                            {locale === "id"
+                                ? "Targetnya bukan dashboard yang terlihat sibuk. Targetnya adalah sistem yang membantu operator membaca keadaan dan tahu tindakan berikutnya lebih cepat."
+                                : "The goal is not a dashboard that looks busy. The goal is a system that helps operators read the state of the pipeline and know the next move faster."}
+                        </p>
+                    </div>
                 </div>
 
                 <div className="fade-up fade-up-delay-3 grid gap-5">
@@ -424,7 +515,7 @@ function SystemSection() {
                         return (
                             <div
                                 key={pillar.title}
-                                className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6 sm:p-7"
+                                className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6 transition-all hover:-translate-y-1 hover:shadow-[0_16px_35px_rgba(15,23,42,0.06)] sm:p-7"
                             >
                                 <div className="flex items-start gap-4">
                                     <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-slate-950 shadow-sm">
@@ -485,6 +576,7 @@ function WorkflowSection() {
 function OutputsSection() {
     const ref = useScrollReveal();
     const copy = COPY[useLocale()].outputs;
+    const locale = useLocale();
 
     return (
         <section className="bg-[#f2f7f6] py-24 lg:py-28">
@@ -497,13 +589,24 @@ function OutputsSection() {
                         <h2 className="fade-up fade-up-delay-1 mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl">
                             {copy.title}
                         </h2>
+
+                        <div className="fade-up fade-up-delay-2 mt-8 rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_12px_35px_rgba(15,23,42,0.05)]">
+                            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                                {locale === "id" ? "Typical bundle" : "Typical bundle"}
+                            </p>
+                            <p className="mt-4 text-sm leading-7 text-slate-600">
+                                {locale === "id"
+                                    ? "Sebagian besar tim tidak membutuhkan semua hal sekaligus. Kami biasanya mulai dari lapisan paling penting, lalu menambah visibility dan automation secara bertahap."
+                                    : "Most teams do not need every layer at once. We usually start from the most important layer, then add visibility and automation step by step."}
+                            </p>
+                        </div>
                     </div>
 
                     <div className="fade-up fade-up-delay-2 grid gap-4 sm:grid-cols-2">
                         {copy.items.map((item) => (
                             <div
                                 key={item}
-                                className="flex items-start gap-3 rounded-[1.4rem] border border-slate-200 bg-white px-5 py-4 text-sm leading-7 text-slate-700"
+                                className="flex items-start gap-3 rounded-[1.4rem] border border-slate-200 bg-white px-5 py-4 text-sm leading-7 text-slate-700 shadow-[0_10px_24px_rgba(15,23,42,0.04)]"
                             >
                                 <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-950 text-white">
                                     <Check className="h-3.5 w-3.5" />
@@ -554,6 +657,19 @@ function CTASection() {
                             >
                                 {copy.secondary}
                             </Link>
+                        </div>
+                    </div>
+
+                    <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-4 text-sm leading-7 text-white/72">
+                            {locale === "id"
+                                ? "Diskusi awal biasanya cukup untuk memetakan bottleneck, ownership, dan stage pipeline yang perlu dibenahi lebih dulu."
+                                : "An initial discussion is usually enough to map the bottlenecks, ownership gaps, and pipeline stages that need repair first."}
+                        </div>
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-4 text-sm leading-7 text-white/72">
+                            {locale === "id"
+                                ? "Kalau tim Anda sudah punya proses dasar, kami bisa masuk lewat perapian visibility, follow-up logic, atau lead intake."
+                                : "If your team already has a basic process, we can enter through visibility cleanup, follow-up logic, or lead intake."}
                         </div>
                     </div>
                 </div>
