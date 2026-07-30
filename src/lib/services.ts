@@ -52,7 +52,6 @@ export const SERVICES: ServiceLine[] = [
         startingValue: 35_000_000,
         path: "/mobile-app",
         chip: "bg-emerald-50 text-emerald-700",
-        comingSoon: true,
     },
     {
         slug: "mobile-game",
@@ -92,7 +91,7 @@ export const SERVICES: ServiceLine[] = [
     },
 ];
 
-/** Services we actively sell right now (excludes "coming soon" lines). */
+/** Services we actively sell right now (excludes future "coming soon" lines). */
 export const ACTIVE_SERVICES = SERVICES.filter((s) => !s.comingSoon);
 
 export function isComingSoon(slug: string | null | undefined): boolean {

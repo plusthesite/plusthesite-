@@ -64,190 +64,190 @@ type PageCopy = {
 const COPY: Record<Locale, PageCopy> = {
     en: {
         hero: {
-            badge: "Mobile app development coming soon",
-            title: "A cleaner mobile app offering is on the way, shaped around product clarity, launch readiness, and maintainable growth.",
+            badge: "Cross-platform mobile app delivery",
+            title: "Launch mobile apps that feel clear, premium, and ready for real growth from day one.",
             subtitle:
-                "We are preparing the mobile app line to focus on product framing, production discipline, and launch systems instead of just shipping screens fast.",
-            primaryCta: "Join the waitlist",
-            secondaryCta: "See the rollout direction",
-            note: "This service line is being prepared carefully so the offer is tighter before we fully open delivery.",
-            chips: ["Product framing", "App workflow", "Launch planning", "Future-ready systems"],
+                "plus. designs and ships mobile products with sharper product framing, cleaner UX, and launch discipline across iOS and Android.",
+            primaryCta: "Start your app brief",
+            secondaryCta: "See delivery flow",
+            note: "Best fit for brands that need a real product partner, not just a stack of screens.",
+            chips: ["Product framing", "Cross-platform build", "Launch planning", "Post-launch iteration"],
         },
         readiness: {
-            eyebrow: "Why wait",
-            title: "We would rather open this service properly than launch a vague offer too early.",
+            eyebrow: "What you get",
+            title: "We build mobile apps around business goals, user flow clarity, and launch readiness.",
             subtitle:
-                "The goal is to make the mobile app line feel more serious from day one, with better scope discipline and clearer product thinking.",
+                "The service is structured to move from product definition to shipped release without the usual drift between design, engineering, and launch.",
             items: [
                 {
-                    title: "Stronger product framing",
-                    body: "We want the service to start with sharper thinking about use case, user flow, and the business action the app should support.",
+                    title: "Sharper product framing",
+                    body: "We start from the use case, user path, and business action the app should support so features stay anchored to real outcomes.",
                 },
                 {
-                    title: "Better production readiness",
-                    body: "Architecture, release planning, handoff logic, and lifecycle support should be considered before the service is sold wide.",
+                    title: "Production-ready delivery",
+                    body: "Architecture, release planning, QA rhythm, and handoff logic are handled as part of the build, not left until the end.",
                 },
                 {
-                    title: "Less generic delivery",
-                    body: "The point is to avoid the usual promise of beautiful apps without enough structure behind how the product will survive launch.",
+                    title: "Cleaner post-launch runway",
+                    body: "We design the app to keep evolving after release, with clearer sequencing for future features, fixes, and growth experiments.",
                 },
             ],
         },
         approach: {
-            eyebrow: "Planned approach",
-            title: "The future app offering is being shaped around product sense, operator usefulness, and real release discipline.",
+            eyebrow: "How we build",
+            title: "The mobile app workflow balances product sense, fast execution, and maintainable engineering.",
             subtitle:
-                "We are building this service to help businesses move from idea to usable mobile product with better clarity across the whole delivery path.",
+                "Every phase is built to reduce rework, keep stakeholders aligned, and ship a product that still feels usable after launch week.",
             pillars: [
                 {
                     title: "Start from product logic",
-                    body: "We plan to frame the jobs, user path, and business outcomes first so the app is anchored in clearer decisions from the start.",
+                    body: "We frame the jobs, user path, and business outcomes first so the app starts from real decisions, not random feature lists.",
                 },
                 {
                     title: "Design for maintainable growth",
-                    body: "The app should be easier to evolve after launch, not just impressive during the first handoff presentation.",
+                    body: "The system is shaped so the app is easier to expand after launch, not just polished for the first demo.",
                 },
                 {
                     title: "Support launch and iteration",
-                    body: "Release prep, post-launch adjustments, and feedback loops should be part of the service story from the beginning.",
+                    body: "Release prep, analytics handoff, and early iteration are treated as part of delivery from the start.",
                 },
             ],
         },
         rollout: {
-            eyebrow: "Rollout direction",
-            title: "The service line is being prepared in three layers.",
+            eyebrow: "Delivery flow",
+            title: "Each app project moves through three deliberate stages.",
             subtitle:
-                "This helps us avoid opening too broad a promise before the offer has the right depth behind it.",
+                "This keeps product decisions, build quality, and launch timing connected instead of turning into three separate tracks.",
             steps: [
                 {
                     step: "01",
-                    title: "Clarify the offer",
-                    body: "Define the right fit, delivery scope, and product categories this service should actually handle well.",
+                    title: "Frame the product",
+                    body: "Define the right scope, user flow, feature priority, and release target before production expands.",
                 },
                 {
                     step: "02",
-                    title: "Tighten the workflow",
-                    body: "Prepare the design, engineering, QA, and launch path so delivery feels deliberate instead of improvised.",
+                    title: "Build with discipline",
+                    body: "Move through design, engineering, QA, and feedback loops with a cleaner path from concept to working app.",
                 },
                 {
                     step: "03",
-                    title: "Open with a stronger system",
-                    body: "Launch the service line when the process, positioning, and customer path are ready to hold real projects cleanly.",
+                    title: "Launch and refine",
+                    body: "Ship the product with release support, post-launch fixes, and a clearer runway for the next growth cycle.",
                 },
             ],
         },
         layers: {
-            eyebrow: "What it is being built for",
-            title: "Areas the future mobile app offering is expected to cover",
+            eyebrow: "What we cover",
+            title: "Core layers inside the mobile app offering",
             items: [
-                "Product framing and user flow direction",
+                "Product framing and feature prioritization",
                 "App interface and interaction design",
-                "Delivery planning across release milestones",
-                "Feature structure and launch sequencing",
-                "Post-launch iteration support",
-                "Longer-term operational readiness",
+                "Cross-platform engineering for iOS and Android",
+                "QA, release planning, and handoff structure",
+                "Launch sequencing and adoption support",
+                "Post-launch iteration and roadmap continuity",
             ],
         },
         cta: {
-            title: "If you want early access when this service opens, we can keep you in the loop.",
+            title: "If your app idea needs a sharper path from concept to launch, let's map it properly.",
             subtitle:
-                "Reach out with your product idea or rollout timing, and we can point you to the right current service or note your interest for the mobile app launch.",
-            primary: "Notify me",
-            secondary: "Explore active services",
+                "Share your product brief, launch timing, or feature priorities and we can shape the right build path for your team.",
+            primary: "Talk to the app team",
+            secondary: "View pricing",
         },
     },
     id: {
         hero: {
-            badge: "Pengembangan aplikasi mobile segera hadir",
-            title: "Lini mobile app yang lebih rapi sedang disiapkan, dengan fokus pada kejelasan produk, kesiapan launch, dan growth yang tetap terawat.",
+            badge: "Delivery aplikasi mobile cross-platform",
+            title: "Luncurkan aplikasi mobile yang terasa jelas, premium, dan siap tumbuh sejak hari pertama.",
             subtitle:
-                "Kami sedang menyiapkan lini mobile app agar fokus pada framing produk, disiplin produksi, dan sistem launch, bukan sekadar cepat mengirim screen.",
-            primaryCta: "Masuk waitlist",
-            secondaryCta: "Lihat arah rollout",
-            note: "Layanan ini sedang disiapkan dengan hati-hati supaya offer-nya lebih rapat sebelum delivery dibuka penuh.",
-            chips: ["Framing produk", "Workflow app", "Perencanaan launch", "Sistem siap berkembang"],
+                "plus. mendesain dan membangun produk mobile dengan framing produk yang lebih tajam, UX yang rapi, dan disiplin launch untuk iOS dan Android.",
+            primaryCta: "Mulai brief app Anda",
+            secondaryCta: "Lihat alur delivery",
+            note: "Paling cocok untuk brand yang butuh partner produk sungguhan, bukan sekadar tukang kirim screen.",
+            chips: ["Framing produk", "Build cross-platform", "Perencanaan launch", "Iterasi pasca-launch"],
         },
         readiness: {
-            eyebrow: "Kenapa menunggu",
-            title: "Kami lebih memilih membuka layanan ini dengan benar daripada buru-buru menjual offer yang masih kabur.",
+            eyebrow: "Yang Anda dapat",
+            title: "Kami membangun aplikasi mobile di sekitar tujuan bisnis, kejelasan user flow, dan kesiapan launch.",
             subtitle:
-                "Targetnya membuat lini mobile app terasa lebih serius sejak hari pertama, dengan disiplin scope dan pemikiran produk yang lebih jelas.",
+                "Layanan ini disusun untuk bergerak dari definisi produk sampai rilis tanpa drift biasa antara desain, engineering, dan launch.",
             items: [
                 {
-                    title: "Framing produk yang lebih kuat",
-                    body: "Kami ingin layanan ini dimulai dari pemikiran yang lebih tajam soal use case, alur pengguna, dan aksi bisnis yang harus didukung aplikasi.",
+                    title: "Framing produk lebih tajam",
+                    body: "Kami mulai dari use case, alur pengguna, dan aksi bisnis yang harus didukung supaya fitur tetap menempel ke hasil nyata.",
                 },
                 {
-                    title: "Kesiapan produksi yang lebih baik",
-                    body: "Arsitektur, rencana rilis, logika handoff, dan dukungan lifecycle perlu dipikirkan sebelum layanan ini dijual lebih luas.",
+                    title: "Delivery yang siap produksi",
+                    body: "Arsitektur, rencana rilis, ritme QA, dan logika handoff ditangani sebagai bagian dari build, bukan ditunda ke akhir.",
                 },
                 {
-                    title: "Delivery yang tidak generik",
-                    body: "Targetnya menghindari janji aplikasi cantik tanpa struktur yang cukup kuat untuk membuat produknya tahan setelah launch.",
+                    title: "Runway pasca-launch lebih bersih",
+                    body: "App dirancang agar lebih gampang dikembangkan setelah rilis, dengan sequencing yang lebih jelas untuk fitur, perbaikan, dan eksperimen growth.",
                 },
             ],
         },
         approach: {
-            eyebrow: "Pendekatan yang disiapkan",
-            title: "Offer app ke depan sedang dibentuk di sekitar sense produk, kegunaan operasional, dan disiplin rilis yang nyata.",
+            eyebrow: "Cara kami membangun",
+            title: "Workflow mobile app menyeimbangkan sense produk, eksekusi cepat, dan engineering yang tetap terawat.",
             subtitle:
-                "Kami membangun layanan ini untuk membantu bisnis bergerak dari ide ke produk mobile yang benar-benar usable dengan kejelasan lebih baik di sepanjang jalurnya.",
+                "Setiap fase dibentuk untuk mengurangi rework, menjaga stakeholder tetap sinkron, dan mengirim produk yang tetap usable setelah minggu launch.",
             pillars: [
                 {
                     title: "Mulai dari logika produk",
-                    body: "Kami berencana membingkai jobs, alur pengguna, dan hasil bisnis lebih dulu supaya app berangkat dari keputusan yang lebih jelas.",
+                    body: "Kami membingkai jobs, alur pengguna, dan hasil bisnis lebih dulu supaya app berangkat dari keputusan nyata, bukan daftar fitur acak.",
                 },
                 {
                     title: "Desain untuk growth yang tetap terawat",
-                    body: "App-nya harus lebih mudah dikembangkan setelah launch, bukan cuma terlihat mengesankan saat presentasi handoff pertama.",
+                    body: "Sistemnya dibentuk agar app lebih mudah dikembangkan setelah launch, bukan cuma rapi saat demo pertama.",
                 },
                 {
                     title: "Dukung launch dan iterasi",
-                    body: "Persiapan rilis, penyesuaian pasca-launch, dan feedback loop perlu menjadi bagian dari cerita layanan ini sejak awal.",
+                    body: "Persiapan rilis, handoff analytics, dan iterasi awal diperlakukan sebagai bagian dari delivery sejak awal.",
                 },
             ],
         },
         rollout: {
-            eyebrow: "Arah rollout",
-            title: "Lini layanan ini sedang disiapkan dalam tiga lapisan.",
+            eyebrow: "Alur delivery",
+            title: "Setiap proyek app bergerak lewat tiga tahap yang sengaja dibentuk.",
             subtitle:
-                "Ini membantu kami menghindari janji yang terlalu lebar sebelum offer-nya punya kedalaman yang tepat di belakangnya.",
+                "Ini menjaga keputusan produk, kualitas build, dan timing launch tetap nyambung, bukan pecah jadi tiga jalur terpisah.",
             steps: [
                 {
                     step: "01",
-                    title: "Perjelas offer-nya",
-                    body: "Tentukan kecocokan yang tepat, scope delivery, dan kategori produk yang memang ingin layanan ini tangani dengan baik.",
+                    title: "Frame produknya",
+                    body: "Tentukan scope yang tepat, user flow, prioritas fitur, dan target rilis sebelum produksi melebar.",
                 },
                 {
                     step: "02",
-                    title: "Rapatkan workflow-nya",
-                    body: "Siapkan jalur desain, engineering, QA, dan launch supaya delivery terasa sengaja dibentuk, bukan dadakan.",
+                    title: "Build dengan disiplin",
+                    body: "Jalankan desain, engineering, QA, dan feedback loop dengan jalur yang lebih bersih dari konsep sampai app berjalan.",
                 },
                 {
                     step: "03",
-                    title: "Buka dengan sistem yang lebih kuat",
-                    body: "Luncurkan lini layanan ini saat proses, positioning, dan jalur customer sudah siap memegang proyek nyata dengan rapi.",
+                    title: "Launch lalu rapikan",
+                    body: "Rilis produk dengan dukungan launch, perbaikan awal pasca-rilis, dan runway yang lebih jelas untuk siklus growth berikutnya.",
                 },
             ],
         },
         layers: {
-            eyebrow: "Untuk apa ini sedang dibangun",
-            title: "Area yang direncanakan akan dicakup oleh offer mobile app ini",
+            eyebrow: "Yang kami cover",
+            title: "Lapisan inti di dalam offer mobile app",
             items: [
-                "Framing produk dan arah user flow",
+                "Framing produk dan prioritas fitur",
                 "Desain antarmuka dan interaksi aplikasi",
-                "Perencanaan delivery lintas milestone rilis",
-                "Struktur fitur dan sequencing launch",
-                "Dukungan iterasi pasca-launch",
-                "Kesiapan operasional jangka lebih panjang",
+                "Engineering cross-platform untuk iOS dan Android",
+                "QA, perencanaan rilis, dan struktur handoff",
+                "Sequencing launch dan dukungan adopsi",
+                "Iterasi pasca-launch dan kontinuitas roadmap",
             ],
         },
         cta: {
-            title: "Kalau Anda ingin akses awal saat layanan ini dibuka, kami bisa menjaga Anda tetap di loop.",
+            title: "Kalau ide app Anda butuh jalur yang lebih tajam dari konsep ke launch, mari petakan dengan benar.",
             subtitle:
-                "Hubungi kami dengan ide produk atau timing rollout Anda, dan kami bisa arahkan ke layanan aktif yang tepat atau mencatat minat Anda untuk launch mobile app nanti.",
-            primary: "Beri tahu saya",
-            secondary: "Lihat layanan aktif",
+                "Kirim brief produk, timing launch, atau prioritas fitur Anda, lalu kami bantu bentuk jalur build yang paling pas untuk tim Anda.",
+            primary: "Bicara dengan tim app",
+            secondary: "Lihat harga",
         },
     },
 };
@@ -256,7 +256,8 @@ const READINESS_ICONS = [BellRing, Workflow, Sparkles];
 const APPROACH_ICONS = [Layers3, LayoutTemplate, Rocket];
 
 function HeroSection() {
-    const copy = COPY[useLocale()].hero;
+    const locale = useLocale();
+    const copy = COPY[locale].hero;
 
     return (
         <section className="relative overflow-hidden bg-[#171127] pb-24 pt-28 text-white sm:pb-28 lg:pb-32">
@@ -276,7 +277,7 @@ function HeroSection() {
                         </p>
                         <div className="mt-9 flex flex-col gap-4 sm:flex-row">
                             <Link
-                                href="mailto:plusthesite@gmail.com?subject=Mobile%20App%20Waitlist"
+                                href="mailto:plusthesite@gmail.com?subject=Mobile%20App%20Project%20Inquiry"
                                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#f4ecff] px-6 py-3.5 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5"
                             >
                                 {copy.primaryCta}
@@ -308,35 +309,49 @@ function HeroSection() {
                         <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 shadow-[0_30px_80px_rgba(0,0,0,0.28)] backdrop-blur">
                             <div className="flex items-center justify-between border-b border-white/10 pb-4">
                                 <div>
-                                    <p className="text-sm font-semibold text-white">service readiness</p>
-                                    <p className="mt-1 text-xs text-white/54">product, delivery, release, lifecycle</p>
+                                    <p className="text-sm font-semibold text-white">
+                                        {locale === "id" ? "cakupan delivery" : "delivery scope"}
+                                    </p>
+                                    <p className="mt-1 text-xs text-white/54">
+                                        {locale === "id" ? "produk, build, rilis, iterasi" : "product, build, release, iteration"}
+                                    </p>
                                 </div>
-                                <span className="rounded-full bg-amber-400/12 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-200">
-                                    Coming soon
+                                <span className="rounded-full bg-emerald-400/12 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-200">
+                                    {locale === "id" ? "Layanan aktif" : "Active offer"}
                                 </span>
                             </div>
 
                             <div className="mt-5 space-y-4">
                                 <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                    <p className="text-xs uppercase tracking-[0.2em] text-white/42">Why pause first</p>
+                                    <p className="text-xs uppercase tracking-[0.2em] text-white/42">
+                                        {locale === "id" ? "Masalah yang diselesaikan" : "What this line solves"}
+                                    </p>
                                     <p className="mt-2 text-sm leading-6 text-white/78">
-                                        The offer needs stronger product thinking and delivery structure before we turn it into a wide-open promise.
+                                        {locale === "id"
+                                            ? "Kejelasan produk yang lebih baik, delivery cross-platform yang lebih rapi, dan jalur lebih ketat dari ide ke launch."
+                                            : "Better product clarity, cleaner cross-platform delivery, and a tighter path from idea to launch."}
                                     </p>
                                 </div>
                                 <div className="rounded-2xl border border-white/10 bg-[#f4ecff] p-4 text-slate-900">
-                                    <p className="text-xs uppercase tracking-[0.2em] text-slate-500">What is being prepared</p>
+                                    <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
+                                        {locale === "id" ? "Yang termasuk" : "What is included"}
+                                    </p>
                                     <ul className="mt-3 space-y-2 text-sm leading-6">
                                         <li className="flex gap-2">
                                             <Check className="mt-0.5 h-4 w-4 text-violet-700" />
-                                            Clearer scope and product fit
+                                            {locale === "id" ? "Framing produk dan mapping user flow" : "Product framing and user flow mapping"}
                                         </li>
                                         <li className="flex gap-2">
                                             <Check className="mt-0.5 h-4 w-4 text-violet-700" />
-                                            Better launch and iteration planning
+                                            {locale === "id"
+                                                ? "Build cross-platform dengan QA dan perencanaan rilis"
+                                                : "Cross-platform build with QA and release planning"}
                                         </li>
                                         <li className="flex gap-2">
                                             <Check className="mt-0.5 h-4 w-4 text-violet-700" />
-                                            A more serious customer path from idea to release
+                                            {locale === "id"
+                                                ? "Dukungan launch plus runway iterasi awal"
+                                                : "Launch support plus early iteration runway"}
                                         </li>
                                     </ul>
                                 </div>
@@ -533,7 +548,7 @@ function CTASection() {
 
                         <div className="flex flex-col gap-4 sm:flex-row lg:justify-end">
                             <Link
-                                href="mailto:plusthesite@gmail.com?subject=Mobile%20App%20Waitlist"
+                                href="mailto:plusthesite@gmail.com?subject=Mobile%20App%20Project%20Inquiry"
                                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#f4ecff] px-6 py-3.5 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5"
                             >
                                 {copy.primary}

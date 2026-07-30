@@ -9,9 +9,9 @@ export async function generateMetadata({
     return productMetadata({
         locale,
         path: "/mobile-app",
-        title: "Mobile App Development - Product Framing, Launch Planning & Delivery | plus.",
+        title: "Mobile App Development - Cross-Platform Product Design & Launch | plus.",
         description:
-            "Mobile app development offering in preparation, focused on product framing, launch planning, release workflow, and maintainable delivery.",
+            "Cross-platform mobile app development for brands that need product clarity, clean UX, launch readiness, and maintainable growth.",
     });
 }
 

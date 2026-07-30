@@ -28,10 +28,17 @@ export default function Products() {
     const locale = useLocale();
     const items = t.products.items;
 
-    const products = [
+    const products: Array<{
+        key: keyof typeof icons;
+        title: string;
+        description: string;
+        href: string;
+        badge?: string;
+        comingSoon?: boolean;
+    }> = [
         { key: "chatbot" as const, title: items.chatbot.title, description: items.chatbot.description, href: `/${locale}/chat-bot`, badge: t.products.badgePopular },
         { key: "support" as const, title: items.support.title, description: items.support.description, href: `/${locale}/customer-support` },
-        { key: "mobileApp" as const, title: items.mobileApp.title, description: items.mobileApp.description, href: `/${locale}/mobile-app`, comingSoon: true },
+        { key: "mobileApp" as const, title: items.mobileApp.title, description: items.mobileApp.description, href: `/${locale}/mobile-app` },
         { key: "crm" as const, title: items.crm.title, description: items.crm.description, href: `/${locale}/crm` },
         { key: "agency" as const, title: items.agency.title, description: items.agency.description, href: `/${locale}/digital-agency`, badge: t.products.badgeNew },
         { key: "game" as const, title: items.game.title, description: items.game.description, href: `/${locale}/mobile-game` },

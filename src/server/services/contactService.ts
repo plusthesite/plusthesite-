@@ -25,8 +25,8 @@ export async function submitContact(
         const accountId = input.company ? await upsertAccountByName(input.company) : null;
 
         // Segment into the sales pipeline. Best-effort: never fail the submission.
-        // Don't tag a lead with a service we can't yet deliver (e.g. mobile-app
-        // is "coming soon") — route that interest to the flagship Digital Agency.
+        // If a future service is not yet live, route the interest to the flagship
+        // Digital Agency lane instead of creating an undeliverable segment.
         const leadService = isComingSoon(input.service) ? "digital-agency" : input.service;
         try {
             await insertLead({
