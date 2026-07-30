@@ -130,7 +130,7 @@ export default async function LocaleLayout({
     description: dict.meta.homeDescription,
     email: "plusthesite@gmail.com",
     slogan: locale === "id" ? "Bangun Brand Lebih Cerdas. Lebih Cepat." : "Build Smarter Brands. Faster.",
-    priceRange: "Rp 2.500.000 – Rp 20.000.000+",
+    priceRange: "Rp 2.500.000 - Rp 20.000.000+",
     currenciesAccepted: "IDR",
     knowsLanguage: ["id-ID", "en-US"],
     address: { "@type": "PostalAddress", addressCountry: "ID", addressRegion: "DKI Jakarta", addressLocality: "Jakarta" },
