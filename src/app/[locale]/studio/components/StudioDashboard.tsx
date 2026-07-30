@@ -72,6 +72,52 @@ const TAB_TITLES: Record<string, string> = {
   subscription: "Subscription",
 };
 
+const TAB_META: Record<
+  string,
+  { description: string; focus: string; rhythm: string }
+> = {
+  planner: {
+    description: "Susun arah campaign, tema, dan kalender eksekusi dari satu meja kerja.",
+    focus: "Planning dan campaign structure",
+    rhythm: "Dipakai paling awal untuk menyusun arah kerja tim.",
+  },
+  generator: {
+    description: "Bangun draft visual, eksplorasi arah kreatif, dan variasi aset dengan alur review yang lebih rapi.",
+    focus: "Creative draft dan asset generation",
+    rhythm: "Masuk saat tim butuh output visual cepat tanpa chaos.",
+  },
+  strategy: {
+    description: "Rumuskan angle pertumbuhan, eksperimen distribusi, dan prioritas gerak yang lebih tajam.",
+    focus: "Growth angle dan strategic direction",
+    rhythm: "Dipakai saat tim butuh keputusan channel dan momentum berikutnya.",
+  },
+  repurpose: {
+    description: "Ubah satu ide inti menjadi paket distribusi yang siap dipakai di banyak channel.",
+    focus: "Repurpose dan content packaging",
+    rhythm: "Masuk setelah bahan inti siap dibawa ke format lain.",
+  },
+  livestream: {
+    description: "Kelola workflow live studio, host prompts, dan surface operasional untuk konten real-time.",
+    focus: "Live production dan host support",
+    rhythm: "Dipakai saat tim bergerak di alur siaran dan eksekusi langsung.",
+  },
+  analytics: {
+    description: "Lihat performa, pola distribusi, dan sinyal keputusan berikutnya dari satu panel.",
+    focus: "Performance signal dan reporting",
+    rhythm: "Dipakai untuk membaca apa yang harus diperbaiki atau diperbesar.",
+  },
+  kol: {
+    description: "Rapikan eksplorasi KOL, evaluasi kandidat, dan kerja campaign outreach.",
+    focus: "Creator sourcing dan campaign matching",
+    rhythm: "Masuk saat tim siap menyalakan distribusi lewat partner eksternal.",
+  },
+  subscription: {
+    description: "Kelola langganan, akses, dan keputusan paket kerja dari sisi billing.",
+    focus: "Billing dan workspace access",
+    rhythm: "Dipakai saat tim perlu mengatur kapasitas tool dan paket kerja.",
+  },
+};
+
 export const StudioDashboard: React.FC<{
   onLogout: () => void;
   user?: SupabaseUser | null;
@@ -98,6 +144,11 @@ export const StudioDashboard: React.FC<{
   const [isDocsOpen, setIsDocsOpen] = useState(false);
   const [docsInitialTab, setDocsInitialTab] = useState("guide");
   const [isFloatingDockOpen, setIsFloatingDockOpen] = useState(false);
+  const activeMeta = TAB_META[activeTab] ?? {
+    description: "Workspace aktif untuk operasi tim.",
+    focus: "Studio workspace",
+    rhythm: "Dipakai sesuai konteks kerja yang sedang berjalan.",
+  };
 
   useEffect(() => {
     if (TOUR_STEPS[activeTab]) {
@@ -253,6 +304,33 @@ export const StudioDashboard: React.FC<{
           >
             <X size={24} />
           </button>
+        </div>
+
+        <div className="mb-6 rounded-[1.5rem] border border-border bg-background/80 p-4 shadow-sm">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-primary">
+                Workspace Focus
+              </p>
+              <p className="mt-2 text-sm font-semibold text-foreground">
+                {TAB_TITLES[activeTab] || activeTab}
+              </p>
+            </div>
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+              <Wand2 size={18} />
+            </div>
+          </div>
+          <p className="mt-3 text-xs leading-6 text-muted">
+            {activeMeta.description}
+          </p>
+          <div className="mt-4 rounded-2xl border border-border bg-surface px-3 py-3">
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted">
+              Focus
+            </p>
+            <p className="mt-1 text-xs font-medium text-foreground">
+              {activeMeta.focus}
+            </p>
+          </div>
         </div>
 
         <div className="space-y-2 flex-1 overflow-y-auto custom-scrollbar">
@@ -417,7 +495,7 @@ export const StudioDashboard: React.FC<{
                 {TAB_TITLES[activeTab] || activeTab}
               </h1>
               <p className="text-xs text-muted hidden md:block">
-                Real-time AI Dashboard
+                {activeMeta.description}
               </p>
             </div>
           </div>
@@ -510,6 +588,91 @@ export const StudioDashboard: React.FC<{
         </header>
 
         <main className="flex-1 overflow-y-auto p-4 md:p-8 custom-scrollbar relative">
+          <section className="mb-6 grid gap-4 xl:grid-cols-[1.12fr_0.88fr]">
+            <div className="rounded-[1.75rem] border border-border bg-background/85 p-5 shadow-sm">
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-primary">
+                Active Surface
+              </p>
+              <div className="mt-3 flex flex-wrap items-start justify-between gap-4">
+                <div className="max-w-2xl">
+                  <h2 className="text-2xl font-bold tracking-tight text-foreground">
+                    {TAB_TITLES[activeTab] || activeTab}
+                  </h2>
+                  <p className="mt-3 text-sm leading-7 text-muted">
+                    {activeMeta.description}
+                  </p>
+                </div>
+                <div className="rounded-full border border-border bg-surface px-3 py-2 text-xs font-medium text-muted">
+                  {activeMeta.focus}
+                </div>
+              </div>
+
+              <div className="mt-5 grid gap-3 md:grid-cols-3">
+                <div className="rounded-2xl border border-border bg-surface px-4 py-4">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted">
+                    Use rhythm
+                  </p>
+                  <p className="mt-2 text-xs leading-6 text-foreground">
+                    {activeMeta.rhythm}
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-border bg-surface px-4 py-4">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted">
+                    Help lane
+                  </p>
+                  <p className="mt-2 text-xs leading-6 text-foreground">
+                    Panduan, flowchart, dan docs teknis tetap bisa dibuka tanpa keluar dari workspace.
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-border bg-surface px-4 py-4">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted">
+                    System state
+                  </p>
+                  <div className="mt-2 flex items-center gap-2 text-xs text-foreground">
+                    <span className="h-2.5 w-2.5 rounded-full bg-tertiary animate-pulse" />
+                    Operasional dan siap dipakai tim.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-[1.75rem] border border-border bg-background/85 p-5 shadow-sm">
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-primary">
+                Quick Actions
+              </p>
+              <div className="mt-4 grid gap-3">
+                <button
+                  onClick={() => handleStartTour(activeTab)}
+                  className="flex items-start justify-between rounded-2xl border border-border bg-surface px-4 py-4 text-left transition-all hover:border-primary/40 hover:bg-surface-hover"
+                >
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">
+                      Jalankan tur untuk surface ini
+                    </p>
+                    <p className="mt-1 text-xs leading-6 text-muted">
+                      Buka walkthrough cepat untuk {TAB_TITLES[activeTab] || activeTab}.
+                    </p>
+                  </div>
+                  <BookOpen size={18} className="shrink-0 text-primary" />
+                </button>
+                <button
+                  onClick={() => openDocs("guide")}
+                  className="flex items-start justify-between rounded-2xl border border-border bg-surface px-4 py-4 text-left transition-all hover:border-primary/40 hover:bg-surface-hover"
+                >
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">
+                      Buka panduan kerja
+                    </p>
+                    <p className="mt-1 text-xs leading-6 text-muted">
+                      Masuk ke dokumentasi tanpa pindah konteks dari dashboard.
+                    </p>
+                  </div>
+                  <LifeBuoy size={18} className="shrink-0 text-primary" />
+                </button>
+              </div>
+            </div>
+          </section>
+
           {renderContent()}
         </main>
       </div>
