@@ -16,7 +16,7 @@ const sections: { title: string; items: { href: string; label: string; icon: str
         ],
     },
     {
-        title: "Sales (CRM)",
+        title: "Sales",
         items: [
             { href: "/admin/accounts", label: "Accounts", icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5m14 0h2M5 21H3m4-14h2m-2 4h2m-2 4h2m4-8h2m-2 4h2m-2 4h2" },
             { href: "/admin/leads", label: "Leads", icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" },
@@ -62,14 +62,15 @@ export function AdminNav({ role = "admin" }: { role?: Role }) {
 
     const linkClass = (href: string) => {
         const active = href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
-        return `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${active
-            ? "bg-blue-600 text-white"
-            : "text-slate-300 hover:bg-slate-800 hover:text-white"
-            }`;
+        return `group flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-medium transition-all ${
+            active
+                ? "bg-white text-slate-950 shadow-[0_10px_30px_rgba(15,23,42,0.18)]"
+                : "text-slate-300 hover:bg-white/10 hover:text-white"
+        }`;
     };
 
     const icon = (d: string) => (
-        <svg className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+        <svg className="h-5 w-5 shrink-0 transition-transform group-hover:scale-105" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d={d} />
         </svg>
     );
@@ -83,8 +84,8 @@ export function AdminNav({ role = "admin" }: { role?: Role }) {
                     </svg>
                     <input
                         name="q"
-                        placeholder="Search…"
-                        className="w-full rounded-lg border border-slate-700 bg-slate-800/60 py-2 pl-9 pr-3 text-sm text-slate-100 placeholder-slate-500 focus:border-blue-500 focus:outline-none"
+                        placeholder="Search..."
+                        className="w-full rounded-2xl border border-white/10 bg-white/8 py-2.5 pl-9 pr-3 text-sm text-slate-100 placeholder-slate-500 backdrop-blur-sm focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                     />
                 </div>
             </form>
@@ -96,7 +97,7 @@ export function AdminNav({ role = "admin" }: { role?: Role }) {
 
             {visibleSections.map((sec) => (
                 <div key={sec.title} className="mt-5">
-                    <p className="px-3 pb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-500">{sec.title}</p>
+                    <p className="px-3 pb-2 text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">{sec.title}</p>
                     <div className="flex flex-col gap-1">
                         {sec.items.map((it) => (
                             <Link key={it.href} href={it.href} className={linkClass(it.href)}>
@@ -122,7 +123,7 @@ export function LogoutButton() {
     return (
         <button
             onClick={logout}
-            className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-300 transition-colors hover:bg-rose-600/90 hover:text-white"
+            className="flex w-full items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-medium text-slate-300 transition-all hover:bg-rose-600/90 hover:text-white"
         >
             <svg className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />

@@ -7,10 +7,10 @@ import type { DashboardStats } from "@/lib/adminStats";
 
 function StatCard({ label, value, accent, href, hint }: { label: string; value: string; accent: string; href?: string; hint?: string }) {
     const inner = (
-        <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md sm:p-5" title={hint}>
+        <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-4 shadow-sm backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:shadow-md sm:p-5" title={hint}>
             <p className="truncate text-[10px] font-semibold uppercase tracking-wide text-slate-400 sm:text-xs">{label}</p>
             <p className={`mt-1.5 text-2xl font-extrabold sm:mt-2 sm:text-3xl ${accent}`}>{value}</p>
-            {hint && <p className="mt-0.5 truncate text-[9px] font-medium text-slate-400">{hint}</p>}
+            {hint ? <p className="mt-0.5 truncate text-[9px] font-medium text-slate-400">{hint}</p> : null}
         </div>
     );
     return href ? <Link href={href}>{inner}</Link> : inner;
@@ -46,8 +46,9 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
 
         const poll = setInterval(refresh, 12_000);
         const tick = setInterval(() => setSecondsAgo(Math.round((new Date().getTime() - fetchedAt.current) / 1000)), 1_000);
-        // Refresh immediately when the tab regains focus.
-        const onVisible = () => { if (document.visibilityState === "visible") refresh(); };
+        const onVisible = () => {
+            if (document.visibilityState === "visible") refresh();
+        };
         document.addEventListener("visibilitychange", onVisible);
 
         return () => {
@@ -63,7 +64,7 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
             <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
                     <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
-                    <p className="mt-1 text-sm text-slate-500">Live overview of your site activity and sales pipeline.</p>
+                    <p className="mt-1 text-sm text-slate-500">Live overview of site activity, audience movement, and sales pipeline.</p>
                 </div>
                 <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700">
                     <span className="relative flex h-2 w-2">
@@ -74,18 +75,16 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
                 </span>
             </div>
 
-            {/* Follow-ups banner */}
-            {stats.openTasks > 0 && (
+            {stats.openTasks > 0 ? (
                 <Link
                     href="/admin/tasks"
-                    className={`mt-5 flex items-center justify-between rounded-xl border px-5 py-3 text-sm font-semibold transition-colors ${stats.overdueTasks > 0 ? "border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100" : "border-amber-200 bg-amber-50 text-amber-800 hover:bg-amber-100"}`}
+                    className={`mt-5 flex items-center justify-between rounded-2xl border px-5 py-3 text-sm font-semibold transition-colors ${stats.overdueTasks > 0 ? "border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100" : "border-amber-200 bg-amber-50 text-amber-800 hover:bg-amber-100"}`}
                 >
-                    <span>📋 {stats.openTasks} open follow-up{stats.openTasks === 1 ? "" : "s"}{stats.overdueTasks > 0 ? ` · ${stats.overdueTasks} overdue` : ""}</span>
+                    <span>{stats.openTasks} open follow-up{stats.openTasks === 1 ? "" : "s"}{stats.overdueTasks > 0 ? ` · ${stats.overdueTasks} overdue` : ""}</span>
                     <span>View tasks →</span>
                 </Link>
-            )}
+            ) : null}
 
-            {/* Engagement */}
             <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
                 <StatCard label="Subscribers" value={stats.subscribers.toLocaleString()} accent="text-blue-600" href="/admin/subscribers" />
                 <StatCard label="Leads" value={stats.leads.toLocaleString()} accent="text-emerald-600" href="/admin/leads" />
@@ -93,7 +92,6 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
                 <StatCard label="Article Views" value={stats.views.toLocaleString()} accent="text-amber-600" href="/admin/analytics" />
             </div>
 
-            {/* Revenue pipeline */}
             <h2 className="mt-8 text-sm font-bold uppercase tracking-wide text-slate-400">Sales Pipeline</h2>
             <div className="mt-3 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
                 <StatCard label="Lead Pipeline" value={formatIDR(stats.leadPipeline, true)} accent="text-teal-600" href="/admin/priority" hint="Potensi indikatif — bukan revenue" />
@@ -108,10 +106,8 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
                 <StatCard label="Accounts" value={stats.accounts.toLocaleString()} accent="text-slate-600" href="/admin/accounts" />
             </div>
 
-            {/* Trends */}
             <div className="mt-8 grid gap-6 lg:grid-cols-2">
-                {/* New leads — last 14 days */}
-                <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-sm backdrop-blur-sm">
                     <div className="flex items-center justify-between">
                         <h2 className="text-sm font-bold text-slate-900">New Leads · last 14 days</h2>
                         <span className="text-xs text-slate-400">{stats.newLeads14d.reduce((s, d) => s + d.count, 0)} total</span>
@@ -130,11 +126,10 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
                     </div>
                 </div>
 
-                {/* Pipeline by stage */}
-                <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-sm backdrop-blur-sm">
                     <h2 className="text-sm font-bold text-slate-900">Pipeline by Stage</h2>
                     <div className="mt-4 space-y-2.5">
-                        {stats.stageBreakdown.length === 0 && <p className="py-3 text-sm text-slate-400">No deals yet.</p>}
+                        {stats.stageBreakdown.length === 0 ? <p className="py-3 text-sm text-slate-400">No deals yet.</p> : null}
                         {(() => {
                             const maxV = Math.max(1, ...stats.stageBreakdown.map((s) => s.value));
                             const color: Record<string, string> = { new: "bg-slate-400", contacted: "bg-blue-400", qualified: "bg-indigo-400", proposal: "bg-violet-400", negotiation: "bg-amber-400", won: "bg-emerald-500", lost: "bg-rose-400" };
@@ -154,10 +149,10 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
             </div>
 
             <div className="mt-8 grid gap-6 lg:grid-cols-3">
-                <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-                    <h2 className="text-sm font-bold text-slate-900">🔥 Hot Opportunities</h2>
+                <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-sm backdrop-blur-sm">
+                    <h2 className="text-sm font-bold text-slate-900">Hot Opportunities</h2>
                     <div className="mt-3 divide-y divide-slate-100">
-                        {stats.hotOpportunities.length === 0 && <p className="py-3 text-sm text-slate-400">No open deals.</p>}
+                        {stats.hotOpportunities.length === 0 ? <p className="py-3 text-sm text-slate-400">No open deals.</p> : null}
                         {stats.hotOpportunities.map((o, i) => (
                             <div key={i} className="flex items-center justify-between gap-3 py-2.5 text-sm">
                                 <span className="truncate text-slate-700">{o.company ?? o.name}</span>
@@ -167,10 +162,10 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
                     </div>
                 </div>
 
-                <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-sm backdrop-blur-sm">
                     <h2 className="text-sm font-bold text-slate-900">Recent Subscribers</h2>
                     <div className="mt-3 divide-y divide-slate-100">
-                        {stats.recentSubs.length === 0 && <p className="py-3 text-sm text-slate-400">No subscribers yet.</p>}
+                        {stats.recentSubs.length === 0 ? <p className="py-3 text-sm text-slate-400">No subscribers yet.</p> : null}
                         {stats.recentSubs.map((s, i) => (
                             <div key={i} className="flex items-center justify-between py-2.5 text-sm">
                                 <span className="truncate text-slate-700">{s.email}</span>
@@ -180,10 +175,10 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
                     </div>
                 </div>
 
-                <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-sm backdrop-blur-sm">
                     <h2 className="text-sm font-bold text-slate-900">Recent Contacts</h2>
                     <div className="mt-3 divide-y divide-slate-100">
-                        {stats.recentContacts.length === 0 && <p className="py-3 text-sm text-slate-400">No contacts yet.</p>}
+                        {stats.recentContacts.length === 0 ? <p className="py-3 text-sm text-slate-400">No contacts yet.</p> : null}
                         {stats.recentContacts.map((c, i) => (
                             <div key={i} className="flex items-center justify-between py-2.5 text-sm">
                                 <span className="truncate text-slate-700">{c.name} <span className="text-slate-400">· {c.email}</span></span>
@@ -194,11 +189,10 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
                 </div>
             </div>
 
-            {/* Rep leaderboard */}
-            {stats.repLeaderboard.length > 0 && (
+            {stats.repLeaderboard.length > 0 ? (
                 <div className="mt-8">
                     <h2 className="text-sm font-bold uppercase tracking-wide text-slate-400">Sales Rep Leaderboard</h2>
-                    <div className="mt-3 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+                    <div className="mt-3 overflow-hidden rounded-2xl border border-slate-200/80 bg-white/90 shadow-sm backdrop-blur-sm">
                         <table className="w-full text-left text-sm">
                             <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-400">
                                 <tr>
@@ -214,10 +208,10 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
                                         <td className="px-5 py-3">
                                             <div className="flex items-center gap-3">
                                                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-violet-500 text-xs font-bold text-white">
-                                                    {r.name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase()}
+                                                    {r.name.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase()}
                                                 </div>
                                                 <span className="font-semibold text-slate-800">{r.name}</span>
-                                                {i === 0 && <span className="text-xs">👑</span>}
+                                                {i === 0 ? <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-amber-700">Top</span> : null}
                                             </div>
                                         </td>
                                         <td className="px-5 py-3 text-right font-semibold text-slate-700">{r.leads}</td>
@@ -229,7 +223,7 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
                         </table>
                     </div>
                 </div>
-            )}
+            ) : null}
         </div>
     );
 }

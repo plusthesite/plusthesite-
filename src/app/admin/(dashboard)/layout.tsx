@@ -15,13 +15,10 @@ export default async function DashboardLayout({
         data: { user },
     } = await supabase.auth.getUser();
 
-    // Auth gate — only signed-in admins past this point.
     if (!user) {
         redirect("/admin/login");
     }
 
-    // Deactivated logins are fully blocked (no dashboard, no tools) — a clear
-    // screen + logout, rather than redirecting (which would loop the login).
     if (await isUserDeactivated()) {
         return (
             <div className="flex min-h-screen items-center justify-center bg-slate-50 px-6">
@@ -40,15 +37,14 @@ export default async function DashboardLayout({
     const role = await getUserRole();
 
     return (
-        <div className="flex min-h-screen bg-slate-50">
-            {/* Desktop sidebar */}
-            <aside className="fixed inset-y-0 left-0 z-30 hidden w-60 flex-col bg-slate-900 px-4 py-6 lg:flex">
+        <div className="flex min-h-screen bg-transparent">
+            <aside className="fixed inset-y-0 left-0 z-30 hidden w-72 flex-col border-r border-white/10 bg-[linear-gradient(180deg,_rgba(15,23,42,0.98)_0%,_rgba(15,23,42,0.92)_100%)] px-5 py-6 shadow-[0_24px_80px_rgba(15,23,42,0.28)] backdrop-blur-xl lg:flex">
                 <div className="flex items-start justify-between px-3 pb-6">
                     <div>
                         <div className="text-xl font-extrabold tracking-tight text-white">
                             plus<span className="text-blue-500">.</span>
                         </div>
-                        <p className="text-xs text-slate-500">Admin Dashboard</p>
+                        <p className="text-xs text-slate-500">Operations cockpit</p>
                     </div>
                     <NotificationBell />
                 </div>
@@ -63,13 +59,10 @@ export default async function DashboardLayout({
                 </div>
             </aside>
 
-            {/* Mobile sidebar (hamburger) */}
             <MobileSidebar email={user.email ?? ""} role={role} />
 
-            {/* Main content */}
-            <main className="min-h-screen w-full lg:ml-60">
-                {/* Mobile top bar */}
-                <div className="sticky top-0 z-20 flex items-center justify-between border-b border-slate-200 bg-white/80 px-4 py-3 backdrop-blur-md lg:hidden">
+            <main className="min-h-screen w-full lg:ml-72">
+                <div className="sticky top-0 z-20 flex items-center justify-between border-b border-slate-200/80 bg-white/80 px-4 py-3 backdrop-blur-md lg:hidden">
                     <div className="flex items-center gap-3">
                         <div className="text-lg font-extrabold tracking-tight text-slate-900">
                             plus<span className="text-blue-500">.</span>
@@ -77,7 +70,7 @@ export default async function DashboardLayout({
                     </div>
                     <div className="flex items-center gap-1">
                         <NotificationBell />
-                        <label htmlFor="mobile-nav" className="cursor-pointer rounded-lg p-2 text-slate-600 hover:bg-slate-100">
+                        <label htmlFor="mobile-nav" className="cursor-pointer rounded-xl p-2 text-slate-600 hover:bg-slate-100">
                             <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
