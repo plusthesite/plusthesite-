@@ -23,7 +23,7 @@ const COPY = {
             { value: "< 10m", label: "from brief to draft" },
             { value: "1 flow", label: "strategy to output" },
         ],
-        pills: ["Campaign Planner", "Visual Generator", "Repurpose Engine", "Growth Toolkit"],
+        pills: ["Planner Campaign", "Generator Visual", "Mesin Repurpose", "Toolkit Growth"],
         checklist: [
             "Build monthly campaign plans in minutes",
             "Generate on-brand visuals faster",
@@ -185,7 +185,7 @@ export const StudioLanding: React.FC<{ onStart: () => void; onLoginClick: () => 
                                     <h2 className="mt-1 text-2xl font-semibold tracking-tight">{c.previewTitle}</h2>
                                 </div>
                                 <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-semibold text-emerald-200">
-                                    Live
+                                    {locale === "id" ? "Aktif" : "Live"}
                                 </span>
                             </div>
 
@@ -202,9 +202,9 @@ export const StudioLanding: React.FC<{ onStart: () => void; onLoginClick: () => 
                                             <div className="min-w-0">
                                                 <p className="text-sm font-semibold text-white">{item}</p>
                                                 <p className="mt-1 text-xs text-slate-400">
-                                                    {index === 0 && "Strategy locked, ready for production."}
-                                                    {index === 1 && "Creative output aligned with the active campaign."}
-                                                    {index === 2 && "Distribution assets queued for the next publish wave."}
+                                                    {index === 0 && (locale === "id" ? "Strategi sudah final dan siap masuk produksi." : "Strategy locked, ready for production.")}
+                                                    {index === 1 && (locale === "id" ? "Output kreatif sudah selaras dengan campaign aktif." : "Creative output aligned with the active campaign.")}
+                                                    {index === 2 && (locale === "id" ? "Aset distribusi sudah antre untuk gelombang posting berikutnya." : "Distribution assets queued for the next publish wave.")}
                                                 </p>
                                             </div>
                                         </div>
@@ -213,7 +213,9 @@ export const StudioLanding: React.FC<{ onStart: () => void; onLoginClick: () => 
                             </div>
 
                             <div className="mt-5 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-400 p-4 text-slate-950">
-                                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-900/70">Operator note</p>
+                                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-900/70">
+                                    {locale === "id" ? "Catatan operator" : "Operator note"}
+                                </p>
                                 <p className="mt-2 text-sm font-semibold">{c.previewFoot}</p>
                             </div>
                         </div>
