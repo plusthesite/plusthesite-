@@ -1,17 +1,22 @@
 import type { Metadata } from "next";
 import { productMetadata } from "@/lib/seo";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+    params,
+}: Readonly<{ params: Promise<{ locale: string }> }>): Promise<Metadata> {
     const { locale } = await params;
+
     return productMetadata({
         locale,
         path: "/ai-video-generator",
-        title: "AI Video Generator — plus.",
-        description: "Text-to-Video generation for seamless integration and engaging multimedia content. Create professional videos in minutes, not days.",
+        title: "AI Video Generator - Scripted Drafts, Captions & Format Scaling | plus.",
+        description:
+            "AI video generation support for promo drafts, explainer formats, caption flow, and faster multi-format video production.",
     });
 }
 
-// Service + Offer (IDR) + Breadcrumb JSON-LD is emitted by ProductPageTemplate.
-export default function AiVideoGeneratorLayout({ children }: { children: React.ReactNode }) {
+export default function AiVideoGeneratorLayout({
+    children,
+}: Readonly<{ children: React.ReactNode }>) {
     return <>{children}</>;
 }
