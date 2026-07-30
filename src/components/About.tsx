@@ -1,114 +1,138 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, Bot, BriefcaseBusiness, Sparkles } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { useT } from "@/i18n/I18nProvider";
+import { useLocale, useT } from "@/i18n/I18nProvider";
 
 export default function About() {
     const ref = useScrollReveal();
     const t = useT();
+    const locale = useLocale();
+
+    const pillars = [
+        {
+            icon: Bot,
+            title: locale === "id" ? "AI yang benar-benar dipakai" : "AI that actually gets used",
+            body:
+                locale === "id"
+                    ? "Kami fokus pada workflow yang membantu tim bergerak lebih cepat, bukan demo AI yang menarik tapi tidak masuk operasi."
+                    : "We focus on workflows that help teams move faster, not AI demos that look impressive but never fit operations.",
+        },
+        {
+            icon: Sparkles,
+            title: locale === "id" ? "Creative taste tetap manusia" : "Creative taste stays human",
+            body:
+                locale === "id"
+                    ? "Kecepatan penting, tapi hasil akhir tetap perlu rasa, seleksi, dan arah visual yang sengaja dibentuk."
+                    : "Speed matters, but the final output still needs taste, selection, and visual direction shaped with intent.",
+        },
+        {
+            icon: BriefcaseBusiness,
+            title: locale === "id" ? "Dibangun untuk tim operasional" : "Built for operating teams",
+            body:
+                locale === "id"
+                    ? "Kami merancang sistem yang benar-benar bisa dipakai tim sales, marketing, support, dan produk setelah launch."
+                    : "We design systems that sales, marketing, support, and product teams can actually keep using after launch.",
+        },
+    ];
+
+    const stats = [
+        { value: "AI+", label: t.about.statPoweredLabel },
+        { value: "6+", label: t.about.statProductsLabel },
+        { value: "5+", label: t.about.statToolsLabel },
+    ];
 
     return (
-        <section id="about" className="py-24 lg:py-32 bg-background">
+        <section id="about" className="bg-white py-24 text-slate-950 lg:py-32 dark:bg-slate-950 dark:text-white">
             <div ref={ref} className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="flex flex-col items-center gap-12 lg:flex-row lg:items-center lg:gap-16">
-                    {/* Left images */}
-                    <div className="relative hidden w-64 flex-shrink-0 lg:block fade-up">
-                        <div className="clip-parallelogram overflow-hidden rounded-xl shadow-lg">
-                            <Image
-                                src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=500&q=80&auto=format"
-                                alt="Business collaboration"
-                                width={260}
-                                height={360}
-                                className="h-80 w-full object-cover img-zoom"
-                            />
-                        </div>
-                        <div className="clip-parallelogram mt-4 overflow-hidden rounded-xl shadow-lg">
-                            <Image
-                                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&q=80&auto=format"
-                                alt="Team collaboration"
-                                width={260}
-                                height={260}
-                                className="h-56 w-full object-cover img-zoom"
-                            />
-                        </div>
-                    </div>
-
-                    {/* Center text */}
-                    <div className="flex-1 text-center">
-                        <span className="fade-up inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary">
+                <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+                    <div className="fade-up">
+                        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-700 dark:text-blue-300">
                             {t.about.tag}
-                        </span>
-                        <h2 className="fade-up fade-up-delay-1 mt-5 text-4xl font-bold tracking-tight text-[#0F172A] dark:text-[#F8FAFC] sm:text-5xl lg:text-6xl">
+                        </p>
+                        <h2 className="mt-5 text-4xl font-semibold tracking-[-0.045em] text-slate-950 sm:text-5xl lg:text-6xl dark:text-white">
                             {t.about.titleLine1}
-                            <br />
-                            <span className="gradient-text">{t.about.titleLine2}</span>
+                            <span className="block text-blue-700 dark:text-blue-300">{t.about.titleLine2}</span>
                         </h2>
-                        <p className="fade-up fade-up-delay-2 mx-auto mt-6 max-w-md text-base leading-relaxed text-[#475569] dark:text-[#CBD5E1]">
+                        <p className="mt-6 max-w-xl text-base leading-7 text-slate-600 dark:text-slate-300">
                             {t.about.description}
                         </p>
 
-                        {/* Stats row */}
-                        <div className="fade-up fade-up-delay-3 mt-10 flex justify-center gap-10">
-                            <div>
-                                <p className="text-3xl font-bold text-[#0F172A] dark:text-[#F8FAFC]">AI+</p>
-                                <p className="mt-1 text-xs font-medium uppercase tracking-wider text-[#64748B] dark:text-[#94A3B8]">{t.about.statPoweredLabel}</p>
-                            </div>
-                            <div className="h-12 w-px bg-slate-200 dark:bg-[#1E293B]" />
-                            <div>
-                                <p className="text-3xl font-bold text-[#0F172A] dark:text-[#F8FAFC]">6+</p>
-                                <p className="mt-1 text-xs font-medium uppercase tracking-wider text-[#64748B] dark:text-[#94A3B8]">{t.about.statProductsLabel}</p>
-                            </div>
-                            <div className="h-12 w-px bg-slate-200 dark:bg-[#1E293B]" />
-                            <div>
-                                <p className="text-3xl font-bold text-[#0F172A] dark:text-[#F8FAFC]">5+</p>
-                                <p className="mt-1 text-xs font-medium uppercase tracking-wider text-[#64748B] dark:text-[#94A3B8]">{t.about.statToolsLabel}</p>
-                            </div>
+                        <div className="mt-10 grid gap-4 sm:grid-cols-3">
+                            {stats.map((stat) => (
+                                <div
+                                    key={stat.label}
+                                    className="rounded-[1.4rem] border border-slate-200 bg-slate-50 px-5 py-5 dark:border-white/10 dark:bg-white/[0.04]"
+                                >
+                                    <p className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">
+                                        {stat.value}
+                                    </p>
+                                    <p className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+                                        {stat.label}
+                                    </p>
+                                </div>
+                            ))}
                         </div>
+
+                        <Link
+                            href={`/${locale}/digital-agency`}
+                            className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-slate-950 transition hover:text-blue-700 dark:text-white dark:hover:text-blue-300"
+                        >
+                            <span>{locale === "id" ? "Lihat cara kami bekerja" : "See how we work"}</span>
+                            <ArrowRight className="h-4 w-4" />
+                        </Link>
                     </div>
 
-                    {/* Right image */}
-                    <div className="relative hidden w-64 flex-shrink-0 lg:block fade-up fade-up-delay-2">
-                        <div className="clip-parallelogram overflow-hidden rounded-xl shadow-lg">
-                            <Image
-                                src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=500&q=80&auto=format"
-                                alt="Modern workspace"
-                                width={260}
-                                height={360}
-                                className="h-80 w-full object-cover img-zoom"
-                            />
+                    <div className="fade-up fade-up-delay-2 grid gap-5">
+                        <div className="grid gap-5 md:grid-cols-[0.95fr_1.05fr]">
+                            <div className="overflow-hidden rounded-[1.8rem] border border-slate-200 bg-slate-100 dark:border-white/10 dark:bg-white/[0.04]">
+                                <Image
+                                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&q=80&auto=format"
+                                    alt="Team collaboration"
+                                    width={800}
+                                    height={700}
+                                    className="h-full min-h-[280px] w-full object-cover"
+                                />
+                            </div>
+                            <div className="rounded-[1.8rem] border border-slate-200 bg-slate-950 p-6 text-white dark:border-white/10">
+                                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">
+                                    plus. operating model
+                                </p>
+                                <p className="mt-6 text-2xl font-semibold tracking-tight">
+                                    {locale === "id" ? "Bukan sekadar agency. Ini rhythm kerja digital yang lebih rapat." : "Not just an agency. A tighter digital operating rhythm."}
+                                </p>
+                                <p className="mt-4 text-sm leading-7 text-white/70">
+                                    {locale === "id"
+                                        ? "Kami menyatukan AI, creative, content, dan operator workflow supaya ide tidak berhenti di deck lalu mati di eksekusi."
+                                        : "We connect AI, creative, content, and operator workflows so ideas do not stop at the deck and die during execution."}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                {/* Mobile images row */}
-                <div className="fade-up mt-12 grid grid-cols-3 gap-4 lg:hidden">
-                    <div className="overflow-hidden rounded-xl shadow-md">
-                        <Image
-                            src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=300&q=80&auto=format"
-                            alt="Business collaboration"
-                            width={200}
-                            height={200}
-                            className="h-32 w-full object-cover"
-                        />
-                    </div>
-                    <div className="overflow-hidden rounded-xl shadow-md">
-                        <Image
-                            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=300&q=80&auto=format"
-                            alt="Modern workspace"
-                            width={200}
-                            height={200}
-                            className="h-32 w-full object-cover"
-                        />
-                    </div>
-                    <div className="overflow-hidden rounded-xl shadow-md">
-                        <Image
-                            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=300&q=80&auto=format"
-                            alt="Team collaboration"
-                            width={200}
-                            height={200}
-                            className="h-32 w-full object-cover"
-                        />
+                        <div className="grid gap-4 md:grid-cols-3">
+                            {pillars.map((pillar) => {
+                                const Icon = pillar.icon;
+
+                                return (
+                                    <div
+                                        key={pillar.title}
+                                        className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5 dark:border-white/10 dark:bg-white/[0.04]"
+                                    >
+                                        <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-100 text-blue-700 dark:bg-blue-400/10 dark:text-blue-300">
+                                            <Icon className="h-5 w-5" />
+                                        </span>
+                                        <h3 className="mt-5 text-lg font-semibold tracking-[-0.02em] text-slate-950 dark:text-white">
+                                            {pillar.title}
+                                        </h3>
+                                        <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
+                                            {pillar.body}
+                                        </p>
+                                    </div>
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>
