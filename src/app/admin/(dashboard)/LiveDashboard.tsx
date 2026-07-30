@@ -23,10 +23,11 @@ function fmtDate(d: string) {
 export function LiveDashboard({ initial }: { initial: DashboardStats }) {
     const [stats, setStats] = useState(initial);
     const [secondsAgo, setSecondsAgo] = useState(0);
-    const fetchedAt = useRef(Date.now());
+    const fetchedAt = useRef(0);
 
     useEffect(() => {
         let active = true;
+        fetchedAt.current = new Date().getTime();
 
         async function refresh() {
             try {
@@ -35,7 +36,7 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
                 const data = (await res.json()) as DashboardStats;
                 if (active) {
                     setStats(data);
-                    fetchedAt.current = Date.now();
+                    fetchedAt.current = new Date().getTime();
                     setSecondsAgo(0);
                 }
             } catch {
@@ -44,7 +45,7 @@ export function LiveDashboard({ initial }: { initial: DashboardStats }) {
         }
 
         const poll = setInterval(refresh, 12_000);
-        const tick = setInterval(() => setSecondsAgo(Math.round((Date.now() - fetchedAt.current) / 1000)), 1_000);
+        const tick = setInterval(() => setSecondsAgo(Math.round((new Date().getTime() - fetchedAt.current) / 1000)), 1_000);
         // Refresh immediately when the tab regains focus.
         const onVisible = () => { if (document.visibilityState === "visible") refresh(); };
         document.addEventListener("visibilitychange", onVisible);

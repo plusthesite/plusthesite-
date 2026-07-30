@@ -32,7 +32,7 @@ export default async function TasksPage() {
         : { data: [] };
     const tasks = (data ?? []) as Task[];
 
-    const now = Date.now();
+    const now = new Date().getTime();
     const overdue = tasks.filter((t) => t.due_at && new Date(t.due_at).getTime() < now);
 
     return (

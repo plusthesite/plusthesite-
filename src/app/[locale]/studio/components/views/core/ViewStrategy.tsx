@@ -40,7 +40,13 @@ export const ViewStrategy: React.FC<{ addNotification: (t: 'success' | 'error', 
         }
         setTrendingLoading(false);
     }, []);
-    useEffect(() => { loadTrending(); }, [loadTrending]);
+    useEffect(() => {
+        const timer = window.setTimeout(() => {
+            void loadTrending();
+        }, 0);
+
+        return () => window.clearTimeout(timer);
+    }, [loadTrending]);
 
     const loadSaved = useCallback(async () => {
         if (!supabase) return;
@@ -49,7 +55,13 @@ export const ViewStrategy: React.FC<{ addNotification: (t: 'success' | 'error', 
         const { data } = await supabase.from('strategies').select('id, title, brief, result, created_at').order('created_at', { ascending: false }).limit(8);
         if (data) setSaved(data as SavedStrategy[]);
     }, []);
-    useEffect(() => { loadSaved(); }, [loadSaved]);
+    useEffect(() => {
+        const timer = window.setTimeout(() => {
+            void loadSaved();
+        }, 0);
+
+        return () => window.clearTimeout(timer);
+    }, [loadSaved]);
 
     const deleteStrategy = async (id: string) => {
         if (!supabase) return;

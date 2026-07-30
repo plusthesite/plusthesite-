@@ -1,6 +1,5 @@
-import Link from "next/link";
 import { getSupabaseAdmin } from "@/lib/supabase";
-import { SERVICES, serviceName, formatIDR } from "@/lib/services";
+import { SERVICES, formatIDR } from "@/lib/services";
 
 export const dynamic = "force-dynamic";
 
@@ -12,6 +11,7 @@ interface Lead {
     created_at: string;
 }
 interface Opp {
+    name: string | null;
     service: string | null;
     stage: string;
     value: number;
@@ -29,7 +29,7 @@ export default async function ReportsPage() {
 
     const [leadsRes, oppsRes] = await Promise.all([
         supabase.from("leads").select("service, status, source, value, created_at"),
-        supabase.from("opportunities").select("service, stage, value, owner, source, created_at, updated_at"),
+        supabase.from("opportunities").select("name, service, stage, value, owner, source, created_at, updated_at"),
     ]);
     const leads = (leadsRes.data ?? []) as Lead[];
     const opps = (oppsRes.data ?? []) as Opp[];
@@ -69,12 +69,12 @@ export default async function ReportsPage() {
     const maxSourceLeads = Math.max(...sourcePerf.map((s) => s.total), 1);
 
     // ─── Stale Deals (no update in 14+ days, not won/lost) ───
-    const staleThreshold = Date.now() - 14 * 86_400_000;
+    const now = new Date().getTime();
     const staleDeals = opps
         .filter((o) => o.stage !== "won" && o.stage !== "lost")
         .map((o) => {
             const lastTouch = o.updated_at ? new Date(o.updated_at).getTime() : new Date(o.created_at).getTime();
-            const daysStale = Math.floor((Date.now() - lastTouch) / 86_400_000);
+            const daysStale = Math.floor((now - lastTouch) / 86_400_000);
             return { ...o, daysStale };
         })
         .filter((o) => o.daysStale >= 14)
@@ -232,7 +232,7 @@ export default async function ReportsPage() {
                             <tbody className="divide-y divide-amber-100">
                                 {staleDeals.map((d, i) => (
                                     <tr key={i} className="transition-colors hover:bg-amber-50/50">
-                                        <td className="px-5 py-3 font-semibold text-slate-800">{(d as any).name ?? d.service ?? "Deal"}</td>
+                                        <td className="px-5 py-3 font-semibold text-slate-800">{d.name ?? d.service ?? "Deal"}</td>
                                         <td className="px-5 py-3"><span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold capitalize text-slate-600">{d.stage}</span></td>
                                         <td className="px-5 py-3 text-right font-semibold text-slate-700">{formatIDR(d.value, true)}</td>
                                         <td className="px-5 py-3 text-slate-600">{d.owner ?? "—"}</td>

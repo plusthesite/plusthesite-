@@ -97,7 +97,8 @@ export default async function OpportunitiesPage({
     if (ownerFilter) visible = visible.filter((o) => ownerFilter === "__unassigned__" ? !o.owner : o.owner === ownerFilter);
 
     // Overdue follow-up nudge — open deals whose next action date has passed.
-    const overdue = visible.filter((o) => o.stage !== "won" && o.stage !== "lost" && o.next_action_at && new Date(o.next_action_at).getTime() < Date.now()).length;
+    const now = new Date().getTime();
+    const overdue = visible.filter((o) => o.stage !== "won" && o.stage !== "lost" && o.next_action_at && new Date(o.next_action_at).getTime() < now).length;
 
     // Owner filter chips preserve the active service filter.
     const ownerBase = new URLSearchParams();

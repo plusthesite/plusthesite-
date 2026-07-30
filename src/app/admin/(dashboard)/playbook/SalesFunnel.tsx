@@ -10,6 +10,10 @@ const FUNNEL = [
     { key: "negotiation", label: "Negotiation", color: "from-amber-400 to-amber-500" },
 ];
 
+function FunnelArrow() {
+    return <div className="hidden shrink-0 self-center text-slate-300 sm:block">→</div>;
+}
+
 export async function SalesFunnel() {
     const supabase = getSupabaseAdmin();
     let leadsCount = 0;
@@ -38,16 +42,14 @@ export async function SalesFunnel() {
         </Link>
     );
 
-    const Arrow = () => <div className="hidden shrink-0 self-center text-slate-300 sm:block">→</div>;
-
     return (
         <div>
             {/* Top-level journey */}
             <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch sm:gap-2">
                 {node("Leads", leadsCount, null, "/admin/leads", "text-slate-900", "prospek masuk")}
-                <Arrow />
+                <FunnelArrow />
                 {node("Open Pipeline", open.length, val(open), "/admin/opportunities/board", "text-indigo-600", "deal aktif")}
-                <Arrow />
+                <FunnelArrow />
                 {node("Closed Won", won.length, val(won), "/admin/opportunities/board", "text-emerald-600", "→ service aktif 🎉")}
             </div>
 

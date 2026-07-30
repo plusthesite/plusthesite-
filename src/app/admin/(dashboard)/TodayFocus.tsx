@@ -36,7 +36,7 @@ export async function TodayFocus() {
         .sort((a, b) => b.score - a.score)
         .slice(0, 5);
     const tasks = (taskRes.data ?? []) as Task[];
-    const now = Date.now();
+    const now = new Date().getTime();
 
     return (
         <section className="mt-8">
