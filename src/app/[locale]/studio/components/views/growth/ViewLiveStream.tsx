@@ -190,11 +190,11 @@ export const ViewLiveStream: React.FC<{ addNotification: (t: 'success' | 'error'
                 <div className="bg-card-bg border border-border rounded-2xl flex-1 flex flex-col overflow-hidden shadow-lg transition-colors min-h-[300px]">
                     <div className="p-3 border-b border-border bg-surface">
                         <h4 className="text-xs font-bold text-foreground uppercase tracking-wider">Live Chat</h4>
-                        <p className="text-[10px] text-muted mt-0.5">Pratinjau lokal — belum terhubung ke penonton nyata</p>
+                        <p className="text-[10px] text-muted mt-0.5">Mode rehearsal untuk host: cek alur kamera, chat, dan pin produk sebelum siaran publik</p>
                     </div>
                     <div className="flex-1 p-3 overflow-y-auto space-y-3 custom-scrollbar">
                         {chatMessages.length === 0 && (
-                            <p className="py-6 text-center text-[11px] text-muted">Belum ada chat. Ketik pesan sebagai Host di bawah.</p>
+                            <p className="py-6 text-center text-[11px] text-muted">Belum ada percakapan rehearsal. Kirim pesan sebagai host untuk menguji alur siaran.</p>
                         )}
                         {chatMessages.map((c, i) => (
                             <div key={i} className="flex gap-2 items-start animate-in slide-in-from-bottom-2">
@@ -207,7 +207,7 @@ export const ViewLiveStream: React.FC<{ addNotification: (t: 'success' | 'error'
                         ))}
                     </div>
                     <div className="p-3 border-t border-border bg-surface flex gap-2">
-                        <input value={hostMsg} onChange={e => setHostMsg(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') sendHostMessage(); }} placeholder="Type as Host..." className="bg-background border border-border text-foreground text-xs rounded-lg px-3 py-2 flex-1 outline-none focus:ring-1 focus:ring-primary transition-all" />
+                        <input value={hostMsg} onChange={e => setHostMsg(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') sendHostMessage(); }} placeholder="Tulis simulasi pesan host..." className="bg-background border border-border text-foreground text-xs rounded-lg px-3 py-2 flex-1 outline-none focus:ring-1 focus:ring-primary transition-all" />
                         <button onClick={sendHostMessage} disabled={!hostMsg.trim()} className="bg-primary hover:bg-primary-dark p-2 rounded-lg text-white transition-colors disabled:opacity-50"><Send size={14} /></button>
                     </div>
                 </div>
@@ -237,7 +237,7 @@ export const ViewLiveStream: React.FC<{ addNotification: (t: 'success' | 'error'
                         {loadingProducts ? (
                             <p className="py-4 text-center text-[11px] text-muted flex items-center justify-center gap-1.5"><Loader2 size={13} className="animate-spin" /> Memuat katalog...</p>
                         ) : products.length === 0 ? (
-                            <p className="py-4 text-center text-[11px] text-muted">Belum ada produk. Klik <span className="font-bold text-primary">+ Tambah</span> untuk menyimpan produk pertama.</p>
+                            <p className="py-4 text-center text-[11px] text-muted">Katalog masih kosong. Tambahkan produk pertama agar pin showcase siap saat siaran dimulai.</p>
                         ) : products.map(p => {
                             const isFeatured = p.id === featuredId;
                             return (

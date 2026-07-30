@@ -33,7 +33,16 @@ export const DocumentationModal: React.FC<DocModalProps> = ({ isOpen, onClose, i
             case 'uml': return <SystemArchitecture />;
             case 'network': return <NetworkTopology />;
             case 'mockup': return <UIMockups />;
-            default: return <div className="p-10 text-center"><Info className="mx-auto mb-4 text-slate-300" size={48} /><p className="text-slate-500">Konten sedang disiapkan.</p></div>;
+            default:
+                return (
+                    <div className="rounded-3xl border border-slate-200 bg-slate-50 p-10 text-center dark:border-white/10 dark:bg-white/5">
+                        <Info className="mx-auto mb-4 text-slate-300 dark:text-slate-500" size={48} />
+                        <h3 className="text-lg font-bold text-slate-800 dark:text-white">Ruang dokumentasi aktif</h3>
+                        <p className="mx-auto mt-2 max-w-md text-sm text-slate-500 dark:text-slate-400">
+                            Pilih tab di samping untuk membuka panduan kerja, arsitektur sistem, atau referensi visual Studio.
+                        </p>
+                    </div>
+                );
         }
     };
 
@@ -45,7 +54,7 @@ export const DocumentationModal: React.FC<DocModalProps> = ({ isOpen, onClose, i
                 <div className="w-full md:w-64 bg-slate-50 dark:bg-slate-950/50 border-b md:border-b-0 md:border-r border-slate-200 dark:border-white/5 flex flex-col">
                     <div className="p-6 border-b border-slate-200 dark:border-white/5">
                         <div className="flex items-center gap-2 text-brand font-black text-xl"><BookOpen className="fill-brand" /> PLUS<span className="text-slate-800 dark:text-white font-light">Docs</span></div>
-                        <p className="text-xs text-slate-500 mt-1 pl-8">Documentation & Help Center</p>
+                        <p className="text-xs text-slate-500 mt-1 pl-8">Playbook, arsitektur, dan panduan operasional</p>
                     </div>
                     <div className="flex-1 overflow-y-auto py-4 px-3 space-y-1">
                         {tabs.map((tab) => (
@@ -66,7 +75,7 @@ export const DocumentationModal: React.FC<DocModalProps> = ({ isOpen, onClose, i
                     <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-white/5">
                         <div>
                             <h2 className="text-2xl font-bold text-slate-800 dark:text-white">{tabs.find(t => t.id === activeTab)?.label}</h2>
-                            <p className="text-sm text-slate-500 dark:text-slate-400">Viewing documentation for current session.</p>
+                            <p className="text-sm text-slate-500 dark:text-slate-400">Dokumentasi yang relevan untuk workspace Studio saat ini.</p>
                         </div>
                         <button onClick={onClose} className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 transition-colors text-slate-500 hover:text-red-500">
                             <X size={24} />

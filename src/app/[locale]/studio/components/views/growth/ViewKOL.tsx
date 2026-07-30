@@ -154,17 +154,17 @@ export const ViewKOL: React.FC<{ addNotification: (t: 'success' | 'error', m: st
             ) : !supabase ? (
                 <div className="flex flex-col items-center justify-center gap-2 py-16 bg-card-bg border border-dashed border-border rounded-2xl text-center">
                     <Loader2 size={28} className="text-muted-light" />
-                    <p className="text-sm text-muted max-w-xs">Katalog KOL belum terhubung ke database.</p>
+                    <p className="text-sm text-muted max-w-xs">Katalog KOL belum terhubung ke sumber data. Workspace tetap siap, dan katalog akan muncul otomatis saat integrasi aktif.</p>
                 </div>
             ) : kols.length === 0 ? (
                 <div className="flex flex-col items-center justify-center gap-2 py-16 bg-card-bg border border-dashed border-border rounded-2xl text-center">
                     <Users2 size={28} className="text-muted-light" />
-                    <p className="text-sm text-muted max-w-xs">Belum ada KOL di katalog.</p>
+                    <p className="text-sm text-muted max-w-xs">Belum ada profil KOL di katalog. Begitu data masuk, tim bisa langsung filter, shortlist, dan susun brief dari layar ini.</p>
                 </div>
             ) : filtered.length === 0 ? (
                 <div className="flex flex-col items-center justify-center gap-2 py-16 bg-card-bg border border-dashed border-border rounded-2xl text-center">
                     <Search size={28} className="text-muted-light" />
-                    <p className="text-sm text-muted max-w-xs">Tidak ada KOL yang cocok dengan filter.</p>
+                    <p className="text-sm text-muted max-w-xs">Tidak ada KOL yang cocok dengan filter saat ini. Coba longgarkan kategori, rentang harga, atau kata kunci pencarian.</p>
                 </div>
             ) : (
             <div id="kol-list" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
