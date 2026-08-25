@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
+import Projects from "@/components/Projects";
 import Products from "@/components/Features";
 import AIFeatures from "@/components/AIFeatures";
 import BlogSection from "@/components/BlogSection";
@@ -40,6 +41,7 @@ export default async function Home({
       <Navbar />
       <Hero />
       <About />
+      <Projects />
       <Products />
       <AIFeatures />
       <BlogSection />

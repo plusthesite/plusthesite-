@@ -973,3 +973,423 @@ html.lang-transition::view-transition-new(root) {
   }
 }
 
+
+/* ═══════════════════════════════════════════════════
+   plus. — ANIMATED LOGO (motion graphics)
+   Vector trace of the wordmark, split into the blue
+   "plus" mark and the l / u / s / . glyphs so each
+   part can be timed on its own.
+   ═══════════════════════════════════════════════════ */
+.plus-logo {
+  --logo-mark: #0c74eb;
+  --logo-word: #020d1d;
+  overflow: visible;
+}
+
+.plus-logo--light {
+  --logo-mark: #ffffff;
+  --logo-word: #ffffff;
+}
+
+.plus-logo__mark,
+.plus-logo__glyph {
+  transform-box: fill-box;
+}
+
+.plus-logo__mark {
+  transform-origin: 50% 50%;
+}
+
+.plus-logo__glyph {
+  transform-origin: 50% 100%;
+}
+
+.plus-logo__mark .plus-logo__fill {
+  fill: var(--logo-mark);
+}
+
+.plus-logo__glyph .plus-logo__fill {
+  fill: var(--logo-word);
+}
+
+.plus-logo__mark .plus-logo__stroke {
+  stroke: var(--logo-mark);
+}
+
+.plus-logo__glyph .plus-logo__stroke {
+  stroke: var(--logo-word);
+}
+
+.plus-logo__stroke {
+  fill: none;
+  stroke-width: 6;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  opacity: 0;
+}
+
+/* ─── Intro: plays once ─── */
+.plus-logo--animate .plus-logo__stroke {
+  animation: logoDraw 900ms cubic-bezier(0.65, 0, 0.35, 1) both;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+.plus-logo--animate .plus-logo__fill {
+  animation: logoFillIn 500ms ease-out both;
+  animation-delay: calc(var(--i, 0) * 90ms + 520ms);
+}
+
+.plus-logo--animate .plus-logo__mark {
+  animation: logoMarkIn 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.plus-logo--animate .plus-logo__glyph {
+  animation: logoGlyphIn 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 90ms + 300ms);
+}
+
+@keyframes logoDraw {
+  0% {
+    opacity: 1;
+    stroke-dashoffset: 1;
+  }
+
+  70% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    opacity: 0;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes logoFillIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes logoMarkIn {
+  0% {
+    transform: rotate(-90deg) scale(0.72);
+  }
+
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+@keyframes logoGlyphIn {
+  0% {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Loop: hero lockup, one 6s cycle ─── */
+.plus-logo--loop .plus-logo__stroke {
+  animation: logoDrawCycle 6s cubic-bezier(0.65, 0, 0.35, 1) infinite both;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+.plus-logo--loop .plus-logo__fill {
+  animation: logoFillCycle 6s ease-out infinite both;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+.plus-logo--loop .plus-logo__mark {
+  animation: logoMarkCycle 6s cubic-bezier(0.22, 1, 0.36, 1) infinite both;
+}
+
+.plus-logo--loop .plus-logo__glyph {
+  animation: logoGlyphCycle 6s cubic-bezier(0.22, 1, 0.36, 1) infinite both;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+@keyframes logoDrawCycle {
+
+  0%,
+  2% {
+    opacity: 1;
+    stroke-dashoffset: 1;
+  }
+
+  14% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+
+  22%,
+  100% {
+    opacity: 0;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes logoFillCycle {
+
+  0%,
+  10% {
+    opacity: 0;
+  }
+
+  20%,
+  88% {
+    opacity: 1;
+  }
+
+  97%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes logoMarkCycle {
+  0% {
+    transform: rotate(-90deg) scale(0.72);
+  }
+
+  18%,
+  84% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  100% {
+    transform: rotate(-90deg) scale(0.72);
+  }
+}
+
+@keyframes logoGlyphCycle {
+  0% {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+
+  16%,
+  86% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   LANDING — shader hero + case study surfaces
+   ═══════════════════════════════════════════════════ */
+.text-roll {
+  display: block;
+  overflow: hidden;
+  height: 20px;
+}
+
+.text-roll__inner {
+  display: flex;
+  flex-direction: column;
+  transition: transform 500ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.group:hover .text-roll__inner {
+  transform: translateY(-50%);
+}
+
+.text-roll__line {
+  display: block;
+  height: 20px;
+  line-height: 20px;
+}
+
+.hero-shader-fallback {
+  background:
+    radial-gradient(circle at 18% 22%, rgba(12, 116, 235, 0.18), transparent 42%),
+    radial-gradient(circle at 78% 12%, rgba(56, 189, 248, 0.16), transparent 38%),
+    radial-gradient(circle at 60% 88%, rgba(124, 58, 237, 0.12), transparent 45%);
+}
+
+/* ─── Hero backdrop (CSS fallback for the shader stack) ─── */
+.hero-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  will-change: transform;
+}
+
+.hero-blob-1 {
+  animation: heroDrift 34s ease-in-out infinite;
+}
+
+.hero-blob-2 {
+  animation: heroDrift 44s ease-in-out infinite reverse;
+}
+
+.hero-blob-3 {
+  animation: heroDriftAlt 52s ease-in-out infinite;
+}
+
+@keyframes heroDrift {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(6%, -5%, 0) scale(1.12);
+  }
+}
+
+@keyframes heroDriftAlt {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+
+  50% {
+    transform: translate3d(-7%, 6%, 0) scale(0.92);
+  }
+}
+
+/* Fluted-glass style banding, mirrors the shader layer's angle/frequency */
+.hero-flutes {
+  background-image: repeating-linear-gradient(31deg,
+      rgba(255, 255, 255, 0.55) 0px,
+      rgba(255, 255, 255, 0) 6px,
+      rgba(255, 255, 255, 0) 52px,
+      rgba(255, 255, 255, 0.55) 58px);
+  mix-blend-mode: soft-light;
+  opacity: 0.5;
+}
+
+.dark .hero-flutes {
+  background-image: repeating-linear-gradient(31deg,
+      rgba(255, 255, 255, 0.14) 0px,
+      rgba(255, 255, 255, 0) 6px,
+      rgba(255, 255, 255, 0) 52px,
+      rgba(255, 255, 255, 0.14) 58px);
+  opacity: 0.6;
+}
+
+.hero-grain {
+  background-image: url("/textures/noise.svg");
+  background-size: 260px 260px;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+}
+
+.dark .hero-grain {
+  mix-blend-mode: screen;
+  opacity: 0.07;
+}
+
+/* Theme-driven logo colours — keeps the mark hydration-safe (no JS theme read) */
+.plus-logo--auto {
+  --logo-mark: #0c74eb;
+  --logo-word: #020d1d;
+}
+
+.dark .plus-logo--auto {
+  --logo-mark: #ffffff;
+  --logo-word: #ffffff;
+}
+
+/* The looping logo keyframes end on a hidden frame, so the global
+   reduced-motion override would leave the mark invisible. Pin it instead. */
+@media (prefers-reduced-motion: reduce) {
+
+  .plus-logo__mark,
+  .plus-logo__glyph,
+  .plus-logo__fill {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .plus-logo__stroke {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   3D PLUS MARK — hero backdrop
+   Stacked mask layers form the extrusion; the stage
+   transform is driven by scroll from Plus3D.tsx.
+   ═══════════════════════════════════════════════════ */
+.plus3d {
+  position: absolute;
+  perspective: 1400px;
+  pointer-events: none;
+}
+
+.plus3d__float,
+.plus3d__stage {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.plus3d__float {
+  animation: plus3dFloat 11s ease-in-out infinite;
+}
+
+.plus3d__stage {
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1), opacity 500ms ease-out;
+  transform: rotateX(-14deg) rotateY(24deg) rotateZ(-13deg);
+  will-change: transform;
+}
+
+.plus3d__layer {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: var(--mask);
+  mask-image: var(--mask);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+/* Front face catches the light, so it reads as a solid object. */
+.plus3d__layer:last-child {
+  background-image: linear-gradient(140deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0) 55%);
+}
+
+@keyframes plus3dFloat {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -3.5%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plus3d__float {
+    animation: none !important;
+  }
+
+  .plus3d__stage {
+    transition: none !important;
+  }
+}

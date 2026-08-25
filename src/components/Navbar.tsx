@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type MouseEvent,
+} from "react";
 import { useTheme } from "next-themes";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -8,6 +14,7 @@ import {
   Bot,
   ChevronDown,
   ChevronRight,
+  Clock,
   Headphones,
   LayoutDashboard,
   Menu,
@@ -20,6 +27,7 @@ import {
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Logo from "@/components/Logo";
+import RollingLabel from "@/components/RollingLabel";
 import { useLocale, useT } from "@/i18n/I18nProvider";
 import { locales, localeShort, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/en";
@@ -134,10 +142,12 @@ function ThemeToggle() {
       type="button"
       onClick={toggleTheme}
       className="theme-toggle"
-      aria-label={`Switch to ${isLight ? "dark" : "light"} mode`}
-      title={`Switch to ${isLight ? "dark" : "light"} mode`}
+      aria-label="Toggle theme"
+      title="Toggle theme"
     >
-      {isLight ? <Moon className="theme-icon" /> : <Sun className="theme-icon" />}
+      {/* Both icons render on the server; CSS picks one, so hydration stays clean. */}
+      <Moon className="theme-icon dark:hidden" />
+      <Sun className="theme-icon hidden dark:block" />
     </button>
   );
 }
@@ -255,7 +265,7 @@ function NavAnchor({
     <Link
       href={href}
       onClick={onClick}
-      className={`nav-link text-[13px] font-semibold uppercase tracking-widest transition-colors ${
+      className={`nav-link whitespace-nowrap text-[12px] font-semibold uppercase tracking-[0.14em] transition-colors xl:text-[13px] xl:tracking-widest ${
         scrolled
           ? "text-muted hover:text-foreground"
           : "text-[#0F172A] hover:text-primary dark:text-white/90 dark:hover:text-white"
@@ -305,7 +315,7 @@ function ProductsDropdown({ scrolled }: { scrolled: boolean }) {
         type="button"
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
-        className={`nav-link inline-flex items-center gap-1.5 text-[13px] font-semibold uppercase tracking-widest transition-colors ${
+        className={`nav-link inline-flex items-center gap-1.5 whitespace-nowrap text-[12px] font-semibold uppercase tracking-[0.14em] transition-colors xl:text-[13px] xl:tracking-widest ${
           scrolled
             ? "text-muted hover:text-foreground"
             : "text-[#0F172A] hover:text-primary dark:text-white/90 dark:hover:text-white"
@@ -369,13 +379,46 @@ function ProductsDropdown({ scrolled }: { scrolled: boolean }) {
   );
 }
 
+function LocalClock() {
+  const [time, setTime] = useState<string | null>(null);
+
+  useEffect(() => {
+    const format = new Intl.DateTimeFormat("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      timeZone: "Asia/Jakarta",
+    });
+    const tick = () => setTime(format.format(new Date()));
+
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <span className="hidden items-center gap-1.5 whitespace-nowrap text-[13px] text-slate-600 2xl:inline-flex dark:text-slate-400">
+      <Clock className="h-3.5 w-3.5" />
+      <span className="tabular-nums">{time ?? "--:--"} WIB</span>
+      <span className="text-slate-400 dark:text-slate-500">Jakarta</span>
+    </span>
+  );
+}
+
+/** Scroll state read through an external store: the server and the first client
+ *  render both start at `false`, so the navbar never trips hydration. */
+function subscribeScroll(onChange: () => void) {
+  window.addEventListener("scroll", onChange, { passive: true });
+  return () => window.removeEventListener("scroll", onChange);
+}
+
+const isScrolled = () => window.scrollY > 50;
+const notScrolled = () => false;
+
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(
-    typeof window !== "undefined" ? window.scrollY > 50 : false,
-  );
-  const { resolvedTheme } = useTheme();
+  const scrolled = useSyncExternalStore(subscribeScroll, isScrolled, notScrolled);
   const pathname = usePathname();
   const t = useT();
   const locale = useLocale();
@@ -402,16 +445,15 @@ export default function Navbar() {
   ];
 
   const navLinks = isHome ? homeLinks : subpageLinks;
-  const ctaHref = isHome ? "mailto:plusthesite@gmail.com" : `/${locale}#pricing`;
-  const ctaLabel = isHome ? t.nav.contactUs : t.nav.viewPricing;
+  // Contact goes straight to email until the booking flow is live.
+  const ctaHref = "mailto:plusthesite@gmail.com";
+  const ctaLabel = t.nav.contactUs;
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const currentTheme = resolvedTheme ?? "light";
+  const island = `rounded-full border transition-all duration-300 ${
+    scrolled
+      ? "border-slate-200/80 bg-white/85 shadow-[0_16px_45px_rgba(15,23,42,0.10)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80"
+      : "border-white/50 bg-white/70 shadow-[0_12px_30px_rgba(15,23,42,0.06)] backdrop-blur-md dark:border-white/10 dark:bg-slate-950/55"
+  }`;
 
   return (
     <nav
@@ -419,34 +461,23 @@ export default function Navbar() {
         scrolled ? "py-3" : "py-5"
       }`}
     >
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-6 lg:px-8 2xl:max-w-[1440px]">
+        {/* Island 1 — brand */}
         <div
-          className={`relative flex items-center justify-between rounded-full border px-4 py-3 transition-all duration-300 sm:px-5 ${
-            scrolled
-              ? "border-slate-200/80 bg-white/85 shadow-[0_16px_45px_rgba(15,23,42,0.10)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80"
-              : "border-white/50 bg-white/70 shadow-[0_12px_30px_rgba(15,23,42,0.06)] backdrop-blur-md dark:border-white/10 dark:bg-slate-950/55"
-          }`}
+          className={`${island} flex h-[57px] shrink-0 items-center gap-3 px-4`}
         >
-          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_top_left,_rgba(56,189,248,0.08),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(14,165,233,0.08),_transparent_24%)]" />
+          <Logo variant="auto" href={`/${locale}`} />
+          <span className="hidden h-5 w-px bg-slate-900/10 xl:block dark:bg-white/15" />
+          <p className="hidden whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500 xl:block dark:text-slate-400">
+            Digital agency
+          </p>
+        </div>
 
-          <div className="relative z-10 flex items-center gap-4">
-            <Logo
-              variant={currentTheme === "dark" ? "light" : "dark"}
-              href={`/${locale}`}
-            />
-            <div className="hidden lg:block">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-                {locale === "id" ? "Operating system" : "Operating system"}
-              </p>
-              <p className="mt-1 text-xs text-slate-600 dark:text-slate-300">
-                {locale === "id"
-                  ? "AI, creative, dan delivery dalam satu ritme."
-                  : "AI, creative, and delivery in one rhythm."}
-              </p>
-            </div>
-          </div>
-
-          <div className="relative z-10 hidden items-center gap-8 md:flex">
+        {/* Island 2 — navigation */}
+        <div className="hidden min-w-0 flex-1 justify-center lg:flex">
+          <div
+            className={`${island} flex h-[57px] items-center gap-5 px-6 xl:gap-6`}
+          >
             {navLinks.map((link) =>
               link.hasDropdown ? (
                 <ProductsDropdown key={link.label} scrolled={scrolled} />
@@ -460,47 +491,44 @@ export default function Navbar() {
               ),
             )}
           </div>
+        </div>
 
-          <div className="relative z-10 hidden items-center gap-3 md:flex">
-            <LanguageToggle />
-            <ThemeToggle />
-            {ctaHref.startsWith("mailto:") ? (
-              <a
-                href={ctaHref}
-                className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-semibold text-background shadow-md transition-all hover:scale-[1.03] hover:opacity-90"
-              >
-                {ctaLabel}
-                <ArrowRight className="h-4 w-4" />
-              </a>
-            ) : (
-              <Link
-                href={ctaHref}
-                className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-semibold text-background shadow-md transition-all hover:scale-[1.03] hover:opacity-90"
-              >
-                {ctaLabel}
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            )}
-          </div>
+        {/* Island 3 — status + actions */}
+        <div
+          className={`${island} hidden h-[57px] shrink-0 items-center gap-2 pl-4 pr-2 lg:flex`}
+        >
+          <LocalClock />
+          <LanguageToggle />
+          <ThemeToggle />
+          <a
+            href={ctaHref}
+            className="group inline-flex items-center gap-2.5 rounded-full bg-foreground py-2 pl-4 pr-2 text-[13px] font-semibold text-background shadow-md transition-all hover:opacity-90"
+          >
+            <RollingLabel>{ctaLabel}</RollingLabel>
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-background transition-transform duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:-rotate-45">
+              <ArrowRight className="h-3.5 w-3.5 text-foreground" />
+            </span>
+          </a>
+        </div>
 
-          <div className="relative z-10 flex items-center gap-2 md:hidden">
-            <LanguageToggle />
-            <ThemeToggle />
-            <button
-              type="button"
-              onClick={() => setMobileOpen((value) => !value)}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-900 backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/80 dark:text-white"
-              aria-label="Toggle menu"
-              aria-expanded={mobileOpen}
-            >
-              {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-            </button>
-          </div>
+        {/* Mobile + tablet island */}
+        <div className={`${island} flex h-[57px] items-center gap-2 px-2 lg:hidden`}>
+          <LanguageToggle />
+          <ThemeToggle />
+          <button
+            type="button"
+            onClick={() => setMobileOpen((value) => !value)}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-foreground text-background transition-opacity hover:opacity-90"
+            aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
+          >
+            {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </button>
         </div>
       </div>
 
       <div
-        className={`mx-auto max-w-7xl px-6 transition-all duration-500 ease-in-out lg:px-8 md:hidden ${
+        className={`mx-auto max-w-7xl px-6 transition-all duration-500 ease-in-out lg:hidden lg:px-8 ${
           mobileOpen
             ? "pointer-events-auto max-h-[860px] opacity-100"
             : "pointer-events-none max-h-0 opacity-0"
@@ -583,25 +611,14 @@ export default function Navbar() {
             )}
           </div>
 
-          {ctaHref.startsWith("mailto:") ? (
-            <a
-              href={ctaHref}
-              onClick={() => setMobileOpen(false)}
-              className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-center text-sm font-semibold text-white dark:bg-white dark:text-slate-900"
-            >
-              {ctaLabel}
-              <ArrowRight className="h-4 w-4" />
-            </a>
-          ) : (
-            <Link
-              href={ctaHref}
-              onClick={() => setMobileOpen(false)}
-              className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-center text-sm font-semibold text-white dark:bg-white dark:text-slate-900"
-            >
-              {ctaLabel}
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          )}
+          <a
+            href={ctaHref}
+            onClick={() => setMobileOpen(false)}
+            className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-center text-sm font-semibold text-white dark:bg-white dark:text-slate-900"
+          >
+            {ctaLabel}
+            <ArrowRight className="h-4 w-4" />
+          </a>
         </div>
       </div>
     </nav>

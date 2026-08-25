@@ -1,149 +1,97 @@
 "use client";
 
 import Link from "next/link";
-import {
-  ArrowRight,
-  CheckCircle2,
-  MessageSquareText,
-  Sparkles,
-  Zap,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import AnimatedLogo from "@/components/AnimatedLogo";
+import HeroBackdrop from "@/components/HeroBackdrop";
+import RollingLabel from "@/components/RollingLabel";
 import { useLocale, useT } from "@/i18n/I18nProvider";
 
+/** Starburst used on the credential pill. */
+function Starburst({ className = "" }: { className?: string }) {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 100 100"
+            className={className}
+            aria-hidden
+        >
+            <path d="m19.6 66.5 19.7-11 .3-1-.3-.5h-1l-3.3-.2-11.2-.3L14 53l-9.5-.5-2.4-.5L0 49l.2-1.5 2-1.3 2.9.2 6.3.5 9.5.6 6.9.4L38 49.1h1.6l.2-.7-.5-.4-.4-.4L29 41l-10.6-7-5.6-4.1-3-2-1.5-2-.6-4.2 2.7-3 3.7.3.9.2 3.7 2.9 8 6.1L37 36l1.5 1.2.6-.4.1-.3-.7-1.1L33 25l-6-10.4-2.7-4.3-.7-2.6c-.3-1-.4-2-.4-3l3-4.2L28 0l4.2.6L33.8 2l2.6 6 4.1 9.3L47 29.9l2 3.8 1 3.4.3 1h.7v-.5l.5-7.2 1-8.7 1-11.2.3-3.2 1.6-3.8 3-2L61 2.6l2 2.9-.3 1.8-1.1 7.7L59 27.1l-1.5 8.2h.9l1-1.1 4.1-5.4 6.9-8.6 3-3.5L77 13l2.3-1.8h4.3l3.1 4.7-1.4 4.9-4.4 5.6-3.7 4.7-5.3 7.1-3.2 5.7.3.4h.7l12-2.6 6.4-1.1 7.6-1.3 3.5 1.6.4 1.6-1.4 3.4-8.2 2-9.6 2-14.3 3.3-.2.1.2.3 6.4.6 2.8.2h6.8l12.6 1 3.3 2 1.9 2.7-.3 2-5.1 2.6-6.8-1.6-16-3.8-5.4-1.3h-.8v.4l4.6 4.5 8.3 7.5L89 80.1l.5 2.4-1.3 2-1.4-.2-9.2-7-3.6-3-8-6.8h-.5v.7l1.8 2.7 9.8 14.7.5 4.5-.7 1.4-2.6 1-2.7-.6-5.8-8-6-9-4.7-8.2-.5.4-2.9 30.2-1.3 1.5-3 1.2-2.5-2-1.4-3 1.4-6.2 1.6-8 1.3-6.4 1.2-7.9.7-2.6v-.2H49L43 72l-9 12.3-7.2 7.6-1.7.7-3-1.5.3-2.8L24 86l10-12.8 6-7.9 4-4.6-.1-.5h-.3L17.2 77.4l-4.7.6-2-2 .2-3 1-1 8-5.5Z" />
+        </svg>
+    );
+}
+
 export default function Hero() {
-  const t = useT();
-  const locale = useLocale();
+    const t = useT();
+    const locale = useLocale();
 
-  const metrics = [
-    ["12", locale === "id" ? "Campaign aktif" : "Active campaigns"],
-    ["84%", locale === "id" ? "Respons tertangani" : "Response coverage"],
-    [
-      "3.2x",
-      locale === "id" ? "Ritme kirim lebih cepat" : "Faster shipping rhythm",
-    ],
-  ];
+    return (
+        <section
+            id="hero"
+            className="relative flex min-h-[100svh] flex-col overflow-hidden bg-[#efefef] text-slate-950 dark:bg-[#070b14] dark:text-white"
+        >
+            <HeroBackdrop />
 
-  const flow = [
-    locale === "id" ? "Lead WhatsApp masuk" : "WhatsApp lead captured",
-    locale === "id" ? "Follow-up CRM ditugaskan" : "CRM follow-up assigned",
-    locale === "id" ? "Draft proposal siap" : "Proposal draft ready",
-  ];
+            <div className="relative z-20 flex min-h-[100svh] flex-col">
+                <div className="flex-1" />
 
-  return (
-    <section
-      id="hero"
-      className="relative overflow-hidden bg-[#f3f2ed] pt-28 text-slate-950 dark:bg-slate-950 dark:text-white"
-    >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,_rgba(59,130,246,0.10),_transparent_28%),radial-gradient(circle_at_82%_18%,_rgba(14,165,233,0.10),_transparent_20%)]" />
-      <div className="mx-auto grid min-h-[92dvh] max-w-7xl items-center gap-14 px-6 pb-16 lg:grid-cols-[0.92fr_1.08fr] lg:px-8">
-        <div className="relative z-10 max-w-2xl">
-          <p className="hero-animate inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-sky-700 shadow-sm dark:border-sky-400/20 dark:bg-white/5 dark:text-sky-300">
-            <Sparkles className="h-3.5 w-3.5" />
-            {t.hero.badge}
-          </p>
-
-          <h1 className="hero-animate hero-animate-delay-1 mt-7 text-5xl font-semibold leading-[0.96] tracking-[-0.06em] text-slate-950 sm:text-6xl lg:text-7xl dark:text-white">
-            {t.hero.titleLine1}
-            <span className="block text-sky-700 dark:text-sky-300">
-              {t.hero.titleLine2}
-            </span>
-          </h1>
-
-          <p className="hero-animate hero-animate-delay-2 mt-6 max-w-xl text-lg leading-8 text-slate-600 dark:text-slate-300">
-            {t.hero.description}
-          </p>
-
-          <div className="hero-animate hero-animate-delay-3 mt-9 flex flex-col gap-3 sm:flex-row">
-            <Link
-              href={`/${locale}#products`}
-              className="group inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 active:translate-y-px dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100"
-            >
-              {t.hero.ctaPrimary}
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </Link>
-            <Link
-              href={`/${locale}#pricing`}
-              className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:border-slate-400 active:translate-y-px dark:border-white/15 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
-            >
-              {t.hero.ctaSecondary}
-            </Link>
-          </div>
-
-          <div className="hero-animate hero-animate-delay-3 mt-10 flex flex-wrap gap-3">
-            <span className="rounded-full border border-slate-200 bg-white px-3.5 py-2 text-xs font-medium text-slate-600 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300">
-              {locale === "id" ? "AI + creative + ops" : "AI + creative + ops"}
-            </span>
-            <span className="rounded-full border border-slate-200 bg-white px-3.5 py-2 text-xs font-medium text-slate-600 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300">
-              {locale === "id"
-                ? "Satu ritme untuk banyak workflow"
-                : "One rhythm for many workflows"}
-            </span>
-          </div>
-        </div>
-
-        <div className="hero-animate hero-animate-delay-2 relative z-10">
-          <div className="absolute -left-8 top-12 h-36 w-36 rounded-full bg-sky-300/20 blur-3xl" />
-          <div className="absolute -right-6 bottom-10 h-40 w-40 rounded-full bg-cyan-300/18 blur-3xl" />
-
-          <div className="rounded-[1.8rem] border border-slate-200 bg-white p-3 shadow-[0_30px_90px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-white/5">
-            <div className="rounded-[1.4rem] border border-slate-100 bg-slate-950 p-5 text-white dark:border-white/10">
-              <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">
-                    plus desk
-                  </p>
-                  <p className="mt-1 text-lg font-semibold">
-                    {locale === "id" ? "Launch board" : "Launch board"}
-                  </p>
-                </div>
-                <div className="rounded-full bg-sky-500/15 px-3 py-1 text-xs font-semibold text-sky-200">
-                  {locale === "id" ? "Live" : "Live"}
-                </div>
-              </div>
-
-              <div className="grid gap-3 py-4 sm:grid-cols-3">
-                {metrics.map(([value, label]) => (
-                  <div key={label} className="rounded-xl bg-white/[0.06] p-4">
-                    <p className="text-2xl font-semibold tracking-tight">
-                      {value}
-                    </p>
-                    <p className="mt-1 text-xs text-slate-400">{label}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="grid gap-3 lg:grid-cols-[1.05fr_0.95fr]">
-                <div className="rounded-xl bg-white/[0.06] p-4">
-                  <div className="mb-4 flex items-center gap-2 text-sm font-semibold">
-                    <MessageSquareText className="h-4 w-4 text-sky-300" />
-                    {locale === "id" ? "Alur customer" : "Customer flow"}
-                  </div>
-                  {flow.map((item) => (
-                    <div
-                      key={item}
-                      className="flex items-center gap-3 border-t border-white/10 py-3 text-sm text-slate-300"
-                    >
-                      <CheckCircle2 className="h-4 w-4 text-sky-300" />
-                      {item}
+                <div className="mx-auto w-full max-w-[1440px] px-5 pb-14 sm:px-8 sm:pb-16 lg:px-12 lg:pb-20">
+                    <div className="mb-5 flex flex-wrap items-center gap-x-4 gap-y-3 sm:mb-8">
+                        <AnimatedLogo
+                            href={null}
+                            variant="auto"
+                            size="large"
+                            loop
+                            replayOnHover={false}
+                            className="translate-y-[1px]"
+                        />
+                        <span className="h-4 w-px bg-slate-900/20 dark:bg-white/20" />
+                        <p className="text-[13px] tracking-wide text-slate-900 sm:text-sm dark:text-white/90">
+                            {t.hero.badge}
+                        </p>
                     </div>
-                  ))}
+
+                    <h1 className="max-w-[20ch] text-[clamp(1.75rem,7vw,4.2rem)] font-medium leading-[1.08] tracking-[-0.03em] text-slate-950 sm:max-w-none sm:text-[clamp(2.5rem,5vw,4.2rem)] dark:text-white">
+                        {t.hero.titleLine1}
+                        <br className="hidden sm:block" />
+                        <span className="sm:hidden"> </span>
+                        {t.hero.titleLine2}
+                    </h1>
+
+                    <p className="mt-5 max-w-2xl text-sm leading-[1.65] text-slate-700 sm:mt-6 sm:text-base dark:text-white/70">
+                        {t.hero.description}
+                    </p>
+
+                    <div className="mt-8 flex flex-col gap-4 sm:mt-12 sm:flex-row sm:items-center sm:gap-5">
+                        <Link
+                            href={`/${locale}#products`}
+                            className="group inline-flex w-fit items-center gap-3 rounded-full bg-[#0c74eb] py-2 pl-5 pr-2 text-[13px] font-medium text-white transition-colors duration-300 hover:bg-[#0a5dbc] sm:pl-6 sm:text-sm"
+                        >
+                            <RollingLabel>{t.hero.ctaPrimary}</RollingLabel>
+                            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white transition-transform duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:-rotate-45 sm:h-8 sm:w-8">
+                                <ArrowRight className="h-3.5 w-3.5 text-[#0c74eb]" />
+                            </span>
+                        </Link>
+
+                        <div className="inline-flex w-fit items-center gap-2.5 rounded-[4px] bg-white px-3 py-2 shadow-[0_2px_8px_rgba(0,0,0,0.08)] transition-shadow duration-300 hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)] dark:bg-white/10">
+                            <Starburst className="h-5 w-5 fill-current text-[#0c74eb] sm:h-6 sm:w-6" />
+                            <span className="text-[13px] font-medium text-slate-900 sm:text-sm dark:text-white">
+                                {t.hero.subtitle}
+                            </span>
+                            <span className="rounded bg-slate-900 px-1.5 py-0.5 text-[10px] text-white sm:px-2 sm:text-[11px] dark:bg-white dark:text-slate-950">
+                                {locale === "id" ? "Global" : "Global"}
+                            </span>
+                        </div>
+
+                        <Link
+                            href={`/${locale}#pricing`}
+                            className="w-fit text-[13px] font-medium text-slate-700 underline-offset-4 transition-colors hover:text-slate-950 hover:underline sm:text-sm dark:text-white/70 dark:hover:text-white"
+                        >
+                            {t.hero.ctaSecondary}
+                        </Link>
+                    </div>
                 </div>
-                <div className="rounded-xl bg-gradient-to-br from-sky-500 via-cyan-500 to-indigo-500 p-4 text-white">
-                  <Zap className="h-5 w-5" />
-                  <p className="mt-8 text-3xl font-semibold tracking-tight">
-                    {locale === "id" ? "1 ritme tim" : "1 team rhythm"}
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-white/80">
-                    {locale === "id"
-                      ? "AI, creative, CRM, konten, dan app bergerak di jalur kerja yang sama."
-                      : "AI, creative, CRM, content, and apps move inside the same operating path."}
-                  </p>
-                </div>
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
