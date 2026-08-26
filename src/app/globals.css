@@ -789,6 +789,99 @@ button {
 }
 
 /* ═══════════════════════════════════════════════════
+   DARK MODE SPACE — animated stars behind every section
+   ═══════════════════════════════════════════════════
+   Two fixed layers of pure-CSS stars (box-shadow constellations) drifting at
+   different speeds, plus a deep-space gradient. GPU-only animation; hidden in
+   light mode. */
+.space-stars {
+  display: none;
+}
+
+.dark .space-stars {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 25% 15%, rgba(12, 116, 235, 0.08), transparent 55%),
+    radial-gradient(ellipse at 80% 80%, rgba(56, 189, 248, 0.06), transparent 50%);
+}
+
+.space-stars::before,
+.space-stars::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+  will-change: transform;
+}
+
+/* Far stars: small, slow. */
+.space-stars::before {
+  background-image: radial-gradient(1px 1px at 22px 34px, rgba(255, 255, 255, 0.7), transparent 100%),
+    radial-gradient(1px 1px at 187px 121px, rgba(255, 255, 255, 0.45), transparent 100%),
+    radial-gradient(1.5px 1.5px at 89px 210px, rgba(148, 210, 255, 0.6), transparent 100%),
+    radial-gradient(1px 1px at 260px 60px, rgba(255, 255, 255, 0.5), transparent 100%),
+    radial-gradient(1px 1px at 320px 240px, rgba(255, 255, 255, 0.35), transparent 100%);
+  background-size: 380px 280px;
+  opacity: 0.55;
+  animation: starsDrift 240s linear infinite;
+}
+
+/* Near stars: brighter, faster, subtle twinkle via opacity steps. */
+.space-stars::after {
+  background-image: radial-gradient(1.5px 1.5px at 61px 90px, rgba(255, 255, 255, 0.9), transparent 100%),
+    radial-gradient(1px 1px at 143px 27px, rgba(190, 227, 255, 0.8), transparent 100%),
+    radial-gradient(2px 2px at 210px 160px, rgba(255, 255, 255, 0.75), transparent 100%),
+    radial-gradient(1px 1px at 45px 200px, rgba(255, 255, 255, 0.6), transparent 100%),
+    radial-gradient(1.5px 1.5px at 300px 40px, rgba(148, 210, 255, 0.7), transparent 100%);
+  background-size: 420px 260px;
+  opacity: 0.8;
+  animation: starsDrift 140s linear infinite, starsTwinkle 7s ease-in-out infinite;
+}
+
+@keyframes starsDrift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-420px, -260px, 0);
+  }
+}
+
+@keyframes starsTwinkle {
+
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .space-stars::before,
+  .space-stars::after {
+    animation: none !important;
+  }
+}
+
+/* Dark cards float above the stars: slightly lighter surface + a cool border,
+   so they read as separate from the space background. */
+.dark .space-panel {
+  background: rgba(17, 27, 48, 0.72);
+  border: 1px solid rgba(120, 170, 255, 0.14);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* ═══════════════════════════════════════════════════
    Dark mode ambient glow effects
    ═══════════════════════════════════════════════════ */
 .glow-ambient {
@@ -1377,26 +1470,80 @@ html.lang-transition::view-transition-new(root) {
 
 .plus3d__stage {
   transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1), opacity 360ms ease-out;
-  transform: rotateX(-14deg) rotateY(24deg) rotateZ(-13deg);
+  transform: rotate(-8deg);
   will-change: transform;
 }
 
-.plus3d__layer {
-  position: absolute;
-  inset: 0;
-  -webkit-mask-image: var(--mask);
-  mask-image: var(--mask);
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
+/* ─── Flat 2D mark with a soft glow ─── */
+.plus2d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+  animation: plus2dTilt 9s ease-in-out infinite;
 }
 
-/* Front face catches the light, so it reads as a solid object. */
-.plus3d__layer:last-child {
-  background-image: linear-gradient(140deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0) 55%);
+.plus2d__path {
+  fill: url(#plus2dGradient);
+  fill: #0c74eb;
+  filter: drop-shadow(0 18px 45px rgba(12, 116, 235, 0.35));
+  animation: plus2dGlow 5s ease-in-out infinite;
+}
+
+.dark .plus2d__path {
+  fill: #38bdf8;
+  filter: drop-shadow(0 18px 45px rgba(56, 189, 248, 0.45));
+}
+
+.plus2d__glow {
+  position: absolute;
+  inset: -12%;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(12, 116, 235, 0.28), transparent 65%);
+  animation: plus2dPulse 5s ease-in-out infinite;
+}
+
+.dark .plus2d__glow {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.22), transparent 65%);
+}
+
+@keyframes plus2dTilt {
+
+  0%,
+  100% {
+    transform: rotate(-2deg) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: rotate(3deg) translate3d(0, -3%, 0);
+  }
+}
+
+@keyframes plus2dGlow {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 18px 45px rgba(12, 116, 235, 0.3));
+  }
+
+  50% {
+    filter: drop-shadow(0 22px 60px rgba(12, 116, 235, 0.5));
+  }
+}
+
+@keyframes plus2dPulse {
+
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
 }
 
 @keyframes plus3dFloat {
@@ -1477,7 +1624,7 @@ html.plus-cursor-on [contenteditable] {
   fill: #0c74eb;
 }
 
-/* Hover: blue -> black (dark theme: white -> blue). */
+/* Hover: blue -> black (light theme). */
 .plus-cursor--hover svg {
   fill: #0f172a;
 }
@@ -1486,8 +1633,15 @@ html.plus-cursor-on [contenteditable] {
   fill: #ffffff;
 }
 
+/* Dark theme hover: bright neon blue with a glow. */
+.dark .plus-cursor svg {
+  filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.35));
+}
+
 .dark .plus-cursor--hover svg {
-  fill: #0c74eb;
+  fill: #38bdf8;
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.9))
+    drop-shadow(0 0 14px rgba(56, 189, 248, 0.55));
 }
 
 .plus-cursor--hidden {
@@ -1510,7 +1664,7 @@ html.plus-cursor-on [contenteditable] {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #efefef;
+  background: #ffffff;
   transition: opacity 500ms ease, visibility 0s linear 500ms;
 }
 

@@ -182,6 +182,8 @@ export default async function LocaleLayout({
         <ThemeProvider>
           <Preloader locale={locale} />
           <AuthRedirectCatcher />
+          {/* Animated starfield behind every section (dark mode only) */}
+          <div className="space-stars" aria-hidden />
           {/* Ambient glow effects for dark mode */}
           <div className="glow-ambient glow-ambient-1" aria-hidden="true" />
           <div className="glow-ambient glow-ambient-2" aria-hidden="true" />

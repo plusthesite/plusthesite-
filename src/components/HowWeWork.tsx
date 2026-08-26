@@ -60,7 +60,7 @@ export function HowWeWork() {
     const copy = COPY[locale];
 
     return (
-        <section className="bg-[#f7f5ef] py-24 text-slate-950 lg:py-32 dark:bg-[#0B1120] dark:text-white">
+        <section className="bg-white py-24 text-slate-950 lg:py-32 dark:bg-[#0B1120] dark:text-white">
             <div ref={ref} className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-end">
                     <div className="max-w-2xl">

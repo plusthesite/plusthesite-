@@ -43,7 +43,7 @@ export default function HeroBackdrop() {
 
     return (
         <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden">
-            <div className="absolute inset-0 bg-[#efefef] dark:bg-[#070b14]" />
+            <div className="absolute inset-0 bg-[#ffffff] dark:bg-[#070b14]" />
 
             <div
                 className="hero-blob hero-blob-1 -left-[10%] top-[-12%] h-[52vw] w-[52vw] bg-[radial-gradient(circle,_rgba(12,116,235,0.42),_transparent_68%)]"
@@ -69,7 +69,7 @@ export default function HeroBackdrop() {
 
             <div className="hero-flutes absolute inset-0" aria-hidden />
             <div className="hero-grain absolute inset-0" aria-hidden />
-            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[#efefef] dark:to-[#070b14]" />
+            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[#ffffff] dark:to-[#070b14]" />
         </div>
     );
 }

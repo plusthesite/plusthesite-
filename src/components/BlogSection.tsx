@@ -75,8 +75,8 @@ export default function BlogSection({
               href={`/${locale}/blog/${article.slug}`}
               className={`group flex flex-col overflow-hidden rounded-[1.8rem] border transition ${
                 index === 0
-                  ? "border-slate-950 bg-slate-950 text-white shadow-[0_24px_70px_rgba(15,23,42,0.18)] dark:border-white"
-                  : "border-slate-200 bg-white shadow-[0_12px_35px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white/[0.04]"
+                  ? "border-[#0c74eb] bg-[#0c74eb] text-white shadow-[0_24px_70px_rgba(12,116,235,0.3)] dark:border-sky-400"
+                  : "border-slate-200 bg-white shadow-[0_12px_35px_rgba(15,23,42,0.05)] dark:border-[#2a3b5c] dark:bg-[#131e36]"
               }`}
             >
               <div className="relative h-52 w-full overflow-hidden">
@@ -90,7 +90,7 @@ export default function BlogSection({
                 <div
                   className={`absolute inset-0 ${
                     index === 0
-                      ? "bg-gradient-to-t from-slate-950/80 to-transparent"
+                      ? "bg-gradient-to-t from-[#083a78]/90 via-[#0c74eb]/30 to-transparent"
                       : "bg-gradient-to-t from-slate-950/40 to-transparent"
                   }`}
                 />

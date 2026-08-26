@@ -14,7 +14,7 @@ export default function Hero() {
     return (
         <section
             id="hero"
-            className="relative flex min-h-[100svh] flex-col overflow-hidden bg-[#efefef] text-slate-950 dark:bg-[#070b14] dark:text-white"
+            className="relative flex min-h-[100svh] flex-col overflow-hidden bg-[#ffffff] text-slate-950 dark:bg-[#070b14] dark:text-white"
         >
             <HeroBackdrop />
 

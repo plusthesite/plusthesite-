@@ -22,8 +22,8 @@ function CheckIcon({ highlighted }: { highlighted?: boolean }) {
     <span
       className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
         highlighted
-          ? "bg-sky-100 text-sky-700 dark:bg-sky-400/10 dark:text-sky-300"
-          : "bg-slate-200 text-slate-700 dark:bg-white/10 dark:text-slate-300"
+          ? "bg-white/20 text-white"
+          : "bg-sky-100 text-sky-700 dark:bg-sky-400/10 dark:text-sky-300"
       }`}
     >
       <Check className="h-3.5 w-3.5" />
@@ -47,7 +47,7 @@ export default function Pricing() {
   return (
     <section
       id="pricing"
-      className="bg-[#f7f5ef] py-24 text-slate-950 lg:py-32 dark:bg-[#0B1120] dark:text-white"
+      className="bg-white py-24 text-slate-950 lg:py-32 dark:bg-[#0B1120] dark:text-white"
     >
       <div ref={ref} className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-end">
@@ -67,7 +67,7 @@ export default function Pricing() {
                 onClick={() => setIsAnnual(false)}
                 className={`rounded-full px-6 py-2.5 text-sm font-semibold transition-all ${
                   !isAnnual
-                    ? "bg-slate-950 text-white shadow-sm dark:bg-white dark:text-slate-950"
+                    ? "bg-[#0c74eb] text-white shadow-sm"
                     : "text-slate-500 hover:text-slate-950 dark:text-slate-400 dark:hover:text-white"
                 }`}
               >
@@ -77,7 +77,7 @@ export default function Pricing() {
                 onClick={() => setIsAnnual(true)}
                 className={`flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-all ${
                   isAnnual
-                    ? "bg-slate-950 text-white shadow-sm dark:bg-white dark:text-slate-950"
+                    ? "bg-[#0c74eb] text-white shadow-sm"
                     : "text-slate-500 hover:text-slate-950 dark:text-slate-400 dark:hover:text-white"
                 }`}
               >
@@ -89,22 +89,22 @@ export default function Pricing() {
             </div>
           </div>
 
-          <div className="fade-up fade-up-delay-3 rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-white/[0.04]">
+          <div className="fade-up fade-up-delay-3 rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-white/[0.04]">
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl bg-slate-950 p-5 text-white shadow-[0_18px_45px_rgba(15,23,42,0.12)] dark:bg-white/10">
-                <Sparkles className="h-5 w-5 text-sky-300" />
+              <div className="rounded-2xl bg-[#0c74eb] p-5 text-white shadow-[0_18px_45px_rgba(12,116,235,0.28)]">
+                <Sparkles className="h-5 w-5 text-sky-200" />
                 <p className="mt-6 text-2xl font-semibold tracking-tight">
                   {locale === "id"
                     ? "Mulai ringan, naik saat workflow makin padat."
                     : "Start light, scale when the workflow gets heavier."}
                 </p>
-                <p className="mt-3 text-sm leading-6 text-white/70">
+                <p className="mt-3 text-sm leading-6 text-white/80">
                   {locale === "id"
                     ? "Pricing ini dibuat untuk tim yang ingin bertumbuh tanpa langsung membeli kompleksitas yang belum mereka perlukan."
                     : "Pricing is shaped for teams that want to grow without buying complexity before they actually need it."}
                 </p>
               </div>
-              <div className="rounded-2xl bg-slate-100 p-5 shadow-[0_10px_30px_rgba(15,23,42,0.04)] dark:bg-white/5">
+              <div className="rounded-2xl bg-white p-5 shadow-[0_10px_30px_rgba(15,23,42,0.04)] ring-1 ring-slate-100 dark:bg-white/5">
                 <ShieldCheck className="h-5 w-5 text-emerald-600 dark:text-emerald-300" />
                 <p className="mt-6 text-lg font-semibold text-slate-950 dark:text-white">
                   {locale === "id"
@@ -121,22 +121,29 @@ export default function Pricing() {
           </div>
         </div>
 
-        <div className="fade-up fade-up-delay-3 pricing-track -mx-6 mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto overscroll-x-contain px-6 pb-3 lg:mx-0 lg:grid lg:snap-none lg:grid-cols-3 lg:overflow-visible lg:px-0 lg:pb-0">
-          {plans.map((plan) => {
+        {/* Mobile: one card per view, centered, with a peek of the next. The
+            highlighted card is first in the swipe order so the recommended
+            plan is what you see without scrolling. pt-4 gives the "most
+            popular" badge room inside the scroll container (overflow-x-auto
+            would otherwise clip it). */}
+        <div className="fade-up fade-up-delay-3 pricing-track -mx-6 mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto overscroll-x-contain px-6 pb-3 pt-4 lg:mx-0 lg:grid lg:snap-none lg:grid-cols-3 lg:overflow-visible lg:px-0 lg:pb-0 lg:pt-0">
+          {[...plans]
+            .sort((a, b) => Number(b.highlighted) - Number(a.highlighted))
+            .map((plan) => {
             const price = isAnnual ? plan.annual : plan.monthly;
 
             return (
               <article
                 key={`${plan.key}-${isAnnual ? "annual" : "monthly"}`}
-                className={`relative flex h-full w-[82%] shrink-0 snap-start flex-col rounded-[1.8rem] border p-7 transition-all hover:-translate-y-1 sm:w-[62%] md:w-[46%] lg:w-auto lg:shrink ${
+                className={`relative flex h-full w-[86%] shrink-0 snap-center flex-col rounded-[1.8rem] border p-7 pt-9 transition-all hover:-translate-y-1 sm:w-[62%] md:w-[46%] lg:w-auto lg:shrink ${
                   plan.highlighted
-                    ? "border-sky-500 bg-slate-950 text-white shadow-[0_24px_80px_rgba(14,165,233,0.16)] dark:border-sky-400"
-                    : "border-slate-200 bg-white shadow-[0_12px_35px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white/[0.04]"
+                    ? "border-[#0c74eb] bg-[#0c74eb] text-white shadow-[0_24px_80px_rgba(12,116,235,0.35)] dark:border-sky-400"
+                    : "border-slate-200 bg-white shadow-[0_12px_35px_rgba(15,23,42,0.05)] dark:border-[#2a3b5c] dark:bg-[#131e36]"
                 }`}
               >
                 {plan.highlighted && (
-                  <div className="absolute -top-3.5 left-6">
-                    <span className="rounded-full bg-sky-500 px-4 py-1 text-xs font-bold uppercase tracking-[0.14em] text-white shadow-md shadow-sky-500/30">
+                  <div className="absolute -top-3 left-6 max-w-[calc(100%-3rem)]">
+                    <span className="block truncate rounded-full bg-sky-500 px-4 py-1 text-xs font-bold uppercase tracking-[0.14em] text-white shadow-md shadow-sky-500/30">
                       {p.recommended}
                     </span>
                   </div>
@@ -156,7 +163,7 @@ export default function Pricing() {
                     <p
                       className={`mt-2 text-sm leading-6 ${
                         plan.highlighted
-                          ? "text-white/68"
+                          ? "text-white/80"
                           : "text-slate-600 dark:text-slate-300"
                       }`}
                     >
@@ -166,19 +173,19 @@ export default function Pricing() {
                   <span
                     className={`rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] ${
                       plan.highlighted
-                        ? "bg-white/10 text-white/80"
-                        : "bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-slate-300"
+                        ? "bg-white/15 text-white"
+                        : "bg-sky-50 text-sky-700 dark:bg-white/10 dark:text-slate-300"
                     }`}
                   >
                     {plan.key}
                   </span>
                 </div>
 
-                <div className="mt-8 border-t border-white/10 pt-6 dark:border-white/10">
+                <div className="mt-8 border-t border-slate-100 pt-6 dark:border-white/10">
                   <div className="flex items-baseline gap-2">
                     <span
                       className={`text-xs font-semibold uppercase tracking-[0.14em] ${
-                        plan.highlighted ? "text-white/45" : "text-slate-400"
+                        plan.highlighted ? "text-white/60" : "text-slate-400"
                       }`}
                     >
                       {p.from}
@@ -190,7 +197,7 @@ export default function Pricing() {
                   <p
                     className={`mt-2 text-sm ${
                       plan.highlighted
-                        ? "text-white/62"
+                        ? "text-white/75"
                         : "text-slate-500 dark:text-slate-400"
                     }`}
                   >
@@ -203,20 +210,18 @@ export default function Pricing() {
                   href={`/${locale}/payment?plan=${plan.key}&billing=${isAnnual ? "annual" : "monthly"}`}
                   className={`mt-8 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3.5 text-sm font-semibold transition hover:scale-[1.02] ${
                     plan.highlighted
-                      ? "bg-white text-slate-950 hover:bg-slate-100"
-                      : "border border-slate-200 bg-slate-950 text-white hover:bg-slate-800 dark:border-white/10 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100"
+                      ? "bg-white text-[#0c74eb] hover:bg-sky-50"
+                      : "border border-[#0c74eb] bg-[#0c74eb] text-white hover:bg-[#0a5dbc] dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100"
                   }`}
                 >
                   {p.choosePlan}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
 
-                <div className="mt-8 border-t border-white/10 pt-6 dark:border-white/10">
+                <div className="mt-8 border-t border-slate-100 pt-6 dark:border-white/10">
                   <p
                     className={`text-xs font-semibold uppercase tracking-[0.14em] ${
-                      plan.highlighted
-                        ? "text-white/45"
-                        : "text-slate-500 dark:text-slate-400"
+                      plan.highlighted ? "text-white/60" : "text-slate-500 dark:text-slate-400"
                     }`}
                   >
                     {p.whatsIncluded}
@@ -228,7 +233,7 @@ export default function Pricing() {
                         <span
                           className={`text-sm leading-6 ${
                             plan.highlighted
-                              ? "text-white/78"
+                              ? "text-white/90"
                               : "text-slate-600 dark:text-slate-300"
                           }`}
                         >

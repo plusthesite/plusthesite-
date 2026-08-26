@@ -3,8 +3,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Projects from "@/components/Projects";
 import PlusCursor from "@/components/PlusCursor";
-import Products from "@/components/Features";
-import AIFeatures from "@/components/AIFeatures";
+import ITSolutions from "@/components/ITSolutions";
 import BlogSection, { type ArticleTeaser } from "@/components/BlogSection";
 import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
@@ -62,8 +61,7 @@ export default async function Home({
       <Hero />
       <About />
       <Projects />
-      <Products />
-      <AIFeatures />
+      <ITSolutions />
       <BlogSection teasers={teasers} />
       <Pricing />
       <FAQ />

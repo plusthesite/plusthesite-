@@ -429,8 +429,7 @@ export default function Navbar() {
 
   const homeLinks = [
     { label: t.nav.about, href: `/${locale}#about` },
-    { label: t.nav.products, href: `/${locale}#products`, hasDropdown: true },
-    { label: t.nav.aiFeatures, href: `/${locale}#features` },
+    { label: t.nav.products, href: `/${locale}#features`, hasDropdown: true },
     { label: t.nav.studio, href: `/${locale}/studio` },
     { label: t.nav.blog, href: `/${locale}/blog` },
     { label: t.nav.pricing, href: `/${locale}#pricing` },
@@ -438,8 +437,7 @@ export default function Navbar() {
 
   const subpageLinks = [
     { label: t.nav.home, href: `/${locale}` },
-    { label: t.nav.products, href: `/${locale}#products`, hasDropdown: true },
-    { label: t.nav.aiFeatures, href: `/${locale}#features` },
+    { label: t.nav.products, href: `/${locale}#features`, hasDropdown: true },
     { label: t.nav.studio, href: `/${locale}/studio` },
     { label: t.nav.blog, href: `/${locale}/blog` },
     { label: t.nav.pricing, href: `/${locale}#pricing` },
