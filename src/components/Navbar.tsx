@@ -392,7 +392,9 @@ function LocalClock() {
     const tick = () => setTime(format.format(new Date()));
 
     tick();
-    const id = setInterval(tick, 1000);
+    // Minutes-only display: a per-second interval re-rendered the navbar
+    // 60x more often than anyone can read.
+    const id = setInterval(tick, 30_000);
     return () => clearInterval(id);
   }, []);
 

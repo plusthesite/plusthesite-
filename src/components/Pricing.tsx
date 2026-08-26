@@ -121,7 +121,7 @@ export default function Pricing() {
           </div>
         </div>
 
-        <div className="fade-up fade-up-delay-3 -mx-6 mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto overscroll-x-contain px-6 pb-3 lg:mx-0 lg:grid lg:snap-none lg:grid-cols-3 lg:overflow-visible lg:px-0 lg:pb-0">
+        <div className="fade-up fade-up-delay-3 pricing-track -mx-6 mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto overscroll-x-contain px-6 pb-3 lg:mx-0 lg:grid lg:snap-none lg:grid-cols-3 lg:overflow-visible lg:px-0 lg:pb-0">
           {plans.map((plan) => {
             const price = isAnnual ? plan.annual : plan.monthly;
 

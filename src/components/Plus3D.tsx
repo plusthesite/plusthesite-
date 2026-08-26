@@ -49,8 +49,35 @@ export default function Plus3D({ className = "" }: { className?: string }) {
         if (!stage) return;
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+        // Cheap wins first: while the hero is off-screen the 44 masked layers
+        // keep compositing for nothing, so pause the idle float entirely.
+        let running = false;
+        let visible = true;
+
+        const sync = () => {
+            const shouldRun = visible && window.scrollY < window.innerHeight;
+            if (shouldRun === running) return;
+            running = shouldRun;
+            // The idle-float animation lives on the parent (.plus3d__float).
+            const floater = stage.parentElement;
+            floater?.classList.toggle("is-running", running);
+            stage.style.willChange = running ? "transform" : "auto";
+        };
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                visible = entry.isIntersecting;
+                sync();
+            },
+            { threshold: 0 },
+        );
+        observer.observe(stage);
+
+        let settled = false;
         const apply = () => {
             const t = clamp(window.scrollY / (window.innerHeight || 1), 0, 1);
+            if (settled && t >= 1) return; // hero fully gone: nothing left to animate
+            if (t < 1) settled = false;
 
             stage.style.transform = [
                 `translateY(${at(TURN.y, t)}%)`,
@@ -60,13 +87,16 @@ export default function Plus3D({ className = "" }: { className?: string }) {
                 `scale(${at(TURN.scale, t)})`,
             ].join(" ");
             stage.style.opacity = String(1 - t * 0.9);
+            if (t >= 1) settled = true;
         };
 
         apply();
         window.addEventListener("scroll", apply, { passive: true });
         window.addEventListener("resize", apply, { passive: true });
+        sync();
 
         return () => {
+            observer.disconnect();
             window.removeEventListener("scroll", apply);
             window.removeEventListener("resize", apply);
         };

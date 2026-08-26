@@ -1232,6 +1232,24 @@ html.lang-transition::view-transition-new(root) {
   will-change: transform;
 }
 
+/* The blurred blobs are the single most expensive thing on the page — a GPU
+   blur that big re-rasterises every frame it animates. Pause the drift when
+   the hero is scrolled away or on small screens, and let the static gradient
+   still carry the look. */
+.hero-blob {
+  animation-play-state: paused;
+}
+
+.hero-blob.is-running {
+  animation-play-state: running;
+}
+
+@media (max-width: 767px) {
+  .hero-blob {
+    filter: blur(48px);
+  }
+}
+
 .hero-blob-1 {
   animation: heroDrift 34s ease-in-out infinite;
 }
@@ -1349,6 +1367,12 @@ html.lang-transition::view-transition-new(root) {
 
 .plus3d__float {
   animation: plus3dFloat 11s ease-in-out infinite;
+  /* Paused by default; Plus3D flips it on only while the hero is visible. */
+  animation-play-state: paused;
+}
+
+.plus3d__float.is-running {
+  animation-play-state: running;
 }
 
 .plus3d__stage {
@@ -1466,6 +1490,123 @@ html.plus-cursor-on [contenteditable] {
 @media (prefers-reduced-motion: reduce) {
   .plus-cursor {
     display: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   PRELOADER — idle curtain for the first hard load
+   ═══════════════════════════════════════════════════ */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #efefef;
+  transition: opacity 500ms ease, visibility 0s linear 500ms;
+}
+
+.dark .preloader {
+  background: #070b14;
+}
+
+.preloader--done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.preloader__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  animation: preloaderRise 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.preloader__cta {
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #64748b;
+  animation: preloaderPulse 1.8s ease-in-out infinite;
+}
+
+.dark .preloader__cta {
+  color: #94a3b8;
+}
+
+.preloader__skip {
+  position: absolute;
+  bottom: max(1.5rem, env(safe-area-inset-bottom));
+  right: 1.5rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: transparent;
+  color: #64748b;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.dark .preloader__skip {
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #94a3b8;
+}
+
+@keyframes preloaderRise {
+
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes preloaderPulse {
+
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .preloader__inner,
+  .preloader__cta {
+    animation: none !important;
+  }
+}
+
+/* ─── Pricing rail on small screens ───
+   The cards already swipe horizontally; these rules just make the swipe feel
+   deliberate: a peek of the next card, clean snap edges, and no raw
+   scrollbar. Desktop keeps the 3-column grid untouched. */
+.pricing-track {
+  scroll-padding-left: 1.5rem;
+  scrollbar-width: none;
+}
+
+.pricing-track::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .pricing-track > article {
+    width: 86%;
   }
 }
 

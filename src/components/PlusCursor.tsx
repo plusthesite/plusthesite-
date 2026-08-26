@@ -40,10 +40,23 @@ export default function PlusCursor() {
             mark.style.transform = `translate3d(${pointer.x}px, ${pointer.y}px, 0) translate(-50%, -50%) scale(${scale})`;
         };
 
+        // The rAF loop only exists to ease the scale. Once the scale settles
+        // the loop stops and restarts on the next state change — an always-on
+        // loop burns frames even when the mouse sits still.
         const draw = () => {
             scale += (target - scale) * SCALE_EASE;
+            if (Math.abs(target - scale) < 0.005) scale = target;
+
             paint();
-            frame = requestAnimationFrame(draw);
+            if (scale !== target) {
+                frame = requestAnimationFrame(draw);
+            } else {
+                frame = 0;
+            }
+        };
+
+        const wake = () => {
+            if (!frame) frame = requestAnimationFrame(draw);
         };
 
         const onMove = (event: PointerEvent) => {
@@ -60,16 +73,20 @@ export default function PlusCursor() {
             const overText = !!el?.closest?.(TEXT_FIELD);
             const overLink = !overText && !!el?.closest?.(INTERACTIVE);
 
-            target = overLink ? 1.7 : 1;
+            const nextTarget = overLink ? 1.7 : 1;
+            if (nextTarget !== target) wake();
+            target = nextTarget;
             mark.classList.toggle("plus-cursor--invert", overLink);
             mark.classList.toggle("plus-cursor--hidden", overText);
         };
 
         const onDown = () => {
             target = 0.7;
+            wake();
         };
         const onUp = () => {
             target = 1;
+            wake();
         };
         const onLeave = () => mark.classList.remove("plus-cursor--ready");
         const onEnter = () => mark.classList.add("plus-cursor--ready");
@@ -79,7 +96,6 @@ export default function PlusCursor() {
         window.addEventListener("pointerup", onUp, { passive: true });
         document.addEventListener("pointerleave", onLeave);
         document.addEventListener("pointerenter", onEnter);
-        frame = requestAnimationFrame(draw);
 
         return () => {
             cancelAnimationFrame(frame);

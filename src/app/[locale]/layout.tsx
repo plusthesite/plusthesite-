@@ -5,6 +5,7 @@ import ThemeProvider from "@/components/ThemeProvider";
 import ScrollToTop from "@/components/ScrollToTop";
 import AuthRedirectCatcher from "@/components/AuthRedirectCatcher";
 import { ChatWidget } from "@/components/ChatWidget";
+import Preloader from "@/components/Preloader";
 import { ThemeStyle } from "@/components/ThemeStyle";
 import { I18nProvider } from "@/i18n/I18nProvider";
 import { getDictionary } from "@/i18n/getDictionary";
@@ -187,6 +188,7 @@ export default async function LocaleLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} antialiased`}>
         <ThemeProvider>
+          <Preloader locale={locale} />
           <AuthRedirectCatcher />
           {/* Ambient glow effects for dark mode */}
           <div className="glow-ambient glow-ambient-1" aria-hidden="true" />
