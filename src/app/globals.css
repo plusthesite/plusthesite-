@@ -524,6 +524,9 @@ button {
 
 .article-content table {
   width: 100%;
+  /* Below this the columns stop being readable, so the wrapper scrolls
+     sideways instead of crushing the text into one word per line. */
+  min-width: 34rem;
   border-collapse: collapse;
   font-size: 0.9rem;
 }
@@ -1427,8 +1430,11 @@ html.plus-cursor-on [contenteditable] {
   height: 100%;
   display: block;
   fill: #0c74eb;
+  stroke: transparent;
+  stroke-width: 0;
+  paint-order: stroke;
   filter: drop-shadow(0 2px 5px rgba(12, 116, 235, 0.35));
-  transition: fill 220ms ease, opacity 220ms ease;
+  transition: fill 200ms ease, stroke 200ms ease;
 }
 
 .dark .plus-cursor svg {
@@ -1440,9 +1446,17 @@ html.plus-cursor-on [contenteditable] {
   opacity: 1;
 }
 
-/* Over a link the mark grows, so it fades back to stay out of the way. */
-.plus-cursor--soft svg {
-  opacity: 0.55;
+/* Over a link the mark inverts. The outline carries the colour it just gave
+   up, so the mark stays visible even when the new fill matches the surface. */
+.plus-cursor--invert svg {
+  fill: #ffffff;
+  stroke: #0c74eb;
+  stroke-width: 10;
+}
+
+.dark .plus-cursor--invert svg {
+  fill: #0c74eb;
+  stroke: #ffffff;
 }
 
 .plus-cursor--hidden {
@@ -1452,5 +1466,27 @@ html.plus-cursor-on [contenteditable] {
 @media (prefers-reduced-motion: reduce) {
   .plus-cursor {
     display: none;
+  }
+}
+
+/* ─── Wide content safety net ───
+   Anything that cannot shrink gets its own sideways scroll rather than
+   stretching the page and breaking every section below it. */
+.article-content pre,
+.article-content .stat-grid {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+@media (max-width: 640px) {
+  .article-content .stat-grid {
+    display: flex;
+    gap: 0.75rem;
+    scroll-snap-type: x mandatory;
+  }
+
+  .article-content .stat-grid > * {
+    flex: 0 0 68%;
+    scroll-snap-align: start;
   }
 }
