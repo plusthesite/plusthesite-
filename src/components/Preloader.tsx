@@ -62,14 +62,16 @@ export default function Preloader({ locale }: { locale: string }) {
                         ? "Menyiapkan pengalaman..."
                         : "Preparing the experience..."}
                 </p>
-                <button
-                    type="button"
-                    className="preloader__skip"
-                    onClick={() => setDone(true)}
-                >
-                    {locale === "id" ? "Lewati" : "Skip"}
-                </button>
             </div>
+            {/* Anchored to the curtain itself — the animated inner is a
+                containing block (transform), so it must not wrap this. */}
+            <button
+                type="button"
+                className="preloader__skip"
+                onClick={() => setDone(true)}
+            >
+                {locale === "id" ? "Lewati" : "Skip"}
+            </button>
         </div>
     );
 }

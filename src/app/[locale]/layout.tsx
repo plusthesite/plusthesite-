@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Bricolage_Grotesque } from "next/font/google";
+import { Geist } from "next/font/google";
 import { notFound } from "next/navigation";
 import ThemeProvider from "@/components/ThemeProvider";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -17,17 +17,9 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-// Distinctive display typeface for headings — characterful, contemporary grotesque
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-});
+// Geist Mono and Bricolage Grotesque were loaded here for every page but only
+// ever used deep inside /studio and blog articles — they cost ~90KB of woff2
+// on the landing page for nothing. Pages that want them can load their own.
 
 const SITE = "https://plusthe.site";
 
@@ -186,7 +178,7 @@ export default async function LocaleLayout({
         />
         <ThemeStyle />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} antialiased`}>
+      <body className={`${geistSans.variable} antialiased`}>
         <ThemeProvider>
           <Preloader locale={locale} />
           <AuthRedirectCatcher />

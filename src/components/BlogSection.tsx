@@ -3,19 +3,32 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { articles } from "@/data/articles";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useLocale, useT } from "@/i18n/I18nProvider";
 
-export default function BlogSection() {
+/** Only the fields the three cards render — keeps the 500KB+ article bodies
+ *  out of the client bundle. */
+export type ArticleTeaser = {
+  id: number;
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  date: string;
+  readTime: string;
+  image: string;
+};
+
+export default function BlogSection({
+  teasers,
+}: {
+  teasers: ArticleTeaser[];
+}) {
   const ref = useScrollReveal();
   const t = useT();
   const locale = useLocale();
 
-  const latest = [...articles]
-    .filter((article) => (article.locale ?? "id") === locale)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 3);
+  const latest = teasers;
 
   const dateLocale = locale === "id" ? "id-ID" : "en-US";
 
