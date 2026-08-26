@@ -59,15 +59,6 @@ export default function Hero() {
                             </span>
                         </Link>
 
-                        <div className="inline-flex w-fit items-center gap-2.5 rounded-[4px] bg-white px-3 py-2 shadow-[0_2px_8px_rgba(0,0,0,0.08)] transition-shadow duration-300 hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)] dark:bg-white/10">
-                            <span className="text-[13px] font-medium text-slate-900 sm:text-sm dark:text-white">
-                                {t.hero.subtitle}
-                            </span>
-                            <span className="rounded bg-slate-900 px-1.5 py-0.5 text-[10px] text-white sm:px-2 sm:text-[11px] dark:bg-white dark:text-slate-950">
-                                {locale === "id" ? "Global" : "Global"}
-                            </span>
-                        </div>
-
                         <Link
                             href={`/${locale}#pricing`}
                             className="w-fit text-[13px] font-medium text-slate-700 underline-offset-4 transition-colors hover:text-slate-950 hover:underline sm:text-sm dark:text-white/70 dark:hover:text-white"
