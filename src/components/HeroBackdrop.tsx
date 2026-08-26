@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useCallback, useState, useSyncExternalStore } from "react";
 import { useTheme } from "next-themes";
+import Plus3D from "@/components/Plus3D";
 
 const HeroShaderStack = dynamic(() => import("@/components/HeroShaderStack"), {
     ssr: false,
@@ -57,6 +58,8 @@ export default function HeroBackdrop() {
                 aria-hidden
             />
 
+
+            <Plus3D className="right-[-14%] top-[8%] h-[58vmin] w-[58vmin] sm:right-[-6%] lg:right-[3%] lg:top-[11%] lg:h-[42vw] lg:w-[42vw] lg:max-h-[540px] lg:max-w-[540px]" />
 
             {allowed && !unavailable ? (
                 <div className="absolute inset-0">
