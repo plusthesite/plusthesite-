@@ -121,14 +121,14 @@ export default function Pricing() {
           </div>
         </div>
 
-        <div className="fade-up fade-up-delay-3 mt-14 grid gap-6 lg:grid-cols-3">
+        <div className="fade-up fade-up-delay-3 -mx-6 mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto overscroll-x-contain px-6 pb-3 lg:mx-0 lg:grid lg:snap-none lg:grid-cols-3 lg:overflow-visible lg:px-0 lg:pb-0">
           {plans.map((plan) => {
             const price = isAnnual ? plan.annual : plan.monthly;
 
             return (
               <article
                 key={`${plan.key}-${isAnnual ? "annual" : "monthly"}`}
-                className={`relative flex h-full flex-col rounded-[1.8rem] border p-7 transition-all hover:-translate-y-1 ${
+                className={`relative flex h-full w-[82%] shrink-0 snap-start flex-col rounded-[1.8rem] border p-7 transition-all hover:-translate-y-1 sm:w-[62%] md:w-[46%] lg:w-auto lg:shrink ${
                   plan.highlighted
                     ? "border-sky-500 bg-slate-950 text-white shadow-[0_24px_80px_rgba(14,165,233,0.16)] dark:border-sky-400"
                     : "border-slate-200 bg-white shadow-[0_12px_35px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white/[0.04]"

@@ -6,17 +6,17 @@ import { MARK_D, MARK_VIEW_BOX } from "@/lib/logoPaths";
 /**
  * The plus mark as the pointer.
  *
- * Trails the real pointer with a little easing, swells over anything clickable,
- * and shrinks to a dot while pressing. Mouse-only: coarse pointers keep their
- * native behaviour, and reduced-motion visitors keep the system cursor, since
- * a lagging cursor is exactly the kind of motion that setting asks us to drop.
+ * Sits exactly on the pointer — no positional easing, because a mark that
+ * trails the hand reads as lag rather than polish. Only the scale is eased, so
+ * growing over a link still feels soft. Mouse-only: coarse pointers keep their
+ * native behaviour, and reduced-motion visitors keep the system cursor.
  */
 
 const INTERACTIVE = 'a,button,[role="button"],summary,label,select,[data-cursor="grow"]';
 const TEXT_FIELD = "input,textarea,[contenteditable]";
 
-/** How much of the remaining distance to close each frame. */
-const EASE = 0.22;
+/** Scale is the only eased channel: share of the gap closed each frame. */
+const SCALE_EASE = 0.3;
 
 export default function PlusCursor() {
     const markRef = useRef<HTMLDivElement>(null);
@@ -31,28 +31,28 @@ export default function PlusCursor() {
         root.classList.add("plus-cursor-on");
 
         const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-        const shown = { ...pointer, scale: 1 };
+        let scale = 1;
         let target = 1;
         let frame = 0;
         let started = false;
 
-        const draw = () => {
-            shown.x += (pointer.x - shown.x) * EASE;
-            shown.y += (pointer.y - shown.y) * EASE;
-            shown.scale += (target - shown.scale) * EASE;
+        const paint = () => {
+            mark.style.transform = `translate3d(${pointer.x}px, ${pointer.y}px, 0) translate(-50%, -50%) scale(${scale})`;
+        };
 
-            mark.style.transform = `translate3d(${shown.x}px, ${shown.y}px, 0) translate(-50%, -50%) scale(${shown.scale})`;
+        const draw = () => {
+            scale += (target - scale) * SCALE_EASE;
+            paint();
             frame = requestAnimationFrame(draw);
         };
 
         const onMove = (event: PointerEvent) => {
             pointer.x = event.clientX;
             pointer.y = event.clientY;
+            paint();
 
             if (!started) {
                 started = true;
-                shown.x = pointer.x;
-                shown.y = pointer.y;
                 mark.classList.add("plus-cursor--ready");
             }
 
@@ -60,8 +60,8 @@ export default function PlusCursor() {
             const overText = !!el?.closest?.(TEXT_FIELD);
             const overLink = !overText && !!el?.closest?.(INTERACTIVE);
 
-            target = overLink ? 1.85 : 1;
-            mark.classList.toggle("plus-cursor--soft", overLink);
+            target = overLink ? 1.7 : 1;
+            mark.classList.toggle("plus-cursor--invert", overLink);
             mark.classList.toggle("plus-cursor--hidden", overText);
         };
 
