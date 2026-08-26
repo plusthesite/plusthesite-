@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Projects from "@/components/Projects";
+import PlusCursor from "@/components/PlusCursor";
 import Products from "@/components/Features";
 import AIFeatures from "@/components/AIFeatures";
 import BlogSection from "@/components/BlogSection";
@@ -39,6 +40,7 @@ export default async function Home({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <Navbar />
+      <PlusCursor />
       <Hero />
       <About />
       <Projects />
