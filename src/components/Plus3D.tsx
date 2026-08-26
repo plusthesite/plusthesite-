@@ -10,14 +10,15 @@ import { MARK_D, MARK_VIEW_BOX } from "@/lib/logoPaths";
  * single copy of the path data, no WebGL and no 3D library. Sub-pixel Z steps
  * keep the extruded side smooth instead of staircased.
  *
- * It rides the scroll: starts large beside the hero headline, crosses the page
- * through the margins, and settles small in the bottom-left corner once the FAQ
- * section comes into view.
+ * It rides the scroll along a single arc: large beside the hero headline, down
+ * the right margin, across to the bottom-left corner by the time the FAQ is in
+ * view, then faded out entirely before the footer.
  */
 
-/** Layer count and depth are paired: 44 / 56 keeps each Z step under 0.8px. */
-const LAYERS = 56;
-const DEPTH = 44;
+/** Paired so every Z step stays under a pixel (36 / 44 = 0.84px) while
+ *  keeping the composited stack small enough not to tax the GPU on scroll. */
+const LAYERS = 44;
+const DEPTH = 36;
 
 /** Widest the mark ever renders. Later stops only scale down, so it stays crisp. */
 const MAX_SIZE = 440;
@@ -45,14 +46,15 @@ type Stop = {
 };
 
 /**
- * The path. Kept in the page margins so the mark never sits on a paragraph,
- * and faded down once it leaves the hero.
+ * One sweeping arc from the hero down to the bottom-left corner, with the
+ * rotation always turning the same way so it reads as a slow tumble rather
+ * than a shape snapping between corners. Stops stay in the page margins.
  */
 const STOPS: Stop[] = [
     { p: 0, x: 0.78, y: 0.4, scale: 1, rx: -14, ry: 24, rz: -13, opacity: 1 },
-    { p: 0.3, x: 0.13, y: 0.3, scale: 0.46, rx: 16, ry: -22, rz: 10, opacity: 0.42 },
-    { p: 0.62, x: 0.88, y: 0.68, scale: 0.38, rx: -10, ry: 30, rz: -18, opacity: 0.4 },
-    { p: 1, x: 0.1, y: 0.86, scale: 0.34, rx: 9, ry: -25, rz: 13, opacity: 0.55 },
+    { p: 0.36, x: 0.87, y: 0.63, scale: 0.44, rx: -2, ry: -10, rz: -3, opacity: 0.3 },
+    { p: 0.72, x: 0.34, y: 0.76, scale: 0.37, rx: 8, ry: -40, rz: 7, opacity: 0.24 },
+    { p: 1, x: 0.085, y: 0.875, scale: 0.31, rx: 16, ry: -62, rz: 15, opacity: 0.46 },
 ];
 
 const clamp = (value: number, min: number, max: number) =>
@@ -108,7 +110,18 @@ export default function Plus3D({ className = "" }: { className?: string }) {
             if (!faq) return Math.max(fallback, 1);
 
             const top = faq.getBoundingClientRect().top + window.scrollY;
-            return Math.max(top - window.innerHeight * 0.15, 1);
+            return Math.max(top - window.innerHeight * 0.35, 1);
+        };
+
+        /** Holds full strength while the mark is parked by the FAQ, then fades
+         *  as the footer climbs the screen so it never lands on the dark panel. */
+        const footerFade = () => {
+            const footer = document.querySelector("footer");
+            if (!footer) return 1;
+
+            const top = footer.getBoundingClientRect().top;
+            const gone = window.innerHeight * 0.35;
+            return clamp((top - gone) / (window.innerHeight * 0.65), 0, 1);
         };
 
         const apply = () => {
@@ -118,7 +131,7 @@ export default function Plus3D({ className = "" }: { className?: string }) {
             const top = at.y * window.innerHeight - size / 2;
 
             mover.style.transform = `translate3d(${left}px, ${top}px, 0) scale(${at.scale})`;
-            mover.style.opacity = String(at.opacity);
+            mover.style.opacity = String(at.opacity * footerFade());
             stage.style.transform = `rotateX(${at.rx}deg) rotateY(${at.ry}deg) rotateZ(${at.rz}deg)`;
         };
 
