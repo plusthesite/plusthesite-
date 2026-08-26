@@ -400,7 +400,6 @@ function LocalClock() {
     <span className="hidden items-center gap-1.5 whitespace-nowrap text-[13px] text-slate-600 2xl:inline-flex dark:text-slate-400">
       <Clock className="h-3.5 w-3.5" />
       <span className="tabular-nums">{time ?? "--:--"} WIB</span>
-      <span className="text-slate-400 dark:text-slate-500">Jakarta</span>
     </span>
   );
 }
@@ -461,20 +460,22 @@ export default function Navbar() {
         scrolled ? "py-3" : "py-5"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-6 lg:px-8 2xl:max-w-[1440px]">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-6 lg:px-8 xl:justify-normal 2xl:max-w-[1440px]">
         {/* Island 1 — brand */}
-        <div
-          className={`${island} flex h-[57px] shrink-0 items-center gap-3 px-4`}
-        >
+        <div className="flex xl:flex-1 xl:justify-start">
+          <div
+            className={`${island} flex h-[57px] shrink-0 items-center gap-3 px-4`}
+          >
           <Logo variant="auto" href={`/${locale}`} />
           <span className="hidden h-5 w-px bg-slate-900/10 xl:block dark:bg-white/15" />
           <p className="hidden whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500 xl:block dark:text-slate-400">
-            Digital agency
-          </p>
+              Digital agency
+            </p>
+          </div>
         </div>
 
         {/* Island 2 — navigation */}
-        <div className="hidden min-w-0 flex-1 justify-center lg:flex">
+        <div className="hidden shrink-0 lg:flex">
           <div
             className={`${island} flex h-[57px] items-center gap-5 px-6 xl:gap-6`}
           >
@@ -494,6 +495,7 @@ export default function Navbar() {
         </div>
 
         {/* Island 3 — status + actions */}
+        <div className="flex items-center gap-3 xl:flex-1 xl:justify-end">
         <div
           className={`${island} hidden h-[57px] shrink-0 items-center gap-2 pl-4 pr-2 lg:flex`}
         >
@@ -524,6 +526,7 @@ export default function Navbar() {
           >
             {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
+        </div>
         </div>
       </div>
 
