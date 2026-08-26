@@ -1228,7 +1228,7 @@ html.lang-transition::view-transition-new(root) {
 .hero-blob {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(90px);
+  filter: blur(64px);
   will-change: transform;
 }
 
@@ -1421,77 +1421,6 @@ html.lang-transition::view-transition-new(root) {
   }
 }
 
-/* ═══════════════════════════════════════════════════
-   PLUS CURSOR — the mark stands in for the pointer
-   ═══════════════════════════════════════════════════ */
-html.plus-cursor-on,
-html.plus-cursor-on * {
-  cursor: none;
-}
-
-/* Text entry keeps its caret — losing it costs more than the flourish gains. */
-html.plus-cursor-on input,
-html.plus-cursor-on textarea,
-html.plus-cursor-on [contenteditable] {
-  cursor: text;
-}
-
-.plus-cursor {
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 60;
-  width: 24px;
-  height: 24px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 220ms ease;
-  will-change: transform;
-}
-
-.plus-cursor svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-  fill: #0c74eb;
-  stroke: transparent;
-  stroke-width: 0;
-  paint-order: stroke;
-  filter: drop-shadow(0 2px 5px rgba(12, 116, 235, 0.35));
-  transition: fill 200ms ease, stroke 200ms ease;
-}
-
-.dark .plus-cursor svg {
-  fill: #ffffff;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
-}
-
-.plus-cursor--ready {
-  opacity: 1;
-}
-
-/* Over a link the mark inverts. The outline carries the colour it just gave
-   up, so the mark stays visible even when the new fill matches the surface. */
-.plus-cursor--invert svg {
-  fill: #ffffff;
-  stroke: #0c74eb;
-  stroke-width: 10;
-}
-
-.dark .plus-cursor--invert svg {
-  fill: #0c74eb;
-  stroke: #ffffff;
-}
-
-.plus-cursor--hidden {
-  opacity: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .plus-cursor {
-    display: none;
-  }
-}
 
 /* ═══════════════════════════════════════════════════
    PRELOADER — idle curtain for the first hard load

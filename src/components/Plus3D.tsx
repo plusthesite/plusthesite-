@@ -15,8 +15,8 @@ import { MARK_D, MARK_VIEW_BOX } from "@/lib/logoPaths";
  * the page content below.
  */
 
-/** Paired so every Z step stays sub-pixel (36 / 43 = 0.84px). */
-const LAYERS = 44;
+/** Paired so every Z step stays sub-pixel (18 / 19 = 0.95px). */
+const LAYERS = 20;
 const DEPTH = 36;
 
 /** Depth shading: back of the extrusion is dark, the front face is brand blue. */
@@ -74,7 +74,9 @@ export default function Plus3D({ className = "" }: { className?: string }) {
         observer.observe(stage);
 
         let settled = false;
+        let ticking = false;
         const apply = () => {
+            ticking = false;
             const t = clamp(window.scrollY / (window.innerHeight || 1), 0, 1);
             if (settled && t >= 1) return; // hero fully gone: nothing left to animate
             if (t < 1) settled = false;
@@ -90,14 +92,22 @@ export default function Plus3D({ className = "" }: { className?: string }) {
             if (t >= 1) settled = true;
         };
 
+        // Scroll events fire faster than frames; coalesce to one write per frame.
+        const onScroll = () => {
+            if (!ticking) {
+                ticking = true;
+                requestAnimationFrame(apply);
+            }
+        };
+
         apply();
-        window.addEventListener("scroll", apply, { passive: true });
+        window.addEventListener("scroll", onScroll, { passive: true });
         window.addEventListener("resize", apply, { passive: true });
         sync();
 
         return () => {
             observer.disconnect();
-            window.removeEventListener("scroll", apply);
+            window.removeEventListener("scroll", onScroll);
             window.removeEventListener("resize", apply);
         };
     }, []);

@@ -8,8 +8,9 @@ import AnimatedLogo from "@/components/AnimatedLogo";
  *
  * Shows the looping animated wordmark plus a quiet status line while the
  * browser fetches and hydrates the page, then fades out as soon as the load
- * event fires (or a visitor taps skip, or a 3.5s failsafe trips — never trap
- * anyone behind a curtain). Client-side navigations never re-mount it.
+ * event fires — held for a short minimum so it never just flashes, and cut
+ * by a 10s failsafe so it never traps anyone. Client-side navigations never
+ * re-mount it.
  */
 export default function Preloader({ locale }: { locale: string }) {
     const [done, setDone] = useState(false);
@@ -17,8 +18,17 @@ export default function Preloader({ locale }: { locale: string }) {
 
     useEffect(() => {
         let cancelled = false;
+        const mountedAt = performance.now();
+        const MIN_SHOW = 1200; // below this the curtain reads as a flicker
+        const MAX_SHOW = 10_000; // never hold the page hostage
+
         const finish = () => {
-            if (!cancelled) setDone(true);
+            if (cancelled) return;
+            const elapsed = performance.now() - mountedAt;
+            const wait = Math.max(0, MIN_SHOW - elapsed);
+            setTimeout(() => {
+                if (!cancelled) setDone(true);
+            }, wait);
         };
 
         if (document.readyState === "complete") {
@@ -26,7 +36,7 @@ export default function Preloader({ locale }: { locale: string }) {
         } else {
             window.addEventListener("load", finish, { once: true });
         }
-        const failsafe = setTimeout(finish, 3500);
+        const failsafe = setTimeout(finish, MAX_SHOW);
 
         return () => {
             cancelled = true;
