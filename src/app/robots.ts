@@ -2,8 +2,9 @@ import type { MetadataRoute } from "next";
 
 const BASE_URL = "https://plusthe.site";
 
-// Keep admin & internal studio out of every index.
-const DISALLOW = ["/admin", "/en/studio", "/id/studio", "/api/"];
+// Keep admin out of every index. The studio moved to its own subdomain and
+// carries its own robots rules.
+const DISALLOW = ["/admin", "/api/"];
 
 // AI search / answer engines we explicitly welcome (for AI-search visibility).
 const AI_BOTS = [

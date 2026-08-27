@@ -21,6 +21,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useLocale } from "@/i18n/I18nProvider";
+import { studioUrl } from "@/lib/studio";
 
 type Locale = "en" | "id";
 
@@ -555,7 +556,7 @@ function HeroSection({ copy }: { copy: PageCopy }) {
 
                     <div className="fade-up fade-up-delay-3 mt-9 flex flex-col gap-3 sm:flex-row">
                         <Link
-                            href={`/${locale}/studio`}
+                            href={studioUrl(locale)}
                             className="group inline-flex items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-semibold text-white shadow-[0_20px_60px_rgba(15,23,42,0.18)] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-sky-700 active:scale-[0.98] dark:bg-white dark:text-slate-950 dark:hover:bg-sky-100"
                         >
                             {copy.hero.primaryCta}
@@ -947,7 +948,7 @@ function CTASection({ copy }: { copy: PageCopy }) {
                             </p>
                             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
                                 <Link
-                                    href={`/${locale}/studio`}
+                                    href={studioUrl(locale)}
                                     className="group inline-flex items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-semibold text-white transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:bg-sky-700 active:scale-[0.98] dark:bg-white dark:text-slate-950 dark:hover:bg-sky-100"
                                 >
                                     {copy.cta.primary}

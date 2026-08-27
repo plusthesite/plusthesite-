@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, Link2 } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useLocale } from "@/i18n/I18nProvider";
+import { studioUrl } from "@/lib/studio";
 
 export default function Projects() {
     const ref = useScrollReveal();
@@ -13,7 +14,7 @@ export default function Projects() {
 
     const cards = [
         {
-            href: `/${locale}/studio`,
+            href: studioUrl(locale),
             title: "plus. Studio",
             image:
                 "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=1200&q=80&auto=format",
@@ -21,8 +22,8 @@ export default function Projects() {
             aspect: "aspect-[329/246]",
             surface: "bg-[#1a1d2e]",
             description: isID
-                ? "Ruang kerja AI untuk brief, konten, dan aset kampanye — semua dalam satu alur tim."
-                : "An AI workspace for briefs, content, and campaign assets — all in one team flow.",
+                ? "Ruang kerja AI untuk brief, konten, dan aset kampanye, semua dalam satu alur tim."
+                : "An AI workspace for briefs, content, and campaign assets, all in one team flow.",
             label: isID ? "Lihat detail" : "Learn more",
             width: "group-hover:w-[152px]",
             tone: "light" as const,

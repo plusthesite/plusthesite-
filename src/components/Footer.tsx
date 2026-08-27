@@ -5,6 +5,7 @@ import Logo from "@/components/Logo";
 import Newsletter from "@/components/Newsletter";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useLocale, useT } from "@/i18n/I18nProvider";
+import { studioUrl } from "@/lib/studio";
 
 type FooterLink = {
     label: string;
@@ -28,7 +29,7 @@ export default function Footer() {
 
     const companyLinks: FooterLink[] = [
         { label: t.nav.about, href: `/${locale}#about` },
-        { label: t.nav.studio, href: `/${locale}/studio` },
+        { label: t.nav.studio, href: studioUrl(locale), external: true },
         { label: t.nav.pricing, href: `/${locale}#pricing` },
         { label: t.nav.blog, href: `/${locale}/blog` },
     ];

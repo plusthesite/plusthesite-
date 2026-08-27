@@ -29,6 +29,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Logo from "@/components/Logo";
 import RollingLabel from "@/components/RollingLabel";
 import { useLocale, useT } from "@/i18n/I18nProvider";
+import { studioUrl } from "@/lib/studio";
 import { locales, localeShort, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/en";
 
@@ -250,27 +251,43 @@ function ProductItemInner({
   );
 }
 
+type NavLink = {
+  label: string;
+  href: string;
+  hasDropdown?: boolean;
+  /** Cross-origin (the studio subdomain), so it skips the client router. */
+  external?: boolean;
+};
+
 function NavAnchor({
   href,
   label,
   scrolled,
+  external,
   onClick,
 }: {
   href: string;
   label: string;
   scrolled: boolean;
+  external?: boolean;
   onClick?: () => void;
 }) {
+  const className = `nav-link whitespace-nowrap text-[12px] font-semibold uppercase tracking-[0.14em] transition-colors xl:text-[13px] xl:tracking-widest ${
+    scrolled
+      ? "text-muted hover:text-foreground"
+      : "text-[#0F172A] hover:text-primary dark:text-white/90 dark:hover:text-white"
+  }`;
+
+  if (external) {
+    return (
+      <a href={href} onClick={onClick} className={className}>
+        {label}
+      </a>
+    );
+  }
+
   return (
-    <Link
-      href={href}
-      onClick={onClick}
-      className={`nav-link whitespace-nowrap text-[12px] font-semibold uppercase tracking-[0.14em] transition-colors xl:text-[13px] xl:tracking-widest ${
-        scrolled
-          ? "text-muted hover:text-foreground"
-          : "text-[#0F172A] hover:text-primary dark:text-white/90 dark:hover:text-white"
-      }`}
-    >
+    <Link href={href} onClick={onClick} className={className}>
       {label}
     </Link>
   );
@@ -427,18 +444,18 @@ export default function Navbar() {
 
   const isHome = pathname === `/${locale}`;
 
-  const homeLinks = [
+  const homeLinks: NavLink[] = [
     { label: t.nav.about, href: `/${locale}#about` },
     { label: t.nav.products, href: `/${locale}#features`, hasDropdown: true },
-    { label: t.nav.studio, href: `/${locale}/studio` },
+    { label: t.nav.studio, href: studioUrl(locale), external: true },
     { label: t.nav.blog, href: `/${locale}/blog` },
     { label: t.nav.pricing, href: `/${locale}#pricing` },
   ];
 
-  const subpageLinks = [
+  const subpageLinks: NavLink[] = [
     { label: t.nav.home, href: `/${locale}` },
     { label: t.nav.products, href: `/${locale}#features`, hasDropdown: true },
-    { label: t.nav.studio, href: `/${locale}/studio` },
+    { label: t.nav.studio, href: studioUrl(locale), external: true },
     { label: t.nav.blog, href: `/${locale}/blog` },
     { label: t.nav.pricing, href: `/${locale}#pricing` },
   ];
@@ -461,7 +478,7 @@ export default function Navbar() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-6 lg:px-8 xl:justify-normal 2xl:max-w-[1440px]">
-        {/* Island 1 — brand */}
+        {/* Island 1 - brand */}
         <div className="flex xl:flex-1 xl:justify-start">
           <div
             className={`${island} flex h-[57px] shrink-0 items-center gap-3 px-4`}
@@ -474,7 +491,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Island 2 — navigation */}
+        {/* Island 2 - navigation */}
         <div className="hidden shrink-0 lg:flex">
           <div
             className={`${island} flex h-[57px] items-center gap-5 px-6 xl:gap-6`}
@@ -488,13 +505,14 @@ export default function Navbar() {
                   href={link.href}
                   label={link.label}
                   scrolled={scrolled}
+                  external={link.external}
                 />
               ),
             )}
           </div>
         </div>
 
-        {/* Island 3 — status + actions */}
+        {/* Island 3 - status + actions */}
         <div className="flex items-center gap-3 xl:flex-1 xl:justify-end">
         <div
           className={`${island} hidden h-[57px] shrink-0 items-center gap-2 pl-4 pr-2 lg:flex`}
@@ -601,6 +619,15 @@ export default function Navbar() {
                     </div>
                   </div>
                 </div>
+              ) : link.external ? (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="rounded-2xl px-1 py-2 text-sm font-semibold uppercase tracking-widest text-[#64748B] hover:text-[#0F172A] dark:text-[#94A3B8] dark:hover:text-white"
+                >
+                  {link.label}
+                </a>
               ) : (
                 <Link
                   key={link.label}
