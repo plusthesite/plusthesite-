@@ -5,7 +5,7 @@ const en = {
             "plus. is a global digital AI-agency, one integrated platform for AI chatbots, branding, mobile apps, CRM, and digital marketing. Build smarter brands, faster, with AI and real creative minds.",
         ogTitle: "plus. Build Smarter Brands. Faster.",
         ogDescription:
-            "One integrated platform for brands that want to move fast, stay consistent, and still look premium, powered by AI and real creative minds.",
+            "AI chatbots, branding, apps, and CRM. One team, one platform, built to ship fast.",
     },
     nav: {
         home: "Home",

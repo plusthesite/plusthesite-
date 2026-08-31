@@ -7,7 +7,7 @@ const id: Dictionary = {
             "plus. adalah digital AI-agency global, satu platform terintegrasi untuk chatbot AI, branding, aplikasi mobile, CRM, dan digital marketing. Bangun brand lebih cerdas dan cepat dengan AI + kreativitas manusia.",
         ogTitle: "plus. Bangun Brand Lebih Cerdas. Lebih Cepat.",
         ogDescription:
-            "Satu platform terintegrasi untuk brand yang ingin bergerak cepat, konsisten, dan tetap terlihat premium, didukung AI dan tim kreatif sungguhan.",
+            "Chatbot AI, branding, aplikasi, dan CRM. Satu tim, satu platform, rilis lebih cepat.",
     },
     nav: {
         home: "Beranda",
