@@ -8,10 +8,11 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt = "plus. - Global Digital AI-gency";
 
-const INK = "#F8FAFC";
-const BLUE = "#4F6EF7";
-const VIOLET = "#7C5CFC";
-const ACCENT = "#8AB4FF";
+// Same palette the light hero paints with, so a shared link and the page it
+// opens read as one design.
+const INK = "#020617";
+const MUTED = "#475569";
+const BLUE = "#0C74EB";
 
 export default async function Image({
     params,
@@ -22,21 +23,12 @@ export default async function Image({
     const dict = getDictionary(isLocale(locale) ? locale : defaultLocale);
     const fonts = await loadOgFonts();
 
-    // The same three proof points the About section shows on the page, so the
-    // preview promises exactly what the visitor lands on.
-    const stats = [
-        { value: "AI+", label: dict.about.statPoweredLabel },
-        { value: "6+", label: dict.about.statProductsLabel },
-        { value: "5+", label: dict.about.statToolsLabel },
-    ];
-
-    // Indonesian runs longer than English, and a headline that wraps to three
-    // lines eats the breathing room the card needs. Step the size down instead.
+    // Indonesian runs longer than English; step down rather than wrap to three lines.
     const longestLine = Math.max(
         dict.hero.titleLine1.length,
         dict.hero.titleLine2.length
     );
-    const headlineSize = longestLine > 22 ? 58 : 70;
+    const headlineSize = longestLine > 22 ? 56 : 68;
 
     return new ImageResponse(
         (
@@ -46,124 +38,122 @@ export default async function Image({
                     display: "flex",
                     width: "100%",
                     height: "100%",
-                    background:
-                        "linear-gradient(120deg, #060A16 0%, #0E1730 46%, #1A1042 100%)",
+                    background: "#FFFFFF",
                     color: INK,
                     fontFamily: "Geist, sans-serif",
                 }}
             >
-                {/* Brand glow, warm blue over deep space - the same lighting as the hero. */}
+                {/* The hero's three colour fields, same values, scaled to the card. */}
                 <div
                     style={{
                         position: "absolute",
                         display: "flex",
-                        top: -200,
-                        right: -160,
-                        width: 720,
-                        height: 720,
+                        left: -130,
+                        top: -150,
+                        width: 640,
+                        height: 640,
                         borderRadius: 999,
                         background:
-                            "radial-gradient(circle, rgba(79,110,247,0.45) 0%, rgba(79,110,247,0) 70%)",
+                            "radial-gradient(circle, rgba(12,116,235,0.42) 0%, rgba(12,116,235,0) 68%)",
                     }}
                 />
                 <div
                     style={{
                         position: "absolute",
                         display: "flex",
-                        bottom: -240,
-                        left: -180,
-                        width: 660,
-                        height: 660,
+                        right: -70,
+                        top: 20,
+                        width: 540,
+                        height: 540,
                         borderRadius: 999,
                         background:
-                            "radial-gradient(circle, rgba(124,92,252,0.40) 0%, rgba(124,92,252,0) 70%)",
+                            "radial-gradient(circle, rgba(56,189,248,0.34) 0%, rgba(56,189,248,0) 68%)",
+                    }}
+                />
+                <div
+                    style={{
+                        position: "absolute",
+                        display: "flex",
+                        left: 300,
+                        bottom: -200,
+                        width: 580,
+                        height: 580,
+                        borderRadius: 999,
+                        background:
+                            "radial-gradient(circle, rgba(124,58,237,0.24) 0%, rgba(124,58,237,0) 68%)",
                     }}
                 />
 
-                {/* Oversized brand mark, bled off the right edge so the card is
-                    recognisable as plus. even in a thumbnail crop. */}
+                {/* The brand mark, solid and bled off the right edge exactly as on the page. */}
                 <div
                     style={{
                         position: "absolute",
                         display: "flex",
-                        top: 34,
-                        right: -96,
-                        width: 430,
-                        height: 430,
+                        top: 52,
+                        right: -66,
+                        width: 420,
+                        height: 420,
                     }}
                 >
-                    <svg width="430" height="430" viewBox={MARK_VIEW_BOX}>
-                        <path d={MARK_D} fill="rgba(122,150,255,0.13)" />
+                    <svg width="420" height="420" viewBox={MARK_VIEW_BOX}>
+                        <path d={MARK_D} fill={BLUE} />
                     </svg>
                 </div>
 
-                {/* Top edge accent - a small signal of a designed page. */}
-                <div
-                    style={{
-                        position: "absolute",
-                        display: "flex",
-                        top: 0,
-                        left: 0,
-                        width: 1200,
-                        height: 8,
-                        background: `linear-gradient(90deg, ${BLUE} 0%, ${VIOLET} 55%, #22D3EE 100%)`,
-                    }}
-                />
-
+                {/* Content sits on the baseline, the way the hero stacks it. */}
                 <div
                     style={{
                         position: "relative",
                         display: "flex",
                         flexDirection: "column",
-                        justifyContent: "space-between",
+                        justifyContent: "flex-end",
                         width: "100%",
                         height: "100%",
-                        padding: "64px 72px 60px",
+                        padding: "0 72px 62px",
                     }}
                 >
-                    {/* Logo lockup + positioning badge */}
                     <div
                         style={{
                             display: "flex",
                             alignItems: "center",
-                            justifyContent: "space-between",
+                            gap: 20,
+                            marginBottom: 26,
                         }}
                     >
-                        <svg width="214" height="94" viewBox={LOGO_VIEW_BOX}>
+                        <svg width="150" height="66" viewBox={LOGO_VIEW_BOX}>
                             <path d={MARK_D} fill={BLUE} />
                             {GLYPHS.map((glyph) => (
                                 <path key={glyph.name} d={glyph.d} fill={INK} />
                             ))}
                         </svg>
-
                         <div
                             style={{
                                 display: "flex",
-                                alignItems: "center",
-                                padding: "13px 26px",
-                                borderRadius: 999,
-                                border: "1px solid rgba(148,163,255,0.38)",
-                                background: "rgba(79,110,247,0.16)",
-                                color: "#C7D2FE",
-                                fontSize: 23,
-                                fontWeight: 700,
-                                letterSpacing: "0.14em",
-                                textTransform: "uppercase",
+                                width: 1,
+                                height: 26,
+                                background: "rgba(15,23,42,0.22)",
+                            }}
+                        />
+                        <div
+                            style={{
+                                display: "flex",
+                                fontSize: 24,
+                                fontWeight: 400,
+                                color: "#0F172A",
                             }}
                         >
                             {dict.hero.badge}
                         </div>
                     </div>
 
-                    {/* Headline - the promise, in two lines, with the payoff in brand blue. */}
-                    <div style={{ display: "flex", flexDirection: "column", maxWidth: 900 }}>
+                    <div style={{ display: "flex", flexDirection: "column", maxWidth: 820 }}>
                         <div
                             style={{
                                 display: "flex",
                                 fontSize: headlineSize,
-                                fontWeight: 900,
-                                lineHeight: 1.04,
-                                letterSpacing: "-0.035em",
+                                fontWeight: 500,
+                                lineHeight: 1.08,
+                                letterSpacing: "-0.03em",
                             }}
                         >
                             {dict.hero.titleLine1}
@@ -172,92 +162,43 @@ export default async function Image({
                             style={{
                                 display: "flex",
                                 fontSize: headlineSize,
-                                fontWeight: 900,
-                                lineHeight: 1.04,
-                                letterSpacing: "-0.035em",
-                                color: ACCENT,
+                                fontWeight: 500,
+                                lineHeight: 1.08,
+                                letterSpacing: "-0.03em",
                             }}
                         >
                             {dict.hero.titleLine2}
                         </div>
-                        <div
-                            style={{
-                                display: "flex",
-                                marginTop: 22,
-                                fontSize: 30,
-                                fontWeight: 400,
-                                color: "#9FB0CC",
-                            }}
-                        >
-                            {dict.hero.subtitle}
-                        </div>
                     </div>
 
-                    {/* Proof row + domain */}
                     <div
                         style={{
                             display: "flex",
-                            alignItems: "center",
+                            alignItems: "flex-end",
                             justifyContent: "space-between",
+                            marginTop: 24,
                         }}
                     >
-                        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                            {stats.map((stat) => (
-                                <div
-                                    key={stat.label}
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: 10,
-                                        padding: "13px 22px",
-                                        borderRadius: 14,
-                                        border: "1px solid rgba(255,255,255,0.12)",
-                                        background: "rgba(255,255,255,0.06)",
-                                    }}
-                                >
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            fontSize: 26,
-                                            fontWeight: 900,
-                                            color: ACCENT,
-                                        }}
-                                    >
-                                        {stat.value}
-                                    </div>
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            fontSize: 22,
-                                            fontWeight: 400,
-                                            color: "#CBD5E1",
-                                        }}
-                                    >
-                                        {stat.label}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-
                         <div
                             style={{
                                 display: "flex",
-                                alignItems: "center",
-                                gap: 16,
-                                fontSize: 28,
-                                fontWeight: 700,
-                                color: "#E2E8F0",
+                                fontSize: 26,
+                                fontWeight: 400,
+                                lineHeight: 1.5,
+                                color: MUTED,
+                                maxWidth: 720,
                             }}
                         >
-                            <div
-                                style={{
-                                    display: "flex",
-                                    width: 52,
-                                    height: 8,
-                                    borderRadius: 999,
-                                    background: `linear-gradient(90deg, ${BLUE}, ${VIOLET})`,
-                                }}
-                            />
+                            {dict.meta.ogDescription}
+                        </div>
+                        <div
+                            style={{
+                                display: "flex",
+                                fontSize: 24,
+                                fontWeight: 500,
+                                color: "#64748B",
+                            }}
+                        >
                             plusthe.site
                         </div>
                     </div>

@@ -17,12 +17,12 @@
 export type OgFont = {
     name: string;
     data: ArrayBuffer;
-    weight: 400 | 700 | 900;
+    weight: 400 | 500 | 700;
     style: "normal";
 };
 
 const FAMILY = "Geist";
-const WEIGHTS = [400, 700, 900] as const;
+const WEIGHTS = [400, 500, 700] as const;
 const TTF_UA =
     "Mozilla/5.0 (Linux; U; Android 2.3.7; en-us) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1";
 
