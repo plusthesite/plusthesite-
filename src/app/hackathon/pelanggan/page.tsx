@@ -26,7 +26,7 @@ export default function PelangganHome() {
                 <h1 className="text-2xl font-extrabold">{c.nama}</h1>
                 <p className="text-xs opacity-80">Anggota koperasi sejak {c.anggotaSejak}</p>
 
-                {/* Loyalty card — big number (UI law: nominal = elemen terbesar) */}
+                {/* Loyalty card - big number (UI law: nominal = elemen terbesar) */}
                 <div className="mt-5 rounded-2xl bg-white/12 p-4 backdrop-blur">
                     <div className="flex items-end justify-between">
                         <div>
@@ -51,7 +51,7 @@ export default function PelangganHome() {
             </header>
 
             <main className="px-5">
-                {/* Quick actions — max simple, big tap targets */}
+                {/* Quick actions - max simple, big tap targets */}
                 <div className="mt-5 grid grid-cols-2 gap-3">
                     <Action href={`/hackathon/pelanggan/struk/${receipts[0]?.txId ?? ""}`} icon="🧾" label="Struk Terakhir" />
                     <Action href="/hackathon/verifikasi" icon="🛡️" label="Cek Keaslian" />
@@ -80,7 +80,7 @@ export default function PelangganHome() {
                 </div>
 
                 <p className="mt-6 text-center text-[11px]" style={{ color: "var(--kabur)" }}>
-                    Setiap struk teratestasi SAKSI — buktinya ada di tanganmu.
+                    Setiap struk teratestasi SAKSI, buktinya ada di tanganmu.
                 </p>
             </main>
         </div>

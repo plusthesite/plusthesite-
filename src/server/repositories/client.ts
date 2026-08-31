@@ -3,11 +3,11 @@ import { getSupabaseAdmin } from "@/lib/supabase";
 
 /**
  * Repository layer: the ONLY place that talks to Supabase. Routes and services
- * never import the Supabase client directly — they go through a repository.
+ * never import the Supabase client directly - they go through a repository.
  */
 
 /** Thrown when the service-role Supabase client is not configured (missing env
- * vars). Services translate this into the right response — a 503 for writes,
+ * vars). Services translate this into the right response - a 503 for writes,
  * or graceful empty data for reads that should degrade silently. */
 export class NotConfiguredError extends Error {
     constructor() {

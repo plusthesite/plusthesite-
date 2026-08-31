@@ -36,7 +36,7 @@ export async function verifyAction(txId: string): Promise<VerifyResult> {
     };
 }
 
-// FNV-1a — identical to the seed chain hash.
+// FNV-1a - identical to the seed chain hash.
 function fnv1a(str: string): string {
     let h = 0x811c9dc5;
     for (let i = 0; i < str.length; i++) {
@@ -47,7 +47,7 @@ function fnv1a(str: string): string {
 }
 
 /** "Simulasi Orang Dalam": take a real receipt, secretly bump its total, and
- *  show the chain rejects it — TIDAK COCOK. This is the anti-fraud demo. */
+ *  show the chain rejects it - TIDAK COCOK. This is the anti-fraud demo. */
 export async function tamperAction(): Promise<VerifyResult> {
     const tx = LEDGER.find((t) => t.tebusMurah) ?? LEDGER[0];
     const fakeTotal = tx.total + 25000; // someone edits the DB directly
@@ -63,6 +63,6 @@ export async function tamperAction(): Promise<VerifyResult> {
         txHash: tx.txHash,
         prevHash: tx.prevHash,
         seq: tx.seq,
-        note: `Nilai transaksi diubah diam-diam menjadi Rp ${fakeTotal.toLocaleString("id-ID")} (aslinya Rp ${tx.total.toLocaleString("id-ID")}). Rantai hash langsung menolak — struk TIDAK COCOK.`,
+        note: `Nilai transaksi diubah diam-diam menjadi Rp ${fakeTotal.toLocaleString("id-ID")} (aslinya Rp ${tx.total.toLocaleString("id-ID")}). Rantai hash langsung menolak, struk TIDAK COCOK.`,
     };
 }

@@ -8,7 +8,7 @@ import AnimatedLogo from "@/components/AnimatedLogo";
  *
  * Shows the looping animated wordmark plus a quiet status line while the
  * browser fetches and hydrates the page, then fades out as soon as the load
- * event fires — held for a short minimum so it never just flashes, and cut
+ * event fires - held for a short minimum so it never just flashes, and cut
  * by a 10s failsafe so it never traps anyone. Client-side navigations never
  * re-mount it.
  */
@@ -63,7 +63,7 @@ export default function Preloader({ locale }: { locale: string }) {
                         : "Preparing the experience..."}
                 </p>
             </div>
-            {/* Anchored to the curtain itself — the animated inner is a
+            {/* Anchored to the curtain itself - the animated inner is a
                 containing block (transform), so it must not wrap this. */}
             <button
                 type="button"

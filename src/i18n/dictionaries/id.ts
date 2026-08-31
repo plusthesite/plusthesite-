@@ -2,12 +2,12 @@ import type { Dictionary } from "./en";
 
 const id: Dictionary = {
     meta: {
-        homeTitle: "plus. — Digital AI-gency Global | AI, Branding & Aplikasi",
+        homeTitle: "plus. Digital AI-gency Global | AI, Branding & Aplikasi",
         homeDescription:
-            "plus. adalah digital AI-agency global — satu platform terintegrasi untuk chatbot AI, branding, aplikasi mobile, CRM, dan digital marketing. Bangun brand lebih cerdas dan cepat dengan AI + kreativitas manusia.",
-        ogTitle: "plus. — Bangun Brand Lebih Cerdas. Lebih Cepat.",
+            "plus. adalah digital AI-agency global, satu platform terintegrasi untuk chatbot AI, branding, aplikasi mobile, CRM, dan digital marketing. Bangun brand lebih cerdas dan cepat dengan AI + kreativitas manusia.",
+        ogTitle: "plus. Bangun Brand Lebih Cerdas. Lebih Cepat.",
         ogDescription:
-            "Satu platform terintegrasi untuk brand yang ingin bergerak cepat, konsisten, dan tetap terlihat premium — didukung AI dan tim kreatif sungguhan.",
+            "Satu platform terintegrasi untuk brand yang ingin bergerak cepat, konsisten, dan tetap terlihat premium, didukung AI dan tim kreatif sungguhan.",
     },
     nav: {
         home: "Beranda",
@@ -29,7 +29,7 @@ const id: Dictionary = {
         titleLine2: "Lebih Cepat.",
         subtitle: "Dengan AI + Kreativitas Manusia",
         description:
-            "Chatbot AI, branding, aplikasi, dan CRM — dikerjakan AI plus tim kreatif sungguhan, dalam satu tempat. Lebih cepat rilis, brand tetap konsisten, dan tampil premium tanpa repot ganti-ganti vendor.",
+            "Chatbot AI, branding, aplikasi, dan CRM. Dikerjakan AI plus tim kreatif sungguhan, dalam satu tempat. Lebih cepat rilis, brand tetap konsisten, dan tampil premium tanpa repot ganti-ganti vendor.",
         ctaPrimary: "Lihat Karya Kami",
         ctaSecondary: "Lihat Harga",
     },
@@ -38,7 +38,7 @@ const id: Dictionary = {
         titleLine1: "Satu Tim untuk",
         titleLine2: "Semua Kebutuhan Digital",
         description:
-            "plus. memadukan AI dengan tim kreatif sungguhan untuk mengurus chatbot, branding, aplikasi, CRM, dan marketing bisnis Anda — semua dalam satu tempat. Dibuat untuk bisnis Indonesia yang ingin rilis lebih cepat, brand tetap konsisten, dan berhenti repot ganti-ganti vendor.",
+            "plus. memadukan AI dengan tim kreatif sungguhan untuk mengurus chatbot, branding, aplikasi, CRM, dan marketing bisnis Anda, semua dalam satu tempat. Dibuat untuk bisnis Indonesia yang ingin rilis lebih cepat, brand tetap konsisten, dan berhenti repot ganti-ganti vendor.",
         statPoweredLabel: "Bertenaga",
         statProductsLabel: "Produk",
         statToolsLabel: "Tools AI",
@@ -47,17 +47,17 @@ const id: Dictionary = {
         tag: "Produk Kami",
         title: "Semua yang Brand Anda Butuhkan, dalam Satu Tempat",
         description:
-            "Enam layanan, satu tim. Dari chatbot AI dan CRM hingga aplikasi mobile dan digital agency lengkap — pilih yang Anda butuhkan sekarang, scale saat siap.",
+            "Enam layanan, satu tim. Dari chatbot AI dan CRM hingga aplikasi mobile dan digital agency lengkap. Pilih yang Anda butuhkan sekarang, scale saat siap.",
         items: {
             chatbot: {
                 title: "AI Chat Bot",
                 description:
-                    "Jawab setiap pelanggan dalam hitungan detik, 24/7 — di WhatsApp dan website. Tangani FAQ, terima pesanan, dan atur janji temu otomatis.",
+                    "Jawab setiap pelanggan dalam hitungan detik, 24/7, di WhatsApp dan website. Tangani FAQ, terima pesanan, dan atur janji temu otomatis.",
             },
             support: {
                 title: "Customer Support",
                 description:
-                    "Ubah layanan pelanggan jadi keunggulan. Satu inbox cerdas, balasan lebih cepat, pelanggan lebih puas — tanpa menambah tim.",
+                    "Ubah layanan pelanggan jadi keunggulan. Satu inbox cerdas, balasan lebih cepat, pelanggan lebih puas. Tanpa menambah tim.",
             },
             mobileApp: {
                 title: "Aplikasi Mobile",
@@ -72,12 +72,12 @@ const id: Dictionary = {
             agency: {
                 title: "Digital Agency",
                 description:
-                    "Satu tim untuk strategi, branding, konten, dan desain — agar brand Anda tampil premium dan konsisten di setiap channel.",
+                    "Satu tim untuk strategi, branding, konten, dan desain, agar brand Anda tampil premium dan konsisten di setiap channel.",
             },
             game: {
                 title: "Game Mobile",
                 description:
-                    "Dari ide ke rilis, kami bangun game mobile yang seru dimainkan — gameplay menarik dan art rapi di iOS & Android.",
+                    "Dari ide ke rilis, kami bangun game mobile yang seru dimainkan: gameplay menarik dan art rapi di iOS & Android.",
             },
         },
         badgePopular: "Populer",
@@ -87,12 +87,12 @@ const id: Dictionary = {
         tag: "Fitur AI",
         title: "AI Tools yang Mengerjakan Tugas Berat",
         description:
-            "Buat gambar, teks, video, dan musik dalam hitungan menit — bukan hari. Produksi lebih banyak, lebih cepat, tanpa menambah tim.",
+            "Buat gambar, teks, video, dan musik dalam hitungan menit, bukan hari. Produksi lebih banyak, lebih cepat, tanpa menambah tim.",
         items: {
             image: {
                 title: "AI Image Generator",
                 description:
-                    "Ciptakan karya seni indah dengan kecerdasan buatan. Tiga API terintegrasi: OpenAI, Stable Diffusion, dan Stability AI — gabungan 100+ model.",
+                    "Ciptakan karya seni indah dengan kecerdasan buatan. Tiga API terintegrasi: OpenAI, Stable Diffusion, dan Stability AI. Gabungan 100+ model.",
             },
             text: {
                 title: "AI Text Generator",
@@ -102,7 +102,7 @@ const id: Dictionary = {
             chat: {
                 title: "AI Chat Bot",
                 description:
-                    "Chatbot AI personal — hemat biaya, tersedia 24/7, dan fleksibel. Percakapan mulus dan jawaban instan untuk segala kebutuhan.",
+                    "Chatbot AI personal, hemat biaya, tersedia 24/7, dan fleksibel. Percakapan mulus dan jawaban instan untuk segala kebutuhan.",
             },
             video: {
                 title: "AI Video Generator",
@@ -139,14 +139,14 @@ const id: Dictionary = {
         tag: "Dari Blog Kami",
         title: "Insight AI & Pertumbuhan Digital",
         description:
-            "Tips, strategi, dan tren terbaru seputar AI, digital marketing, dan pertumbuhan bisnis — ditulis untuk membantu Anda mengambil keputusan yang lebih baik.",
+            "Tips, strategi, dan tren terbaru seputar AI, digital marketing, dan pertumbuhan bisnis, ditulis untuk membantu Anda mengambil keputusan yang lebih baik.",
         cta: "Lihat Semua Artikel",
         readSuffix: "baca",
     },
     pricing: {
         tag: "Harga",
         title: "Paket yang Pas untuk Bisnis Indonesia",
-        description: "Retainer bulanan transparan dalam Rupiah — dari UMKM hingga enterprise. Tanpa biaya tersembunyi, bisa berhenti kapan saja.",
+        description: "Retainer bulanan transparan dalam Rupiah, dari UMKM hingga enterprise. Tanpa biaya tersembunyi, bisa berhenti kapan saja.",
         monthly: "Bulanan",
         annual: "Tahunan",
         recommended: "Paling Populer",
@@ -156,7 +156,7 @@ const id: Dictionary = {
         billedAnnually: "ditagih tahunan",
         from: "mulai",
         save: "Hemat 20%",
-        note: "Semua harga dalam Rupiah, belum termasuk pajak. Tersedia harga proyek & penawaran khusus — hubungi tim kami.",
+        note: "Semua harga dalam Rupiah, belum termasuk pajak. Tersedia harga proyek & penawaran khusus, hubungi tim kami.",
         descGettingStarted: "Terbaik untuk memulai",
         descPopular: "Pilihan paling populer",
         descLargeScale: "Untuk operasional skala besar",
@@ -207,7 +207,7 @@ const id: Dictionary = {
     faq: {
         tag: "FAQ",
         title: "Pertanyaan yang Sering Diajukan",
-        description: "Harga, layanan, dan cara kami bekerja — terjawab. Masih ada pertanyaan? Hubungi tim kami.",
+        description: "Harga, layanan, dan cara kami bekerja. Semuanya terjawab. Masih ada pertanyaan? Hubungi tim kami.",
     },
     faqItems: [
         {
@@ -218,12 +218,12 @@ const id: Dictionary = {
         {
             question: "Fitur AI apa saja yang tersedia di platform?",
             answer:
-                "Kami menawarkan 5 tools bertenaga AI: AI Image Generator (dengan 100+ model dari OpenAI, Stable Diffusion & Stability AI), AI Text Generator, AI Chat Bot personal, AI Video Generator, dan AI Music Generator — semuanya dirancang untuk membantu Anda membangun lebih cerdas dan lebih cepat.",
+                "Kami menawarkan 5 tools bertenaga AI: AI Image Generator (dengan 100+ model dari OpenAI, Stable Diffusion & Stability AI), AI Text Generator, AI Chat Bot personal, AI Video Generator, dan AI Music Generator, semuanya dirancang untuk membantu Anda membangun lebih cerdas dan lebih cepat.",
         },
         {
             question: "Paket harga apa saja yang ditawarkan?",
             answer:
-                "Kami menawarkan paket bulanan dan tahunan yang fleksibel dalam Rupiah. Bulanan: Starter (Rp 2,5 jt), Professional (Rp 7,5 jt, direkomendasikan), dan Enterprise (Rp 20 jt). Paket tahunan hemat 20%. Setiap paket mencakup satu atau lebih lini layanan — dari chatbot AI dan CRM hingga pengembangan aplikasi. Penawaran khusus berbasis proyek juga tersedia.",
+                "Kami menawarkan paket bulanan dan tahunan yang fleksibel dalam Rupiah. Bulanan: Starter (Rp 2,5 jt), Professional (Rp 7,5 jt, direkomendasikan), dan Enterprise (Rp 20 jt). Paket tahunan hemat 20%. Setiap paket mencakup satu atau lebih lini layanan, dari chatbot AI dan CRM hingga pengembangan aplikasi. Penawaran khusus berbasis proyek juga tersedia.",
         },
         {
             question: "Bagaimana cara menghubungi plus. untuk dukungan?",
@@ -233,12 +233,12 @@ const id: Dictionary = {
         {
             question: "Apakah Anda menyediakan kustomisasi dan pengembangan website?",
             answer:
-                "Ya! Kami membangun website, aplikasi, dan produk digital custom. Harga tergantung cakupan — dari landing page sederhana hingga aplikasi cross-platform. Hubungi tim kami untuk penawaran khusus dalam Rupiah.",
+                "Ya! Kami membangun website, aplikasi, dan produk digital custom. Harga tergantung cakupan, dari landing page sederhana hingga aplikasi cross-platform. Hubungi tim kami untuk penawaran khusus dalam Rupiah.",
         },
     ],
     footer: {
         tagline:
-            "Chatbot AI, branding, aplikasi, dan CRM — dikerjakan AI plus tim kreatif sungguhan, dalam satu tempat. Harga IDR terjangkau, dibuat untuk bisnis Indonesia.",
+            "Chatbot AI, branding, aplikasi, dan CRM. Dikerjakan AI plus tim kreatif sungguhan, dalam satu tempat. Harga IDR terjangkau, dibuat untuk bisnis Indonesia.",
         products: "Produk",
         company: "Perusahaan",
         connect: "Terhubung",
@@ -248,7 +248,7 @@ const id: Dictionary = {
     },
     newsletter: {
         title: "Dapatkan insight pertumbuhan di inbox Anda",
-        subtitle: "Gabung newsletter kami untuk tips AI, marketing, dan bisnis. Tanpa spam — berhenti kapan saja.",
+        subtitle: "Gabung newsletter kami untuk tips AI, marketing, dan bisnis. Tanpa spam, berhenti kapan saja.",
         placeholder: "Alamat email Anda",
         button: "Langganan",
         sending: "Mendaftar...",
@@ -338,7 +338,7 @@ const id: Dictionary = {
         payButton: "Bayar",
         continueButton: "Lanjut ke pembayaran",
         dummyBadge: "Sandbox",
-        dummyNotice: "Payment gateway sedang disiapkan. Ini checkout placeholder — tidak ada tagihan nyata yang diproses.",
+        dummyNotice: "Payment gateway sedang disiapkan. Ini checkout placeholder, tidak ada tagihan nyata yang diproses.",
         emptyTitle: "Belum ada paket dipilih",
         emptyDesc: "Pilih paket untuk lanjut ke checkout.",
         choosePlan: "Lihat paket",
@@ -346,13 +346,13 @@ const id: Dictionary = {
     },
     paymentRedirect: {
         title: "Mengalihkan ke payment gateway",
-        subtitle: "Mohon tunggu — kami sedang menyiapkan sesi checkout aman Anda.",
+        subtitle: "Mohon tunggu, kami sedang menyiapkan sesi checkout aman Anda.",
         dummyNotice: "Payment gateway masih dikonfigurasi. Ini pengalihan placeholder; belum ada transaksi yang diproses.",
         statusPreparing: "Menyiapkan sesi aman...",
         statusConnecting: "Menghubungkan ke gateway...",
         statusAlmost: "Hampir selesai...",
         pendingTitle: "Checkout sedang diproses",
-        pendingDesc: "Integrasi payment gateway kami sedang berjalan. Pilihan Anda sudah dicatat — tim kami akan menghubungi untuk menyelesaikan langganan Anda.",
+        pendingDesc: "Integrasi payment gateway kami sedang berjalan. Pilihan Anda sudah dicatat, tim kami akan menghubungi untuk menyelesaikan langganan Anda.",
         backHome: "Kembali ke beranda",
         contactSales: "Hubungi tim kami",
     },

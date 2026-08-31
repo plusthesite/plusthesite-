@@ -25,7 +25,7 @@ export async function getUserRole(): Promise<Role> {
 
     // Unrostered (e.g. the owner) defaults to admin.
     if (!data) return "admin";
-    // A deactivated rep must NEVER escalate to the admin default — drop them to
+    // A deactivated rep must NEVER escalate to the admin default - drop them to
     // the lowest privilege instead.
     if (data.is_active === false) return "sales";
     const r = data.role as string | undefined;
@@ -50,7 +50,7 @@ export async function isUserDeactivated(): Promise<boolean> {
     return data?.is_active === false;
 }
 
-/** Server guard — redirect to /admin if the user's role isn't allowed. */
+/** Server guard - redirect to /admin if the user's role isn't allowed. */
 export async function requireRole(allowed: Role[]) {
     const role = await getUserRole();
     if (!allowed.includes(role)) redirect("/admin");

@@ -3,14 +3,14 @@
  *
  * Vector trace of `public/logo.png`, split into the blue "plus" mark and the
  * four navy glyphs so each part can be animated on its own. The outlines are
- * quadratic B-splines fitted through the traced boundary — real curves, so the
+ * quadratic B-splines fitted through the traced boundary - real curves, so the
  * silhouette stays clean at any size instead of showing polygon facets.
  * Sharp corners are held by repeated control points.
  */
 
 export const LOGO_VIEW_BOX = "0 0 668 292";
 
-/** Tight box around the plus mark alone — used by the 3D hero mark. */
+/** Tight box around the plus mark alone - used by the 3D hero mark. */
 export const MARK_VIEW_BOX = "0 60 233 232";
 
 export const MARK_D =

@@ -6,7 +6,7 @@ import { submitContact } from "@/server/services/contactService";
 
 export const dynamic = "force-dynamic";
 
-// POST /api/contact — save a contact form submission, then segment it into the
+// POST /api/contact - save a contact form submission, then segment it into the
 // sales pipeline. Uses the service-role client (server-side) to bypass RLS.
 export const POST = route(async (request) => {
     enforceRateLimit(`contact:${getClientIp(request)}`, 5, 60_000, {

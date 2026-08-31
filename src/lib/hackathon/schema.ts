@@ -1,4 +1,4 @@
-// Official Kemenkop hackathon database schema — alignment layer.
+// Official Kemenkop hackathon database schema - alignment layer.
 //
 // Source: hackathon/metadata_database_hackathon_final.xlsx (27 tables, 58
 // relationships). NALAR's demo data mirrors these table/field names and IDs so

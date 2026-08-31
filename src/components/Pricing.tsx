@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { ArrowRight, Check, ShieldCheck, Sparkles } from "lucide-react";
+import { useCallback, useRef, useState } from "react";
+import { ArrowLeft, ArrowRight, Check, ShieldCheck, Sparkles } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useLocale, useT } from "@/i18n/I18nProvider";
 import { formatIDR } from "@/lib/services";
@@ -31,9 +31,67 @@ function CheckIcon({ highlighted }: { highlighted?: boolean }) {
   );
 }
 
+function BillingToggle({
+  isAnnual,
+  onChange,
+  labels,
+  className,
+}: {
+  isAnnual: boolean;
+  onChange: (annual: boolean) => void;
+  labels: { monthly: string; annual: string; save: string };
+  className?: string;
+}) {
+  const base = "rounded-full px-6 py-2.5 text-sm font-semibold transition-all";
+  const on = "bg-[#0c74eb] text-white shadow-sm";
+  const off =
+    "text-slate-500 hover:text-slate-950 dark:text-slate-400 dark:hover:text-white";
+
+  return (
+    <div
+      className={`items-center gap-1 rounded-full border border-slate-200 bg-white p-1 shadow-sm dark:border-white/10 dark:bg-white/[0.04] ${className ?? ""}`}
+    >
+      <button onClick={() => onChange(false)} className={`${base} ${isAnnual ? off : on}`}>
+        {labels.monthly}
+      </button>
+      <button
+        onClick={() => onChange(true)}
+        className={`flex items-center gap-2 ${base} ${isAnnual ? on : off}`}
+      >
+        {labels.annual}
+        <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
+          {labels.save}
+        </span>
+      </button>
+    </div>
+  );
+}
+
 export default function Pricing() {
   const [isAnnual, setIsAnnual] = useState(false);
   const ref = useScrollReveal();
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [atStart, setAtStart] = useState(true);
+  const [atEnd, setAtEnd] = useState(false);
+
+  // The rail is a plain overflow-x container, so one "page" is one card plus
+  // the gap. Reading it off the first child keeps the arrows in step with the
+  // responsive card width instead of hardcoding it here.
+  const syncEdges = useCallback(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    setAtStart(el.scrollLeft <= 8);
+    setAtEnd(el.scrollLeft >= el.scrollWidth - el.clientWidth - 8);
+  }, []);
+
+  const step = (direction: -1 | 1) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const card = el.firstElementChild as HTMLElement | null;
+    const gap = 24; // matches gap-6 on the track
+    const distance = card ? card.offsetWidth + gap : el.clientWidth;
+    el.scrollBy({ left: direction * distance, behavior: "smooth" });
+  };
   const t = useT();
   const locale = useLocale();
 
@@ -62,31 +120,12 @@ export default function Pricing() {
               {p.description}
             </p>
 
-            <div className="fade-up fade-up-delay-2 mt-8 inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white p-1 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
-              <button
-                onClick={() => setIsAnnual(false)}
-                className={`rounded-full px-6 py-2.5 text-sm font-semibold transition-all ${
-                  !isAnnual
-                    ? "bg-[#0c74eb] text-white shadow-sm"
-                    : "text-slate-500 hover:text-slate-950 dark:text-slate-400 dark:hover:text-white"
-                }`}
-              >
-                {p.monthly}
-              </button>
-              <button
-                onClick={() => setIsAnnual(true)}
-                className={`flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-all ${
-                  isAnnual
-                    ? "bg-[#0c74eb] text-white shadow-sm"
-                    : "text-slate-500 hover:text-slate-950 dark:text-slate-400 dark:hover:text-white"
-                }`}
-              >
-                {p.annual}
-                <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
-                  {p.save}
-                </span>
-              </button>
-            </div>
+            <BillingToggle
+              isAnnual={isAnnual}
+              onChange={setIsAnnual}
+              labels={p}
+              className="fade-up fade-up-delay-2 mt-8 hidden lg:inline-flex"
+            />
           </div>
 
           <div className="fade-up fade-up-delay-3 rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-white/[0.04]">
@@ -121,20 +160,30 @@ export default function Pricing() {
           </div>
         </div>
 
-        {/* Mobile: one card per view, centered, with a peek of the next. The
-            highlighted card is first in the swipe order so the recommended
-            plan is what you see without scrolling. pt-4 gives the "most
-            popular" badge room inside the scroll container (overflow-x-auto
-            would otherwise clip it). */}
-        <div className="fade-up fade-up-delay-3 pricing-track -mx-6 mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto overscroll-x-contain px-6 pb-3 pt-4 lg:mx-0 lg:grid lg:snap-none lg:grid-cols-3 lg:overflow-visible lg:px-0 lg:pb-0 lg:pt-0">
-          {[...plans]
-            .sort((a, b) => Number(b.highlighted) - Number(a.highlighted))
-            .map((plan) => {
+        {/* On mobile the header toggle is ~1500px above the cards, so tapping it
+            changed prices the reader could not see. Repeat it directly above
+            the rail; the header keeps its own copy from lg up. */}
+        <BillingToggle
+          isAnnual={isAnnual}
+          onChange={setIsAnnual}
+          labels={p}
+          className="fade-up fade-up-delay-2 mx-auto mt-14 flex w-fit lg:hidden"
+        />
+
+        {/* Mobile: one card per view, snap-center, with a peek of the next.
+            pt-4 gives the "most popular" badge room inside the scroll
+            container (overflow-x-auto would otherwise clip it). Cards keep
+            price order: starter -> professional -> enterprise. */}
+        <div
+          ref={trackRef}
+          onScroll={syncEdges}
+          className="fade-up fade-up-delay-3 pricing-track -mx-6 mt-6 flex snap-x lg:mt-14 snap-mandatory gap-6 overflow-x-auto overscroll-x-contain px-6 pb-3 pt-4 lg:mx-0 lg:grid lg:snap-none lg:grid-cols-3 lg:overflow-visible lg:px-0 lg:pb-0 lg:pt-0">
+          {plans.map((plan) => {
             const price = isAnnual ? plan.annual : plan.monthly;
 
             return (
               <article
-                key={`${plan.key}-${isAnnual ? "annual" : "monthly"}`}
+                key={plan.key}
                 className={`relative flex h-full w-[86%] shrink-0 snap-center flex-col rounded-[1.8rem] border p-7 pt-9 transition-all hover:-translate-y-1 sm:w-[62%] md:w-[46%] lg:w-auto lg:shrink ${
                   plan.highlighted
                     ? "border-[#0c74eb] bg-[#0c74eb] text-white shadow-[0_24px_80px_rgba(12,116,235,0.35)] dark:border-sky-400"
@@ -246,6 +295,29 @@ export default function Pricing() {
               </article>
             );
           })}
+        </div>
+
+        {/* Swipe affordance for the rail. Hidden on lg, where the cards are a
+            plain 3-column grid with nothing to scroll. */}
+        <div className="mt-6 flex items-center justify-center gap-3 lg:hidden">
+          <button
+            type="button"
+            onClick={() => step(-1)}
+            disabled={atStart}
+            aria-label={locale === "id" ? "Plan sebelumnya" : "Previous plan"}
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-[#0c74eb] hover:text-[#0c74eb] disabled:pointer-events-none disabled:opacity-40 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 dark:hover:border-sky-400 dark:hover:text-sky-300"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            onClick={() => step(1)}
+            disabled={atEnd}
+            aria-label={locale === "id" ? "Plan berikutnya" : "Next plan"}
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-[#0c74eb] hover:text-[#0c74eb] disabled:pointer-events-none disabled:opacity-40 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 dark:hover:border-sky-400 dark:hover:text-sky-300"
+          >
+            <ArrowRight className="h-4 w-4" />
+          </button>
         </div>
 
         <p className="fade-up mx-auto mt-10 max-w-2xl text-center text-xs leading-6 text-slate-500 dark:text-slate-400">

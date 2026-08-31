@@ -6,7 +6,7 @@ import { buildDigestHtml, sendDigest } from "@/server/services/digestService";
 
 export const dynamic = "force-dynamic";
 
-// GET — preview the digest in the browser (admin session required).
+// GET - preview the digest in the browser (admin session required).
 export const GET = route(async () => {
     await requireAdmin();
     const stats = await getDashboardStats();
@@ -15,7 +15,7 @@ export const GET = route(async () => {
     });
 });
 
-// POST — send the digest. Trigger from a cron with header `x-cron-secret`, or
+// POST - send the digest. Trigger from a cron with header `x-cron-secret`, or
 // manually with an admin session.
 export const POST = route(async (request) => {
     const secret = process.env.CRON_SECRET;

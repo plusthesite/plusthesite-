@@ -18,7 +18,7 @@ export async function createRep(formData: FormData) {
     if (!name) throw new Error("Name is required");
     if (email && !EMAIL_RE.test(email)) throw new Error("Email tidak valid");
 
-    // Dedupe by email — a duplicate roster row would break RBAC (maybeSingle).
+    // Dedupe by email - a duplicate roster row would break RBAC (maybeSingle).
     if (email) {
         const { data: existing } = await admin.from("sales_reps").select("id").eq("email", email).maybeSingle();
         if (existing) {

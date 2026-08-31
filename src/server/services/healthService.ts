@@ -8,7 +8,15 @@ export async function checkHealth(): Promise<{ status: number; body: unknown }> 
         case "not_configured":
             return { status: 503, body: { status: "error", message: "Supabase not configured (missing URL or key)" } };
         case "ok":
-            return { status: 200, body: { status: "ok", message: "Supabase connected successfully!" } };
+            return {
+                status: 200,
+                body: {
+                    status: "ok",
+                    message: "Supabase connected successfully!",
+                    latencyMs: ping.latencyMs,
+                    uptimeSec: Math.round(process.uptime()),
+                },
+            };
         case "query_failed":
             return { status: 500, body: { status: "error", message: "Supabase connected but query failed", error: ping.error } };
         case "connection_failed":

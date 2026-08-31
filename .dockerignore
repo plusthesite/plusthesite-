@@ -1,0 +1,25 @@
+# Never ship secrets or local state into an image layer. Next copies .env* into
+# .next/standalone during the build, so keeping them out here is what stops a
+# dev key from being baked into the image.
+.env
+.env.*
+!.env.example
+
+node_modules
+.next
+.git
+.github
+.claude
+.vercel
+coverage
+docs
+supabase
+scripts
+*.tsbuildinfo
+npm-debug.log*
+README.md
+WALKTHROUGH.md
+Dockerfile
+.dockerignore
+docker-compose.yml
+ecosystem.config.cjs

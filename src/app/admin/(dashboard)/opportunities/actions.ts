@@ -32,7 +32,7 @@ export async function updateOpportunityStage(formData: FormData) {
     revalidatePath("/admin");
 }
 
-/** Move an opportunity to a new stage — callable directly from the Kanban board. */
+/** Move an opportunity to a new stage - callable directly from the Kanban board. */
 export async function moveOpportunity(id: string, stage: string) {
     await requireAdmin();
     const admin = getSupabaseAdmin();
@@ -145,7 +145,7 @@ export async function convertLeadToOpportunity(formData: FormData) {
     if (!lead) return;
 
     await admin.from("opportunities").insert({
-        name: `${lead.company || lead.name || "New deal"} — ${lead.service ?? "general"}`,
+        name: `${lead.company || lead.name || "New deal"}, ${lead.service ?? "general"}`,
         company: lead.company,
         contact_name: lead.name,
         email: lead.email,

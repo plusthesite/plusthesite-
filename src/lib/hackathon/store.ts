@@ -1,4 +1,4 @@
-// NALAR live store — the shared, persistent layer that connects all roles.
+// NALAR live store - the shared, persistent layer that connects all roles.
 //
 // New POS sales and customer reviews are written here (Supabase) so that a
 // customer's interaction shows up on the manager dashboard and the director's

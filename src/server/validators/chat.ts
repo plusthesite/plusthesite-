@@ -3,11 +3,16 @@ import { ServiceError } from "@/server/http/errors";
 
 export const CHAT_ROLES = ["user", "assistant"] as const;
 
+/** Caps on the public, unauthenticated chat write. Without them a single POST
+ * can push an arbitrarily large row into the database. */
+const MAX_SESSION_ID = 100;
+const MAX_CONTENT = 4000;
+
 /** A chat message to persist. */
 export const chatMessageSchema = z.object({
-    session_id: z.string().min(1),
+    session_id: z.string().min(1).max(MAX_SESSION_ID),
     role: z.enum(CHAT_ROLES),
-    content: z.string().min(1),
+    content: z.string().min(1).max(MAX_CONTENT),
 });
 
 export type ChatMessageInput = z.infer<typeof chatMessageSchema>;
@@ -24,9 +29,9 @@ export function parseChatMessage(body: unknown): ChatMessageInput {
     }
 
     return {
-        session_id: String(b.session_id),
+        session_id: String(b.session_id).slice(0, MAX_SESSION_ID),
         role: b.role as (typeof CHAT_ROLES)[number],
-        content: String(b.content),
+        content: String(b.content).slice(0, MAX_CONTENT),
     };
 }
 
@@ -35,5 +40,5 @@ export function parseSessionId(sessionId: string | null): string {
     if (!sessionId) {
         throw new ServiceError(400, { error: "session_id is required" });
     }
-    return sessionId;
+    return sessionId.slice(0, MAX_SESSION_ID);
 }

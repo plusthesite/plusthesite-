@@ -49,7 +49,7 @@ export default function VerifyForm({ samples }: { samples: string[] }) {
             {res && <ResultCard res={res} />}
 
             <button onClick={tamper} disabled={busy} className="mt-4 w-full rounded-xl border-2 border-dashed px-4 py-3 text-sm font-bold transition hover:bg-white disabled:opacity-60" style={{ borderColor: "var(--merah)", color: "var(--merah)" }}>
-                ⚠️ Simulasi Orang Dalam — ubah nilai transaksi diam-diam
+                ⚠️ Simulasi Orang Dalam, ubah nilai transaksi diam-diam
             </button>
         </div>
     );
@@ -74,7 +74,7 @@ function ResultCard({ res }: { res: VerifyResult }) {
                         {asli ? "STRUK ASLI" : "STRUK TIDAK COCOK"}
                     </div>
                     <div className="text-[13px]" style={{ color: "var(--kabur)" }}>
-                        {asli ? "Cocok dengan catatan koperasi — teratestasi SAKSI." : "Ada data yang diubah di luar aplikasi. Laporkan ke Pengawas."}
+                        {asli ? "Cocok dengan catatan koperasi, teratestasi SAKSI." : "Ada data yang diubah di luar aplikasi. Laporkan ke Pengawas."}
                     </div>
                 </div>
             </div>

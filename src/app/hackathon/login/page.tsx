@@ -27,9 +27,9 @@ export default async function LoginPage() {
                 <div className="mt-4 nalar-card p-5">
                     <div className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--kuning)" }}>Akun Demo Juri</div>
                     <div className="mt-3 grid gap-2">
-                        <DemoRow role="Store Manager — dashboard penuh" user="manager.demo" pin="444444" />
-                        <DemoRow role="Direktur — AI chatbot" user="direktur.demo" pin="555555" />
-                        <DemoRow role="Sales — performa sendiri" user="sales.demo" pin="666666" />
+                        <DemoRow role="Store Manager, dashboard penuh" user="manager.demo" pin="444444" />
+                        <DemoRow role="Direktur, AI chatbot" user="direktur.demo" pin="555555" />
+                        <DemoRow role="Sales, performa sendiri" user="sales.demo" pin="666666" />
                     </div>
                 </div>
 

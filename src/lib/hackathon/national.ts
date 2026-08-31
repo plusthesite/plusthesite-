@@ -1,4 +1,4 @@
-// NALAR Nasional — read-only aggregates over the real Kemenkop 2026 dataset.
+// NALAR Nasional - read-only aggregates over the real Kemenkop 2026 dataset.
 //
 // Strategy for interactivity without hammering a shared DB: pull one enriched
 // per-koperasi dataset (1,026 rows) plus a few national extras, cached 10 min.

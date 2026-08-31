@@ -1,8 +1,8 @@
-// NALAR customer surface — the gerai shopper (koperasi member) side.
+// NALAR customer surface - the gerai shopper (koperasi member) side.
 //
 // The customer is the demand side of the SAKSI → NALAR loop: they hold a
 // verified digital receipt (proof the koperasi's books are honest) and can
-// rate the service — which becomes the "Aktivitas / review pelanggan" signal
+// rate the service - which becomes the "Aktivitas / review pelanggan" signal
 // the manager dashboard reads. Data is derived from the same attested ledger.
 
 import { LEDGER, allLedger, productBySku, employeeById, PROMOS, type SaleTx } from "./seed";
@@ -64,7 +64,7 @@ function toView(tx: SaleTx): ReceiptView {
     };
 }
 
-/** Bu Sani's purchase history — a deterministic slice of the attested ledger. */
+/** Bu Sani's purchase history - a deterministic slice of the attested ledger. */
 export function customerReceipts(): ReceiptView[] {
     // Take a spread of recent receipts (a few with tebus murah so savings show).
     const withTebus = LEDGER.filter((t) => t.tebusMurah).slice(-4);

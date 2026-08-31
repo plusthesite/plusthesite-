@@ -6,7 +6,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     return productMetadata({
         locale,
         path: "/contact-us",
-        title: "Contact Us — plus.",
+        title: "Contact Us, plus.",
         description: "Get in touch with our team for premium AI branding, CRM, and digital agency solutions. We are always ready to assist.",
     });
 }

@@ -14,7 +14,7 @@ export async function generateMetadata({
     const t = getDictionary(loc);
 
     return {
-        title: `${t.blog.title} — plus.`,
+        title: `${t.blog.title}, plus.`,
         description: t.blog.description,
         alternates: {
             canonical: `${SITE}/${loc}/blog`,
@@ -25,7 +25,7 @@ export async function generateMetadata({
             },
         },
         openGraph: {
-            title: `${t.blog.title} — plus.`,
+            title: `${t.blog.title}, plus.`,
             description: t.blog.description,
             type: "website",
             url: `${SITE}/${loc}/blog`,

@@ -20,7 +20,7 @@ export default function KoperasiMap({ points, mapsKey }: { points: KoperasiPoint
     useEffect(() => {
         if (!mapsKey || !ref.current) return;
         let cancelled = false;
-        // Force SVG fallback — even if a Google map object was already created,
+        // Force SVG fallback - even if a Google map object was already created,
         // because auth errors (invalid key / API not enabled / billing / referrer)
         // surface AFTER init as Google's own "Oops" overlay.
         const toSvg = () => { if (!cancelled) setMode("svg"); };
@@ -73,7 +73,7 @@ export default function KoperasiMap({ points, mapsKey }: { points: KoperasiPoint
             </div>
             {mode !== "svg" ? (
                 <div className="relative h-[420px] w-full overflow-hidden rounded-xl" style={{ background: "#E7F1EB" }}>
-                    {/* Google Maps fully owns this node — React never renders children into it. */}
+                    {/* Google Maps fully owns this node - React never renders children into it. */}
                     <div ref={ref} className="absolute inset-0" />
                     {mode === "loading" && (
                         <div className="pointer-events-none absolute inset-0 grid place-items-center text-sm" style={{ color: "var(--kabur)" }}>Memuat peta…</div>

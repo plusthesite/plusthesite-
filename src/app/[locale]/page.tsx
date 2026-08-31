@@ -21,7 +21,7 @@ export default async function Home({
   const dict = getDictionary(isLocale(locale) ? locale : defaultLocale);
 
   // Server-side: pick the 3 newest teasers for this locale. Only these small
-  // objects reach the client — the article bodies stay out of the bundle.
+  // objects reach the client - the article bodies stay out of the bundle.
   const teasers: ArticleTeaser[] = [...articles]
     .filter((article) => (article.locale ?? "id") === locale)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())

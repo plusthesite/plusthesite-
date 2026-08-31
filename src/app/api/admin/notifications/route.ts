@@ -6,12 +6,12 @@ import { listNotifications, markNotificationsRead } from "@/server/services/noti
 export const dynamic = "force-dynamic";
 
 /**
- * GET /api/admin/notifications — fetch latest notifications (unread first).
- * PATCH /api/admin/notifications — mark notification(s) as read.
+ * GET /api/admin/notifications - fetch latest notifications (unread first).
+ * PATCH /api/admin/notifications - mark notification(s) as read.
  *
  * Both require an admin session (consistent with the other /api/admin routes).
  * Defense in depth: the `notifications` table is also locked to the service
- * role at the DB level — see supabase/notifications.sql.
+ * role at the DB level - see supabase/notifications.sql.
  */
 export const GET = route(async () => {
     await requireAdmin();

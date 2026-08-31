@@ -4,7 +4,7 @@ import { Geist } from "next/font/google";
 const geist = Geist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Admin — plus.",
+    title: "Admin, plus.",
     robots: { index: false, follow: false },
 };
 

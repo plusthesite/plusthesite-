@@ -1,4 +1,4 @@
-// NALAR demo auth — judge accounts + cookie-based session.
+// NALAR demo auth - judge accounts + cookie-based session.
 //
 // Not production auth: this is a hackathon demo. A signed-in role is stored in
 // a first-party cookie so Server Components can gate the three surfaces:

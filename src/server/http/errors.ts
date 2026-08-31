@@ -1,5 +1,5 @@
 /**
- * Pure error types for the server layer — no framework imports, so validators
+ * Pure error types for the server layer - no framework imports, so validators
  * and services that throw these stay unit-testable without loading `next`.
  */
 

@@ -9,7 +9,7 @@ import { useLocale, useT } from "@/i18n/I18nProvider";
 const serviceIcons = [Cloud, Megaphone, Lightbulb];
 
 /**
- * IT Solutions — the services band that replaced "Our Products" and
+ * IT Solutions - the services band that replaced "Our Products" and
  * "AI Features". One focused section: caption, a visual anchor, and the
  * three service lanes (cloud / marketing / innovative).
  */
@@ -42,8 +42,8 @@ export default function ITSolutions() {
             </h2>
             <p className="fade-up fade-up-delay-2 mt-5 text-base leading-7 text-slate-600 dark:text-slate-300">
               {locale === "id"
-                ? "Dari chatbot AI sampai cloud dan growth — satu tim yang merancang, membangun, dan mengoperasikan solusi digital untuk bisnis Indonesia."
-                : "From AI chatbots to cloud and growth — one team that designs, builds, and runs digital solutions for Indonesian businesses."}
+                ? "Dari chatbot AI sampai cloud dan growth, satu tim yang merancang, membangun, dan mengoperasikan solusi digital untuk bisnis Indonesia."
+                : "From AI chatbots to cloud and growth, one team that designs, builds, and runs digital solutions for Indonesian businesses."}
             </p>
 
             <div className="fade-up fade-up-delay-3 mt-10 grid gap-4 sm:grid-cols-3">

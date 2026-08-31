@@ -18,7 +18,7 @@ const geistSans = Geist({
 });
 
 // Geist Mono and Bricolage Grotesque were loaded here for every page but only
-// ever used deep inside /studio and blog articles — they cost ~90KB of woff2
+// ever used deep inside /studio and blog articles - they cost ~90KB of woff2
 // on the landing page for nothing. Pages that want them can load their own.
 
 const SITE = "https://plusthe.site";

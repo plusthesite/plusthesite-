@@ -1,4 +1,4 @@
-// NALAR analytics — pure aggregation over the seed ledger.
+// NALAR analytics - pure aggregation over the seed ledger.
 //
 // Aligned to Hackathon Kemenkop 2026 · Tema 1 "Peningkatan Usaha Koperasi
 // Melalui Teknologi Digital". Covers all six example-solution types:
@@ -9,7 +9,7 @@
 //   5. Digitalisasi Operasional         → verifyReceipt() (seed/SAKSI bridge)
 //   6. Smart Decision Support System    → the director chatbot (uses these fns)
 //
-// Every number reconciles with LEDGER — no invented figures.
+// Every number reconciles with LEDGER - no invented figures.
 
 import {
     LEDGER, PRODUCTS, SALES, EMPLOYEES, ATTENDANCE, DATES, PROMO_FUNNEL,
@@ -94,7 +94,7 @@ export function kpi(f: Filter) {
     };
 }
 
-/** Sales per rep — used for leaderboard + top performer. */
+/** Sales per rep - used for leaderboard + top performer. */
 export function salesByRep(f: Filter) {
     return SALES.map((s) => {
         const rows = filterLedger({ ...f, salesId: s.id });
@@ -121,7 +121,7 @@ export function byCategory(f: Filter) {
     return (Object.keys(map) as Kategori[]).map((k) => ({ kategori: k, omzet: map[k] }));
 }
 
-/** Hourly traffic — reveals the 2 prime-time peaks. */
+/** Hourly traffic - reveals the 2 prime-time peaks. */
 export function byHour(f: Filter) {
     const buckets = new Array(24).fill(0) as number[];
     const val = new Array(24).fill(0) as number[];
@@ -188,7 +188,7 @@ export function attendanceSummary(f: Filter) {
     return { hadir, izin, alpa, persenHadir: (hadir / total) * 100 };
 }
 
-/** Customer ratings per sales — seed baseline merged with live reviews so a
+/** Customer ratings per sales - seed baseline merged with live reviews so a
  *  new customer review moves the manager dashboard immediately. */
 export function reviewSummary(): Record<string, { avg: number; jumlah: number; baru: number }> {
     const live = getLiveReviews();
@@ -231,7 +231,7 @@ export function restockAlerts(f: Filter, n = 6) {
         .slice(0, n);
 }
 
-/** Top performer per category — 4 categories, ranking sales by category value. */
+/** Top performer per category - 4 categories, ranking sales by category value. */
 export function topPerformerPerKategori(f: Filter) {
     const cats: Kategori[] = ["minuman", "makanan", "perawatan", "rumah"];
     return cats.map((kategori) => {
@@ -250,7 +250,7 @@ export function promoConversion() {
 }
 
 /** Prime-time roster recommendation: put each category's champion on the
- *  shift that owns the peak hours (HITL — a suggestion, not an order). */
+ *  shift that owns the peak hours (HITL - a suggestion, not an order). */
 export function recommendRoster(f: Filter) {
     const peaks = primeTime(f);
     const perKat = topPerformerPerKategori(f);
@@ -322,8 +322,8 @@ export function forecastNextWeek(f: Filter) {
     return { proyeksi, total, deltaPersen: last7 ? (total - last7) / last7 : 0, slope };
 }
 
-// ── 5. Digitalisasi Operasional — SAKSI receipt verification ───────────────
-/** FNV-1a matching the seed chain — recompute a receipt's hash and compare. */
+// ── 5. Digitalisasi Operasional - SAKSI receipt verification ───────────────
+/** FNV-1a matching the seed chain - recompute a receipt's hash and compare. */
 function fnv1a(str: string): string {
     let h = 0x811c9dc5;
     for (let i = 0; i < str.length; i++) {

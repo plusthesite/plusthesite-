@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useLocale, useT } from "@/i18n/I18nProvider";
 
-/** Only the fields the three cards render — keeps the 500KB+ article bodies
+/** Only the fields the three cards render - keeps the 500KB+ article bodies
  *  out of the client bundle. */
 export type ArticleTeaser = {
   id: number;

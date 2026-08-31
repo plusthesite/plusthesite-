@@ -33,12 +33,8 @@ jobs:
         run: npm ci
 
       - name: Lint
-        # Report-only for now: the repo has pre-existing lint debt across ~20
-        # files. This surfaces issues (and any new ones) in the CI logs without
-        # blocking merges. Flip to blocking (remove continue-on-error) once the
-        # existing debt is cleared.
+        # Blocking: the repo lints clean, so any new violation fails the build.
         run: npm run lint
-        continue-on-error: true
 
       - name: Typecheck
         run: npx tsc --noEmit

@@ -4,12 +4,12 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta" });
 
 export const metadata: Metadata = {
-    title: "SUARA WARGA — Integritas & Kecerdasan Koperasi",
+    title: "SUARA WARGA, Integritas & Kecerdasan Koperasi",
     description:
-        "SUARA WARGA: dua pilar untuk koperasi Indonesia — SAKSI menjaga setiap rupiah tercatat jujur, NALAR mengubah data jadi keputusan cepat. Hackathon Kementerian Koperasi 2026, Tema 1.",
+        "SUARA WARGA: dua pilar untuk koperasi Indonesia, SAKSI menjaga setiap rupiah tercatat jujur, NALAR mengubah data jadi keputusan cepat. Hackathon Kementerian Koperasi 2026, Tema 1.",
     robots: { index: false, follow: false },
     openGraph: {
-        title: "SUARA WARGA × NALAR — Peningkatan Usaha Koperasi via Teknologi Digital",
+        title: "SUARA WARGA × NALAR, Peningkatan Usaha Koperasi via Teknologi Digital",
         description: "Setiap Rupiah Ada Saksinya, Setiap Keputusan Ada Dasarnya.",
         type: "website",
     },
@@ -21,12 +21,12 @@ export default function HackathonLayout({ children }: { children: React.ReactNod
             <body className="nalar-root antialiased">
                 <style>{`
           .nalar-root {
-            /* Brand palette — NALAR (merah) + navy sekunder */
-            --hijau: #D6222A;          /* PRIMARY (merah) — brand, tombol, judul */
-            --hijau-aksi: #B01B22;     /* merah gelap — hover/aksen */
-            --hijau-terang: #FBEAEA;   /* merah muda — latar chip */
+            /* Brand palette, NALAR (merah) + navy sekunder */
+            --hijau: #D6222A;          /* PRIMARY (merah), brand, tombol, judul */
+            --hijau-aksi: #B01B22;     /* merah gelap, hover/aksen */
+            --hijau-terang: #FBEAEA;   /* merah muda, latar chip */
             --navy: #1B3A6B;           /* SEKUNDER / sukses / valid */
-            --navy-terang: #E9EEF6;    /* navy muda — latar */
+            --navy-terang: #E9EEF6;    /* navy muda, latar */
             --latar: #F6F3F2;
             --kertas: #FBF6EC;
             --kuning: #F2B807;         /* warning / pending */

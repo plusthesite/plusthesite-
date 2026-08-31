@@ -31,7 +31,7 @@ export async function askAssistant(promptId: string, localISO?: string): Promise
         const prompt =
             `Anda adalah asisten AI "NALAR" untuk direktur koperasi desa yang tidak suka membaca tabel. ` +
             `Tulis jawaban ringkas, hangat, dan profesional dalam Bahasa Indonesia. ` +
-            `WAJIB: gunakan HANYA angka dari FAKTA di bawah — dilarang keras menambah, mengubah, atau mengarang angka apa pun. ` +
+            `WAJIB: gunakan HANYA angka dari FAKTA di bawah, dilarang keras menambah, mengubah, atau mengarang angka apa pun. ` +
             `Jangan menyebut kata "FAKTA". Gunakan poin bila membantu.\n\n` +
             `Pertanyaan direktur: "${label}"\n` +
             `FAKTA (sumber kebenaran, sudah teratestasi SAKSI): ${base.facts}`;

@@ -3,7 +3,7 @@ import { tryAdminClient } from "@/server/repositories/client";
 /**
  * Increment an article's view counter via the `increment_article_view` RPC and
  * return the new total. Degrades silently to null when Supabase is not
- * configured or the RPC errors — view counts must never break page rendering.
+ * configured or the RPC errors - view counts must never break page rendering.
  */
 export async function incrementArticleView(slug: string): Promise<number | null> {
     const supabase = tryAdminClient();

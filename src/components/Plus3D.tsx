@@ -8,7 +8,7 @@ import { MARK_D, MARK_VIEW_BOX } from "@/lib/logoPaths";
  *
  * One SVG, three cheap channels: a CSS float loop, a scroll-driven turn and
  * drift (transform on a wrapper, one write per frame), and a slow glow pulse.
- * No masks, no layer stacks — a fraction of the old 3D build's cost.
+ * No masks, no layer stacks - a fraction of the old 3D build's cost.
  */
 
 const clamp = (value: number, min: number, max: number) =>

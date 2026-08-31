@@ -3,7 +3,7 @@
 // A shared Postgres provided by the committee (host/credentials via env only).
 // We ONLY read from it, over SSL, through a tiny pool, and cache aggregates so
 // we never hammer a database that 100 teams share. Credentials live in
-// .env.local / Netlify env — never in git. Degrades gracefully to null when
+// .env.local / Netlify env - never in git. Degrades gracefully to null when
 // unconfigured so the app still builds and the seed-based demo keeps working.
 
 import { Pool, type QueryResultRow } from "pg";
@@ -33,7 +33,7 @@ function getPool(): Pool | null {
         // Belt-and-suspenders: never allow writes on this connection.
         options: "-c default_transaction_read_only=on",
     });
-    pool.on("error", () => { /* swallow idle client errors — shared DB */ });
+    pool.on("error", () => { /* swallow idle client errors - shared DB */ });
     return pool;
 }
 

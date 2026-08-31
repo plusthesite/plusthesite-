@@ -1,6 +1,6 @@
 "use client";
 
-// Lightweight, interactive SVG charts — no external dependency. Responsive via
+// Lightweight, interactive SVG charts - no external dependency. Responsive via
 // viewBox; hover tooltips + highlight states.
 
 import { useState } from "react";
@@ -130,7 +130,7 @@ export function HourBars({ data, prime }: { data: { jam: number; transaksi: numb
                 const hot = prime.includes(d.jam);
                 return (
                     <div key={d.jam} className="flex flex-1 flex-col items-center gap-1">
-                        <div className="w-full rounded-t transition-opacity hover:opacity-80" style={{ height: `${Math.max(4, (d.transaksi / max) * 96)}px`, background: hot ? KUNING : "#BFD6C7" }} title={`${d.jam}:00 — ${d.transaksi} transaksi`} />
+                        <div className="w-full rounded-t transition-opacity hover:opacity-80" style={{ height: `${Math.max(4, (d.transaksi / max) * 96)}px`, background: hot ? KUNING : "#BFD6C7" }} title={`${d.jam}:00, ${d.transaksi} transaksi`} />
                         <span className="text-[9px]" style={{ color: hot ? "#A07800" : KABUR }}>{d.jam}</span>
                     </div>
                 );

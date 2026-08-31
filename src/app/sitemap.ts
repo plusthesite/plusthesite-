@@ -46,7 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }
     }
 
-    // Static (SSG) blog articles — each emitted only under its own language
+    // Static (SSG) blog articles - each emitted only under its own language
     const seen = new Set<string>();
     for (const article of articles) {
         const locale = article.locale ?? "id";
@@ -61,7 +61,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         });
     }
 
-    // Live CMS posts (published) — pulled per locale so new articles
+    // Live CMS posts (published) - pulled per locale so new articles
     // published from the admin dashboard are indexed automatically.
     const cmsPosts = (await Promise.all(locales.map((l) => getPublishedPosts(l as "en" | "id")))).flat();
     for (const post of cmsPosts) {

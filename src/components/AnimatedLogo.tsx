@@ -5,7 +5,7 @@ import { useCallback, useState, type CSSProperties } from "react";
 import { GLYPHS, LOGO_VIEW_BOX, MARK_D } from "@/lib/logoPaths";
 
 /**
- * plus. — animated brand mark.
+ * plus. - animated brand mark.
  *
  * The wordmark is a vector trace of the original logo, split into the blue
  * "plus" mark and the four navy glyphs so each part can be timed separately.
@@ -32,7 +32,7 @@ export type AnimatedLogoProps = {
     className?: string;
     /** Play the intro once on mount. */
     animate?: boolean;
-    /** Keep cycling — used for the hero lockup. */
+    /** Keep cycling - used for the hero lockup. */
     loop?: boolean;
     /** Re-run the intro when the user hovers the mark. */
     replayOnHover?: boolean;

@@ -1,8 +1,8 @@
-// NALAR director assistant — prompt-limited, RAG-grounded over the seed engine.
+// NALAR director assistant - prompt-limited, RAG-grounded over the seed engine.
 //
 // Every answer is built deterministically from the analytics (so it is always
 // correct and works offline / without an LLM). An optional LLM pass only
-// *rephrases* these facts — it is never allowed to invent numbers.
+// *rephrases* these facts - it is never allowed to invent numbers.
 
 import {
     kpi, salesByRep, bySku, promoConversion, restockAlerts, attendanceSummary,
@@ -45,12 +45,12 @@ export function answerPrompt(id: string, localISO?: string): Answer {
         const skus = bySku(p).slice(0, 3);
         const facts = `periode=${p.dari}..${p.sampai}; omzet=${Math.round(k.omzet)}; transaksi=${k.transaksi}; margin=${Math.round(k.margin)}; top_sales=${top.sales.nama}(${Math.round(top.omzet)}); top_produk=${skus.map((s) => `${s.produk.nama}(${s.qty})`).join(", ")}`;
         const text =
-            `Laporan penjualan terbaru — ${KOPERASI.nama} (per ${tglLokal}, 3 hari terakhir):\n\n` +
+            `Laporan penjualan terbaru, ${KOPERASI.nama} (per ${tglLokal}, 3 hari terakhir):\n\n` +
             `• Omzet: ${rp(k.omzet)} dari ${k.transaksi} transaksi\n` +
             `• Margin kotor: ${rp(k.margin)}\n` +
             `• Sales terbaik: ${top.sales.nama} (${rp(top.omzet)})\n` +
             `• Produk terlaris: ${skus.map((s) => `${s.produk.nama} (${s.qty} pcs)`).join(", ")}\n\n` +
-            `Semua angka teratestasi SAKSI — rantai utuh, 0 anomali.`;
+            `Semua angka teratestasi SAKSI, rantai utuh, 0 anomali.`;
         const csv = [
             `REKAP PENJUALAN,${p.dari} s/d ${p.sampai}`,
             `Omzet,${Math.round(k.omzet)}`, `Transaksi,${k.transaksi}`, `Margin,${Math.round(k.margin)}`,
@@ -67,8 +67,8 @@ export function answerPrompt(id: string, localISO?: string): Answer {
         const facts = `minggu=${p.dari}..${p.sampai}; juara_omzet=${top.sales.nama}(${Math.round(top.omzet)},${top.transaksi}tx); juara_promo=${promo.sales.nama}(${Math.round(promo.rasio * 100)}%,${promo.konversi}/${promo.dilayani})`;
         const text =
             `Sales terbaik minggu ini (per ${tglLokal}):\n\n` +
-            `🏆 Omzet tertinggi: ${top.sales.nama} — ${rp(top.omzet)} dari ${top.transaksi} transaksi.\n` +
-            `🎯 Konversi promo tertinggi: ${promo.sales.nama} — Tebus Murah ${Math.round(promo.rasio * 100)}% (${promo.konversi}/${promo.dilayani}).\n\n` +
+            `🏆 Omzet tertinggi: ${top.sales.nama}, ${rp(top.omzet)} dari ${top.transaksi} transaksi.\n` +
+            `🎯 Konversi promo tertinggi: ${promo.sales.nama}, Tebus Murah ${Math.round(promo.rasio * 100)}% (${promo.konversi}/${promo.dilayani}).\n\n` +
             `Rekomendasi: jadikan ${promo.sales.nama.split(" ")[0]} mentor tim & tempatkan di jam ramai agar stok promo cepat habis.`;
         return { facts, text };
     }
@@ -78,9 +78,9 @@ export function answerPrompt(id: string, localISO?: string): Answer {
         const facts = `restock=${r.map((x) => `${x.produk.nama}(stok ${x.stok}, ~${Math.ceil(x.hariTersisa)}hr)`).join("; ") || "tidak ada"}`;
         const text = r.length
             ? `Produk yang perlu segera di-restock (habis < 5 hari pada laju jual sekarang):\n\n` +
-              r.map((x) => `• ${x.produk.nama} — sisa stok ${x.stok}, diperkirakan habis ~${Math.ceil(x.hariTersisa)} hari lagi`).join("\n") +
+              r.map((x) => `• ${x.produk.nama}, sisa stok ${x.stok}, diperkirakan habis ~${Math.ceil(x.hariTersisa)} hari lagi`).join("\n") +
               `\n\nSaran: prioritaskan pemesanan untuk kategori dengan margin tinggi.`
-            : `Stok seluruh SKU masih aman untuk periode ini — belum ada yang mendesak untuk di-restock.`;
+            : `Stok seluruh SKU masih aman untuk periode ini, belum ada yang mendesak untuk di-restock.`;
         return { facts, text };
     }
 
@@ -92,7 +92,7 @@ export function answerPrompt(id: string, localISO?: string): Answer {
             `Prediksi omzet 7 hari ke depan (regresi tren penjualan harian):\n\n` +
             `• Proyeksi total: ${rp(f.total)}\n` +
             `• Perkiraan ${arah} ${Math.abs(Math.round(f.deltaPersen * 100))}% dibanding minggu terakhir.\n\n` +
-            `Catatan: proyeksi statistik dari data historis — bukan janji. Jaga stok & piket di jam ramai untuk mengamankannya.`;
+            `Catatan: proyeksi statistik dari data historis, bukan janji. Jaga stok & piket di jam ramai untuk mengamankannya.`;
         return { facts, text };
     }
 
@@ -111,7 +111,7 @@ export function answerPrompt(id: string, localISO?: string): Answer {
         const h = healthScore();
         const facts = `skor=${h.skor}; status=${h.status}; growth=${(h.growth * 100).toFixed(1)}%; komponen=${h.komponen.map((c) => `${c.label}:${c.nilai}`).join(", ")}`;
         const text =
-            `Kesehatan koperasi: ${h.skor}/100 — ${h.status}.\n\n` +
+            `Kesehatan koperasi: ${h.skor}/100, ${h.status}.\n\n` +
             h.komponen.map((c) => `• ${c.label}: ${c.nilai}/100 (bobot ${c.bobot}%)`).join("\n") +
             `\n\nPertumbuhan omzet minggu-ke-minggu: ${(h.growth * 100).toFixed(1)}%.`;
         return { facts, text };

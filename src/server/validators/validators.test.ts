@@ -5,7 +5,6 @@ import { parseSubscribe } from "@/server/validators/subscribe";
 import { parseView } from "@/server/validators/view";
 import { parseContact } from "@/server/validators/contact";
 import { parseChatMessage, parseSessionId } from "@/server/validators/chat";
-import { parseAiRequest } from "@/server/validators/ai";
 
 /** Assert that `fn` throws a ServiceError with the given status + payload. */
 function expectServiceError(fn: () => unknown, status: number, payload: unknown) {
@@ -122,18 +121,5 @@ describe("parseSessionId", () => {
     });
     it("rejects a missing id", () => {
         expectServiceError(() => parseSessionId(null), 400, { error: "session_id is required" });
-    });
-});
-
-describe("parseAiRequest", () => {
-    it("passes through action/prompt/schema", () => {
-        expect(parseAiRequest({ action: "text", prompt: "hi", schema: { a: 1 } })).toEqual({
-            action: "text",
-            prompt: "hi",
-            schema: { a: 1 },
-        });
-    });
-    it("requires a prompt", () => {
-        expectServiceError(() => parseAiRequest({ action: "text" }), 400, { error: "Prompt is required" });
     });
 });

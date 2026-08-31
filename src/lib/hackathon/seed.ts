@@ -1,11 +1,11 @@
-// NALAR seed — deterministic demo dataset for the Hackathon (SUARA WARGA · Pilar 2).
+// NALAR seed - deterministic demo dataset for the Hackathon (SUARA WARGA · Pilar 2).
 //
 // One koperasi ("KDMP Bentangan"), one gerai, 6 sales (3 shift pagi + 3 malam),
 // ~40 SKU across 4 categories, a ~2-week attested sales ledger with a clear
 // rush-hour pattern, attendance, activities, and 2 active promos.
 //
 // Everything is generated from a fixed PRNG seed so the numbers are stable and
-// verifiable — the dashboard totals reconcile exactly with the ledger, and the
+// verifiable - the dashboard totals reconcile exactly with the ledger, and the
 // tebus-murah insight surfaces "Andi (Sales A): konversi 51% (180/350)" as
 // required by 07-NALAR-SPEC §N-FR-2.
 
@@ -103,7 +103,7 @@ export function fnv1a(str: string): string {
     return (h >>> 0).toString(16).padStart(8, "0");
 }
 
-/** Canonical chain hash for a transaction — used by the seed, live POS, and
+/** Canonical chain hash for a transaction - used by the seed, live POS, and
  *  the verifier so every surface agrees on what "ASLI" means. */
 export function chainHash(prevHash: string, txId: string, salesId: string, total: number, jam: number): string {
     return fnv1a(`${prevHash}|${txId}|${salesId}|${total}|${jam}`);
@@ -130,7 +130,7 @@ export const KOPERASI = {
 const JABATAN: Record<Peran, string> = { sales: "Sales", manager: "Manajer", direktur: "Direktur" };
 
 // ── Employees (karyawan_koperasi) ─────────────────────────────────────────
-// Andi = "Sales A" — the tebus-murah champion the insight must surface.
+// Andi = "Sales A" - the tebus-murah champion the insight must surface.
 const RAW_EMPLOYEES: Omit<Employee, "karyawanRef" | "jabatan">[] = [
     { id: "s-andi", nama: "Andi Saputra", peran: "sales", shift: "pagi", kategoriUnggulan: "minuman", fotoInisial: "AS" },
     { id: "s-budi", nama: "Budi Hartono", peran: "sales", shift: "pagi", kategoriUnggulan: "makanan", fotoInisial: "BH" },

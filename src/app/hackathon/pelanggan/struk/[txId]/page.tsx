@@ -22,7 +22,7 @@ export default async function StrukPage({ params }: { params: Promise<{ txId: st
         <div className="nalar-root mx-auto min-h-screen max-w-md px-5 pb-28 pt-5">
             <Link href="/hackathon/pelanggan" className="text-sm font-semibold" style={{ color: "var(--hijau)" }}>← Struk Saya</Link>
 
-            {/* Receipt — thermal paper feel (kertas token) */}
+            {/* Receipt - thermal paper feel (kertas token) */}
             <div className="mt-4 overflow-hidden rounded-2xl" style={{ background: "var(--kertas)", border: "1px solid var(--garis)" }}>
                 <div className="px-5 pt-5 text-center">
                     <div className="text-lg font-black tracking-tight">KDMP BENTANGAN</div>
@@ -32,7 +32,7 @@ export default async function StrukPage({ params }: { params: Promise<{ txId: st
                 {/* Verified stamp */}
                 <div className="mx-5 mt-4 flex items-center justify-center gap-2 rounded-xl py-2.5" style={asli ? { background: "var(--navy-terang)", color: "var(--navy)" } : { background: "#FBE9E7", color: "var(--merah)" }}>
                     <span className="text-lg">{asli ? "✅" : "⛔"}</span>
-                    <span className="text-sm font-extrabold">{asli ? "STRUK ASLI — TERCATAT" : "STRUK TIDAK COCOK"}</span>
+                    <span className="text-sm font-extrabold">{asli ? "STRUK ASLI, TERCATAT" : "STRUK TIDAK COCOK"}</span>
                 </div>
 
                 <div className="px-5 py-4 font-mono text-[13px]">

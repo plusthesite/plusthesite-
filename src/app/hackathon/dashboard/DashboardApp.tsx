@@ -81,7 +81,7 @@ export default function DashboardApp({ role, nama, employeeId }: { role: NalarRo
 
     function unduhRekap() {
         const lines = [
-            `REKAP NALAR — ${nama}`,
+            `REKAP NALAR, ${nama}`,
             `Periode: ${filter.dari} s/d ${filter.sampai}`,
             `Filter: sales=${salesId} kategori=${kategori} shift=${shift}`,
             ``,
@@ -136,7 +136,7 @@ export default function DashboardApp({ role, nama, employeeId }: { role: NalarRo
             </header>
 
             <main className="mx-auto max-w-7xl px-5 py-6">
-                {/* Koperasi identity — mirrors profil_koperasi (official schema) */}
+                {/* Koperasi identity - mirrors profil_koperasi (official schema) */}
                 <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-[12px]" style={{ color: "var(--kabur)" }}>
                     <span className="font-bold" style={{ color: "var(--tinta)" }}>{KOPERASI.nama}</span>
                     <span>· {KOPERASI.kategoriUsaha}</span>
@@ -272,7 +272,7 @@ export default function DashboardApp({ role, nama, employeeId }: { role: NalarRo
                                         )) : <div className="mt-1 text-[13px]" style={{ color: "var(--kabur)" }}>Rotasi normal</div>}
                                     </div>
                                 ))}
-                                <p className="text-[11px]" style={{ color: "var(--kabur)" }}>Usulan sistem — manager menyetujui/mengubah.</p>
+                                <p className="text-[11px]" style={{ color: "var(--kabur)" }}>Usulan sistem, manager menyetujui/mengubah.</p>
                             </div>
                         </Panel>
                     </div>
@@ -288,7 +288,7 @@ export default function DashboardApp({ role, nama, employeeId }: { role: NalarRo
                                 highlightIndex={promo.findIndex((p) => p.sales.id === "s-andi")}
                             />
                             <p className="mt-3 rounded-lg p-3 text-[13px]" style={{ background: "var(--hijau-terang)", color: "var(--hijau)" }}>
-                                💡 <strong>{promo[0].sales.nama.split(" ")[0]}</strong> jago Tebus Murah — konversi <strong>{Math.round(promo[0].rasio * 100)}%</strong> ({promo[0].konversi}/{promo[0].dilayani}). Jadikan mentor & tempatkan di jam ramai.
+                                💡 <strong>{promo[0].sales.nama.split(" ")[0]}</strong> jago Tebus Murah, konversi <strong>{Math.round(promo[0].rasio * 100)}%</strong> ({promo[0].konversi}/{promo[0].dilayani}). Jadikan mentor & tempatkan di jam ramai.
                             </p>
                         </Panel>
                         <Panel title="Top Performer per Kategori">
@@ -296,7 +296,7 @@ export default function DashboardApp({ role, nama, employeeId }: { role: NalarRo
                                 {topKat.map((t) => (
                                     <div key={t.kategori} className="rounded-lg border p-3" style={{ borderColor: "var(--garis)" }}>
                                         <div className="text-[11px] font-bold uppercase" style={{ color: KAT_COLOR[t.kategori] }}>{t.kategori}</div>
-                                        <div className="mt-1 font-bold">{t.juara ? t.juara.nama.split(" ")[0] : "—"}</div>
+                                        <div className="mt-1 font-bold">{t.juara ? t.juara.nama.split(" ")[0] : "-"}</div>
                                         <div className="text-[12px] tabular-nums" style={{ color: "var(--kabur)" }}>{rpShort(t.omzet)}</div>
                                     </div>
                                 ))}
@@ -414,11 +414,11 @@ export default function DashboardApp({ role, nama, employeeId }: { role: NalarRo
                     </Panel>
                 </div>
 
-                {/* Data lineage — proves each metric maps to the official Kemenkop schema */}
+                {/* Data lineage - proves each metric maps to the official Kemenkop schema */}
                 <div className="mt-4">
-                    <Panel title="Sumber Data — Skema Resmi Kemenkop" chip="27 tabel · 58 relasi" chipColor="var(--hijau)">
+                    <Panel title="Sumber Data, Skema Resmi Kemenkop" chip="27 tabel · 58 relasi" chipColor="var(--hijau)">
                         <p className="mb-3 text-[13px]" style={{ color: "var(--kabur)" }}>
-                            Setiap angka di dashboard ini dipetakan ke tabel resmi dataset hackathon — bukan data karangan.
+                            Setiap angka di dashboard ini dipetakan ke tabel resmi dataset hackathon, bukan data karangan.
                         </p>
                         <div className="overflow-x-auto">
                             <table className="w-full text-[13px]">
@@ -468,7 +468,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 
 function Kpi({ label, value, sub, big }: { label: string; value: string; sub: string; big?: boolean }) {
     return (
-        <div className="nalar-card p-4" title={`${label}: ${value} — ${sub}`}>
+        <div className="nalar-card p-4" title={`${label}: ${value}, ${sub}`}>
             <div className="text-[11px] font-semibold uppercase tracking-wide" style={{ color: "var(--kabur)" }}>{label}</div>
             <div className={`mt-1 font-extrabold tabular-nums ${big ? "text-2xl" : "text-xl"}`} style={{ color: big ? "var(--hijau)" : "var(--tinta)" }}>{value}</div>
             <div className="text-[11px]" style={{ color: "var(--kabur)" }}>{sub}</div>

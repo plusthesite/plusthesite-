@@ -2,7 +2,7 @@
 @variant dark (&:where(.dark, .dark *));
 
 /* ═══════════════════════════════════════════════════
-   COLOR SYSTEM — LIGHT THEME
+   COLOR SYSTEM - LIGHT THEME
    ─────────────────────────────────────────────────
    Primary : Electric Blue  → CTAs, links, highlights
    Secondary: Indigo/Violet → Gradients, accents
@@ -96,7 +96,7 @@
 }
 
 /* ═══════════════════════════════════════════════════
-   COLOR SYSTEM — DARK THEME
+   COLOR SYSTEM - DARK THEME
    ─────────────────────────────────────────────────
    Deep Slate/Black backgrounds for reduced eye strain.
    Vibrant, lighter primaries for legibility.
@@ -266,7 +266,7 @@ h3,
   font-feature-settings: "ss01", "ss02";
 }
 
-/* Smooth theme transition — scoped to key elements only */
+/* Smooth theme transition - scoped to key elements only */
 body,
 nav,
 section,
@@ -789,7 +789,7 @@ button {
 }
 
 /* ═══════════════════════════════════════════════════
-   DARK MODE SPACE — animated stars behind every section
+   DARK MODE SPACE - animated stars behind every section
    ═══════════════════════════════════════════════════
    Two fixed layers of pure-CSS stars (box-shadow constellations) drifting at
    different speeds, plus a deep-space gradient. GPU-only animation; hidden in
@@ -820,25 +820,29 @@ button {
 
 /* Far stars: small, slow. */
 .space-stars::before {
-  background-image: radial-gradient(1px 1px at 22px 34px, rgba(255, 255, 255, 0.7), transparent 100%),
-    radial-gradient(1px 1px at 187px 121px, rgba(255, 255, 255, 0.45), transparent 100%),
-    radial-gradient(1.5px 1.5px at 89px 210px, rgba(148, 210, 255, 0.6), transparent 100%),
-    radial-gradient(1px 1px at 260px 60px, rgba(255, 255, 255, 0.5), transparent 100%),
-    radial-gradient(1px 1px at 320px 240px, rgba(255, 255, 255, 0.35), transparent 100%);
+  background-image: radial-gradient(1px 1px at 22px 34px, rgba(255, 255, 255, 0.95), transparent 100%),
+    radial-gradient(1px 1px at 187px 121px, rgba(255, 255, 255, 0.75), transparent 100%),
+    radial-gradient(1.5px 1.5px at 89px 210px, rgba(160, 216, 255, 0.9), transparent 100%),
+    radial-gradient(1px 1px at 260px 60px, rgba(255, 255, 255, 0.8), transparent 100%),
+    radial-gradient(1px 1px at 320px 240px, rgba(255, 255, 255, 0.6), transparent 100%),
+    radial-gradient(1.5px 1.5px at 40px 130px, rgba(255, 255, 255, 0.7), transparent 100%),
+    radial-gradient(1px 1px at 230px 190px, rgba(190, 227, 255, 0.75), transparent 100%);
   background-size: 380px 280px;
-  opacity: 0.55;
+  opacity: 0.9;
   animation: starsDrift 240s linear infinite;
 }
 
 /* Near stars: brighter, faster, subtle twinkle via opacity steps. */
 .space-stars::after {
-  background-image: radial-gradient(1.5px 1.5px at 61px 90px, rgba(255, 255, 255, 0.9), transparent 100%),
-    radial-gradient(1px 1px at 143px 27px, rgba(190, 227, 255, 0.8), transparent 100%),
-    radial-gradient(2px 2px at 210px 160px, rgba(255, 255, 255, 0.75), transparent 100%),
-    radial-gradient(1px 1px at 45px 200px, rgba(255, 255, 255, 0.6), transparent 100%),
-    radial-gradient(1.5px 1.5px at 300px 40px, rgba(148, 210, 255, 0.7), transparent 100%);
+  background-image: radial-gradient(2px 2px at 61px 90px, rgba(255, 255, 255, 1), transparent 100%),
+    radial-gradient(1.5px 1.5px at 143px 27px, rgba(200, 232, 255, 0.95), transparent 100%),
+    radial-gradient(2.5px 2.5px at 210px 160px, rgba(255, 255, 255, 0.9), transparent 100%),
+    radial-gradient(1.5px 1.5px at 45px 200px, rgba(255, 255, 255, 0.85), transparent 100%),
+    radial-gradient(2px 2px at 300px 40px, rgba(160, 216, 255, 0.95), transparent 100%),
+    radial-gradient(1.5px 1.5px at 350px 220px, rgba(255, 255, 255, 0.8), transparent 100%),
+    radial-gradient(2px 2px at 110px 240px, rgba(255, 255, 255, 0.85), transparent 100%);
   background-size: 420px 260px;
-  opacity: 0.8;
+  opacity: 1;
   animation: starsDrift 140s linear infinite, starsTwinkle 7s ease-in-out infinite;
 }
 
@@ -1071,7 +1075,7 @@ html.lang-transition::view-transition-new(root) {
 
 
 /* ═══════════════════════════════════════════════════
-   plus. — ANIMATED LOGO (motion graphics)
+   plus. - ANIMATED LOGO (motion graphics)
    Vector trace of the wordmark, split into the blue
    "plus" mark and the l / u / s / . glyphs so each
    part can be timed on its own.
@@ -1286,7 +1290,7 @@ html.lang-transition::view-transition-new(root) {
 }
 
 /* ═══════════════════════════════════════════════════
-   LANDING — shader hero + case study surfaces
+   LANDING - shader hero + case study surfaces
    ═══════════════════════════════════════════════════ */
 .text-roll {
   display: block;
@@ -1325,7 +1329,7 @@ html.lang-transition::view-transition-new(root) {
   will-change: transform;
 }
 
-/* The blurred blobs are the single most expensive thing on the page — a GPU
+/* The blurred blobs are the single most expensive thing on the page - a GPU
    blur that big re-rasterises every frame it animates. Pause the drift when
    the hero is scrolled away or on small screens, and let the static gradient
    still carry the look. */
@@ -1411,7 +1415,7 @@ html.lang-transition::view-transition-new(root) {
   opacity: 0.07;
 }
 
-/* Theme-driven logo colours — keeps the mark hydration-safe (no JS theme read) */
+/* Theme-driven logo colours - keeps the mark hydration-safe (no JS theme read) */
 .plus-logo--auto {
   --logo-mark: #0c74eb;
   --logo-word: #020d1d;
@@ -1441,7 +1445,7 @@ html.lang-transition::view-transition-new(root) {
 }
 
 /* ═══════════════════════════════════════════════════
-   3D PLUS MARK — hero backdrop
+   3D PLUS MARK - hero backdrop
    Stacked mask layers form the extrusion; the stage
    transform is driven by scroll from Plus3D.tsx.
    ═══════════════════════════════════════════════════ */
@@ -1570,14 +1574,14 @@ html.lang-transition::view-transition-new(root) {
 
 
 /* ═══════════════════════════════════════════════════
-   PLUS CURSOR — lightweight: no filters, no rAF loop
+   PLUS CURSOR - lightweight: no filters, no rAF loop
    ═══════════════════════════════════════════════════ */
 html.plus-cursor-on,
 html.plus-cursor-on * {
   cursor: none;
 }
 
-/* Text entry keeps its caret — losing it costs more than the flourish gains. */
+/* Text entry keeps its caret - losing it costs more than the flourish gains. */
 html.plus-cursor-on input,
 html.plus-cursor-on textarea,
 html.plus-cursor-on [contenteditable] {
@@ -1659,7 +1663,7 @@ html.plus-cursor-on [contenteditable] {
 }
 
 /* ═══════════════════════════════════════════════════
-   PRELOADER — idle curtain for the first hard load
+   PRELOADER - idle curtain for the first hard load
    ═══════════════════════════════════════════════════ */
 .preloader {
   position: fixed;

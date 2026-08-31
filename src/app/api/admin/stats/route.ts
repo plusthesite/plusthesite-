@@ -5,7 +5,7 @@ import { getDashboardStats } from "@/server/services/statsService";
 
 export const dynamic = "force-dynamic";
 
-// GET /api/admin/stats — live dashboard snapshot (admin session required).
+// GET /api/admin/stats - live dashboard snapshot (admin session required).
 export const GET = route(async () => {
     await requireAdmin();
     const stats = await getDashboardStats();

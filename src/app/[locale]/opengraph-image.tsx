@@ -4,7 +4,7 @@ import { isLocale, defaultLocale } from "@/i18n/config";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "plus. — Global Digital AI-gency";
+export const alt = "plus. Global Digital AI-gency";
 
 export default async function Image({
     params,

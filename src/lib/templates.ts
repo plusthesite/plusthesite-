@@ -1,6 +1,6 @@
 /**
  * Quick-message templates for sales outreach (WhatsApp / Email).
- * No sending infrastructure — these build pre-filled wa.me / mailto links the
+ * No sending infrastructure - these build pre-filled wa.me / mailto links the
  * rep clicks to send from their own number / inbox.
  */
 import { serviceName } from "@/lib/services";
@@ -30,24 +30,24 @@ export const TEMPLATES: MessageTemplate[] = [
         subjectId: "Beberapa ide untuk {company}",
         // Warm, specific, explains how we found them, low-pressure. Edit the
         // opening line to mention something specific you noticed before sending.
-        en: "Hi, this is {sender} from plus. (plusthe.site). I came across {company} on Google and really liked what you're doing. Quick question — for {service}, do you handle that in-house, or still figuring it out? I have a few small ideas that might help. Happy to share briefly, no strings attached.",
-        id: "Halo, selamat siang 🙏 Saya {sender} dari plus. (plusthe.site). Saya menemukan {company} lewat Google dan kelihatannya menarik. Izin bertanya — untuk urusan {service}, selama ini ditangani sendiri atau masih dicari solusinya? Kebetulan saya punya beberapa ide kecil yang mungkin berguna. Kalau berkenan, boleh saya share singkat — tanpa kewajiban apa pun.",
+        en: "Hi, this is {sender} from plus. (plusthe.site). I came across {company} on Google and really liked what you're doing. Quick question, for {service}, do you handle that in-house, or still figuring it out? I have a few small ideas that might help. Happy to share briefly, no strings attached.",
+        id: "Halo, selamat siang 🙏 Saya {sender} dari plus. (plusthe.site). Saya menemukan {company} lewat Google dan kelihatannya menarik. Izin bertanya, untuk urusan {service}, selama ini ditangani sendiri atau masih dicari solusinya? Kebetulan saya punya beberapa ide kecil yang mungkin berguna. Kalau berkenan, boleh saya share singkat, tanpa kewajiban apa pun.",
     },
     {
         templateId: "follow_up",
         label: "Follow-up",
-        subjectEn: "Following up — {service}",
+        subjectEn: "Following up, {service}",
         subjectId: "Lanjut obrolan {service}",
-        en: "Hi {company}, just circling back on {service}. No rush at all — if you have 10 minutes this week I'd love to chat, or I can sum it up right here. Whichever's easiest for you?",
-        id: "Halo {company} 🙏 mau lanjut obrolan kita soal {service}. Santai saja, tidak buru-buru — kalau ada waktu luang 10 menit minggu ini saya senang ngobrol, atau saya rangkum lewat sini juga boleh. Mana yang lebih nyaman buat Anda?",
+        en: "Hi {company}, just circling back on {service}. No rush at all, if you have 10 minutes this week I'd love to chat, or I can sum it up right here. Whichever's easiest for you?",
+        id: "Halo {company} 🙏 mau lanjut obrolan kita soal {service}. Santai saja, tidak buru-buru, kalau ada waktu luang 10 menit minggu ini saya senang ngobrol, atau saya rangkum lewat sini juga boleh. Mana yang lebih nyaman buat Anda?",
     },
     {
         templateId: "pricing",
         label: "Pricing",
-        subjectEn: "{service} — a quick overview",
-        subjectId: "{service} — gambaran singkat",
-        en: "Hi {company}, about {service} — our plans are flexible and transparent (from Rp 2.5jt/month, no lock-in). Honestly though, before talking numbers I'd rather understand your needs first so the recommendation actually fits. Mind sharing a bit about your current setup?",
-        id: "Halo {company}, soal {service} — paket kami fleksibel dan transparan (mulai Rp 2,5jt/bln, tanpa kontrak mengikat). Tapi jujur, sebelum bicara angka saya lebih suka paham dulu kebutuhan Anda biar rekomendasinya benar-benar pas. Boleh cerita sedikit kondisi sekarang?",
+        subjectEn: "{service}, a quick overview",
+        subjectId: "{service}, gambaran singkat",
+        en: "Hi {company}, about {service}, our plans are flexible and transparent (from Rp 2.5jt/month, no lock-in). Honestly though, before talking numbers I'd rather understand your needs first so the recommendation actually fits. Mind sharing a bit about your current setup?",
+        id: "Halo {company}, soal {service}, paket kami fleksibel dan transparan (mulai Rp 2,5jt/bln, tanpa kontrak mengikat). Tapi jujur, sebelum bicara angka saya lebih suka paham dulu kebutuhan Anda biar rekomendasinya benar-benar pas. Boleh cerita sedikit kondisi sekarang?",
     },
     {
         templateId: "proposal",

@@ -1,11 +1,11 @@
 const en = {
     meta: {
-        homeTitle: "plus. — Global Digital AI-gency | AI, Branding & Apps",
+        homeTitle: "plus. Global Digital AI-gency | AI, Branding & Apps",
         homeDescription:
-            "plus. is a global digital AI-agency — one integrated platform for AI chatbots, branding, mobile apps, CRM, and digital marketing. Build smarter brands, faster, with AI and real creative minds.",
-        ogTitle: "plus. — Build Smarter Brands. Faster.",
+            "plus. is a global digital AI-agency, one integrated platform for AI chatbots, branding, mobile apps, CRM, and digital marketing. Build smarter brands, faster, with AI and real creative minds.",
+        ogTitle: "plus. Build Smarter Brands. Faster.",
         ogDescription:
-            "One integrated platform for brands that want to move fast, stay consistent, and still look premium — powered by AI and real creative minds.",
+            "One integrated platform for brands that want to move fast, stay consistent, and still look premium, powered by AI and real creative minds.",
     },
     nav: {
         home: "Home",
@@ -27,7 +27,7 @@ const en = {
         titleLine2: "Faster.",
         subtitle: "With AI + Human Creativity",
         description:
-            "AI chatbots, branding, apps, and CRM — built by AI and real creatives in one place. Launch faster, stay on-brand, and look premium without juggling five vendors.",
+            "AI chatbots, branding, apps, and CRM. Built by AI and real creatives in one place. Launch faster, stay on-brand, and look premium without juggling five vendors.",
         ctaPrimary: "See What We Build",
         ctaSecondary: "View Pricing",
     },
@@ -36,7 +36,7 @@ const en = {
         titleLine1: "One Team for",
         titleLine2: "Everything Digital",
         description:
-            "plus. pairs AI with a real creative team to run your chatbots, branding, apps, CRM, and marketing — all in one place. Built for Indonesian businesses that want to ship faster, stay on-brand, and stop juggling five different vendors.",
+            "plus. pairs AI with a real creative team to run your chatbots, branding, apps, CRM, and marketing, all in one place. Built for Indonesian businesses that want to ship faster, stay on-brand, and stop juggling five different vendors.",
         statPoweredLabel: "Powered",
         statProductsLabel: "Products",
         statToolsLabel: "AI Tools",
@@ -45,17 +45,17 @@ const en = {
         tag: "Our Products",
         title: "Everything Your Brand Needs, in One Place",
         description:
-            "Six services, one team. From AI chatbots and CRM to mobile apps and full agency work — pick what you need now, scale when you're ready.",
+            "Six services, one team. From AI chatbots and CRM to mobile apps and full agency work. Pick what you need now, scale when you're ready.",
         items: {
             chatbot: {
                 title: "AI Chat Bot",
                 description:
-                    "Answer every customer in seconds, 24/7 — on WhatsApp and your site. It handles FAQs, takes orders, and books appointments while you sleep.",
+                    "Answer every customer in seconds, 24/7, on WhatsApp and your site. It handles FAQs, takes orders, and books appointments while you sleep.",
             },
             support: {
                 title: "Customer Support",
                 description:
-                    "Turn support into a strength. One smart inbox, faster replies, and happier customers — without growing your team.",
+                    "Turn support into a strength. One smart inbox, faster replies, and happier customers. No extra headcount.",
             },
             mobileApp: {
                 title: "Mobile App",
@@ -70,12 +70,12 @@ const en = {
             agency: {
                 title: "Digital Agency",
                 description:
-                    "One team for strategy, branding, content, and design — so your brand looks premium and stays consistent on every channel.",
+                    "One team for strategy, branding, content, and design, so your brand looks premium and stays consistent on every channel.",
             },
             game: {
                 title: "Mobile Game",
                 description:
-                    "From idea to launch, we build mobile games people love to play — engaging gameplay and polished art on iOS and Android.",
+                    "From idea to launch, we build mobile games people love to play: engaging gameplay and polished art on iOS and Android.",
             },
         },
         badgePopular: "Popular",
@@ -85,12 +85,12 @@ const en = {
         tag: "AI Features",
         title: "AI Tools That Do the Heavy Lifting",
         description:
-            "Generate images, copy, video, and music in minutes — not days. Create more, faster, without a bigger team.",
+            "Generate images, copy, video, and music in minutes, not days. Create more, faster, without a bigger team.",
         items: {
             image: {
                 title: "AI Image Generator",
                 description:
-                    "Create beautiful art with artificial intelligence. Three APIs integrated: OpenAI, Stable Diffusion and Stability AI — 100+ models combined.",
+                    "Create beautiful art with artificial intelligence. Three APIs integrated: OpenAI, Stable Diffusion and Stability AI. 100+ models combined.",
             },
             text: {
                 title: "AI Text Generator",
@@ -100,7 +100,7 @@ const en = {
             chat: {
                 title: "AI Chat Bot",
                 description:
-                    "Personal AI Chat Bot — cost-effective, 24/7 availability, and flexible. Seamless conversations and instant answers for any need.",
+                    "Personal AI Chat Bot, cost-effective, 24/7 availability, and flexible. Seamless conversations and instant answers for any need.",
             },
             video: {
                 title: "AI Video Generator",
@@ -137,14 +137,14 @@ const en = {
         tag: "From Our Blog",
         title: "AI & Digital Growth Insights",
         description:
-            "Tips, strategies, and the latest trends on AI, digital marketing, and business growth — written to help you make better decisions.",
+            "Tips, strategies, and the latest trends on AI, digital marketing, and business growth, written to help you make better decisions.",
         cta: "View All Articles",
         readSuffix: "read",
     },
     pricing: {
         tag: "Pricing",
         title: "Plans That Fit Indonesian Businesses",
-        description: "Transparent monthly retainers in Rupiah — from UMKM to enterprise. No hidden fees, cancel anytime.",
+        description: "Transparent monthly retainers in Rupiah, from UMKM to enterprise. No hidden fees, cancel anytime.",
         monthly: "Monthly",
         annual: "Annual",
         recommended: "Most Popular",
@@ -154,7 +154,7 @@ const en = {
         billedAnnually: "billed annually",
         from: "from",
         save: "Save 20%",
-        note: "All prices in IDR, before tax. Project-based and custom quotes available — talk to our team.",
+        note: "All prices in IDR, before tax. Project-based and custom quotes available, talk to our team.",
         descGettingStarted: "Best for getting started",
         descPopular: "Most popular choice",
         descLargeScale: "For large-scale operations",
@@ -205,7 +205,7 @@ const en = {
     faq: {
         tag: "FAQ",
         title: "Frequently Asked Questions",
-        description: "Pricing, services, and how we work — answered. Still have a question? Talk to our team.",
+        description: "Pricing, services, and how we work, answered. Still have a question? Talk to our team.",
     },
     faqItems: [
         {
@@ -216,12 +216,12 @@ const en = {
         {
             question: "What AI features are available on the platform?",
             answer:
-                "We offer 5 AI-powered tools: AI Image Generator (with 100+ models from OpenAI, Stable Diffusion & Stability AI), AI Text Generator, Personal AI Chat Bot, AI Video Generator, and AI Music Generator — all designed to help you build smarter and faster.",
+                "We offer 5 AI-powered tools: AI Image Generator (with 100+ models from OpenAI, Stable Diffusion & Stability AI), AI Text Generator, Personal AI Chat Bot, AI Video Generator, and AI Music Generator, all designed to help you build smarter and faster.",
         },
         {
             question: "What pricing plans do you offer?",
             answer:
-                "We offer flexible monthly and annual plans in Indonesian Rupiah (IDR). Monthly: Starter (Rp 2.5 jt), Professional (Rp 7.5 jt, recommended), and Enterprise (Rp 20 jt). Annual plans save 20%. Each plan covers one or more service lines — from AI chatbots and CRM to full app development. Custom project-based quotes are also available.",
+                "We offer flexible monthly and annual plans in Indonesian Rupiah (IDR). Monthly: Starter (Rp 2.5 jt), Professional (Rp 7.5 jt, recommended), and Enterprise (Rp 20 jt). Annual plans save 20%. Each plan covers one or more service lines, from AI chatbots and CRM to full app development. Custom project-based quotes are also available.",
         },
         {
             question: "How can I reach plus. for support?",
@@ -231,12 +231,12 @@ const en = {
         {
             question: "Do you offer customization and website development?",
             answer:
-                "Yes! We build custom websites, apps, and digital products. Pricing depends on scope — from a simple landing page to a full cross-platform app. Contact our team for a tailored quote in IDR.",
+                "Yes! We build custom websites, apps, and digital products. Pricing depends on scope, from a simple landing page to a full cross-platform app. Contact our team for a tailored quote in IDR.",
         },
     ],
     footer: {
         tagline:
-            "AI chatbots, branding, apps, and CRM — built by AI and real creatives, in one place. Affordable IDR pricing, made for Indonesian businesses.",
+            "AI chatbots, branding, apps, and CRM, built by AI and real creatives, in one place. Affordable IDR pricing, made for Indonesian businesses.",
         products: "Products",
         company: "Company",
         connect: "Connect",
@@ -246,7 +246,7 @@ const en = {
     },
     newsletter: {
         title: "Get growth insights in your inbox",
-        subtitle: "Join our newsletter for AI, marketing, and business tips. No spam — unsubscribe anytime.",
+        subtitle: "Join our newsletter for AI, marketing, and business tips. No spam, unsubscribe anytime.",
         placeholder: "Your email address",
         button: "Subscribe",
         sending: "Subscribing...",
@@ -336,7 +336,7 @@ const en = {
         payButton: "Pay",
         continueButton: "Continue to payment",
         dummyBadge: "Sandbox",
-        dummyNotice: "Payment gateway is being set up. This is a placeholder checkout — no real charge will be made.",
+        dummyNotice: "Payment gateway is being set up. This is a placeholder checkout, no real charge will be made.",
         emptyTitle: "No plan selected",
         emptyDesc: "Choose a plan to continue to checkout.",
         choosePlan: "View plans",
@@ -344,13 +344,13 @@ const en = {
     },
     paymentRedirect: {
         title: "Redirecting to payment gateway",
-        subtitle: "Hang tight — we're preparing your secure checkout session.",
+        subtitle: "Hang tight, we're preparing your secure checkout session.",
         dummyNotice: "The live payment gateway is still being configured. This is a placeholder redirect; no transaction will be processed yet.",
         statusPreparing: "Preparing secure session...",
         statusConnecting: "Connecting to gateway...",
         statusAlmost: "Almost there...",
         pendingTitle: "Checkout is on the way",
-        pendingDesc: "Our payment gateway integration is in progress. Your selection has been noted — our team will reach out to finalize your subscription.",
+        pendingDesc: "Our payment gateway integration is in progress. Your selection has been noted, our team will reach out to finalize your subscription.",
         backHome: "Back to home",
         contactSales: "Contact our team",
     },

@@ -7,7 +7,7 @@ import { getSupabaseAdmin } from "@/lib/supabase";
 const ALLOWED = ["subscribers", "leads", "contacts"] as const;
 type Table = (typeof ALLOWED)[number];
 
-/** Delete a row — only for authenticated admins. */
+/** Delete a row - only for authenticated admins. */
 export async function deleteRow(formData: FormData) {
     const supabase = await createSupabaseServerClient();
     const {

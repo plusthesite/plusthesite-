@@ -2,7 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
 /**
- * Supabase client bound to the request cookies — used in Server
+ * Supabase client bound to the request cookies - used in Server
  * Components / Route Handlers / Server Actions to read the logged-in
  * admin session.
  */
@@ -22,7 +22,7 @@ export async function createSupabaseServerClient() {
                             cookieStore.set(name, value, options)
                         );
                     } catch {
-                        // Called from a Server Component — safe to ignore;
+                        // Called from a Server Component - safe to ignore;
                         // the middleware refreshes the session cookie.
                     }
                 },

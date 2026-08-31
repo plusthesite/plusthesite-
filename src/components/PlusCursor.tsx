@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { MARK_D, MARK_VIEW_BOX } from "@/lib/logoPaths";
 
 /**
- * The plus mark as the pointer — lightweight build.
+ * The plus mark as the pointer - lightweight build.
  *
  * Position is written straight from pointermove (a compositor-only
  * transform), the grow-on-hover is a CSS transition on a nested element, and

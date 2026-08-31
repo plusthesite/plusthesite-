@@ -1,6 +1,6 @@
 import { adminClient, DbError } from "@/server/repositories/client";
 
-/** Postgres unique-violation code — a duplicate subscribe is idempotent. */
+/** Postgres unique-violation code - a duplicate subscribe is idempotent. */
 const UNIQUE_VIOLATION = "23505";
 
 export interface InsertSubscriberResult {

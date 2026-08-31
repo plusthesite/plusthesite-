@@ -58,7 +58,7 @@ export default function HackathonLanding() {
                         </div>
                     </div>
 
-                    {/* Live metric strip — proves the engine is real */}
+                    {/* Live metric strip - proves the engine is real */}
                     <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
                         <Metric label="Omzet 14 hari" value={rpShort(total.omzet)} sub={`${total.transaksi} transaksi teratestasi`} />
                         <Metric label="Skor Kesehatan Koperasi" value={`${health.skor}/100`} sub={health.status} />
@@ -70,7 +70,7 @@ export default function HackathonLanding() {
 
             {/* Problem */}
             <section className="mx-auto max-w-6xl px-5 py-14">
-                <SectionTitle kicker="Masalah" title="Koperasi tahu ada uang masuk — tapi buta arah bisnis" />
+                <SectionTitle kicker="Masalah" title="Koperasi tahu ada uang masuk, tapi buta arah bisnis" />
                 <div className="mt-8 grid gap-4 md:grid-cols-3">
                     <Problem n="01" t="Data tidak bisa dipercaya" d="Pencatatan di satu tangan bisa diedit diam-diam. Insight dari data kotor hanya menyesatkan keputusan." />
                     <Problem n="02" t="Manajemen ambil keputusan pakai feeling" d="Tidak tahu produk apa laku, sales mana perform, kapan jam ramai, promo mana efektif → stok mati, omzet stagnan." />
@@ -104,13 +104,13 @@ export default function HackathonLanding() {
 
             {/* Tema 1 solution map */}
             <section className="mx-auto max-w-6xl px-5 py-14">
-                <SectionTitle kicker="Cakupan Tema 1" title="Enam jenis solusi Tema 1 — semuanya ada di NALAR" />
+                <SectionTitle kicker="Cakupan Tema 1" title="Enam jenis solusi Tema 1, semuanya ada di NALAR" />
                 <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    <Solution icon="📊" t="Business Intelligence Dashboard" d="Total penjualan, kehadiran, aktivitas, audit harian, detail SKU — filter per sales/kategori/periode/shift." />
+                    <Solution icon="📊" t="Business Intelligence Dashboard" d="Total penjualan, kehadiran, aktivitas, audit harian, detail SKU, filter per sales/kategori/periode/shift." />
                     <Solution icon="🤖" t="AI Business Recommendation" d="Produk top-tier untuk di-restock, komposisi piket prime-time, alert stok menipis." />
                     <Solution icon="❤️‍🩹" t="Monitoring Kesehatan Koperasi" d="Skor kesehatan komposit: integritas, pertumbuhan, kehadiran, konversi promo." />
                     <Solution icon="📈" t="Predictive Analytics" d="Proyeksi omzet 7 hari ke depan dari tren harian penjualan gerai." />
-                    <Solution icon="🧾" t="Digitalisasi Operasional" d="POS gerai berstruk terverifikasi SAKSI — pencatatan otomatis, tanpa buku manual." />
+                    <Solution icon="🧾" t="Digitalisasi Operasional" d="POS gerai berstruk terverifikasi SAKSI, pencatatan otomatis, tanpa buku manual." />
                     <Solution icon="💬" t="Smart Decision Support System" d="Chatbot direktur prompt-terbatas: tanya sekali, dapat rekap + file. Terhubung waktu lokal." />
                 </div>
             </section>
@@ -145,7 +145,7 @@ export default function HackathonLanding() {
 
             <footer className="border-t" style={{ borderColor: "var(--garis)" }}>
                 <div className="mx-auto max-w-6xl px-5 py-8 text-sm" style={{ color: "var(--kabur)" }}>
-                    <p className="font-bold" style={{ color: "var(--tinta)" }}>SUARA WARGA — SAKSI × NALAR</p>
+                    <p className="font-bold" style={{ color: "var(--tinta)" }}>SUARA WARGA, SAKSI × NALAR</p>
                     <p className="mt-1">Prototipe Hackathon Kementerian Koperasi 2026, Tema 1: Peningkatan Usaha Koperasi Melalui Teknologi Digital. Data pada demo ini adalah data sintetis (bukan koperasi nyata).</p>
                     <p className="mt-3 text-xs">Dibangun di atas plusthe.site · hackathon.plusthe.site</p>
                 </div>

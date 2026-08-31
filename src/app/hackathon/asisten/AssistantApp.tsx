@@ -22,7 +22,7 @@ export default function AssistantApp({ nama, role }: { nama: string; role: Nalar
     const [msgs, setMsgs] = useState<Msg[]>([
         {
             role: "bot",
-            text: `Selamat datang, ${nama.split(" ")[0]}. Saya NALAR — asisten koperasi Anda.\nPilih salah satu pertanyaan cepat di bawah, dan saya siapkan ringkasannya (terhubung ke waktu perangkat Anda).`,
+            text: `Selamat datang, ${nama.split(" ")[0]}. Saya NALAR, asisten koperasi Anda.\nPilih salah satu pertanyaan cepat di bawah, dan saya siapkan ringkasannya (terhubung ke waktu perangkat Anda).`,
         },
     ]);
     const [busy, setBusy] = useState(false);
@@ -31,7 +31,7 @@ export default function AssistantApp({ nama, role }: { nama: string; role: Nalar
 
     const scroll = () => setTimeout(() => endRef.current?.scrollIntoView({ behavior: "smooth" }), 40);
 
-    // Live snapshot (last 3 days) so the director sees the pulse before asking —
+    // Live snapshot (last 3 days) so the director sees the pulse before asking -
     // a summary, not a raw table. Refreshes with new POS sales / reviews.
     useEffect(() => {
         let alive = true;
@@ -163,7 +163,7 @@ export default function AssistantApp({ nama, role }: { nama: string; role: Nalar
                         ))}
                     </div>
                     <p className="mt-2 text-center text-[11px]" style={{ color: "var(--kabur)" }}>
-                        Prompt terbatas & grounded — NALAR tidak akan mengarang angka di luar data.
+                        Prompt terbatas & grounded, NALAR tidak akan mengarang angka di luar data.
                     </p>
                 </div>
             </main>

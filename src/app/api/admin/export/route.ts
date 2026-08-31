@@ -5,7 +5,7 @@ import { exportTable } from "@/server/services/exportService";
 
 export const dynamic = "force-dynamic";
 
-// GET /api/admin/export?type=leads — download a CSV (admin session required).
+// GET /api/admin/export?type=leads - download a CSV (admin session required).
 export const GET = route(async (request) => {
     await requireAdmin();
 

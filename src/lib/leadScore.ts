@@ -22,7 +22,7 @@ export function scoreLead(l: ScorableLead): { score: number; reasons: string[] }
     let score = 0;
     const reasons: string[] = [];
 
-    // Deal value (0–40) — bigger potential revenue ranks higher.
+    // Deal value (0–40) - bigger potential revenue ranks higher.
     const value = l.value ?? getService(l.service)?.startingValue ?? 0;
     const vScore = Math.min(40, Math.round(value / 1_250_000));
     if (vScore > 0) { score += vScore; reasons.push(`High value (${vScore})`); }
@@ -39,7 +39,7 @@ export function scoreLead(l: ScorableLead): { score: number; reasons: string[] }
     // Lead source quality.
     score += SOURCE_SCORE[l.source ?? ""] ?? 5;
 
-    // Recency — warmer when fresh.
+    // Recency - warmer when fresh.
     const days = (Date.now() - new Date(l.created_at).getTime()) / 86_400_000;
     if (days < 7) { score += 10; reasons.push("Fresh (<7d)"); }
     else if (days < 30) score += 5;

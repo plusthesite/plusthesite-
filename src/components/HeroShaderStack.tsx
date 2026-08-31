@@ -9,7 +9,7 @@ const BRAND = "#0c74eb";
  * fluted glass refraction, and a light film grain on top.
  *
  * Loaded only through HeroBackdrop (dynamic, client-only) and only when
- * NEXT_PUBLIC_HERO_SHADER is enabled — the `shaders` package needs a
+ * NEXT_PUBLIC_HERO_SHADER is enabled - the `shaders` package needs a
  * commercial licence and a WebGPU-capable browser.
  */
 export default function HeroShaderStack({

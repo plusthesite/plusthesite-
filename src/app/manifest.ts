@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
     return {
-        name: "plus. — Global Digital AI-gency",
+        name: "plus. Global Digital AI-gency",
         short_name: "plus.",
         description:
             "One integrated platform for AI chatbots, branding, mobile apps, CRM, and digital marketing.",

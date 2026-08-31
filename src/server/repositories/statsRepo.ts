@@ -8,7 +8,7 @@ export async function tableCount(table: string): Promise<number> {
     return count ?? 0;
 }
 
-/** Raw rows backing the admin dashboard. Pure I/O — all aggregation lives in
+/** Raw rows backing the admin dashboard. Pure I/O - all aggregation lives in
  * the stats service so it can be unit-tested without a database. */
 export interface DashboardRaw {
     views: { views: number }[];
