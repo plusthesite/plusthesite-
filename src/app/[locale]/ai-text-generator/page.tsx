@@ -233,7 +233,7 @@ const COPY = {
 
 const THEME = {
     heroBg:
-        "bg-[radial-gradient(circle_at_12%_18%,_rgba(255,205,105,0.18),_transparent_30%),radial-gradient(circle_at_82%_18%,_rgba(255,146,79,0.16),_transparent_26%),linear-gradient(180deg,_#26170f_0%,_#3b2416_46%,_#f8f7f3_46%,_#f8f7f3_100%)]",
+        "bg-[radial-gradient(circle_at_12%_18%,_rgba(255,205,105,0.18),_transparent_30%),radial-gradient(circle_at_82%_18%,_rgba(255,146,79,0.16),_transparent_26%),linear-gradient(180deg,_#26170f_0%,_#3b2416_100%)]",
     panelBg: "bg-white/[0.06]",
     panelAccent: "bg-amber-300/18",
     softBg: "bg-[#fff4df]",

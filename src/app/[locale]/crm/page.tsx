@@ -286,7 +286,7 @@ function HeroSection() {
 
     return (
         <section className="relative overflow-hidden bg-[#071b1b] pb-24 pt-28 text-white sm:pb-28 lg:pb-32">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,_rgba(39,212,168,0.22),_transparent_28%),radial-gradient(circle_at_82%_18%,_rgba(44,182,255,0.18),_transparent_26%),linear-gradient(180deg,_#071b1b_0%,_#0d2a29_46%,_#f2f7f6_46%,_#f2f7f6_100%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,_rgba(39,212,168,0.22),_transparent_28%),radial-gradient(circle_at_82%_18%,_rgba(44,182,255,0.18),_transparent_26%),linear-gradient(180deg,_#071b1b_0%,_#0d2a29_100%)]" />
             <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="grid gap-14 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
                     <div>
