@@ -132,16 +132,16 @@ export async function getDashboardStats(): Promise<DashboardStats> {
         Promise.all([
             tableCount("subscribers"),
             tableCount("leads"),
-            tableCount("contacts"),
             tableCount("chat_messages"),
             tableCount("opportunities"),
             tableCount("accounts"),
+            tableCount("leads", "source=eq.contact-form"),
         ]),
         fetchDashboardData(since14),
     ]);
 
     if (!raw) return emptyStats();
 
-    const [subscribers, leads, contacts, conversations, opportunities, accounts] = counts;
+    const [subscribers, leads, conversations, opportunities, accounts, contacts] = counts;
     return aggregateDashboard(raw, { subscribers, leads, contacts, conversations, opportunities, accounts });
 }

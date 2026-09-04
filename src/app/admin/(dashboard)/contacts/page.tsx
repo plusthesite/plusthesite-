@@ -14,8 +14,9 @@ export default async function ContactsPage() {
   const supabase = getSupabaseAdmin();
   const { data } = supabase
     ? await supabase
-        .from("contacts")
+        .from("leads")
         .select("id, name, email, company, message, created_at")
+        .eq("source", "contact-form")
         .order("created_at", { ascending: false })
     : { data: [] };
 
@@ -103,7 +104,7 @@ export default async function ContactsPage() {
                   {fmt(row.created_at)}
                 </span>
                 <form action={deleteRow}>
-                  <input type="hidden" name="table" value="contacts" />
+                  <input type="hidden" name="table" value="leads" />
                   <input type="hidden" name="id" value={row.id} />
                   <button className="text-xs font-semibold text-rose-500 transition-colors hover:text-rose-700">
                     Delete

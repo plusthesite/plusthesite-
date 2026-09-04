@@ -28,35 +28,39 @@ export default async function TeamPage() {
   const allReps = (reps ?? []) as Rep[];
 
   const { data: leadsRaw } = supabase
-    ? await supabase.from("leads").select("owner")
+    ? await supabase.from("leads").select("owner:owner_id(name)")
     : { data: [] };
   const leadsByOwner = new Map<string, number>();
-  for (const row of (leadsRaw ?? []) as { owner: string | null }[]) {
-    if (row.owner) {
-      leadsByOwner.set(row.owner, (leadsByOwner.get(row.owner) ?? 0) + 1);
+  for (const row of (leadsRaw ?? []) as { owner: { name: string }[] | null }[]) {
+    const ownerName = row.owner?.[0]?.name;
+    if (ownerName) {
+      leadsByOwner.set(ownerName, (leadsByOwner.get(ownerName) ?? 0) + 1);
     }
   }
 
   const { data: opportunitiesRaw } = supabase
-    ? await supabase.from("opportunities").select("owner, value, stage")
+    ? await supabase
+        .from("opportunities")
+        .select("owner:owner_id(name), value, stage")
     : { data: [] };
   const opportunitiesByOwner = new Map<
     string,
     { count: number; value: number }
   >();
   for (const row of (opportunitiesRaw ?? []) as {
-    owner: string | null;
+    owner: { name: string }[] | null;
     value: number;
     stage: string;
   }[]) {
-    if (row.owner && row.stage !== "lost") {
-      const current = opportunitiesByOwner.get(row.owner) ?? {
+    const ownerName = row.owner?.[0]?.name;
+    if (ownerName && row.stage !== "lost") {
+      const current = opportunitiesByOwner.get(ownerName) ?? {
         count: 0,
         value: 0,
       };
       current.count += 1;
       current.value += Number(row.value) || 0;
-      opportunitiesByOwner.set(row.owner, current);
+      opportunitiesByOwner.set(ownerName, current);
     }
   }
 

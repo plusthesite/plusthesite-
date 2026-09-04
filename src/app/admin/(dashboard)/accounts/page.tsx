@@ -25,14 +25,21 @@ export default async function AccountsPage({
     ? await Promise.all([
         supabase
           .from("accounts")
-          .select("id, name, industry, owner")
+          .select("id, name, industry, owner:owner_id(name)")
           .order("name"),
         supabase.from("opportunities").select("account_id, value, stage"),
         supabase.from("leads").select("account_id"),
       ])
     : [{ data: [] }, { data: [] }, { data: [] }];
 
-  const accounts = (accountsRes.data ?? []) as Account[];
+const one = (r: { name: string }[] | { name: string } | null | undefined): string | null => (Array.isArray(r) ? (r[0]?.name ?? null) : (r?.name ?? null));
+
+  const accounts = ((accountsRes.data ?? []) as (Omit<Account, "owner"> & {
+    owner: { name: string }[];
+  })[]).map(({ owner, ...rest }) => ({
+    ...rest,
+    owner: one(owner),
+  }));
   const opportunities = (opportunitiesRes.data ?? []) as {
     account_id: string | null;
     value: number | null;

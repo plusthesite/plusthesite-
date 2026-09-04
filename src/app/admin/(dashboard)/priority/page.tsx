@@ -58,14 +58,21 @@ export default async function PriorityPage({
     ? await supabase
         .from("leads")
         .select(
-          "id, name, company, phone, email, website, service, status, value, source, owner, locale, created_at",
+          "id, name, company, phone, email, website, service, status, value, source, owner:owner_id(name), locale, created_at",
         )
         .neq("status", "converted")
         .order("value", { ascending: false })
         .limit(1000)
     : { data: [] };
 
-  const scored = ((data ?? []) as Lead[])
+const one = (r: { name: string }[] | { name: string } | null | undefined): string | null => (Array.isArray(r) ? (r[0]?.name ?? null) : (r?.name ?? null));
+
+  const scored = (((data ?? []) as (Omit<Lead, "owner"> & {
+    owner: { name: string }[];
+  })[]).map(({ owner, ...rest }) => ({
+    ...rest,
+    owner: one(owner),
+  })))
     .map((lead) => ({ lead, ...scoreLead(lead) }))
     .sort((a, b) => b.score - a.score);
 

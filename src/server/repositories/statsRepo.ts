@@ -1,10 +1,16 @@
 import { tryAdminClient } from "@/server/repositories/client";
 
-/** Exact row count for a table; 0 when Supabase is not configured. */
-export async function tableCount(table: string): Promise<number> {
+/** Exact row count for a table; 0 when Supabase is not configured.
+ * Optional filter narrows the count (e.g. leads with source=contact-form). */
+export async function tableCount(table: string, filter?: string): Promise<number> {
     const supabase = tryAdminClient();
     if (!supabase) return 0;
-    const { count } = await supabase.from(table).select("*", { count: "exact", head: true });
+    let q = supabase.from(table).select("*", { count: "exact", head: true });
+    if (filter) {
+        const [col, rest] = filter.split("=eq.");
+        if (rest !== undefined) q = q.eq(col, rest);
+    }
+    const { count } = await q;
     return count ?? 0;
 }
 
@@ -31,25 +37,31 @@ export async function fetchDashboardData(since14: string): Promise<DashboardRaw 
     const [viewsRes, oppsRes, recentSubsRes, recentContactsRes, hotRes, tasksRes, leadsTrendRes, leadsValueRes, repsRes] =
         await Promise.all([
             supabase.from("article_views").select("views"),
-            supabase.from("opportunities").select("value, probability, stage, owner"),
+            supabase.from("opportunities").select("value, probability, stage, owner:owner_id(name)"),
             supabase.from("subscribers").select("email, locale, created_at").order("created_at", { ascending: false }).limit(5),
-            supabase.from("contacts").select("name, email, created_at").order("created_at", { ascending: false }).limit(5),
+            supabase.from("leads").select("name, email, created_at").eq("source", "contact-form").order("created_at", { ascending: false }).limit(5),
             supabase.from("opportunities").select("name, company, value, stage, service").not("stage", "in", "(won,lost)").order("value", { ascending: false }).limit(5),
             supabase.from("activities").select("due_at").eq("status", "open"),
             supabase.from("leads").select("created_at").gte("created_at", since14),
-            supabase.from("leads").select("value, status, owner"),
+            supabase.from("leads").select("value, status, owner:owner_id(name)"),
             supabase.from("sales_reps").select("name").eq("is_active", true),
         ]);
 
+    const flattenOwner = <T extends { owner: unknown }>(rows: T[]): (Omit<T, "owner"> & { owner: string | null })[] =>
+        rows.map(({ owner, ...rest }) => ({
+            ...rest,
+            owner: ((owner as { name: string } | null)?.name ?? null),
+        }));
+
     return {
         views: (viewsRes.data ?? []) as DashboardRaw["views"],
-        opps: (oppsRes.data ?? []) as DashboardRaw["opps"],
+        opps: flattenOwner((oppsRes.data ?? []) as { owner: unknown }[]) as DashboardRaw["opps"],
         recentSubs: (recentSubsRes.data ?? []) as DashboardRaw["recentSubs"],
         recentContacts: (recentContactsRes.data ?? []) as DashboardRaw["recentContacts"],
         hot: (hotRes.data ?? []) as DashboardRaw["hot"],
         tasks: (tasksRes.data ?? []) as DashboardRaw["tasks"],
         leadsTrend: (leadsTrendRes.data ?? []) as DashboardRaw["leadsTrend"],
-        leadsValue: (leadsValueRes.data ?? []) as DashboardRaw["leadsValue"],
+        leadsValue: flattenOwner((leadsValueRes.data ?? []) as { owner: unknown }[]) as DashboardRaw["leadsValue"],
         reps: (repsRes.data ?? []) as DashboardRaw["reps"],
     };
 }

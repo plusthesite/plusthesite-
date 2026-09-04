@@ -9,10 +9,17 @@ export default async function OpportunitiesBoardPage() {
     const { data } = supabase
         ? await supabase
             .from("opportunities")
-            .select("id, name, company, value, owner, stage, service")
+            .select("id, name, company, value, owner:owner_id(name), stage, service")
             .order("value", { ascending: false })
         : { data: [] };
-    const opps = (data ?? []) as BoardOpp[];
+const one = (r: { name: string }[] | { name: string } | null | undefined): string | null => (Array.isArray(r) ? (r[0]?.name ?? null) : (r?.name ?? null));
+
+    const opps = ((data ?? []) as (Omit<BoardOpp, "owner"> & {
+        owner: { name: string }[];
+    })[]).map(({ owner, ...rest }) => ({
+        ...rest,
+        owner: one(owner),
+    }));
 
     return (
         <div>

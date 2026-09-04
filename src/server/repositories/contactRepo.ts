@@ -7,11 +7,12 @@ export interface ContactRow {
     message: string;
 }
 
-/** Insert a contact submission, returning the created row. Throws on failure. */
+/** Insert a contact submission, returning the created row. Throws on failure.
+ * ERD v2: contacts merged into leads (source='contact-form'). */
 export async function insertContact(row: ContactRow): Promise<Record<string, unknown>> {
     const { data, error } = await adminClient()
-        .from("contacts")
-        .insert({ name: row.name, email: row.email, company: row.company, message: row.message })
+        .from("leads")
+        .insert({ name: row.name, email: row.email, company: row.company, message: row.message, source: "contact-form" })
         .select()
         .single();
     if (error) throw new DbError(error.message);

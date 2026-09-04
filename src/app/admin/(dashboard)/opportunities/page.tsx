@@ -10,6 +10,18 @@ import { StageSelect } from "./StageSelect";
 
 export const dynamic = "force-dynamic";
 
+/** Active sales reps for owner dropdowns (ERD v2: owner_id FK). */
+async function getReps() {
+  const supabase = getSupabaseAdmin();
+  if (!supabase) return [];
+  const { data } = await supabase
+    .from("sales_reps")
+    .select("id, name")
+    .eq("is_active", true)
+    .order("name");
+  return (data ?? []) as { id: string; name: string }[];
+}
+
 interface Opp {
   id: string;
   name: string;
@@ -85,11 +97,18 @@ export default async function OpportunitiesPage({
     ? await supabase
         .from("opportunities")
         .select(
-          "id, name, company, contact_name, email, phone, value, stage, probability, source, service, owner, next_action, next_action_at, expected_close",
+          "id, name, company, contact_name, email, phone, value, stage, probability, source, service, owner_id, owner:owner_id(name), next_action, next_action_at, expected_close",
         )
         .order("value", { ascending: false })
     : { data: [] };
-  const all = (data ?? []) as Opp[];
+const one = (r: { name: string }[] | { name: string } | null | undefined): string | null => (Array.isArray(r) ? (r[0]?.name ?? null) : (r?.name ?? null));
+
+  const all = ((data ?? []) as (Omit<Opp, "owner"> & {
+    owner: { name: string }[];
+  })[]).map(({ owner, ...rest }) => ({
+    ...rest,
+    owner: one(owner),
+  }));
 
   const open = all.filter((opp) => opp.stage !== "won" && opp.stage !== "lost");
   const totalPipeline = open.reduce((sum, opp) => sum + (opp.value ?? 0), 0);
@@ -326,11 +345,18 @@ export default async function OpportunitiesPage({
           <option value="owner">Assign owner</option>
           <option value="delete">Hapus</option>
         </select>
-        <input
+        <select
           name="bulk_owner"
-          placeholder="Nama owner untuk assign"
+          defaultValue=""
           className="rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-xs"
-        />
+        >
+          <option value="">Pilih owner...</option>
+          {(await getReps()).map((rep) => (
+            <option key={rep.id} value={rep.id}>
+              {rep.name}
+            </option>
+          ))}
+        </select>
         <button className="rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-semibold text-white hover:bg-slate-800">
           Terapkan ke pilihan
         </button>

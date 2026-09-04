@@ -32,7 +32,8 @@ interface Activity {
   type: string;
   subject: string | null;
   body: string | null;
-  owner: string | null;
+  owner_id: string | null;
+  owner_name: string | null;
   status: string;
   due_at: string | null;
   done_at: string | null;
@@ -58,18 +59,31 @@ export async function ActivityPanel({
   parentLabel: string;
 }) {
   const supabase = getSupabaseAdmin();
-  const { data } = supabase
-    ? await supabase
-        .from("activities")
-        .select(
-          "id, type, subject, body, owner, status, due_at, done_at, created_at",
-        )
-        .eq("parent_type", parentType)
-        .eq("parent_id", parentId)
-        .order("created_at", { ascending: false })
-    : { data: [] };
+  const fk = parentType === "opportunity" ? "opportunity_id" : "lead_id";
+  const [activityRes, repsRes] = supabase
+    ? await Promise.all([
+        supabase
+          .from("activities")
+          .select(
+            "id, type, subject, body, owner_id, owner:owner_id(name), status, due_at, done_at, created_at",
+          )
+          .eq(fk, parentId)
+          .order("created_at", { ascending: false }),
+        supabase
+          .from("sales_reps")
+          .select("id, name")
+          .eq("is_active", true)
+          .order("name"),
+      ])
+    : [{ data: [] }, { data: [] }];
 
-  const items = (data ?? []) as Activity[];
+  const items = ((activityRes.data ?? []) as (Omit<Activity, "owner_name"> & {
+    owner: { name: string }[];
+  })[]).map(({ owner, ...rest }) => ({
+    ...rest,
+    owner_name: owner[0]?.name ?? null,
+  }));
+  const reps = ((repsRes.data ?? []) as { id: string; name: string }[]) ?? [];
 
   return (
     <div className="rounded-[1.75rem] border border-slate-200/80 bg-white/95 p-5 shadow-sm">
@@ -94,7 +108,6 @@ export async function ActivityPanel({
       >
         <input type="hidden" name="parent_type" value={parentType} />
         <input type="hidden" name="parent_id" value={parentId} />
-        <input type="hidden" name="parent_label" value={parentLabel} />
         <select
           name="type"
           defaultValue="call"
@@ -106,11 +119,18 @@ export async function ActivityPanel({
             </option>
           ))}
         </select>
-        <input
+        <select
           name="owner"
-          placeholder="Owner (optional)"
+          defaultValue="none"
           className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
-        />
+        >
+          <option value="none">Owner (none)</option>
+          {reps.map((rep) => (
+            <option key={rep.id} value={rep.id}>
+              {rep.name}
+            </option>
+          ))}
+        </select>
         <input
           name="subject"
           placeholder="Subject, example: intro call"
@@ -183,7 +203,7 @@ export async function ActivityPanel({
                     </p>
                   )}
                   <p className="mt-2 text-xs text-slate-400">
-                    {activity.owner ? `${activity.owner} / ` : ""}
+                    {activity.owner_name ? `${activity.owner_name} / ` : ""}
                     {fmt(timestamp)}
                   </p>
                 </div>

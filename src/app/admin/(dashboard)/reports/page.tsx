@@ -57,12 +57,19 @@ export default async function ReportsPage() {
     supabase
       .from("opportunities")
       .select(
-        "name, service, stage, value, owner, source, created_at, updated_at",
+        "name, service, stage, value, owner:owner_id(name), source, created_at, updated_at",
       ),
   ]);
 
   const leads = (leadsRes.data ?? []) as Lead[];
-  const opportunities = (opportunitiesRes.data ?? []) as Opportunity[];
+const one = (r: { name: string }[] | { name: string } | null | undefined): string | null => (Array.isArray(r) ? (r[0]?.name ?? null) : (r?.name ?? null));
+
+  const opportunities = (((opportunitiesRes.data ?? []) as (Omit<Opportunity, "owner"> & {
+    owner: { name: string }[];
+  })[]).map(({ owner, ...rest }) => ({
+    ...rest,
+    owner: one(owner),
+  })));
 
   const servicePerformance = SERVICES.map((service) => {
     const serviceLeads = leads.filter((lead) => lead.service === service.slug);

@@ -2,14 +2,27 @@ import Link from "next/link";
 import { SERVICES } from "@/lib/services";
 import { createOpportunity } from "../actions";
 import { STAGES } from "../constants";
+import { getSupabaseAdmin } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
+
+/** Active sales reps for the owner dropdown (ERD v2: owner_id FK). */
+async function getReps() {
+  const supabase = getSupabaseAdmin();
+  if (!supabase) return [];
+  const { data } = await supabase
+    .from("sales_reps")
+    .select("id, name")
+    .eq("is_active", true)
+    .order("name");
+  return (data ?? []) as { id: string; name: string }[];
+}
 
 const field =
   "mt-1 block w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-sky-400 focus:outline-none";
 const label = "block text-xs font-bold uppercase tracking-wider text-slate-500";
 
-export default function NewOpportunityPage() {
+export default async function NewOpportunityPage() {
   return (
     <div className="space-y-6">
       <section className="overflow-hidden rounded-[2rem] border border-slate-200/80 bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.14),_transparent_28%),radial-gradient(circle_at_top_right,_rgba(59,130,246,0.12),_transparent_34%),linear-gradient(180deg,_rgba(255,255,255,0.98),_rgba(248,250,252,0.96))] p-6 shadow-[0_30px_80px_-50px_rgba(15,23,42,0.45)]">
@@ -110,11 +123,14 @@ export default function NewOpportunityPage() {
           </div>
           <div>
             <label className={label}>Penanggung Jawab</label>
-            <input
-              name="owner"
-              className={field}
-              placeholder="Nama sales atau account owner"
-            />
+            <select name="owner" defaultValue="none" className={field}>
+              <option value="none">Tidak ada</option>
+              {(await getReps()).map((rep) => (
+                <option key={rep.id} value={rep.id}>
+                  {rep.name}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <label className={label}>Target Closing</label>

@@ -71,7 +71,7 @@ export default async function OpportunityDetailPage({
   const { data: opportunity } = await supabase
     .from("opportunities")
     .select(
-      "id, name, company, contact_name, email, phone, value, stage, probability, source, service, owner, next_action, next_action_at, expected_close, notes, locale, created_at",
+      "id, name, company, contact_name, email, phone, value, stage, probability, source, service, owner:owner_id(name), next_action, next_action_at, expected_close, notes, locale, created_at",
     )
     .eq("id", id)
     .maybeSingle();
@@ -161,7 +161,7 @@ export default async function OpportunityDetailPage({
                 {formatIDR(weightedValue, true)}
               </p>
               <p className="mt-2 text-xs text-sky-800/70">
-                Owner: {opportunity.owner ?? "unassigned"}
+                Owner: {((opportunity.owner as { name?: string }[] | null)?.[0]?.name) ?? "unassigned"}
               </p>
             </div>
           </div>
@@ -185,7 +185,7 @@ export default async function OpportunityDetailPage({
             <div className="flex justify-between gap-3">
               <dt className="text-slate-400">Owner</dt>
               <dd className="text-right font-medium text-slate-700">
-                {opportunity.owner ?? "-"}
+                {((opportunity.owner as { name?: string }[] | null)?.[0]?.name) ?? "-"}
               </dd>
             </div>
             <div className="flex justify-between gap-3">

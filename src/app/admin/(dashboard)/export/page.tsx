@@ -24,7 +24,7 @@ const EXPORTS = [
   {
     type: "contacts",
     label: "Contacts",
-    desc: "Contact-form submissions for inbound business inquiries.",
+    desc: "Contact-form submissions (sourced from leads, ERD v2).",
   },
 ];
 

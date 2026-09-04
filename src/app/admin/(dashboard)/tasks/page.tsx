@@ -15,15 +15,35 @@ const TYPE_LABEL: Record<string, string> = {
 
 const REFERENCE_DATE = new Date("2026-07-30T00:00:00.000+07:00");
 
+const one = (r: { name: string }[] | { name: string } | null | undefined): string | null => (Array.isArray(r) ? (r[0]?.name ?? null) : (r?.name ?? null));
+
 interface Task {
   id: string;
-  parent_type: string;
-  parent_id: string;
-  parent_label: string | null;
+  lead_id: string | null;
+  opportunity_id: string | null;
+  lead_name: string | null;
+  lead_company: string | null;
+  opp_name: string | null;
   type: string;
   subject: string | null;
-  owner: string | null;
+  owner: { name: string } | null;
   due_at: string | null;
+}
+
+/** supabase-js returns to-one embeds as arrays; normalize once at the seam. */
+function normalizeTasks(rows: Record<string, unknown>[]): Task[] {
+  return rows.map((r) => ({
+    id: String(r.id),
+    lead_id: (r.lead_id as string | null) ?? null,
+    opportunity_id: (r.opportunity_id as string | null) ?? null,
+    lead_name: one(r.lead as { name: string }[] | null),
+    lead_company: ((r.lead as { company?: string }[] | null)?.[0]?.company ?? null),
+    opp_name: one(r.opportunity as { name: string }[] | null),
+    type: String(r.type),
+    subject: (r.subject as string | null) ?? null,
+    owner: Array.isArray(r.owner) ? ((r.owner as { name: string }[])[0] ?? null) : null,
+    due_at: (r.due_at as string | null) ?? null,
+  }));
 }
 
 function fmt(value: string | null) {
@@ -40,18 +60,18 @@ export default async function TasksPage() {
     ? await supabase
         .from("activities")
         .select(
-          "id, parent_type, parent_id, parent_label, type, subject, owner, due_at",
+          "id, lead_id, opportunity_id, lead:lead_id(name, company), opportunity:opportunity_id(name), type, subject, owner:owner_id(name), due_at",
         )
         .eq("status", "open")
         .order("due_at", { ascending: true, nullsFirst: false })
     : { data: [] };
 
-  const tasks = (data ?? []) as Task[];
+  const tasks = normalizeTasks((data ?? []) as unknown as Record<string, unknown>[]);
   const overdue = tasks.filter(
     (task) =>
       task.due_at && new Date(task.due_at).getTime() < REFERENCE_DATE.getTime(),
   );
-  const unassigned = tasks.filter((task) => !task.owner?.trim()).length;
+  const unassigned = tasks.filter((task) => !task.owner).length;
 
   return (
     <div className="space-y-6">
@@ -129,10 +149,15 @@ export default async function TasksPage() {
                   const isOverdue =
                     !!task.due_at &&
                     new Date(task.due_at).getTime() < REFERENCE_DATE.getTime();
-                  const href =
-                    task.parent_type === "opportunity"
-                      ? `/admin/opportunities/${task.parent_id}`
-                      : `/admin/leads/${task.parent_id}`;
+                  const isOpp = !!task.opportunity_id;
+                  const href = isOpp
+                    ? `/admin/opportunities/${task.opportunity_id}`
+                    : `/admin/leads/${task.lead_id}`;
+                  const label = isOpp
+                    ? (task.opp_name || "Opportunity")
+                    : (task.lead_company || task.lead_name || "Lead");
+                  const parentType = isOpp ? "opportunity" : "lead";
+                  const parentId = isOpp ? task.opportunity_id : task.lead_id;
 
                   return (
                     <tr key={task.id} className="hover:bg-slate-50/80">
@@ -151,7 +176,7 @@ export default async function TasksPage() {
                           href={href}
                           className="font-medium text-sky-600 transition-colors hover:text-sky-800"
                         >
-                          {task.parent_label || "View item"}
+                          {label || "View item"}
                         </Link>
                       </td>
                       <td
@@ -164,7 +189,7 @@ export default async function TasksPage() {
                         {fmt(task.due_at)}
                       </td>
                       <td className="px-5 py-4 text-slate-500">
-                        {task.owner ?? "-"}
+                        {task.owner ? (Array.isArray(task.owner) ? (task.owner as unknown as { name: string }[])[0]?.name ?? "-" : task.owner.name ?? "-") : "-"}
                       </td>
                       <td className="px-5 py-4 text-right">
                         <form action={completeTask}>
@@ -172,12 +197,12 @@ export default async function TasksPage() {
                           <input
                             type="hidden"
                             name="parent_type"
-                            value={task.parent_type}
+                            value={parentType}
                           />
                           <input
                             type="hidden"
                             name="parent_id"
-                            value={task.parent_id}
+                            value={parentId ?? ""}
                           />
                           <button className="text-xs font-semibold text-emerald-600 transition-colors hover:text-emerald-800">
                             Mark done

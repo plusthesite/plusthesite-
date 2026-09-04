@@ -70,7 +70,7 @@ export default async function LeadDetailPage({
   const { data: lead } = await supabase
     .from("leads")
     .select(
-      "id, name, email, phone, company, service, status, value, owner, message, source, locale, created_at, account_id, next_action",
+      "id, name, email, phone, company, service, status, value, owner:owner_id(name), message, source, locale, created_at, account_id, next_action",
     )
     .eq("id", id)
     .maybeSingle();
@@ -204,7 +204,7 @@ export default async function LeadDetailPage({
             <div className="flex justify-between gap-3">
               <dt className="text-slate-400">Owner</dt>
               <dd className="text-right font-medium text-slate-700">
-                {lead.owner ?? "-"}
+                {((lead.owner as { name?: string }[] | null)?.[0]?.name) ?? "-"}
               </dd>
             </div>
             <div className="flex justify-between gap-3">

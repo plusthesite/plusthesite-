@@ -14,11 +14,19 @@ export default async function AccountDetailPage({
   const supabase = getSupabaseAdmin();
   if (!supabase) notFound();
 
-  const { data: account } = await supabase
+  const { data: accountData } = await supabase
     .from("accounts")
-    .select("id, name, industry, website, phone, email, owner, notes")
+    .select("id, name, industry, website, phone, email, owner:owner_id(name), notes")
     .eq("id", id)
     .maybeSingle();
+const one = (r: { name: string }[] | { name: string } | null | undefined): string | null => (Array.isArray(r) ? (r[0]?.name ?? null) : (r?.name ?? null));
+
+  const account = accountData
+    ? {
+        ...(accountData as Omit<typeof accountData, "owner">),
+        owner: one((accountData as { owner: { name: string }[] }).owner),
+      }
+    : null;
 
   if (!account) notFound();
 
@@ -29,7 +37,7 @@ export default async function AccountDetailPage({
       .eq("account_id", id),
     supabase
       .from("opportunities")
-      .select("id, name, value, stage, service, owner")
+      .select("id, name, value, stage, service, owner:owner_id(name)")
       .eq("account_id", id)
       .order("value", { ascending: false }),
   ]);
@@ -43,14 +51,17 @@ export default async function AccountDetailPage({
     status: string | null;
   }[];
 
-  const opportunities = (opportunitiesRes.data ?? []) as {
+  const opportunities = ((opportunitiesRes.data ?? []) as (Omit<{
     id: string;
     name: string;
     value: number | null;
     stage: string;
     service: string | null;
     owner: string | null;
-  }[];
+  }, "owner"> & { owner: { name: string }[] })[]).map(({ owner, ...rest }) => ({
+    ...rest,
+    owner: one(owner),
+  }));
 
   const openValue = opportunities
     .filter(

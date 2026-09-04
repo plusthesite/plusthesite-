@@ -109,20 +109,27 @@ export default async function LeadsPage({
     ? await supabase
         .from("leads")
         .select(
-          "id, name, email, phone, company, service, status, value, owner, next_action, message, source, locale, created_at",
+          "id, name, email, phone, company, service, status, value, owner_id, owner:owner_id(name), next_action, message, source, locale, created_at",
         )
         .order("created_at", { ascending: false })
     : { data: [] };
-  const all = (data ?? []) as Lead[];
+const one = (r: { name: string }[] | { name: string } | null | undefined): string | null => (Array.isArray(r) ? (r[0]?.name ?? null) : (r?.name ?? null));
+
+  const all = ((data ?? []) as (Omit<Lead, "owner"> & {
+    owner: { name: string }[];
+  })[]).map(({ owner, ...rest }) => ({
+    ...rest,
+    owner: one(owner),
+  }));
 
   const { data: repsData } = supabase
     ? await supabase
         .from("sales_reps")
-        .select("name")
+        .select("id, name")
         .eq("is_active", true)
         .order("name")
     : { data: [] };
-  const reps = (repsData ?? []) as { name: string }[];
+  const reps = (repsData ?? []) as { id: string; name: string }[];
 
   const serviceCounts = SERVICES.map((svc) => ({
     svc,
@@ -432,7 +439,9 @@ export default async function LeadsPage({
         />
         <datalist id="rep-list">
           {reps.map((rep) => (
-            <option key={rep.name} value={rep.name} />
+            <option key={rep.id} value={rep.id}>
+              {rep.name}
+            </option>
           ))}
         </datalist>
         <button className="rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-semibold text-white hover:bg-slate-800">

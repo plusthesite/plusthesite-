@@ -4,10 +4,13 @@ import { revalidatePath } from "next/cache";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
 
-const ALLOWED = ["subscribers", "leads", "contacts"] as const;
+const ALLOWED = ["subscribers", "leads"] as const;
 type Table = (typeof ALLOWED)[number];
 
-/** Delete a row - only for authenticated admins. */
+/** Delete a row - only for authenticated admins.
+ * ERD v2: "contacts" merged into leads (source='contact-form'); the old
+ * contacts table no longer exists, so it is removed from the allowlist.
+ * The contacts admin page deletes by id from leads directly. */
 export async function deleteRow(formData: FormData) {
     const supabase = await createSupabaseServerClient();
     const {
@@ -23,6 +26,8 @@ export async function deleteRow(formData: FormData) {
     if (!admin) return;
     await admin.from(table).delete().eq("id", id);
 
+    // The contacts inbox now lives on leads; keep its cache path fresh too.
+    if (table === "leads") revalidatePath("/admin/contacts");
     revalidatePath(`/admin/${table}`);
     revalidatePath("/admin");
 }

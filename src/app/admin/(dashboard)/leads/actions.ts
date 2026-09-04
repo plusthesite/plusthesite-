@@ -14,6 +14,15 @@ async function requireAdmin() {
     if (!user) throw new Error("Unauthorized");
 }
 
+/** ERD v2: resolve an owner form value (rep UUID, "none", or empty) to an
+ * owner_id. Values that are not a UUID (legacy free-text names) become null. */
+function resolveRepId(raw: FormDataEntryValue | null): string | null {
+    const v = String(raw ?? "").trim();
+    if (!v || v === "none") return null;
+    const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    return uuid.test(v) ? v : null;
+}
+
 /** Create a lead manually from the dashboard. */
 export async function createLead(formData: FormData) {
     await requireAdmin();
@@ -37,7 +46,7 @@ export async function createLead(formData: FormData) {
         service: String(formData.get("service") ?? "").trim() || null,
         status: String(formData.get("status") ?? "new").trim() || "new",
         value: Number(formData.get("value")) || null,
-        owner: String(formData.get("owner") ?? "").trim() || null,
+        owner_id: resolveRepId(formData.get("owner")),
         source: String(formData.get("source") ?? "manual").trim() || "manual",
         message: String(formData.get("message") ?? "").trim() || null,
         locale: formData.get("locale") === "en" ? "en" : "id",
@@ -67,7 +76,7 @@ export async function quickUpdateLead(formData: FormData) {
     const status = String(formData.get("status") ?? "");
     if (status && STATUSES.includes(status)) patch.status = status;
     if (formData.has("next_action")) patch.next_action = String(formData.get("next_action") ?? "").trim() || null;
-    if (formData.has("owner")) patch.owner = String(formData.get("owner") ?? "").trim() || null;
+    if (formData.has("owner")) patch.owner_id = resolveRepId(formData.get("owner"));
     if (Object.keys(patch).length === 0) return;
 
     await admin.from("leads").update(patch).eq("id", id);
@@ -88,8 +97,7 @@ export async function bulkUpdateLeads(formData: FormData) {
     if (action === "delete") {
         await admin.from("leads").delete().in("id", ids);
     } else if (action === "owner") {
-        const owner = String(formData.get("bulk_owner") ?? "").trim();
-        await admin.from("leads").update({ owner: owner || null }).in("id", ids);
+        await admin.from("leads").update({ owner_id: resolveRepId(formData.get("bulk_owner")) }).in("id", ids);
     } else if (action.startsWith("status:")) {
         const status = action.slice(7);
         if (STATUSES.includes(status)) await admin.from("leads").update({ status }).in("id", ids);

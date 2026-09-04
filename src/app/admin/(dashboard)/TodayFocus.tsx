@@ -20,12 +20,35 @@ interface Lead {
 
 interface Task {
   id: string;
-  parent_type: string;
-  parent_id: string;
-  parent_label: string | null;
+  lead_id: string | null;
+  opportunity_id: string | null;
+  lead_name: string | null;
+  lead_company: string | null;
+  opp_name: string | null;
   subject: string | null;
   type: string;
   due_at: string | null;
+}
+
+/** supabase-js returns to-one embeds as arrays; normalize at the seam. */
+function normalizeTasks(rows: Record<string, unknown>[]): Task[] {
+  const one = (r: unknown): { name?: string; company?: string } | null =>
+    Array.isArray(r) ? ((r as { name?: string; company?: string }[])[0] ?? null) : null;
+  return rows.map((r) => {
+    const lead = one(r.lead);
+    const opp = one(r.opportunity);
+    return {
+      id: String(r.id),
+      lead_id: (r.lead_id as string | null) ?? null,
+      opportunity_id: (r.opportunity_id as string | null) ?? null,
+      lead_name: lead?.name ?? null,
+      lead_company: lead?.company ?? null,
+      opp_name: opp?.name ?? null,
+      subject: (r.subject as string | null) ?? null,
+      type: String(r.type),
+      due_at: (r.due_at as string | null) ?? null,
+    };
+  });
 }
 
 function wa(phone: string | null) {
@@ -61,7 +84,9 @@ export async function TodayFocus() {
       .limit(400),
     supabase
       .from("activities")
-      .select("id, parent_type, parent_id, parent_label, subject, type, due_at")
+      .select(
+        "id, lead_id, opportunity_id, lead:lead_id(name, company), opportunity:opportunity_id(name), subject, type, due_at",
+      )
       .eq("status", "open")
       .lte("due_at", endOfToday.toISOString())
       .order("due_at", { ascending: true })
@@ -72,7 +97,7 @@ export async function TodayFocus() {
     .map((lead) => ({ lead, ...scoreLead(lead) }))
     .sort((a, b) => b.score - a.score)
     .slice(0, 5);
-  const tasks = (taskRes.data ?? []) as Task[];
+  const tasks = normalizeTasks((taskRes.data ?? []) as unknown as Record<string, unknown>[]);
 
   return (
     <section className="mt-8">
@@ -172,10 +197,15 @@ export async function TodayFocus() {
                 </p>
               )}
               {tasks.map((task) => {
-                const href =
-                  task.parent_type === "opportunity"
-                    ? `/admin/opportunities/${task.parent_id}`
-                    : `/admin/leads/${task.parent_id}`;
+                const isOpp = !!task.opportunity_id;
+                const href = isOpp
+                  ? `/admin/opportunities/${task.opportunity_id}`
+                  : `/admin/leads/${task.lead_id}`;
+                const label = isOpp
+                  ? (task.opp_name ?? "Opportunity")
+                  : (task.lead_company || task.lead_name || "Lead");
+                const parentType = isOpp ? "opportunity" : "lead";
+                const parentId = isOpp ? task.opportunity_id : task.lead_id;
 
                 return (
                   <div
@@ -193,7 +223,7 @@ export async function TodayFocus() {
                         {task.subject || "Follow up"}
                       </Link>
                       <p className="truncate text-xs text-slate-400">
-                        {task.parent_label ?? ""}
+                        {label}
                         {task.due_at ? " / jatuh tempo hari ini" : ""}
                       </p>
                     </div>
@@ -202,12 +232,12 @@ export async function TodayFocus() {
                       <input
                         type="hidden"
                         name="parent_type"
-                        value={task.parent_type}
+                        value={parentType}
                       />
                       <input
                         type="hidden"
                         name="parent_id"
-                        value={task.parent_id}
+                        value={parentId ?? ""}
                       />
                       <button className="shrink-0 rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 transition-colors hover:bg-emerald-100">
                         Done

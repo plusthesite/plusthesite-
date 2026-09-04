@@ -15,6 +15,15 @@ async function requireAdmin() {
     if (!user) throw new Error("Unauthorized");
 }
 
+/** ERD v2: resolve an owner form value (rep UUID, "none", or empty) to an
+ * owner_id. Values that are not a UUID (legacy free-text names) become null. */
+function resolveRepId(raw: FormDataEntryValue | null): string | null {
+    const v = String(raw ?? "").trim();
+    if (!v || v === "none") return null;
+    const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    return uuid.test(v) ? v : null;
+}
+
 export async function updateOpportunityStage(formData: FormData) {
     await requireAdmin();
     const admin = getSupabaseAdmin();
@@ -86,7 +95,7 @@ export async function createOpportunity(formData: FormData) {
         stage: safeStage,
         probability: STAGE_PROBABILITY[safeStage],
         service: String(formData.get("service") ?? "").trim() || null,
-        owner: String(formData.get("owner") ?? "").trim() || null,
+        owner_id: resolveRepId(formData.get("owner")),
         source: String(formData.get("source") ?? "manual").trim() || "manual",
         expected_close: String(formData.get("expected_close") ?? "").trim() || null,
         notes: String(formData.get("notes") ?? "").trim() || null,
@@ -117,8 +126,7 @@ export async function bulkUpdateOpportunities(formData: FormData) {
     if (action === "delete") {
         await admin.from("opportunities").delete().in("id", ids);
     } else if (action === "owner") {
-        const owner = String(formData.get("bulk_owner") ?? "").trim();
-        await admin.from("opportunities").update({ owner: owner || null }).in("id", ids);
+        await admin.from("opportunities").update({ owner_id: resolveRepId(formData.get("bulk_owner")) }).in("id", ids);
     } else if (action.startsWith("stage:")) {
         const stage = action.slice(6);
         if (STAGES.includes(stage as Stage)) {
@@ -139,7 +147,7 @@ export async function convertLeadToOpportunity(formData: FormData) {
 
     const { data: lead } = await admin
         .from("leads")
-        .select("id, name, email, phone, company, service, value, owner, locale")
+        .select("id, name, email, phone, company, service, value, owner_id, locale")
         .eq("id", id)
         .maybeSingle();
     if (!lead) return;
@@ -155,7 +163,7 @@ export async function convertLeadToOpportunity(formData: FormData) {
         probability: 45,
         source: "lead",
         service: lead.service,
-        owner: lead.owner,
+        owner_id: lead.owner_id,
         lead_id: lead.id,
         locale: lead.locale ?? "id",
     });
