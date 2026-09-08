@@ -5,14 +5,31 @@ export interface ContactRow {
     email: string;
     company: string | null;
     message: string;
+    phone: string | null;
+    service: string | null;
+    account_id?: string | null;
+    locale: "id" | "en";
 }
 
-/** Insert a contact submission, returning the created row. Throws on failure.
- * ERD v2: contacts merged into leads (source='contact-form'). */
+/** Insert a contact submission as a single lead row, returning the created row.
+ * Throws on failure. ERD v2: contacts merged into leads (source='contact-form')
+ * — carry phone/service/account_id/locale here so the submission is ONE row,
+ * not a bare contact row plus a second segmented lead row. */
 export async function insertContact(row: ContactRow): Promise<Record<string, unknown>> {
     const { data, error } = await adminClient()
         .from("leads")
-        .insert({ name: row.name, email: row.email, company: row.company, message: row.message, source: "contact-form" })
+        .insert({
+            name: row.name,
+            email: row.email,
+            company: row.company,
+            message: row.message,
+            phone: row.phone,
+            service: row.service,
+            account_id: row.account_id ?? null,
+            locale: row.locale,
+            source: "contact-form",
+            status: "new",
+        })
         .select()
         .single();
     if (error) throw new DbError(error.message);
