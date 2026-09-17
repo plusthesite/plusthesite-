@@ -50,6 +50,11 @@ const nextConfig: NextConfig = {
     },
 
     images: {
+        // AVIF first: for the same URL the encoder here emits roughly a third
+        // fewer bytes than WebP (sharp 0.34 / libvips 8.17 in the image has
+        // libheif, verified by encoding one). Next negotiates via the Accept
+        // header and falls back to WebP, then to the original.
+        formats: ["image/avif", "image/webp"],
         remotePatterns: [
             { protocol: "https", hostname: "images.unsplash.com" },
             { protocol: "https", hostname: "*.supabase.co" },

@@ -91,8 +91,12 @@ export default function ITSolutions() {
                 }
                 width={1200}
                 height={900}
+                // No `unoptimized`: that flag sent every visitor a raw 1200px
+                // Unsplash JPEG (~107 KB) for a box at most 600px wide, from a
+                // third-party origin. `sizes` is what lets the loader pick a
+                // small enough variant.
+                sizes="(min-width: 1024px) 600px, 100vw"
                 className="h-[320px] w-full object-cover sm:h-[420px] lg:h-[480px]"
-                unoptimized
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
               <div className="absolute bottom-5 left-5 right-5 flex flex-wrap items-end justify-between gap-3">
