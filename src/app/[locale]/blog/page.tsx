@@ -56,7 +56,7 @@ export default async function BlogPage({
             <div className="grid gap-4 sm:grid-cols-3">
               <div className="rounded-[1.5rem] bg-slate-950 p-5 text-white dark:bg-white/10">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-sky-200">
-                  Editorial hub
+                  {locale === "id" ? "Hub editorial" : "Editorial hub"}
                 </p>
                 <p className="mt-4 text-lg font-semibold">
                   {locale === "id"
@@ -67,7 +67,7 @@ export default async function BlogPage({
 
               <div className="rounded-[1.5rem] bg-white p-5 shadow-sm ring-1 ring-slate-200 dark:bg-white/5 dark:ring-white/10">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-                  Best for
+                  {locale === "id" ? "Paling cocok untuk" : "Best for"}
                 </p>
                 <p className="mt-4 text-lg font-semibold text-slate-950 dark:text-white">
                   {locale === "id"
@@ -78,7 +78,7 @@ export default async function BlogPage({
 
               <div className="rounded-[1.5rem] bg-white p-5 shadow-sm ring-1 ring-slate-200 dark:bg-white/5 dark:ring-white/10">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-                  Library mode
+                  {locale === "id" ? "Mode pustaka" : "Library mode"}
                 </p>
                 <p className="mt-4 text-lg font-semibold text-slate-950 dark:text-white">
                   {locale === "id"

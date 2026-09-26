@@ -559,7 +559,7 @@ export default function Navbar() {
           <div className="mb-5 rounded-[1.4rem] bg-[linear-gradient(135deg,_#0f172a_0%,_#111827_52%,_#082f49_100%)] px-4 py-4 text-white">
             <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-sky-200/80">
               <Sparkles className="h-3 w-3" />
-              <span>{locale === "id" ? "Quick map" : "Quick map"}</span>
+              <span>{locale === "id" ? "Peta cepat" : "Quick map"}</span>
             </div>
             <p className="mt-3 text-sm font-semibold leading-6">
               {locale === "id"

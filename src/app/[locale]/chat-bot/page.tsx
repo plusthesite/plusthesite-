@@ -938,7 +938,9 @@ function CTASection({ copy }: { copy: PageCopy }) {
 
                         <div className="relative z-10 mx-auto max-w-3xl">
                             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-300">
-                                Conversion-ready support flow
+                                {locale === "id"
+                                    ? "Alur support siap konversi"
+                                    : "Conversion-ready support flow"}
                             </p>
                             <h2 className="mt-5 text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl dark:text-white">
                                 {copy.cta.title}

@@ -78,18 +78,18 @@ export default function ContactUsPage() {
 
   const responseCards = [
     {
-      label: locale === "id" ? "Response pace" : "Response pace",
+      label: locale === "id" ? "Kecepatan respon" : "Response pace",
       value: locale === "id" ? "< 1 hari kerja" : "< 1 business day",
     },
     {
-      label: locale === "id" ? "Best for" : "Best for",
+      label: locale === "id" ? "Paling cocok untuk" : "Best for",
       value:
         locale === "id"
           ? "Scope baru, penawaran, exploratory call"
           : "New scopes, proposals, exploratory calls",
     },
     {
-      label: locale === "id" ? "Working mode" : "Working mode",
+      label: locale === "id" ? "Mode kerja" : "Working mode",
       value:
         locale === "id"
           ? "Remote-first, ritme jelas, bilingual"
@@ -202,7 +202,7 @@ export default function ContactUsPage() {
 
                 <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-4">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/45">
-                    {locale === "id" ? "Direct line" : "Direct line"}
+                    {locale === "id" ? "Jalur langsung" : "Direct line"}
                   </p>
                   <a
                     href="mailto:plusthesite@gmail.com"

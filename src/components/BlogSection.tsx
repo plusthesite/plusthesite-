@@ -53,7 +53,7 @@ export default function BlogSection({
 
           <div className="fade-up fade-up-delay-2 rounded-[1.75rem] border border-slate-200 bg-slate-50 p-6 dark:border-white/10 dark:bg-white/[0.04]">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-              Editorial pulse
+              {locale === "id" ? "Denyut editorial" : "Editorial pulse"}
             </p>
             <p className="mt-4 text-lg font-semibold text-slate-950 dark:text-white">
               {locale === "id"

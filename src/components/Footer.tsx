@@ -138,7 +138,7 @@ export default function Footer() {
 
                     <div className="fade-up fade-up-delay-2 rounded-[1.8rem] border border-footer-border bg-white/5 p-6 backdrop-blur-sm">
                         <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-footer-muted">
-                            Direct line
+                            {locale === "id" ? "Jalur langsung" : "Direct line"}
                         </p>
                         <p className="mt-4 text-2xl font-semibold text-footer-text">
                             {locale === "id"

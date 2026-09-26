@@ -64,7 +64,7 @@ export default function Newsletter() {
         <div className="max-w-xl">
           <div className="inline-flex items-center gap-2 rounded-full border border-footer-border/80 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-footer-muted">
             <span className="h-2 w-2 rounded-full bg-emerald-400" />
-            <span>Signal inbox</span>
+            <span>{locale === "id" ? "Inbox signal" : "Signal inbox"}</span>
           </div>
           <p className="mt-4 text-xl font-semibold text-footer-text">
             {t.newsletter.title}
