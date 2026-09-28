@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useLocale, useT } from "@/i18n/I18nProvider";
 import { SERVICES, ACTIVE_SERVICES, serviceName } from "@/lib/services";
+import { EVENTS } from "@/lib/analytics";
 
 function getInitialService() {
   if (typeof window === "undefined") return "";
