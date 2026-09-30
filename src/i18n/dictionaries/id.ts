@@ -303,6 +303,7 @@ const id: Dictionary = {
         sending: "Mengirim...",
         errorLabel: "Error:",
         requiredFields: "Mohon isi nama, email, dan pesan.",
+        submitTooFast: "Formulir dikirim terlalu cepat. Mohon isi dengan tenang.",
         submitError: "Gagal mengirim. Silakan coba lagi.",
         networkError: "Kesalahan jaringan. Periksa koneksi Anda dan coba lagi.",
         successTitle: "Terima Kasih!",

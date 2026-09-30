@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useLocale, useT } from "@/i18n/I18nProvider";
 import { SERVICES, ACTIVE_SERVICES, serviceName } from "@/lib/services";
+import { EVENTS } from "@/lib/analytics";
 
 function getInitialService() {
   if (typeof window === "undefined") return "";
@@ -27,8 +28,34 @@ export default function ContactUsPage() {
   );
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const formStartRef = useRef(false);
+  const formStartTimeRef = useRef<number>(Date.now());
+  const handleFormStart = () => {
+    if (!formStartRef.current) {
+      formStartRef.current = true;
+      EVENTS.lead_form_start("/contact-us");
+    }
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    // Time-trap: reject submissions faster than 3 seconds
+    const elapsed = Date.now() - formStartTimeRef.current;
+    if (elapsed < 3000) {
+      setStatus("error");
+      setErrorMessage(t.contact.submitTooFast || "Form submitted too quickly");
+      return;
+    }
+
+    // Honeypot: if hidden field is filled, silently drop
+    const formData = new FormData(event.currentTarget);
+    const honeypot = formData.get("website");
+    if (honeypot) {
+      // Silently succeed without actually submitting
+      setStatus("success");
+      return;
+    }
 
     if (!name.trim() || !email.trim() || !message.trim()) {
       setStatus("error");
@@ -57,12 +84,15 @@ export default function ContactUsPage() {
 
       if (response.ok) {
         setStatus("success");
+        EVENTS.lead_form_submit(service || "general", "contact");
         setName("");
         setEmail("");
         setCompany("");
         setPhone("");
         setService("");
         setMessage("");
+        formStartRef.current = false;
+        formStartTimeRef.current = Date.now();
       } else {
         setStatus("error");
         setErrorMessage(data.error || t.contact.submitError);
@@ -248,6 +278,10 @@ export default function ContactUsPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                  {/* Honeypot + Time-trap */}
+                  <input type="hidden" name="website" tabIndex={-1} autoComplete="off" />
+                  <input type="hidden" name="form_start_time" defaultValue={Date.now()} />
+
                   <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50 px-5 py-4 dark:border-white/10 dark:bg-white/[0.04]">
                     <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
                       {locale === "id" ? "Start here" : "Start here"}
@@ -281,6 +315,7 @@ export default function ContactUsPage() {
                         disabled={status === "loading"}
                         value={name}
                         onChange={(event) => setName(event.target.value)}
+                        onFocus={handleFormStart}
                         className={fieldClassName}
                         placeholder={t.contact.namePlaceholder}
                       />
@@ -300,6 +335,7 @@ export default function ContactUsPage() {
                         disabled={status === "loading"}
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
+                        onFocus={handleFormStart}
                         className={fieldClassName}
                         placeholder={t.contact.emailPlaceholder}
                       />
@@ -322,6 +358,7 @@ export default function ContactUsPage() {
                       disabled={status === "loading"}
                       value={company}
                       onChange={(event) => setCompany(event.target.value)}
+                      onFocus={handleFormStart}
                       className={fieldClassName}
                       placeholder={t.contact.companyPlaceholder}
                     />
@@ -340,6 +377,7 @@ export default function ContactUsPage() {
                         disabled={status === "loading"}
                         value={service}
                         onChange={(event) => setService(event.target.value)}
+                        onFocus={handleFormStart}
                         className={fieldClassName}
                       >
                         <option value="">{t.contact.serviceGeneral}</option>
@@ -367,6 +405,7 @@ export default function ContactUsPage() {
                         disabled={status === "loading"}
                         value={phone}
                         onChange={(event) => setPhone(event.target.value)}
+                        onFocus={handleFormStart}
                         className={fieldClassName}
                         placeholder={t.contact.phonePlaceholder}
                       />
@@ -387,6 +426,7 @@ export default function ContactUsPage() {
                       disabled={status === "loading"}
                       value={message}
                       onChange={(event) => setMessage(event.target.value)}
+                      onFocus={handleFormStart}
                       className={`${fieldClassName} rounded-[1.5rem]`}
                       placeholder={t.contact.messagePlaceholder}
                     />

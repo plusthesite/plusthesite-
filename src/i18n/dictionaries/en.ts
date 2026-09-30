@@ -301,6 +301,7 @@ const en = {
         sending: "Sending...",
         errorLabel: "Error:",
         requiredFields: "Please fill in name, email, and message.",
+        submitTooFast: "Form submitted too quickly. Please take your time.",
         submitError: "Failed to submit. Please try again.",
         networkError: "Network error. Please check your connection and try again.",
         successTitle: "Thank You!",

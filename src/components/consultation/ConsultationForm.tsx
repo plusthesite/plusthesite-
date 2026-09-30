@@ -31,7 +31,7 @@ export default function ConsultationForm({ locale }: Props) {
     const [status, setStatus] = useState<Status>("idle");
     const [error, setError] = useState("");
 
-    const set = (field: keyof typeof values) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const set = (field: keyof typeof values) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         setValues((v) => ({ ...v, [field]: e.target.value }));
     };
 
