@@ -27,7 +27,7 @@ const en = {
         titleLine2: "Faster.",
         subtitle: "With AI + Human Creativity",
         description:
-            "AI chatbots, branding, apps, and CRM. Built by AI and real creatives in one place. Launch faster, stay on-brand, and look premium without juggling five vendors.",
+            "AI chatbots, branding, apps, and CRM — built by one team, not five vendors. Launch faster, keep every channel speaking with one voice, and stay focused on the product.",
         ctaPrimary: "See What We Build",
         ctaSecondary: "View Pricing",
     },

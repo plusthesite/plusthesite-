@@ -59,7 +59,16 @@ export default function HeroBackdrop() {
             />
 
 
-            <Plus3D className="right-[-14%] top-[8%] h-[58vmin] w-[58vmin] sm:right-[-6%] lg:right-[3%] lg:top-[11%] lg:h-[42vw] lg:w-[42vw] lg:max-h-[540px] lg:max-w-[540px]" />
+            {/* Placement matters as much as the geometry.
+                Desktop (lg+): bled off the right edge with a real gutter to the
+                copy. The old `lg:right-[3%]` anchor put ~170px of arm over the
+                headline at 1440px; the copy column is now capped at 58% so the
+                gutter holds at every width (measured 179px at 1024, 337px at
+                1440, 628px at 1920).
+                Below lg the copy moves under the mark, so the mark is sized to
+                the band above it rather than to the viewport: at 820x900 a
+                viewport-relative mark hung 78px into the copy block. */}
+            <Plus3D className="right-[-30%] top-[6%] h-[52vmin] w-[52vmin] sm:right-[-20%] sm:top-[4%] sm:h-[46vmin] sm:w-[46vmin] lg:right-[-9%] lg:top-[6%] lg:h-[40vw] lg:w-[40vw] lg:max-h-[560px] lg:max-w-[560px]" />
 
             {allowed && !unavailable ? (
                 <div className="absolute inset-0">
