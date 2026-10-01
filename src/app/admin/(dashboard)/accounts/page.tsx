@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { formatIDR } from "@/lib/services";
 import { getSupabaseAdmin } from "@/lib/supabase";
+import { selectAll } from "@/server/repositories/paged";
 
 export const dynamic = "force-dynamic";
 
@@ -27,8 +28,13 @@ export default async function AccountsPage({
           .from("accounts")
           .select("id, name, industry, owner:owner_id(name)")
           .order("name"),
-        supabase.from("opportunities").select("account_id, value, stage"),
-        supabase.from("leads").select("account_id"),
+        selectAll<{ account_id: string | null; value: number | null; stage: string }>(
+          supabase.from("opportunities").select("account_id, value, stage"),
+        ),
+        // Per-account lead counts are tallied from these rows.
+        selectAll<{ account_id: string | null }>(
+          supabase.from("leads").select("account_id"),
+        ),
       ])
     : [{ data: [] }, { data: [] }, { data: [] }];
 
@@ -40,12 +46,12 @@ const one = (r: { name: string }[] | { name: string } | null | undefined): strin
     ...rest,
     owner: one(owner),
   }));
-  const opportunities = (opportunitiesRes.data ?? []) as {
+  const opportunities = opportunitiesRes as {
     account_id: string | null;
     value: number | null;
     stage: string;
   }[];
-  const leads = (leadsRes.data ?? []) as { account_id: string | null }[];
+  const leads = leadsRes as { account_id: string | null }[];
 
   const leadCount = new Map<string, number>();
   for (const lead of leads) {

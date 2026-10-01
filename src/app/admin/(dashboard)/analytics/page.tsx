@@ -3,6 +3,7 @@ import { getSupabaseAdmin } from "@/lib/supabase";
 import { articles as staticArticles } from "@/data/articles";
 import { getPublishedPosts } from "@/lib/posts";
 import { scoreArticleSeo } from "@/lib/seo";
+import { selectAll } from "@/server/repositories/paged";
 
 export const dynamic = "force-dynamic";
 
@@ -48,8 +49,12 @@ export default async function AnalyticsPage({
 
   const viewsBySlug = new Map<string, number>();
   if (supabase) {
-    const { data } = await supabase.from("article_views").select("slug, views");
-    for (const v of (data ?? []) as { slug: string; views: number }[]) {
+    // selectAll: the view map is keyed per slug, so a clipped read silently
+    // zeroes every article past PostgREST's PGRST_DB_MAX_ROWS.
+    const data = await selectAll<{ slug: string; views: number }>(
+      supabase.from("article_views").select("slug, views"),
+    );
+    for (const v of data) {
       viewsBySlug.set(v.slug, Number(v.views) || 0);
     }
   }

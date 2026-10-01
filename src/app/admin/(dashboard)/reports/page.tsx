@@ -1,5 +1,6 @@
 import { formatIDR, SERVICES } from "@/lib/services";
 import { getSupabaseAdmin } from "@/lib/supabase";
+import { selectAll } from "@/server/repositories/paged";
 
 export const dynamic = "force-dynamic";
 
@@ -52,24 +53,28 @@ export default async function ReportsPage() {
     );
   }
 
+  // selectAll, not a bare select: PostgREST clips at PGRST_DB_MAX_ROWS (1000)
+  // and every per-service / per-source number below is counted from these rows.
   const [leadsRes, opportunitiesRes] = await Promise.all([
-    supabase.from("leads").select("service, status, source, value, created_at"),
-    supabase
-      .from("opportunities")
-      .select(
-        "name, service, stage, value, owner:owner_id(name), source, created_at, updated_at",
-      ),
+    selectAll<Lead>(supabase.from("leads").select("service, status, source, value, created_at")),
+    selectAll<Omit<Opportunity, "owner"> & { owner: { name: string }[] }>(
+      supabase
+        .from("opportunities")
+        .select(
+          "name, service, stage, value, owner:owner_id(name), source, created_at, updated_at",
+        ),
+    ),
   ]);
 
-  const leads = (leadsRes.data ?? []) as Lead[];
+  const leads = leadsRes as Lead[];
 const one = (r: { name: string }[] | { name: string } | null | undefined): string | null => (Array.isArray(r) ? (r[0]?.name ?? null) : (r?.name ?? null));
 
-  const opportunities = (((opportunitiesRes.data ?? []) as (Omit<Opportunity, "owner"> & {
+  const opportunities = (opportunitiesRes as (Omit<Opportunity, "owner"> & {
     owner: { name: string }[];
   })[]).map(({ owner, ...rest }) => ({
     ...rest,
     owner: one(owner),
-  })));
+  }));
 
   const servicePerformance = SERVICES.map((service) => {
     const serviceLeads = leads.filter((lead) => lead.service === service.slug);

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { formatIDR, SERVICES, serviceName } from "@/lib/services";
 import { getSupabaseAdmin } from "@/lib/supabase";
+import { selectAll } from "@/server/repositories/paged";
 import { scoreLead, scoreTier } from "@/lib/leadScore";
 
 export const dynamic = "force-dynamic";
@@ -54,22 +55,24 @@ export default async function PriorityPage({
 }) {
   const { service: filter } = await searchParams;
   const supabase = getSupabaseAdmin();
-  const { data } = supabase
-    ? await supabase
-        .from("leads")
-        .select(
-          "id, name, company, phone, email, website, service, status, value, source, owner:owner_id(name), locale, created_at",
-        )
-        .neq("status", "converted")
-        .order("value", { ascending: false })
-        .limit(1000)
-    : { data: [] };
+  // The hot/warm tiles and the per-service totals are counted from every open
+  // lead, so the old .limit(1000) was silently dropping leads (and could clip at
+  // PostgREST's PGRST_DB_MAX_ROWS anyway). Read them all, rank in memory.
+  const data = supabase
+    ? await selectAll<Omit<Lead, "owner"> & { owner: { name: string }[] }>(
+        supabase
+          .from("leads")
+          .select(
+            "id, name, company, phone, email, website, service, status, value, source, owner:owner_id(name), locale, created_at",
+          )
+          .neq("status", "converted")
+          .order("value", { ascending: false }),
+      )
+    : [];
 
 const one = (r: { name: string }[] | { name: string } | null | undefined): string | null => (Array.isArray(r) ? (r[0]?.name ?? null) : (r?.name ?? null));
 
-  const scored = (((data ?? []) as (Omit<Lead, "owner"> & {
-    owner: { name: string }[];
-  })[]).map(({ owner, ...rest }) => ({
+  const scored = (data.map(({ owner, ...rest }) => ({
     ...rest,
     owner: one(owner),
   })))

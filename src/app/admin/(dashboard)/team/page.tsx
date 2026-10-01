@@ -1,6 +1,7 @@
 import { requireRole } from "@/lib/role";
 import { formatIDR } from "@/lib/services";
 import { getSupabaseAdmin } from "@/lib/supabase";
+import { selectAll } from "@/server/repositories/paged";
 import { createRep, deleteRep, updateRep } from "./actions";
 
 export const dynamic = "force-dynamic";
@@ -27,31 +28,31 @@ export default async function TeamPage() {
     : { data: [] };
   const allReps = (reps ?? []) as Rep[];
 
-  const { data: leadsRaw } = supabase
-    ? await supabase.from("leads").select("owner:owner_id(name)")
-    : { data: [] };
+  // Lead counts per rep come from every lead row, so this must not be clipped
+  // at PGRST_DB_MAX_ROWS.
+  const leadsRaw = supabase
+    ? await selectAll<{ owner: { name: string }[] | null }>(
+        supabase.from("leads").select("owner:owner_id(name)"),
+      )
+    : [];
   const leadsByOwner = new Map<string, number>();
-  for (const row of (leadsRaw ?? []) as { owner: { name: string }[] | null }[]) {
+  for (const row of leadsRaw) {
     const ownerName = row.owner?.[0]?.name;
     if (ownerName) {
       leadsByOwner.set(ownerName, (leadsByOwner.get(ownerName) ?? 0) + 1);
     }
   }
 
-  const { data: opportunitiesRaw } = supabase
-    ? await supabase
-        .from("opportunities")
-        .select("owner:owner_id(name), value, stage")
-    : { data: [] };
+  const opportunitiesRaw = supabase
+    ? await selectAll<{ owner: { name: string }[] | null; value: number; stage: string }>(
+        supabase.from("opportunities").select("owner:owner_id(name), value, stage"),
+      )
+    : [];
   const opportunitiesByOwner = new Map<
     string,
     { count: number; value: number }
   >();
-  for (const row of (opportunitiesRaw ?? []) as {
-    owner: { name: string }[] | null;
-    value: number;
-    stage: string;
-  }[]) {
+  for (const row of opportunitiesRaw) {
     const ownerName = row.owner?.[0]?.name;
     if (ownerName && row.stage !== "lost") {
       const current = opportunitiesByOwner.get(ownerName) ?? {

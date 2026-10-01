@@ -1,5 +1,6 @@
 import { deleteConversation } from "../actions";
 import { getSupabaseAdmin } from "@/lib/supabase";
+import { selectAll } from "@/server/repositories/paged";
 
 export const dynamic = "force-dynamic";
 
@@ -26,14 +27,18 @@ function fmt(value: string) {
 
 export default async function ConversationsPage() {
   const supabase = getSupabaseAdmin();
-  const { data } = supabase
-    ? await supabase
-        .from("chat_messages")
-        .select("id, session_id, role, content, created_at")
-        .order("created_at", { ascending: true })
-    : { data: [] };
+  // The transcript list is grouped per session from every message, so it must
+  // not be clipped at PGRST_DB_MAX_ROWS.
+  const data = supabase
+    ? await selectAll<Msg>(
+        supabase
+          .from("chat_messages")
+          .select("id, session_id, role, content, created_at")
+          .order("created_at", { ascending: true }),
+      )
+    : [];
 
-  const messages = (data ?? []) as Msg[];
+  const messages = data;
 
   const map = new Map<string, Msg[]>();
   for (const message of messages) {

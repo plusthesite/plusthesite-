@@ -5,6 +5,7 @@ import { scoreLead, scoreTier } from "@/lib/leadScore";
 import { deleteRow } from "../actions";
 import { convertLeadToOpportunity } from "../opportunities/actions";
 import { bulkUpdateLeads, quickUpdateLead } from "./actions";
+import { selectAll } from "@/server/repositories/paged";
 
 export const dynamic = "force-dynamic";
 
@@ -105,19 +106,24 @@ export default async function LeadsPage({
     owner: ownerFilter,
   } = await searchParams;
   const supabase = getSupabaseAdmin();
-  const { data } = supabase
-    ? await supabase
-        .from("leads")
-        .select(
-          "id, name, email, phone, company, service, status, value, owner_id, owner:owner_id(name), next_action, message, source, locale, created_at",
-        )
-        .order("created_at", { ascending: false })
-    : { data: [] };
+  // Every count and total on this page is derived from `all`, so it has to be the
+  // WHOLE table. An unbounded .select() is clipped by PostgREST at
+  // PGRST_DB_MAX_ROWS (1000), which silently capped this page at 1000 of 2162
+  // leads and made it disagree with the dashboard's exact-count tile. selectAll
+  // walks the table in slices so nothing is dropped.
+  const data = supabase
+    ? await selectAll<Omit<Lead, "owner"> & { owner: { name: string }[] }>(
+        supabase
+          .from("leads")
+          .select(
+            "id, name, email, phone, company, service, status, value, owner_id, owner:owner_id(name), next_action, message, source, locale, created_at",
+          )
+          .order("created_at", { ascending: false }),
+      )
+    : [];
 const one = (r: { name: string }[] | { name: string } | null | undefined): string | null => (Array.isArray(r) ? (r[0]?.name ?? null) : (r?.name ?? null));
 
-  const all = ((data ?? []) as (Omit<Lead, "owner"> & {
-    owner: { name: string }[];
-  })[]).map(({ owner, ...rest }) => ({
+  const all = data.map(({ owner, ...rest }) => ({
     ...rest,
     owner: one(owner),
   }));

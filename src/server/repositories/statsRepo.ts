@@ -1,7 +1,11 @@
 import { tryAdminClient } from "@/server/repositories/client";
+import { selectAll } from "@/server/repositories/paged";
 
 /** Exact row count for a table; 0 when Supabase is not configured.
- * Optional filter narrows the count (e.g. leads with source=contact-form). */
+ * Optional filter narrows the count (e.g. leads with source=contact-form).
+ *
+ * Uses HEAD + count=exact, so it is NOT affected by PGRST_DB_MAX_ROWS - which is
+ * exactly why an exact count and a row count taken from `.select()` disagreed. */
 export async function tableCount(table: string, filter?: string): Promise<number> {
     const supabase = tryAdminClient();
     if (!supabase) return 0;
@@ -29,21 +33,44 @@ export interface DashboardRaw {
 }
 
 /** Fetch every dataset the dashboard needs in one parallel batch. Returns null
- * when Supabase is not configured. */
+ * when Supabase is not configured.
+ *
+ * The three unbounded reads (article_views, opportunities, leads) go through
+ * selectAll: PostgREST clips a plain select at PGRST_DB_MAX_ROWS, so views and
+ * lead/opportunity sums were computed from the first 1000 rows while the tile
+ * beside them showed the true exact count. */
 export async function fetchDashboardData(since14: string): Promise<DashboardRaw | null> {
     const supabase = tryAdminClient();
     if (!supabase) return null;
 
-    const [viewsRes, oppsRes, recentSubsRes, recentContactsRes, hotRes, tasksRes, leadsTrendRes, leadsValueRes, repsRes] =
+    const [views, opps, recentSubs, recentContacts, hot, tasks, leadsTrend, leadsValue, reps] =
         await Promise.all([
-            supabase.from("article_views").select("views"),
-            supabase.from("opportunities").select("value, probability, stage, owner:owner_id(name)"),
-            supabase.from("subscribers").select("email, locale, created_at").order("created_at", { ascending: false }).limit(5),
-            supabase.from("leads").select("name, email, created_at").eq("source", "contact-form").order("created_at", { ascending: false }).limit(5),
-            supabase.from("opportunities").select("name, company, value, stage, service").not("stage", "in", "(won,lost)").order("value", { ascending: false }).limit(5),
+            selectAll<{ views: number }>(supabase.from("article_views").select("views")),
+            selectAll<{ value: number; probability: number; stage: string; owner: unknown }>(
+                supabase.from("opportunities").select("value, probability, stage, owner:owner_id(name)"),
+            ),
+            supabase
+                .from("subscribers")
+                .select("email, locale, created_at")
+                .order("created_at", { ascending: false })
+                .limit(5),
+            supabase
+                .from("leads")
+                .select("name, email, created_at")
+                .eq("source", "contact-form")
+                .order("created_at", { ascending: false })
+                .limit(5),
+            supabase
+                .from("opportunities")
+                .select("name, company, value, stage, service")
+                .not("stage", "in", "(won,lost)")
+                .order("value", { ascending: false })
+                .limit(5),
             supabase.from("activities").select("due_at").eq("status", "open"),
             supabase.from("leads").select("created_at").gte("created_at", since14),
-            supabase.from("leads").select("value, status, owner:owner_id(name)"),
+            selectAll<{ value: number | null; status: string | null; owner: unknown }>(
+                supabase.from("leads").select("value, status, owner:owner_id(name)"),
+            ),
             supabase.from("sales_reps").select("name").eq("is_active", true),
         ]);
 
@@ -54,14 +81,14 @@ export async function fetchDashboardData(since14: string): Promise<DashboardRaw 
         }));
 
     return {
-        views: (viewsRes.data ?? []) as DashboardRaw["views"],
-        opps: flattenOwner((oppsRes.data ?? []) as { owner: unknown }[]) as DashboardRaw["opps"],
-        recentSubs: (recentSubsRes.data ?? []) as DashboardRaw["recentSubs"],
-        recentContacts: (recentContactsRes.data ?? []) as DashboardRaw["recentContacts"],
-        hot: (hotRes.data ?? []) as DashboardRaw["hot"],
-        tasks: (tasksRes.data ?? []) as DashboardRaw["tasks"],
-        leadsTrend: (leadsTrendRes.data ?? []) as DashboardRaw["leadsTrend"],
-        leadsValue: flattenOwner((leadsValueRes.data ?? []) as { owner: unknown }[]) as DashboardRaw["leadsValue"],
-        reps: (repsRes.data ?? []) as DashboardRaw["reps"],
+        views,
+        opps: flattenOwner(opps) as DashboardRaw["opps"],
+        recentSubs: (recentSubs.data ?? []) as DashboardRaw["recentSubs"],
+        recentContacts: (recentContacts.data ?? []) as DashboardRaw["recentContacts"],
+        hot: (hot.data ?? []) as DashboardRaw["hot"],
+        tasks: (tasks.data ?? []) as DashboardRaw["tasks"],
+        leadsTrend: (leadsTrend.data ?? []) as DashboardRaw["leadsTrend"],
+        leadsValue: flattenOwner(leadsValue) as DashboardRaw["leadsValue"],
+        reps: (reps.data ?? []) as DashboardRaw["reps"],
     };
 }
