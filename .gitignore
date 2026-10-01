@@ -48,3 +48,10 @@ next-env.d.ts
 # Anchored to repo root so it does NOT match src/**/hackathon app code.
 /hackathon/
 dbprobe*.mjs
+
+# Legacy-Supabase migration working files. The snapshot is a full export of
+# leads (names, phone numbers, addresses, deal values) and the env file holds a
+# service-role key: neither may ever reach the repository. The scripts that
+# read them are committed; their output is not.
+.migrate/
+*.sql.gz
