@@ -1,29 +1,31 @@
 /**
- * plus. brand geometry.
+ * plus. brand geometry, split into the blue "plus" mark and the four navy
+ * glyphs so each part can be animated on its own.
  *
- * The four wordmark glyphs are a vector trace of `public/logo.png` - quadratic
- * B-splines fitted through the traced boundary, so the silhouette stays clean at
- * any size instead of showing polygon facets.
+ * The glyphs are a vector trace of `public/logo.png` - quadratic B-splines
+ * fitted through the traced boundary. Sharp corners are held by repeated
+ * control points.
  *
- * The "plus" mark is NOT traced. It was, once, and that outline was the reason
- * the hero lockup never looked resolved: the arms came out uneven, the corners
- * wobbled, and the silhouette was only 27% symmetric under mirroring (measured
- * on the rendered path). No amount of CSS can fix a crooked outline.
+ * The mark is the brand "p" + plus: a ring with a square lower-left corner, a
+ * stem dropping from its left edge and a bar running left from its base. It is
+ * drawn from measured geometry instead of traced, because the trace wobbled
+ * visibly at hero size. Everything sits on the same 45-unit stroke and in the
+ * same box as `logo.png` (ring centre 150.5,142.5, outer r 81.5, hole r 36.5),
+ * so the wordmark lockup does not shift.
  *
- * It is now constructed - a true cross on a 232x232 field, arms 45 wide (the
- * same stem weight the wordmark's mark always had), corners softened with an
- * 11-unit radius so it still reads as the same soft-cornered brand mark. It
- * mirrors and rotates to 97.4% against itself, and occupies exactly the same
- * box as the old trace, so the wordmark lockup does not shift.
+ * Keep this shape. It was once swapped for a symmetric cross, which replaced
+ * the brand mark across the header, hero, cursor and OG images.
  */
 
 export const LOGO_VIEW_BOX = "0 0 668 292";
 
-/** Tight box around the plus mark alone - used by the hero mark. */
+/** Tight box around the plus mark alone - used by the 3D hero mark. */
 export const MARK_VIEW_BOX = "0 60 233 232";
 
 export const MARK_D =
-    "M93.5 71L93.5 71A11 11 0 0 1 104.5 60L127.5 60A11 11 0 0 1 138.5 71L138.5 142.5A11 11 0 0 1 149.5 153.5L221 153.5A11 11 0 0 1 232 164.5L232 187.5A11 11 0 0 1 221 198.5L149.5 198.5A11 11 0 0 1 138.5 209.5L138.5 281A11 11 0 0 1 127.5 292L104.5 292A11 11 0 0 1 93.5 281L93.5 209.5A11 11 0 0 1 82.5 198.5L11 198.5A11 11 0 0 1 0 187.5L0 164.5A11 11 0 0 1 11 153.5L82.5 153.5A11 11 0 0 1 93.5 142.5Z";
+    "M69 142.5A81.5 81.5 0 1 1 150.5 224L114 224L114 292L69 292L69 224L0 224L0 179L69 179Z" +
+    // The hole, wound the other way so it cuts out under either fill rule.
+    "M114 142.5A36.5 36.5 0 1 0 187 142.5A36.5 36.5 0 1 0 114 142.5Z";
 
 export const GLYPHS: { name: string; d: string }[] = [
     { name: "l", d: "M297 224.5Q282 224 279 222Q276 220 274.5 220Q273 220 271.5 218.5Q270 217 267.5 216.5Q265 216 265 216Q265 216 265 216Q265 216 265 215Q265 214 265 214Q265 214 265 214Q265 214 263 213Q261 212 260.5 210.5Q260 209 260 209Q260 209 260 209Q260 209 259 209Q258 209 258 209Q258 209 258 209Q258 209 257.5 207.5Q257 206 255 204.5Q253 203 252 200Q251 197 250 196.5Q249 196 249 196Q249 196 249 196Q249 196 248.5 192.5Q248 189 246.5 187Q245 185 245 92.5Q245 0 245 0Q245 0 245 0Q245 0 267.5 0Q290 0 290 0Q290 0 290 0Q290 0 289.5 87Q289 174 291.5 177Q294 180 303 180Q312 180 313.5 181.5Q315 183 315 202.5Q315 222 313.5 223.5Q312 225 297 224.5Z" },

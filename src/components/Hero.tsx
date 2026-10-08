@@ -21,15 +21,7 @@ export default function Hero() {
             <div className="relative z-20 flex min-h-[100svh] flex-col">
                 <div className="flex-1" />
 
-                {/* The copy column is width-capped so the headline can never run
-                    into the bled-off mark on the right. Measured at 1280px the
-                    H1 reached x=859 against a stage left edge of x=867 - an 8px
-                    gap, which reads as a near-collision. Capping the block at
-                    58% of the frame holds a real gutter at every width, and it
-                    also gives the headline a comfortable measure (about 60ch)
-                    instead of letting it stretch to the full 1440px frame. */}
                 <div className="mx-auto w-full max-w-[1440px] px-5 pb-14 sm:px-8 sm:pb-16 lg:px-12 lg:pb-20">
-                    <div className="lg:max-w-[58%]">
                     <div className="mb-5 flex flex-wrap items-center gap-x-4 gap-y-3 sm:mb-8">
                         <AnimatedLogo
                             href={null}
@@ -73,7 +65,6 @@ export default function Hero() {
                         >
                             {t.hero.ctaSecondary}
                         </Link>
-                    </div>
                     </div>
                 </div>
             </div>

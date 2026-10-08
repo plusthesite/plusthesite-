@@ -14,14 +14,11 @@ import { MARK_D, MARK_VIEW_BOX } from "@/lib/logoPaths";
 const clamp = (value: number, min: number, max: number) =>
     Math.min(Math.max(value, min), max);
 
-/** Start and end of the turn, measured across one viewport of scrolling.
-    Rotation starts at 0 so the mark is square to the frame at rest and only
-    drifts a few degrees as the hero scrolls away - the old -8deg start meant
-    the mark was permanently off-axis, fighting the headline baseline. */
+/** Start and end of the turn, measured across one viewport of scrolling. */
 const TURN = {
-    rotate: [0, 5],
-    y: [0, -16],
-    scale: [1, 0.9],
+    rotate: [-8, 6],
+    y: [0, -18],
+    scale: [1, 0.88],
 };
 
 const at = (range: number[], t: number) => range[0] + (range[1] - range[0]) * t;
@@ -101,13 +98,9 @@ export default function Plus3D({ className = "" }: { className?: string }) {
 
     return (
         <div className={`plus3d ${className}`} aria-hidden>
-            {/* Aura and ring live outside the scroll-driven stage: they are the
-                mark's atmosphere, not part of the mark, so they must not turn
-                and shrink with it. */}
-            <div className="plus2d__glow" />
             <div className="plus3d__float">
                 <div className="plus3d__stage" ref={stageRef}>
-                    <div className="plus2d__ring" />
+                    <div className="plus2d__glow" />
                     <svg className="plus2d" viewBox={MARK_VIEW_BOX} focusable="false">
                         <path className="plus2d__path" d={MARK_D} />
                     </svg>
