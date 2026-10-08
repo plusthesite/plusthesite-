@@ -2,7 +2,7 @@ const en = {
     meta: {
         homeTitle: "plus. Global Digital AI-gency | AI, Branding & Apps",
         homeDescription:
-            "plus. is a global digital AI-agency, one integrated platform for AI chatbots, branding, mobile apps, CRM, and digital marketing. Build smarter brands, faster, with AI and real creative minds.",
+            "plus. is a global digital AI-gency: AI chatbots, branding, mobile apps, CRM, and digital marketing, handled by one team. Build smarter brands, faster, with AI and real creative minds.",
         ogTitle: "plus. Build Smarter Brands. Faster.",
         ogDescription:
             "AI chatbots, branding, apps, and CRM. One team, one platform, built to ship fast.",
@@ -27,7 +27,7 @@ const en = {
         titleLine2: "Faster.",
         subtitle: "With AI + Human Creativity",
         description:
-            "AI chatbots, branding, apps, and CRM — built by one team, not five vendors. Launch faster, keep every channel speaking with one voice, and stay focused on the product.",
+            "AI chatbots, branding, apps, and CRM, built by one team, not five vendors. Launch faster, keep every channel speaking with one voice, and stay focused on growing the business.",
         ctaPrimary: "See What We Build",
         ctaSecondary: "View Pricing",
     },
@@ -90,27 +90,27 @@ const en = {
             image: {
                 title: "AI Image Generator",
                 description:
-                    "Create beautiful art with artificial intelligence. Three APIs integrated: OpenAI, Stable Diffusion and Stability AI. 100+ models combined.",
+                    "Ready-to-use visuals for content and ads in seconds. 100+ models from OpenAI, Stable Diffusion, and Stability AI in one place.",
             },
             text: {
                 title: "AI Text Generator",
                 description:
-                    "Write smarter and save time with AI-powered tools. Generate copy, content, and creative writing that connects with your audience.",
+                    "Captions, articles, emails, and ad copy in your brand's voice. A first draft in minutes, so your team only has to polish.",
             },
             chat: {
                 title: "AI Chat Bot",
                 description:
-                    "Personal AI Chat Bot, cost-effective, 24/7 availability, and flexible. Seamless conversations and instant answers for any need.",
+                    "An AI assistant that answers instantly, 24/7, trained on your business. Cheaper than adding headcount and easy to adapt.",
             },
             video: {
                 title: "AI Video Generator",
                 description:
-                    "AI video that works while you sleep. Text-to-Video generation for seamless integration and engaging multimedia content.",
+                    "Turn text into short videos for social and ads. Text-to-Video that slots straight into your content workflow.",
             },
             music: {
                 title: "AI Music Generator",
                 description:
-                    "Create music generated using text. Text-to-Music generation API for seamless integration and engaging audio content creation.",
+                    "Original background music from a text prompt, for videos, ads, and podcasts. Available as a Text-to-Music API.",
             },
         },
         servicesTag: "IT Solutions",
@@ -119,17 +119,17 @@ const en = {
             cloud: {
                 title: "Cloud Solutions",
                 description:
-                    "Tailored cloud services to enhance your business operations and scalability.",
+                    "Cloud infrastructure shaped around your business: steady when traffic spikes, lean when it is quiet.",
             },
             marketing: {
                 title: "Marketing Solutions",
                 description:
-                    "Customized marketing strategies that yield impactful results and drive engagement.",
+                    "Data-driven content and campaigns, measured in leads and sales, not just likes.",
             },
             innovative: {
                 title: "Innovative Solutions",
                 description:
-                    "Cutting-edge services that enable businesses to excel in the digital realm.",
+                    "Automation and AI integrations that take manual work off your team, from data entry to reporting.",
             },
         },
     },
@@ -144,7 +144,7 @@ const en = {
     pricing: {
         tag: "Pricing",
         title: "Plans That Fit Indonesian Businesses",
-        description: "Transparent monthly retainers in Rupiah, from UMKM to enterprise. No hidden fees, cancel anytime.",
+        description: "Transparent monthly retainers in Rupiah, from small businesses to enterprise. No hidden fees, cancel anytime.",
         monthly: "Monthly",
         annual: "Annual",
         recommended: "Most Popular",
@@ -161,7 +161,7 @@ const en = {
         plans: {
             starter: {
                 name: "Starter",
-                tagline: "For UMKM & small businesses starting out",
+                tagline: "For small businesses just getting started",
                 monthly: 2500000,
                 annual: 2000000,
                 features: [
@@ -211,22 +211,22 @@ const en = {
         {
             question: "What services does plus. provide?",
             answer:
-                "plus. specializes in AI-powered digital solutions including Chat Bot, Customer Support tools, Mobile App development, CRM platforms, Digital Agency services, and Mobile Game development. We also offer cloud solutions, cybersecurity services, and digital marketing.",
+                "plus. focuses on AI-powered digital solutions: Chat Bot, Customer Support, Mobile Apps, CRM platforms, Digital Agency work, and Mobile Games. We also handle cloud solutions and digital marketing.",
         },
         {
             question: "What AI features are available on the platform?",
             answer:
-                "We offer 5 AI-powered tools: AI Image Generator (with 100+ models from OpenAI, Stable Diffusion & Stability AI), AI Text Generator, Personal AI Chat Bot, AI Video Generator, and AI Music Generator, all designed to help you build smarter and faster.",
+                "There are 5 AI tools: AI Image Generator (100+ models from OpenAI, Stable Diffusion, and Stability AI), AI Text Generator, AI Chat Bot, AI Video Generator, and AI Music Generator. All of them help your team produce more in less time.",
         },
         {
             question: "What pricing plans do you offer?",
             answer:
-                "We offer flexible monthly and annual plans in Indonesian Rupiah (IDR). Monthly: Starter (Rp 2.5 jt), Professional (Rp 7.5 jt, recommended), and Enterprise (Rp 20 jt). Annual plans save 20%. Each plan covers one or more service lines, from AI chatbots and CRM to full app development. Custom project-based quotes are also available.",
+                "We offer flexible monthly and annual plans in Indonesian Rupiah (IDR). Monthly: Starter (IDR 2.5M), Professional (IDR 7.5M, recommended), and Enterprise (IDR 20M). Annual plans save 20%. Each plan covers one or more service lines, from AI chatbots and CRM to full app development. Custom project-based quotes are also available.",
         },
         {
             question: "How can I reach plus. for support?",
             answer:
-                "You can reach us via email at plusthesite@gmail.com or through our Contact Us page. Our team is dedicated to providing innovative solutions and exceptional customer support to meet your unique business needs.",
+                "Email us at plusthesite@gmail.com or use the form on our Contact Us page. Our team will reply and help you find the right fit for your business.",
         },
         {
             question: "Do you offer customization and website development?",
@@ -236,7 +236,7 @@ const en = {
     ],
     footer: {
         tagline:
-            "AI chatbots, branding, apps, and CRM, built by AI and real creatives, in one place. Affordable IDR pricing, made for Indonesian businesses.",
+            "AI chatbots, branding, apps, and CRM, built by AI and real creatives, in one place. Priced in Rupiah, made for Indonesian businesses.",
         products: "Products",
         company: "Company",
         connect: "Connect",

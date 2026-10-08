@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useState, type CSSProperties } from "react";
+import { PRELOADER_DONE_EVENT } from "@/lib/preloader";
 import { GLYPHS, LOGO_VIEW_BOX, MARK_D } from "@/lib/logoPaths";
 
 /**
@@ -36,6 +37,8 @@ export type AnimatedLogoProps = {
     loop?: boolean;
     /** Re-run the intro when the user hovers the mark. */
     replayOnHover?: boolean;
+    /** Re-run the intro when the first-load curtain lifts, so it is seen. */
+    replayAfterPreloader?: boolean;
     title?: string;
 };
 
@@ -47,9 +50,17 @@ export default function AnimatedLogo({
     animate = true,
     loop = false,
     replayOnHover = true,
+    replayAfterPreloader = false,
     title = "plus.",
 }: AnimatedLogoProps) {
     const [runId, setRunId] = useState(0);
+
+    useEffect(() => {
+        if (!replayAfterPreloader || loop) return;
+        const onDone = () => setRunId((value) => value + 1);
+        window.addEventListener(PRELOADER_DONE_EVENT, onDone);
+        return () => window.removeEventListener(PRELOADER_DONE_EVENT, onDone);
+    }, [loop, replayAfterPreloader]);
 
     const replay = useCallback(() => {
         if (!replayOnHover || loop) return;

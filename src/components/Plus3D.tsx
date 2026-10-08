@@ -1,14 +1,23 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useId, useRef } from "react";
 import { MARK_D, MARK_VIEW_BOX } from "@/lib/logoPaths";
 
 /**
- * The plus mark as a flat 2D motion graphic.
+ * The plus mark as a faux-3D hero object.
  *
- * One SVG, three cheap channels: a CSS float loop, a scroll-driven turn and
- * drift (transform on a wrapper, one write per frame), and a slow glow pulse.
- * No masks, no layer stacks - a fraction of the old 3D build's cost.
+ * The depth is baked into one static SVG - a solid extruded side built from
+ * offset copies of the mark, a lit gradient face and a hairline highlight -
+ * so it is painted exactly once. Everything that moves is a transform or an
+ * opacity on its own compositor layer:
+ *
+ *   float  - CSS idle bob, runs only while the hero is on screen
+ *   stage  - scroll-driven turn, shrink and fade (one write per frame)
+ *   tilt   - eases toward the pointer in perspective, then stops its loop
+ *
+ * The glow and contact shadow are plain gradients that never animate. No
+ * filters, no blend modes and no per-frame paint - the old build animated a
+ * drop-shadow on a 540px SVG, which dragged the cursor down with it.
  */
 
 const clamp = (value: number, min: number, max: number) =>
@@ -21,47 +30,38 @@ const TURN = {
     scale: [1, 0.88],
 };
 
+/** Pointer tilt range in degrees, and how quickly the mark catches up. */
+const TILT = { x: 12, y: 16, ease: 0.09 };
+
+/** Depth of the extruded side, in mark units, and the light direction. */
+const EXTRUDE = { steps: 14, dx: 0.9, dy: 1.25 };
+const EXTRUDE_STEPS = Array.from({ length: EXTRUDE.steps }, (_, i) => EXTRUDE.steps - i);
+
 const at = (range: number[], t: number) => range[0] + (range[1] - range[0]) * t;
 
 export default function Plus3D({ className = "" }: { className?: string }) {
+    const floatRef = useRef<HTMLDivElement>(null);
     const stageRef = useRef<HTMLDivElement>(null);
+    const tiltRef = useRef<HTMLDivElement>(null);
+    const uid = useId().replace(/:/g, "");
 
     useEffect(() => {
+        const float = floatRef.current;
         const stage = stageRef.current;
-        if (!stage) return;
+        const tilt = tiltRef.current;
+        if (!float || !stage || !tilt) return;
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+        const finePointer = window.matchMedia("(pointer: fine)").matches;
 
         let visible = true;
         let running = false;
 
-        const sync = () => {
-            const shouldRun = visible && window.scrollY < window.innerHeight;
-            if (shouldRun === running) return;
-            running = shouldRun;
-            stage.classList.toggle("is-running", running);
-            stage.style.willChange = running ? "transform" : "auto";
-        };
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                const wasVisible = visible;
-                visible = entry.isIntersecting;
-                if (wasVisible && !visible) {
-                    // Settle the mark at its final pose and drop the
-                    // compositor hint, so nothing is left animating offscreen.
-                    apply();
-                    stage.style.willChange = "auto";
-                }
-                sync();
-            },
-            { threshold: 0 },
-        );
-        observer.observe(stage);
-
+        // ── Scroll: turn, drift and fade the stage as the hero leaves. ──
         let settled = false;
-        let ticking = false;
-        const apply = () => {
-            ticking = false;
+        let scrollTicking = false;
+        const applyScroll = () => {
+            scrollTicking = false;
             const t = clamp(window.scrollY / (window.innerHeight || 1), 0, 1);
             if (settled && t >= 1) return;
             if (t < 1) settled = false;
@@ -76,34 +76,139 @@ export default function Plus3D({ className = "" }: { className?: string }) {
         };
 
         const onScroll = () => {
-            // Nothing to do once the mark has scrolled away: `apply` would
-            // otherwise write style.transform on every scroll frame for the
-            // rest of the page, which is pure main-thread cost.
-            if (!visible || ticking) return;
-            ticking = true;
-            requestAnimationFrame(apply);
+            // Nothing to do once the mark has scrolled away.
+            if (!visible || scrollTicking) return;
+            scrollTicking = true;
+            requestAnimationFrame(applyScroll);
+            sync();
         };
 
-        apply();
-        window.addEventListener("scroll", onScroll, { passive: true });
-        window.addEventListener("resize", apply, { passive: true });
+        // ── Pointer: ease the tilt toward a target, then let the loop die. ──
+        const target = { x: 0, y: 0 };
+        const current = { x: 0, y: 0 };
+        let tiltFrame = 0;
+
+        const stepTilt = () => {
+            current.x += (target.x - current.x) * TILT.ease;
+            current.y += (target.y - current.y) * TILT.ease;
+            const done =
+                Math.abs(target.x - current.x) < 0.02 &&
+                Math.abs(target.y - current.y) < 0.02;
+            if (done) {
+                current.x = target.x;
+                current.y = target.y;
+            }
+            tilt.style.transform = `perspective(1400px) rotateX(${current.x.toFixed(2)}deg) rotateY(${current.y.toFixed(2)}deg)`;
+            tiltFrame = done ? 0 : requestAnimationFrame(stepTilt);
+        };
+
+        const kickTilt = () => {
+            if (!tiltFrame) tiltFrame = requestAnimationFrame(stepTilt);
+        };
+
+        const onPointerMove = (event: PointerEvent) => {
+            if (!running) return;
+            const nx = event.clientX / (window.innerWidth || 1) - 0.5;
+            const ny = event.clientY / (window.innerHeight || 1) - 0.5;
+            target.x = -ny * TILT.x;
+            target.y = nx * TILT.y;
+            kickTilt();
+        };
+
+        const onPointerLeave = () => {
+            target.x = 0;
+            target.y = 0;
+            kickTilt();
+        };
+
+        // ── Visibility: idle animations and compositor hints only on screen. ──
+        const sync = () => {
+            const shouldRun = visible && window.scrollY < window.innerHeight;
+            if (shouldRun === running) return;
+            running = shouldRun;
+            float.classList.toggle("is-running", running);
+            const hint = running ? "transform" : "auto";
+            stage.style.willChange = hint;
+            tilt.style.willChange = hint;
+        };
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                const wasVisible = visible;
+                visible = entry.isIntersecting;
+                if (wasVisible && !visible) {
+                    // Settle at the final pose so nothing is left mid-motion.
+                    applyScroll();
+                    if (tiltFrame) cancelAnimationFrame(tiltFrame);
+                    tiltFrame = 0;
+                }
+                sync();
+            },
+            { threshold: 0 },
+        );
+        observer.observe(stage);
+
+        applyScroll();
         sync();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", applyScroll, { passive: true });
+        if (finePointer) {
+            window.addEventListener("pointermove", onPointerMove, { passive: true });
+            document.addEventListener("pointerleave", onPointerLeave);
+        }
 
         return () => {
             observer.disconnect();
+            if (tiltFrame) cancelAnimationFrame(tiltFrame);
             window.removeEventListener("scroll", onScroll);
-            window.removeEventListener("resize", apply);
+            window.removeEventListener("resize", applyScroll);
+            window.removeEventListener("pointermove", onPointerMove);
+            document.removeEventListener("pointerleave", onPointerLeave);
         };
     }, []);
 
+    const face = `plus3d-face-${uid}`;
+    const side = `plus3d-side-${uid}`;
+
     return (
         <div className={`plus3d ${className}`} aria-hidden>
-            <div className="plus3d__float">
+            <div className="plus3d__float" ref={floatRef}>
                 <div className="plus3d__stage" ref={stageRef}>
-                    <div className="plus2d__glow" />
-                    <svg className="plus2d" viewBox={MARK_VIEW_BOX} focusable="false">
-                        <path className="plus2d__path" d={MARK_D} />
-                    </svg>
+                    <div className="plus3d__tilt" ref={tiltRef}>
+                        <div className="plus2d__shadow" />
+                        <div className="plus2d__glow" />
+                        <svg className="plus2d" viewBox={MARK_VIEW_BOX} focusable="false">
+                            <defs>
+                                <linearGradient id={face} x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0%" className="plus2d__face-hi" />
+                                    <stop offset="55%" className="plus2d__face-mid" />
+                                    <stop offset="100%" className="plus2d__face-lo" />
+                                </linearGradient>
+                                <linearGradient id={side} x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0%" className="plus2d__side-hi" />
+                                    <stop offset="100%" className="plus2d__side-lo" />
+                                </linearGradient>
+                            </defs>
+                            {/* The stroke fills the gaps between offset copies so the
+                                side reads as one smooth wall instead of steps. */}
+                            <g
+                                fill={`url(#${side})`}
+                                stroke={`url(#${side})`}
+                                strokeWidth={1.6}
+                                strokeLinejoin="round"
+                            >
+                                {EXTRUDE_STEPS.map((step) => (
+                                    <path
+                                        key={step}
+                                        d={MARK_D}
+                                        transform={`translate(${(step * EXTRUDE.dx).toFixed(2)} ${(step * EXTRUDE.dy).toFixed(2)})`}
+                                    />
+                                ))}
+                            </g>
+                            <path d={MARK_D} fill={`url(#${face})`} />
+                            <path className="plus2d__rim" d={MARK_D} />
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>

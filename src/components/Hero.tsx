@@ -27,8 +27,7 @@ export default function Hero() {
                             href={null}
                             variant="auto"
                             size="large"
-                            loop
-                            replayOnHover={false}
+                            replayAfterPreloader
                             className="translate-y-[1px]"
                         />
                         <span className="h-4 w-px bg-slate-900/20 dark:bg-white/20" />
