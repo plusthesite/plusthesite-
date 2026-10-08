@@ -4,7 +4,7 @@ const id: Dictionary = {
     meta: {
         homeTitle: "plus. Digital AI-gency Global | AI, Branding & Aplikasi",
         homeDescription:
-            "plus. adalah digital AI-agency global, satu platform terintegrasi untuk chatbot AI, branding, aplikasi mobile, CRM, dan digital marketing. Bangun brand lebih cerdas dan cepat dengan AI + kreativitas manusia.",
+            "plus. adalah digital AI-gency global: chatbot AI, branding, aplikasi mobile, CRM, dan digital marketing dikerjakan satu tim. Bangun brand lebih cerdas dan lebih cepat dengan AI dan tim kreatif sungguhan.",
         ogTitle: "plus. Bangun Brand Lebih Cerdas. Lebih Cepat.",
         ogDescription:
             "Chatbot AI, branding, aplikasi, dan CRM. Satu tim, satu platform, rilis lebih cepat.",
@@ -29,7 +29,7 @@ const id: Dictionary = {
         titleLine2: "Lebih Cepat.",
         subtitle: "Dengan AI + Kreativitas Manusia",
         description:
-            "Chatbot AI, branding, aplikasi, dan CRM dikerjakan satu tim — bukan lima vendor. Rilis lebih cepat, brand tetap satu suara, dan Anda tinggal fokus pada produk.",
+            "Chatbot AI, branding, aplikasi, dan CRM dikerjakan satu tim, bukan lima vendor. Rilis lebih cepat, brand tetap satu suara, dan Anda bisa fokus mengembangkan bisnis.",
         ctaPrimary: "Lihat Karya Kami",
         ctaSecondary: "Lihat Harga",
     },
@@ -92,27 +92,27 @@ const id: Dictionary = {
             image: {
                 title: "AI Image Generator",
                 description:
-                    "Ciptakan karya seni indah dengan kecerdasan buatan. Tiga API terintegrasi: OpenAI, Stable Diffusion, dan Stability AI. Gabungan 100+ model.",
+                    "Visual siap pakai untuk konten dan iklan dalam hitungan detik. 100+ model dari OpenAI, Stable Diffusion, dan Stability AI dalam satu tempat.",
             },
             text: {
                 title: "AI Text Generator",
                 description:
-                    "Menulis lebih cerdas dan hemat waktu dengan tools bertenaga AI. Hasilkan copy, konten, dan tulisan kreatif yang terhubung dengan audiens Anda.",
+                    "Caption, artikel, email, dan copy iklan dalam gaya bahasa brand Anda. Draf pertama jadi dalam menit, tim Anda tinggal menyempurnakan.",
             },
             chat: {
                 title: "AI Chat Bot",
                 description:
-                    "Chatbot AI personal, hemat biaya, tersedia 24/7, dan fleksibel. Percakapan mulus dan jawaban instan untuk segala kebutuhan.",
+                    "Asisten AI yang menjawab instan 24/7, dilatih dengan informasi bisnis Anda. Lebih hemat dari menambah staf, dan mudah disesuaikan.",
             },
             video: {
                 title: "AI Video Generator",
                 description:
-                    "Video AI yang bekerja saat Anda tidur. Pembuatan Text-to-Video untuk integrasi mulus dan konten multimedia yang menarik.",
+                    "Ubah teks jadi video pendek untuk media sosial dan iklan. Text-to-Video yang mudah diintegrasikan ke alur konten Anda.",
             },
             music: {
                 title: "AI Music Generator",
                 description:
-                    "Ciptakan musik dari teks. API Text-to-Music untuk integrasi mulus dan pembuatan konten audio yang menarik.",
+                    "Musik latar orisinal dari deskripsi teks, untuk video, iklan, dan podcast. Tersedia sebagai API Text-to-Music.",
             },
         },
         servicesTag: "Solusi IT",
@@ -121,17 +121,17 @@ const id: Dictionary = {
             cloud: {
                 title: "Solusi Cloud",
                 description:
-                    "Layanan cloud yang disesuaikan untuk meningkatkan operasional dan skalabilitas bisnis Anda.",
+                    "Infrastruktur cloud yang disesuaikan dengan bisnis Anda: stabil saat trafik naik, efisien saat sepi.",
             },
             marketing: {
                 title: "Solusi Marketing",
                 description:
-                    "Strategi marketing khusus yang menghasilkan dampak nyata dan mendorong engagement.",
+                    "Strategi konten dan kampanye berbasis data, diukur dari leads dan penjualan, bukan sekadar likes.",
             },
             innovative: {
                 title: "Solusi Inovatif",
                 description:
-                    "Layanan mutakhir yang memungkinkan bisnis unggul di ranah digital.",
+                    "Otomasi dan integrasi AI untuk memangkas pekerjaan manual tim Anda, dari input data sampai laporan.",
             },
         },
     },
@@ -213,12 +213,12 @@ const id: Dictionary = {
         {
             question: "Layanan apa saja yang disediakan plus.?",
             answer:
-                "plus. mengkhususkan diri pada solusi digital bertenaga AI, meliputi Chat Bot, tools Customer Support, pengembangan Aplikasi Mobile, platform CRM, layanan Digital Agency, dan pengembangan Game Mobile. Kami juga menyediakan solusi cloud, layanan keamanan siber, dan digital marketing.",
+                "plus. fokus pada solusi digital bertenaga AI: Chat Bot, Customer Support, Aplikasi Mobile, platform CRM, Digital Agency, dan Game Mobile. Kami juga menangani solusi cloud dan digital marketing.",
         },
         {
             question: "Fitur AI apa saja yang tersedia di platform?",
             answer:
-                "Kami menawarkan 5 tools bertenaga AI: AI Image Generator (dengan 100+ model dari OpenAI, Stable Diffusion & Stability AI), AI Text Generator, AI Chat Bot personal, AI Video Generator, dan AI Music Generator, semuanya dirancang untuk membantu Anda membangun lebih cerdas dan lebih cepat.",
+                "Ada 5 tools AI: AI Image Generator (100+ model dari OpenAI, Stable Diffusion, dan Stability AI), AI Text Generator, AI Chat Bot, AI Video Generator, dan AI Music Generator. Semuanya untuk membantu tim Anda memproduksi lebih banyak dalam waktu lebih singkat.",
         },
         {
             question: "Paket harga apa saja yang ditawarkan?",
@@ -228,7 +228,7 @@ const id: Dictionary = {
         {
             question: "Bagaimana cara menghubungi plus. untuk dukungan?",
             answer:
-                "Anda dapat menghubungi kami melalui email di plusthesite@gmail.com atau melalui halaman Hubungi Kami. Tim kami berdedikasi memberikan solusi inovatif dan dukungan pelanggan yang luar biasa untuk memenuhi kebutuhan bisnis unik Anda.",
+                "Kirim email ke plusthesite@gmail.com atau isi formulir di halaman Hubungi Kami. Tim kami akan membalas dan membantu mencarikan solusi yang pas untuk bisnis Anda.",
         },
         {
             question: "Apakah Anda menyediakan kustomisasi dan pengembangan website?",
@@ -238,7 +238,7 @@ const id: Dictionary = {
     ],
     footer: {
         tagline:
-            "Chatbot AI, branding, aplikasi, dan CRM. Dikerjakan AI plus tim kreatif sungguhan, dalam satu tempat. Harga IDR terjangkau, dibuat untuk bisnis Indonesia.",
+            "Chatbot AI, branding, aplikasi, dan CRM. Dikerjakan AI plus tim kreatif sungguhan, dalam satu tempat. Harga dalam Rupiah, dibuat untuk bisnis Indonesia.",
         products: "Produk",
         company: "Perusahaan",
         connect: "Terhubung",

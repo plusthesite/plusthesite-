@@ -46,15 +46,15 @@ export default function HeroBackdrop() {
             <div className="absolute inset-0 bg-[#ffffff] dark:bg-[#070b14]" />
 
             <div
-                className="hero-blob hero-blob-1 -left-[10%] top-[-12%] h-[52vw] w-[52vw] bg-[radial-gradient(circle,_rgba(12,116,235,0.42),_transparent_68%)]"
+                className="hero-blob -left-[10%] top-[-12%] h-[52vw] w-[52vw] bg-[radial-gradient(circle,_rgba(12,116,235,0.42),_transparent_68%)]"
                 aria-hidden
             />
             <div
-                className="hero-blob hero-blob-2 right-[-8%] top-[6%] h-[44vw] w-[44vw] bg-[radial-gradient(circle,_rgba(56,189,248,0.34),_transparent_68%)]"
+                className="hero-blob right-[-8%] top-[6%] h-[44vw] w-[44vw] bg-[radial-gradient(circle,_rgba(56,189,248,0.34),_transparent_68%)]"
                 aria-hidden
             />
             <div
-                className="hero-blob hero-blob-3 bottom-[-18%] left-[24%] h-[48vw] w-[48vw] bg-[radial-gradient(circle,_rgba(124,58,237,0.24),_transparent_68%)]"
+                className="hero-blob bottom-[-18%] left-[24%] h-[48vw] w-[48vw] bg-[radial-gradient(circle,_rgba(124,58,237,0.24),_transparent_68%)]"
                 aria-hidden
             />
 

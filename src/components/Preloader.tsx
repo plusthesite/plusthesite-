@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import AnimatedLogo from "@/components/AnimatedLogo";
+import { PRELOADER_DONE_EVENT } from "@/lib/preloader";
 
 /**
  * Idle screen for the first seconds of a hard load.
@@ -47,6 +48,7 @@ export default function Preloader({ locale }: { locale: string }) {
 
     useEffect(() => {
         if (!done) return;
+        window.dispatchEvent(new Event(PRELOADER_DONE_EVENT));
         const t = setTimeout(() => setGone(true), 600); // matches the fade-out
         return () => clearTimeout(t);
     }, [done]);

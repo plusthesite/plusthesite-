@@ -7,10 +7,10 @@ import { MARK_D, MARK_VIEW_BOX } from "@/lib/logoPaths";
  * The plus mark as the pointer - lightweight build.
  *
  * Position is written straight from pointermove (a compositor-only
- * transform), the grow-on-hover is a CSS transition on a nested element, and
- * there is no drop-shadow filter and no rAF loop: nothing runs between mouse
- * moves. Hover swaps the fill blue -> black (white -> blue in dark theme).
- * Mouse-only; coarse pointers and reduced-motion visitors keep the native
+ * transform on its own layer), hover state is resolved on pointerover, the
+ * grow-on-hover is a CSS transition on a nested element, and there is no rAF
+ * loop: nothing runs between mouse moves. Hover swaps the fill blue -> black
+ * (white -> blue in dark theme). Mouse-only; coarse pointers and reduced-motion visitors keep the native
  * cursor.
  */
 
@@ -33,6 +33,7 @@ export default function PlusCursor() {
         let overText = false;
         let started = false;
 
+        // Position only: one compositor transform per move, nothing else.
         const onMove = (event: PointerEvent) => {
             mark.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
 
@@ -40,12 +41,15 @@ export default function PlusCursor() {
                 started = true;
                 mark.classList.add("plus-cursor--ready");
             }
+        };
 
+        // Hover state only changes when the element under the pointer does,
+        // so it is resolved on pointerover instead of on every move.
+        const onOver = (event: PointerEvent) => {
             const el = event.target as Element | null;
             const nextText = !!el?.closest?.(TEXT_FIELD);
             const nextLink = !nextText && !!el?.closest?.(INTERACTIVE);
 
-            // Class writes only on state changes, not on every move.
             if (nextLink !== overLink) {
                 overLink = nextLink;
                 mark.classList.toggle("plus-cursor--hover", overLink);
@@ -62,6 +66,7 @@ export default function PlusCursor() {
         const onUp = () => mark.classList.remove("plus-cursor--press");
 
         window.addEventListener("pointermove", onMove, { passive: true });
+        window.addEventListener("pointerover", onOver, { passive: true });
         window.addEventListener("pointerdown", onDown, { passive: true });
         window.addEventListener("pointerup", onUp, { passive: true });
         document.addEventListener("pointerleave", onLeave);
@@ -70,6 +75,7 @@ export default function PlusCursor() {
         return () => {
             root.classList.remove("plus-cursor-on");
             window.removeEventListener("pointermove", onMove);
+            window.removeEventListener("pointerover", onOver);
             window.removeEventListener("pointerdown", onDown);
             window.removeEventListener("pointerup", onUp);
             document.removeEventListener("pointerleave", onLeave);
