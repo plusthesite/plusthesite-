@@ -1325,88 +1325,93 @@ html.lang-transition::view-transition-new(root) {
 .hero-blob {
   position: absolute;
   border-radius: 9999px;
-  /* No blur, no drift. Measured on this hero: 66 ms/frame with blur(40px) on
-     three ~600px elements, 18 ms/frame without it. radial-gradient already
-     fades to transparent, so the blur was re-rasterising a full viewport every
-     frame to soften an edge the gradient produces for free. */
-  will-change: auto;
+  filter: blur(64px);
+  will-change: transform;
 }
 
 /* The blurred blobs are the single most expensive thing on the page - a GPU
    blur that big re-rasterises every frame it animates. Pause the drift when
    the hero is scrolled away or on small screens, and let the static gradient
    still carry the look. */
-/* The blobs are static gradients now. A drift animation on three ~600px
-   layers was continuous compositing for motion nobody notices behind the
-   headline copy, so it is gone; the hero reads calmer and scrolls lighter. */
+.hero-blob {
+  animation-play-state: paused;
+}
+
+.hero-blob.is-running {
+  animation-play-state: running;
+}
+
+@media (max-width: 767px) {
+  .hero-blob {
+    filter: blur(48px);
+  }
+}
+
 .hero-blob-1 {
-  animation: none;
+  animation: heroDrift 34s ease-in-out infinite;
 }
 
 .hero-blob-2 {
-  animation: none;
+  animation: heroDrift 44s ease-in-out infinite reverse;
 }
 
 .hero-blob-3 {
-  animation: none;
+  animation: heroDriftAlt 52s ease-in-out infinite;
 }
 
-/* Diagonal hairline field.
-   Two changes from the old fluted banding, both about hierarchy:
-   1. Hairlines (1px) instead of 6px white bands. Wide bands read as noise
-      across the headline; hairlines read as texture.
-   2. Confined to the right column. The old version ran edge to edge and sliced
-      straight through the H1 and the mark; the version before this used a
-      radial mask, which a pixel-diff of the layer on/off still showed painting
-      faintly (delta 8-18/255) behind the tail of the headline. A linear mask
-      with a hard-ish stop is used instead, because the copy column has a known
-      edge: the headline never runs past ~50% of the frame width, so the field
-      starts at 54% and cannot reach it at any viewport size.
-   The mask is a static gradient: no blend mode, no filter, nothing to repaint. */
-.hero-flutes {
-  background-image: repeating-linear-gradient(28deg,
-      rgba(12, 116, 235, 0.18) 0px,
-      rgba(12, 116, 235, 0.18) 1px,
-      rgba(12, 116, 235, 0) 1px,
-      rgba(12, 116, 235, 0) 60px);
-  -webkit-mask-image: linear-gradient(90deg,
-      transparent 0%, transparent 50%, rgba(0, 0, 0, 0.55) 58%, #000 72%);
-  mask-image: linear-gradient(90deg,
-      transparent 0%, transparent 50%, rgba(0, 0, 0, 0.55) 58%, #000 72%);
-}
+@keyframes heroDrift {
 
-/* Dark: the same field in the cyan brand tint, so it stays one visual idea
-   across themes instead of becoming white stripes on near-black. */
-.dark .hero-flutes {
-  background-image: repeating-linear-gradient(28deg,
-      rgba(125, 211, 252, 0.22) 0px,
-      rgba(125, 211, 252, 0.22) 1px,
-      rgba(125, 211, 252, 0) 1px,
-      rgba(125, 211, 252, 0) 60px);
-}
-
-/* Narrow screens: the copy fills the width, so the field becomes a corner
-   vignette in the top right instead of a column. */
-@media (max-width: 1023px) {
-
-  .hero-flutes {
-    -webkit-mask-image: radial-gradient(56% 34% at 78% 20%,
-        #000 0%, rgba(0, 0, 0, 0.5) 50%, transparent 100%);
-    mask-image: radial-gradient(56% 34% at 78% 20%,
-        #000 0%, rgba(0, 0, 0, 0.5) 50%, transparent 100%);
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
   }
+
+  50% {
+    transform: translate3d(6%, -5%, 0) scale(1.12);
+  }
+}
+
+@keyframes heroDriftAlt {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+
+  50% {
+    transform: translate3d(-7%, 6%, 0) scale(0.92);
+  }
+}
+
+/* Fluted-glass style banding, mirrors the shader layer's angle/frequency */
+.hero-flutes {
+  background-image: repeating-linear-gradient(31deg,
+      rgba(255, 255, 255, 0.55) 0px,
+      rgba(255, 255, 255, 0) 6px,
+      rgba(255, 255, 255, 0) 52px,
+      rgba(255, 255, 255, 0.55) 58px);
+  mix-blend-mode: soft-light;
+  opacity: 0.5;
+}
+
+.dark .hero-flutes {
+  background-image: repeating-linear-gradient(31deg,
+      rgba(255, 255, 255, 0.14) 0px,
+      rgba(255, 255, 255, 0) 6px,
+      rgba(255, 255, 255, 0) 52px,
+      rgba(255, 255, 255, 0.14) 58px);
+  opacity: 0.6;
 }
 
 .hero-grain {
   background-image: url("/textures/noise.svg");
   background-size: 260px 260px;
-  /* Plain overlay instead of multiply/screen. Both blend modes ran over a
-     full-viewport layer; on a flat backdrop there is nothing to blend with, so
-     they cost a backdrop read per frame for an identical result. */
   opacity: 0.05;
+  mix-blend-mode: multiply;
 }
 
 .dark .hero-grain {
+  mix-blend-mode: screen;
   opacity: 0.07;
 }
 
@@ -1469,96 +1474,79 @@ html.lang-transition::view-transition-new(root) {
 
 .plus3d__stage {
   transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1), opacity 360ms ease-out;
-  /* Square to the frame; the mark is animated by scroll only. */
-  transform: rotate(0deg);
+  transform: rotate(-8deg);
   will-change: transform;
 }
 
-/* ─── The mark: an aura, not a bubble ───
-   The old version was a 9999px-radius circle with a 45px box-shadow, so the
-   hero showed a distinct light disc with a hard-ish rim sitting behind the
-   plus - it read as an unfinished bubble, not as brand glow. There is no
-   circle and no shadow now: one oversized radial gradient that starts dense at
-   the mark and reaches full transparency well before its own box ends, so the
-   edge is never visible at any viewport size. */
-.plus2d__glow {
-  position: absolute;
-  inset: -70%;
-  background: radial-gradient(circle,
-      rgba(12, 116, 235, 0.30) 0%,
-      rgba(12, 116, 235, 0.16) 26%,
-      rgba(12, 116, 235, 0.05) 46%,
-      rgba(12, 116, 235, 0) 62%);
-  animation: plus2dPulse 6s ease-in-out infinite;
-  will-change: opacity;
-}
-
-.dark .plus2d__glow {
-  background: radial-gradient(circle,
-      rgba(56, 189, 248, 0.26) 0%,
-      rgba(56, 189, 248, 0.13) 26%,
-      rgba(56, 189, 248, 0.04) 46%,
-      rgba(56, 189, 248, 0) 62%);
-}
-
-/* A single hairline ring, inset far enough that it never touches the arms of
-   the cross and fades out on its own. It gives the mark a centre of gravity
-   without reintroducing a filled bubble. */
-.plus2d__ring {
-  position: absolute;
-  inset: 4%;
-  border-radius: 9999px;
-  border: 1px solid rgba(12, 116, 235, 0.16);
-  -webkit-mask-image: radial-gradient(circle, #000 55%, transparent 78%);
-  mask-image: radial-gradient(circle, #000 55%, transparent 78%);
-}
-
-.dark .plus2d__ring {
-  border-color: rgba(125, 211, 252, 0.20);
-}
-
-@media (prefers-reduced-motion: reduce) {
-
-  .plus2d__glow {
-    animation: none !important;
-  }
-}
-
-/* The mark stays square to the frame. The old plus2dTilt wobble (-2deg..3deg)
-   fought the stage's own scroll rotation, so the cross was never aligned to
-   anything and the eye could not settle on it. Motion now lives entirely in
-   the float and the glow pulse. */
+/* ─── Flat 2D mark with a soft glow ─── */
 .plus2d {
   position: relative;
   width: 100%;
   height: 100%;
   display: block;
   overflow: visible;
+  animation: plus2dTilt 9s ease-in-out infinite;
 }
 
 .plus2d__path {
   fill: url(#plus2dGradient);
   fill: #0c74eb;
-  /* No drop-shadow here, on purpose. It was the last filter left in the hero
-     and the most expensive: a 45px blur across a 588px path, re-rasterised
-     every time the scroll handler moves the mark. Removing it took the hero
-     from 33 to 18 ms/frame. The soft brand glow around the mark is the radial
-     gradient on .plus2d__glow, which costs nothing to draw. */
+  filter: drop-shadow(0 18px 45px rgba(12, 116, 235, 0.35));
+  animation: plus2dGlow 5s ease-in-out infinite;
 }
 
 .dark .plus2d__path {
   fill: #38bdf8;
+  filter: drop-shadow(0 18px 45px rgba(56, 189, 248, 0.45));
+}
+
+.plus2d__glow {
+  position: absolute;
+  inset: -12%;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(12, 116, 235, 0.28), transparent 65%);
+  animation: plus2dPulse 5s ease-in-out infinite;
+}
+
+.dark .plus2d__glow {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.22), transparent 65%);
+}
+
+@keyframes plus2dTilt {
+
+  0%,
+  100% {
+    transform: rotate(-2deg) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: rotate(3deg) translate3d(0, -3%, 0);
+  }
+}
+
+@keyframes plus2dGlow {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 18px 45px rgba(12, 116, 235, 0.3));
+  }
+
+  50% {
+    filter: drop-shadow(0 22px 60px rgba(12, 116, 235, 0.5));
+  }
 }
 
 @keyframes plus2dPulse {
 
   0%,
   100% {
-    opacity: 0.7;
+    opacity: 0.5;
+    transform: scale(1);
   }
 
   50% {
     opacity: 1;
+    transform: scale(1.08);
   }
 }
 
