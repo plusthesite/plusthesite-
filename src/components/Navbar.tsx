@@ -23,6 +23,7 @@ import {
   Sparkles,
   Sun,
   X,
+  Zap,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -52,6 +53,16 @@ function getProducts(t: Dictionary, locale: Locale): ProductItem[] {
   const p = t.products.items;
 
   return [
+    {
+      icon: Zap,
+      label: locale === "id" ? "Landing Page 1 Hari" : "1-Day Landing Page",
+      desc:
+        locale === "id"
+          ? "Website bisnis live dalam 1 hari kerja"
+          : "Your business site live in 1 business day",
+      href: `/${locale}#products`,
+      badge: locale === "id" ? "Unggulan" : "Featured",
+    },
     {
       icon: Bot,
       label: p.chatbot.title,
@@ -359,8 +370,8 @@ function ProductsDropdown({ scrolled }: { scrolled: boolean }) {
             </div>
             <p className="mt-3 text-sm font-semibold leading-6">
               {locale === "id"
-                ? "Pilih lane yang paling dekat dengan kebutuhan tim Anda saat ini."
-                : "Choose the lane that best matches what your team needs right now."}
+                ? "Mulai dari landing page 1 hari, tambah sisanya saat bisnis Anda tumbuh."
+                : "Start with a 1-day landing page, add the rest as your business grows."}
             </p>
           </div>
 
@@ -446,7 +457,7 @@ export default function Navbar() {
 
   const homeLinks: NavLink[] = [
     { label: t.nav.about, href: `/${locale}#about` },
-    { label: t.nav.products, href: `/${locale}#features`, hasDropdown: true },
+    { label: t.nav.products, href: `/${locale}#products`, hasDropdown: true },
     { label: t.nav.studio, href: studioUrl(locale), external: true },
     { label: t.nav.blog, href: `/${locale}/blog` },
     { label: t.nav.pricing, href: `/${locale}#pricing` },
@@ -454,7 +465,7 @@ export default function Navbar() {
 
   const subpageLinks: NavLink[] = [
     { label: t.nav.home, href: `/${locale}` },
-    { label: t.nav.products, href: `/${locale}#features`, hasDropdown: true },
+    { label: t.nav.products, href: `/${locale}#products`, hasDropdown: true },
     { label: t.nav.studio, href: studioUrl(locale), external: true },
     { label: t.nav.blog, href: `/${locale}/blog` },
     { label: t.nav.pricing, href: `/${locale}#pricing` },
@@ -559,12 +570,12 @@ export default function Navbar() {
           <div className="mb-5 rounded-[1.4rem] bg-[linear-gradient(135deg,_#0f172a_0%,_#111827_52%,_#082f49_100%)] px-4 py-4 text-white">
             <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-sky-200/80">
               <Sparkles className="h-3 w-3" />
-              <span>{locale === "id" ? "Quick map" : "Quick map"}</span>
+              <span>{locale === "id" ? "Menu" : "Menu"}</span>
             </div>
             <p className="mt-3 text-sm font-semibold leading-6">
               {locale === "id"
-                ? "Masuk ke lane produk, baca insight, atau langsung buka pricing dari satu tempat."
-                : "Jump into product lanes, read insight, or open pricing from one place."}
+                ? "Lihat produk, baca insight, atau minta penawaran untuk bisnis Anda."
+                : "Browse products, read our insights, or get a quote for your business."}
             </p>
           </div>
 
@@ -586,7 +597,7 @@ export default function Navbar() {
 
                   <div
                     className={`overflow-hidden transition-all duration-300 ${
-                      mobileProductsOpen ? "max-h-[420px] opacity-100" : "max-h-0 opacity-0"
+                      mobileProductsOpen ? "max-h-[520px] opacity-100" : "max-h-0 opacity-0"
                     }`}
                   >
                     <div className="grid grid-cols-1 gap-2 pb-3 pt-2">

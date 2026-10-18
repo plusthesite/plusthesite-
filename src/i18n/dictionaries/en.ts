@@ -14,7 +14,7 @@ const en = {
         aiFeatures: "AI Features",
         studio: "Studio",
         blog: "Blog",
-        pricing: "Pricing",
+        pricing: "Get a Quote",
         contactUs: "Contact Us",
         viewPricing: "View Pricing",
         ourProducts: "Our Products",
@@ -29,7 +29,7 @@ const en = {
         description:
             "AI chatbots, branding, apps, and CRM, built by one team, not five vendors. Launch faster, keep every channel speaking with one voice, and stay focused on growing the business.",
         ctaPrimary: "Explore Our Products",
-        ctaSecondary: "Ask for Pricing",
+        ctaSecondary: "Get a Quote",
     },
     about: {
         tag: "About Plus",

@@ -16,7 +16,7 @@ const id: Dictionary = {
         aiFeatures: "Fitur AI",
         studio: "Studio",
         blog: "Blog",
-        pricing: "Harga",
+        pricing: "Penawaran",
         contactUs: "Hubungi Kami",
         viewPricing: "Lihat Harga",
         ourProducts: "Produk Kami",
@@ -31,7 +31,7 @@ const id: Dictionary = {
         description:
             "Chatbot AI, branding, aplikasi, dan CRM dikerjakan satu tim, bukan lima vendor. Rilis lebih cepat, brand tetap satu suara, dan Anda bisa fokus mengembangkan bisnis.",
         ctaPrimary: "Lihat Pilihan Produk",
-        ctaSecondary: "Tanya Harga",
+        ctaSecondary: "Minta Penawaran",
     },
     about: {
         tag: "Tentang Plus",
