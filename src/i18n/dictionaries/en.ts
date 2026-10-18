@@ -14,7 +14,7 @@ const en = {
         aiFeatures: "AI Features",
         studio: "Studio",
         blog: "Blog",
-        pricing: "Pricing",
+        pricing: "Get a Quote",
         contactUs: "Contact Us",
         viewPricing: "View Pricing",
         ourProducts: "Our Products",
@@ -29,7 +29,7 @@ const en = {
         description:
             "AI chatbots, branding, apps, and CRM, built by one team, not five vendors. Launch faster, keep every channel speaking with one voice, and stay focused on growing the business.",
         ctaPrimary: "Explore Our Products",
-        ctaSecondary: "Ask for Pricing",
+        ctaSecondary: "Get a Quote",
     },
     about: {
         tag: "About Plus",
@@ -205,13 +205,38 @@ const en = {
     faq: {
         tag: "FAQ",
         title: "Frequently Asked Questions",
-        description: "Pricing, services, and how we work, answered. Still have a question? Talk to our team.",
+        description: "The 1-day landing page, how to get a quote, and what else we do. Still have a question? Email official@plusthe.site.",
     },
     faqItems: [
         {
-            question: "What services does plus. provide?",
+            question: "What is the 1 Day Ready Business Landing Page?",
             answer:
-                "plus. focuses on AI-powered digital solutions: Chat Bot, Customer Support, Mobile Apps, CRM platforms, Digital Agency work, and Mobile Games. We also handle cloud solutions and digital marketing.",
+                "A one-page website for your business: who you are, what you sell, and how customers can reach you. It looks sharp on phone and desktop and comes with WhatsApp, email, and lead form buttons. It can go live within one business day once we have your materials.",
+        },
+        {
+            question: "How much does it cost? Why is there no price list?",
+            answer:
+                "Every business needs something different, so we don't publish fixed packages. Each quote is built around what you need, in Indonesian Rupiah, so you only pay for what you'll actually use.",
+        },
+        {
+            question: "How do I get a quote?",
+            answer:
+                "In the Get a Quote section on our homepage, pick what you need, click Open in my email, fill in four lines (business name, industry, what you need, target start), and send it to official@plusthe.site. We'll reply with a product recommendation, an estimated timeline, and a written quote. Prefer chat? DM us on Instagram @plusthe.site.",
+        },
+        {
+            question: "What do I need to prepare?",
+            answer:
+                "Just the basics: your business name and logo, a short description of your products or services, a few photos, and the contact details you want to use (WhatsApp, email, address). Missing some of it? Tell us in your email and we'll help you write the copy.",
+        },
+        {
+            question: "Can I start with a landing page and add a chatbot or CRM later?",
+            answer:
+                "Yes, and that's what we recommend. Start with a landing page so customers can find and contact you, then add an AI Chat Bot to answer messages automatically or a CRM to keep follow-ups organized as your leads grow.",
+        },
+        {
+            question: "What services does plus. offer?",
+            answer:
+                "Besides the 1-day landing page: AI Chat Bot for WhatsApp and your website, Customer Support, a CRM platform, Digital Agency work (branding, content, campaigns), Mobile Apps, and Mobile Games. Start with one and add more as your business grows.",
         },
         {
             question: "What AI features are available on the platform?",
@@ -219,19 +244,9 @@ const en = {
                 "There are 5 AI tools: AI Image Generator (100+ models from OpenAI, Stable Diffusion, and Stability AI), AI Text Generator, AI Chat Bot, AI Video Generator, and AI Music Generator. All of them help your team produce more in less time.",
         },
         {
-            question: "How much does plus. cost?",
+            question: "How can I reach plus.?",
             answer:
-                "We price each project around what you need, in Indonesian Rupiah (IDR). Email official@plusthe.site or DM us on Instagram @plusthe.site with a few lines about your business and goals, and we'll reply with a product recommendation and a quote. If you want to start fast, our 1 Day Ready Business Landing Page goes live within 1 business day once your materials are in.",
-        },
-        {
-            question: "How can I reach plus. for support?",
-            answer:
-                "Email us at official@plusthe.site or use the form on our Contact Us page. Our team will reply and help you find the right fit for your business.",
-        },
-        {
-            question: "Do you offer customization and website development?",
-            answer:
-                "Yes! We build custom websites, apps, and digital products. Pricing depends on scope, from a simple landing page to a full cross-platform app. Contact our team for a tailored quote in IDR.",
+                "Email official@plusthe.site, DM us on Instagram @plusthe.site, or use the form on our Contact Us page.",
         },
     ],
     footer: {

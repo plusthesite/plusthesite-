@@ -52,7 +52,7 @@ export default function PricingContact() {
           <div className="relative grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-sky-200">
-                {isID ? "Harga" : "Pricing"}
+                {isID ? "Penawaran" : "Get a quote"}
               </p>
               <h2 className="mt-4 text-3xl font-semibold leading-[1.08] tracking-[-0.04em] sm:text-[2.75rem]">
                 {isID

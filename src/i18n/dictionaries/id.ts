@@ -16,7 +16,7 @@ const id: Dictionary = {
         aiFeatures: "Fitur AI",
         studio: "Studio",
         blog: "Blog",
-        pricing: "Harga",
+        pricing: "Penawaran",
         contactUs: "Hubungi Kami",
         viewPricing: "Lihat Harga",
         ourProducts: "Produk Kami",
@@ -31,7 +31,7 @@ const id: Dictionary = {
         description:
             "Chatbot AI, branding, aplikasi, dan CRM dikerjakan satu tim, bukan lima vendor. Rilis lebih cepat, brand tetap satu suara, dan Anda bisa fokus mengembangkan bisnis.",
         ctaPrimary: "Lihat Pilihan Produk",
-        ctaSecondary: "Tanya Harga",
+        ctaSecondary: "Minta Penawaran",
     },
     about: {
         tag: "Tentang Plus",
@@ -207,13 +207,38 @@ const id: Dictionary = {
     faq: {
         tag: "FAQ",
         title: "Pertanyaan yang Sering Diajukan",
-        description: "Harga, layanan, dan cara kami bekerja. Semuanya terjawab. Masih ada pertanyaan? Hubungi tim kami.",
+        description: "Soal landing page 1 hari, cara minta penawaran, dan layanan kami. Masih ada pertanyaan? Email official@plusthe.site.",
     },
     faqItems: [
         {
+            question: "Apa itu 1 Day Ready Business Landing Page?",
+            answer:
+                "Website satu halaman untuk bisnis Anda: menjelaskan siapa Anda, apa yang Anda jual, dan bagaimana pelanggan bisa menghubungi Anda. Tampil rapi di HP dan desktop, lengkap dengan tombol WhatsApp, email, dan form leads. Halaman bisa live dalam 1 hari kerja setelah materi dari Anda lengkap.",
+        },
+        {
+            question: "Berapa harganya? Kenapa tidak ada daftar harga?",
+            answer:
+                "Setiap bisnis butuh hal yang berbeda, jadi kami tidak memasang paket harga tetap. Penawaran disusun dari kebutuhan Anda, dalam Rupiah, sehingga Anda hanya membayar yang benar-benar dipakai.",
+        },
+        {
+            question: "Bagaimana cara minta penawaran?",
+            answer:
+                "Di bagian Penawaran di beranda, pilih kebutuhan Anda, klik Buka di email saya, isi 4 baris (nama bisnis, bidang usaha, kebutuhan, target mulai), lalu kirim ke official@plusthe.site. Kami balas dengan rekomendasi produk, estimasi waktu, dan penawaran tertulis. Lebih suka chat? DM Instagram @plusthe.site.",
+        },
+        {
+            question: "Materi apa yang perlu saya siapkan?",
+            answer:
+                "Cukup yang dasar: nama dan logo bisnis, deskripsi singkat produk atau layanan, beberapa foto, dan kontak yang ingin dipakai (WhatsApp, email, alamat). Belum lengkap? Ceritakan di email, kami bantu susun copy-nya.",
+        },
+        {
+            question: "Bisa mulai dari landing page dulu, lalu tambah chatbot atau CRM nanti?",
+            answer:
+                "Bisa, dan itu yang kami sarankan. Mulai dari landing page supaya bisnis Anda mudah ditemukan dan dihubungi, lalu tambah AI Chat Bot untuk membalas pesan secara otomatis atau CRM untuk merapikan follow-up saat calon pelanggan bertambah.",
+        },
+        {
             question: "Layanan apa saja yang disediakan plus.?",
             answer:
-                "plus. fokus pada solusi digital bertenaga AI: Chat Bot, Customer Support, Aplikasi Mobile, platform CRM, Digital Agency, dan Game Mobile. Kami juga menangani solusi cloud dan digital marketing.",
+                "Selain landing page 1 hari: AI Chat Bot untuk WhatsApp dan website, Customer Support, platform CRM, Digital Agency (branding, konten, kampanye), Aplikasi Mobile, dan Game Mobile. Mulai dari satu produk, tambah yang lain saat bisnis Anda tumbuh.",
         },
         {
             question: "Fitur AI apa saja yang tersedia di platform?",
@@ -221,19 +246,9 @@ const id: Dictionary = {
                 "Ada 5 tools AI: AI Image Generator (100+ model dari OpenAI, Stable Diffusion, dan Stability AI), AI Text Generator, AI Chat Bot, AI Video Generator, dan AI Music Generator. Semuanya untuk membantu tim Anda memproduksi lebih banyak dalam waktu lebih singkat.",
         },
         {
-            question: "Berapa harga layanan plus.?",
+            question: "Bagaimana cara menghubungi plus.?",
             answer:
-                "Harga kami susun per kebutuhan, dalam Rupiah. Kirim email ke official@plusthe.site atau DM Instagram @plusthe.site, ceritakan bisnis dan target Anda, lalu kami balas dengan rekomendasi produk dan penawaran harga. Untuk mulai cepat, 1 Day Ready Business Landing Page bisa live dalam 1 hari kerja setelah materi lengkap.",
-        },
-        {
-            question: "Bagaimana cara menghubungi plus. untuk dukungan?",
-            answer:
-                "Kirim email ke official@plusthe.site atau isi formulir di halaman Hubungi Kami. Tim kami akan membalas dan membantu mencarikan solusi yang pas untuk bisnis Anda.",
-        },
-        {
-            question: "Apakah Anda menyediakan kustomisasi dan pengembangan website?",
-            answer:
-                "Ya! Kami membangun website, aplikasi, dan produk digital custom. Harga tergantung cakupan, dari landing page sederhana hingga aplikasi cross-platform. Hubungi tim kami untuk penawaran khusus dalam Rupiah.",
+                "Email ke official@plusthe.site, DM Instagram @plusthe.site, atau isi formulir di halaman Hubungi Kami.",
         },
     ],
     footer: {
