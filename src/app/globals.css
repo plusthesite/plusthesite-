@@ -1708,12 +1708,11 @@ html.plus-cursor-on [contenteditable] {
    The cards already swipe horizontally; these rules just make the swipe feel
    deliberate: a peek of the next card, clean snap edges, and no raw
    scrollbar. Desktop keeps the 3-column grid untouched. */
-.pricing-track {
-  scroll-padding-left: 1.5rem;
+.rail-track {
   scrollbar-width: none;
 }
 
-.pricing-track::-webkit-scrollbar {
+.rail-track::-webkit-scrollbar {
   display: none;
 }
 
