@@ -35,7 +35,7 @@ export default function BlogSection({
   return (
     <section
       id="blog"
-      className="bg-white py-24 text-slate-950 lg:py-32 dark:bg-slate-950 dark:text-white"
+      className="bg-white pb-12 pt-24 text-slate-950 lg:pb-16 lg:pt-32 dark:bg-slate-950 dark:text-white"
     >
       <div ref={ref} className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-end">

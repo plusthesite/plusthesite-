@@ -17,7 +17,7 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="bg-white py-24 text-slate-950 lg:py-32 dark:bg-[#0B1120] dark:text-white"
+      className="bg-white pb-24 pt-16 text-slate-950 lg:pb-32 lg:pt-20 dark:bg-[#0B1120] dark:text-white"
     >
       <div ref={ref} className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[0.86fr_1.14fr] lg:items-start">
