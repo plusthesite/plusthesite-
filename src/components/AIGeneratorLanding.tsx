@@ -120,7 +120,7 @@ function HeroSection({ copy, theme, locale }: Pick<LandingProps, "copy" | "theme
                         </p>
                         <div className="mt-9 flex flex-col gap-4 sm:flex-row">
                             <Link
-                                href="mailto:plusthesite@gmail.com?subject=AI%20Generator%20Inquiry"
+                                href="mailto:official@plusthe.site?subject=AI%20Generator%20Inquiry"
                                 className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 ${theme.softButton}`}
                             >
                                 {copy.hero.primaryCta}
@@ -422,7 +422,7 @@ function CTASection({ copy, locale, theme }: Pick<LandingProps, "copy" | "locale
 
                         <div className="flex flex-col gap-4 sm:flex-row lg:justify-end">
                             <Link
-                                href="mailto:plusthesite@gmail.com?subject=AI%20Generator%20Inquiry"
+                                href="mailto:official@plusthe.site?subject=AI%20Generator%20Inquiry"
                                 className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 ${theme.softButton}`}
                             >
                                 {copy.cta.primary}

@@ -51,7 +51,7 @@ export default function Footer() {
         },
         {
             label: "Email",
-            href: "mailto:plusthesite@gmail.com",
+            href: "mailto:official@plusthe.site",
             external: true,
         },
     ];
@@ -146,10 +146,10 @@ export default function Footer() {
                                 : "Ready to talk systems, growth, and delivery."}
                         </p>
                         <a
-                            href="mailto:plusthesite@gmail.com"
+                            href="mailto:official@plusthe.site"
                             className="mt-5 block text-lg font-semibold text-footer-text transition-colors hover:text-sky-300"
                         >
-                            plusthesite@gmail.com
+                            official@plusthe.site
                         </a>
                         <Link
                             href={`/${locale}/contact-us`}

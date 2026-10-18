@@ -30,8 +30,8 @@ const id: Dictionary = {
         subtitle: "Dengan AI + Kreativitas Manusia",
         description:
             "Chatbot AI, branding, aplikasi, dan CRM dikerjakan satu tim, bukan lima vendor. Rilis lebih cepat, brand tetap satu suara, dan Anda bisa fokus mengembangkan bisnis.",
-        ctaPrimary: "Lihat Karya Kami",
-        ctaSecondary: "Lihat Harga",
+        ctaPrimary: "Lihat Pilihan Produk",
+        ctaSecondary: "Tanya Harga",
     },
     about: {
         tag: "Tentang Plus",
@@ -221,14 +221,14 @@ const id: Dictionary = {
                 "Ada 5 tools AI: AI Image Generator (100+ model dari OpenAI, Stable Diffusion, dan Stability AI), AI Text Generator, AI Chat Bot, AI Video Generator, dan AI Music Generator. Semuanya untuk membantu tim Anda memproduksi lebih banyak dalam waktu lebih singkat.",
         },
         {
-            question: "Paket harga apa saja yang ditawarkan?",
+            question: "Berapa harga layanan plus.?",
             answer:
-                "Kami menawarkan paket bulanan dan tahunan yang fleksibel dalam Rupiah. Bulanan: Starter (Rp 2,5 jt), Professional (Rp 7,5 jt, direkomendasikan), dan Enterprise (Rp 20 jt). Paket tahunan hemat 20%. Setiap paket mencakup satu atau lebih lini layanan, dari chatbot AI dan CRM hingga pengembangan aplikasi. Penawaran khusus berbasis proyek juga tersedia.",
+                "Harga kami susun per kebutuhan, dalam Rupiah. Kirim email ke official@plusthe.site atau DM Instagram @plusthe.site, ceritakan bisnis dan target Anda, lalu kami balas dengan rekomendasi produk dan penawaran harga. Untuk mulai cepat, 1 Day Ready Business Landing Page bisa live dalam 1 hari kerja setelah materi lengkap.",
         },
         {
             question: "Bagaimana cara menghubungi plus. untuk dukungan?",
             answer:
-                "Kirim email ke plusthesite@gmail.com atau isi formulir di halaman Hubungi Kami. Tim kami akan membalas dan membantu mencarikan solusi yang pas untuk bisnis Anda.",
+                "Kirim email ke official@plusthe.site atau isi formulir di halaman Hubungi Kami. Tim kami akan membalas dan membantu mencarikan solusi yang pas untuk bisnis Anda.",
         },
         {
             question: "Apakah Anda menyediakan kustomisasi dan pengembangan website?",

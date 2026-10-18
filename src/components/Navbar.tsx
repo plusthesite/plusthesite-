@@ -462,7 +462,7 @@ export default function Navbar() {
 
   const navLinks = isHome ? homeLinks : subpageLinks;
   // Contact goes straight to email until the booking flow is live.
-  const ctaHref = "mailto:plusthesite@gmail.com";
+  const ctaHref = "mailto:official@plusthe.site";
   const ctaLabel = t.nav.contactUs;
 
   const island = `rounded-full border transition-all duration-300 ${

@@ -293,7 +293,7 @@ function HeroSection() {
                         </p>
                         <div className="mt-9 flex flex-col gap-4 sm:flex-row">
                             <Link
-                                href="mailto:plusthesite@gmail.com?subject=Mobile%20App%20Project%20Inquiry"
+                                href="mailto:official@plusthe.site?subject=Mobile%20App%20Project%20Inquiry"
                                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#f4ecff] px-6 py-3.5 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5"
                             >
                                 {copy.primaryCta}
@@ -632,7 +632,7 @@ function CTASection() {
 
                         <div className="flex flex-col gap-4 sm:flex-row lg:justify-end">
                             <Link
-                                href="mailto:plusthesite@gmail.com?subject=Mobile%20App%20Project%20Inquiry"
+                                href="mailto:official@plusthe.site?subject=Mobile%20App%20Project%20Inquiry"
                                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#f4ecff] px-6 py-3.5 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5"
                             >
                                 {copy.primary}

@@ -28,8 +28,8 @@ const en = {
         subtitle: "With AI + Human Creativity",
         description:
             "AI chatbots, branding, apps, and CRM, built by one team, not five vendors. Launch faster, keep every channel speaking with one voice, and stay focused on growing the business.",
-        ctaPrimary: "See What We Build",
-        ctaSecondary: "View Pricing",
+        ctaPrimary: "Explore Our Products",
+        ctaSecondary: "Ask for Pricing",
     },
     about: {
         tag: "About Plus",
@@ -219,14 +219,14 @@ const en = {
                 "There are 5 AI tools: AI Image Generator (100+ models from OpenAI, Stable Diffusion, and Stability AI), AI Text Generator, AI Chat Bot, AI Video Generator, and AI Music Generator. All of them help your team produce more in less time.",
         },
         {
-            question: "What pricing plans do you offer?",
+            question: "How much does plus. cost?",
             answer:
-                "We offer flexible monthly and annual plans in Indonesian Rupiah (IDR). Monthly: Starter (IDR 2.5M), Professional (IDR 7.5M, recommended), and Enterprise (IDR 20M). Annual plans save 20%. Each plan covers one or more service lines, from AI chatbots and CRM to full app development. Custom project-based quotes are also available.",
+                "We price each project around what you need, in Indonesian Rupiah (IDR). Email official@plusthe.site or DM us on Instagram @plusthe.site with a few lines about your business and goals, and we'll reply with a product recommendation and a quote. If you want to start fast, our 1 Day Ready Business Landing Page goes live within 1 business day once your materials are in.",
         },
         {
             question: "How can I reach plus. for support?",
             answer:
-                "Email us at plusthesite@gmail.com or use the form on our Contact Us page. Our team will reply and help you find the right fit for your business.",
+                "Email us at official@plusthe.site or use the form on our Contact Us page. Our team will reply and help you find the right fit for your business.",
         },
         {
             question: "Do you offer customization and website development?",

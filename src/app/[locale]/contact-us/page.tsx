@@ -205,10 +205,10 @@ export default function ContactUsPage() {
                     {locale === "id" ? "Direct line" : "Direct line"}
                   </p>
                   <a
-                    href="mailto:plusthesite@gmail.com"
+                    href="mailto:official@plusthe.site"
                     className="mt-3 block text-lg font-semibold text-white transition-colors hover:text-sky-300"
                   >
-                    plusthesite@gmail.com
+                    official@plusthe.site
                   </a>
                 </div>
               </div>

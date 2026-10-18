@@ -1,11 +1,11 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-import Projects from "@/components/Projects";
+import Products from "@/components/Products";
 import PlusCursor from "@/components/PlusCursor";
 import ITSolutions from "@/components/ITSolutions";
 import BlogSection, { type ArticleTeaser } from "@/components/BlogSection";
-import Pricing from "@/components/Pricing";
+import PricingContact from "@/components/PricingContact";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import { articles } from "@/data/articles";
@@ -60,10 +60,10 @@ export default async function Home({
       <PlusCursor />
       <Hero />
       <About />
-      <Projects />
+      <Products />
       <ITSolutions />
       <BlogSection teasers={teasers} />
-      <Pricing />
+      <PricingContact />
       <FAQ />
       <Footer />
     </>

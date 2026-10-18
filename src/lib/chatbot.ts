@@ -81,8 +81,8 @@ export const INTENTS: Intent[] = [
       "rate",
     ],
     reply: {
-      id: "Harga kami transparan dalam Rupiah, tanpa kontrak mengikat: Starter mulai Rp 2,5 juta per bulan, Professional mulai Rp 7,5 juta per bulan, dan Enterprise mulai Rp 20 juta per bulan. Paket tahunan lebih hemat sekitar 20 persen, dan kami juga bisa buat penawaran berbasis proyek.",
-      en: "Our pricing is transparent in IDR, with no lock-in: Starter starts from Rp 2.5 million per month, Professional from Rp 7.5 million per month, and Enterprise from Rp 20 million per month. Annual plans save around 20 percent, and we also handle project-based quotes.",
+      id: "Harga kami susun sesuai kebutuhan bisnis Anda. Kirim email ke official@plusthe.site atau DM Instagram @plusthe.site, ceritakan sedikit soal bisnis dan target Anda, nanti tim kami kirim rekomendasi dan penawarannya. Mau mulai cepat? 1 Day Ready Business Landing Page bisa live dalam 1 hari kerja setelah materi lengkap.",
+      en: "We price around what your business needs. Email official@plusthe.site or DM us on Instagram @plusthe.site with a little about your business and goals, and the team will send a recommendation and a quote. Want to start fast? Our 1 Day Ready Business Landing Page goes live within 1 business day once your materials are in.",
     },
     quick: [Q.services, Q.contact],
   },
@@ -269,8 +269,8 @@ export const INTENTS: Intent[] = [
       "proposal",
     ],
     reply: {
-      id: "Tentu. Anda bisa email ke plusthesite@gmail.com, isi form kontak, atau tinggalkan nama plus email atau WhatsApp di sini supaya tim kami yang follow up.",
-      en: "Absolutely. You can email plusthesite@gmail.com, open the contact form, or leave your name plus email or WhatsApp here so our team can follow up.",
+      id: "Tentu. Anda bisa email ke official@plusthe.site, isi form kontak, atau tinggalkan nama plus email atau WhatsApp di sini supaya tim kami yang follow up.",
+      en: "Absolutely. You can email official@plusthe.site, open the contact form, or leave your name plus email or WhatsApp here so our team can follow up.",
     },
     cta: {
       label: { en: "Open contact form", id: "Buka form kontak" },
