@@ -229,19 +229,9 @@ const en = {
                 "Just the basics: your business name and logo, a short description of your products or services, a few photos, and the contact details you want to use (WhatsApp, email, address). Missing some of it? Tell us in your email and we'll help you write the copy.",
         },
         {
-            question: "Can I start with a landing page and add a chatbot or CRM later?",
-            answer:
-                "Yes, and that's what we recommend. Start with a landing page so customers can find and contact you, then add an AI Chat Bot to answer messages automatically or a CRM to keep follow-ups organized as your leads grow.",
-        },
-        {
             question: "What services does plus. offer?",
             answer:
                 "Besides the 1-day landing page: AI Chat Bot for WhatsApp and your website, Customer Support, a CRM platform, Digital Agency work (branding, content, campaigns), Mobile Apps, and Mobile Games. Start with one and add more as your business grows.",
-        },
-        {
-            question: "What AI features are available on the platform?",
-            answer:
-                "There are 5 AI tools: AI Image Generator (100+ models from OpenAI, Stable Diffusion, and Stability AI), AI Text Generator, AI Chat Bot, AI Video Generator, and AI Music Generator. All of them help your team produce more in less time.",
         },
         {
             question: "How can I reach plus.?",

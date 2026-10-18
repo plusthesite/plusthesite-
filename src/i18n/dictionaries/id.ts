@@ -231,19 +231,9 @@ const id: Dictionary = {
                 "Cukup yang dasar: nama dan logo bisnis, deskripsi singkat produk atau layanan, beberapa foto, dan kontak yang ingin dipakai (WhatsApp, email, alamat). Belum lengkap? Ceritakan di email, kami bantu susun copy-nya.",
         },
         {
-            question: "Bisa mulai dari landing page dulu, lalu tambah chatbot atau CRM nanti?",
-            answer:
-                "Bisa, dan itu yang kami sarankan. Mulai dari landing page supaya bisnis Anda mudah ditemukan dan dihubungi, lalu tambah AI Chat Bot untuk membalas pesan secara otomatis atau CRM untuk merapikan follow-up saat calon pelanggan bertambah.",
-        },
-        {
             question: "Layanan apa saja yang disediakan plus.?",
             answer:
                 "Selain landing page 1 hari: AI Chat Bot untuk WhatsApp dan website, Customer Support, platform CRM, Digital Agency (branding, konten, kampanye), Aplikasi Mobile, dan Game Mobile. Mulai dari satu produk, tambah yang lain saat bisnis Anda tumbuh.",
-        },
-        {
-            question: "Fitur AI apa saja yang tersedia di platform?",
-            answer:
-                "Ada 5 tools AI: AI Image Generator (100+ model dari OpenAI, Stable Diffusion, dan Stability AI), AI Text Generator, AI Chat Bot, AI Video Generator, dan AI Music Generator. Semuanya untuk membantu tim Anda memproduksi lebih banyak dalam waktu lebih singkat.",
         },
         {
             question: "Bagaimana cara menghubungi plus.?",
