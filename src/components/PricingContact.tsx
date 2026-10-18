@@ -27,9 +27,9 @@ export default function PricingContact() {
         ["Mulai jalan", "Landing page bisa live dalam 1 hari kerja setelah materi lengkap."],
       ]
     : [
-        ["Tell us about your business", "Pick a need, open the template, fill in 4 lines. Two minutes."],
-        ["Get a plan and a price", "Product recommendation, timeline estimate, and a written quote."],
-        ["Get moving", "A landing page can go live within 1 business day once materials are in."],
+        ["Tell us about your business", "Pick what you need, open the template, fill in four lines. Takes about two minutes."],
+        ["Get your plan and quote", "A product recommendation, an estimated timeline, and a written quote."],
+        ["Launch", "Your landing page can be live within one business day once we have your materials."],
       ];
 
   const subject = isID ? `Minta penawaran: ${needs[need]}` : `Quote request: ${needs[need]}`;
@@ -56,13 +56,13 @@ export default function PricingContact() {
               </p>
               <h2 className="mt-4 text-3xl font-semibold leading-[1.08] tracking-[-0.04em] sm:text-[2.75rem]">
                 {isID
-                  ? "Kirim satu email. Kami siapkan rencana dan harganya."
-                  : "Send one email. We'll put together the plan and the price."}
+                  ? "Kirim satu email. Kami siapkan rencana terbaik untuk bisnis Anda."
+                  : "Send one email. We'll map out the best plan for your business."}
               </h2>
               <p className="mt-4 max-w-xl text-base leading-7 text-white/80">
                 {isID
                   ? "Tanpa tabel paket yang bikin bingung. Harga disusun dari kebutuhan bisnis Anda, jadi Anda hanya membayar yang benar-benar dipakai."
-                  : "No confusing plan tables. The price is built from what your business needs, so you only pay for what you actually use."}
+                  : "No confusing plan tables. Every quote is built around your business, so you only pay for what you'll actually use."}
               </p>
 
               <ol className="mt-8 space-y-3">
@@ -169,7 +169,7 @@ export default function PricingContact() {
                   </span>
                 </a>
                 <p className="mt-3 text-center text-xs text-slate-400">
-                  {isID ? "Terbuka di aplikasi email Anda, tinggal isi lalu kirim." : "Opens in your email app. Fill it in and hit send."}
+                  {isID ? "Terbuka di aplikasi email Anda, tinggal isi lalu kirim." : "Opens in your email app. Fill in the blanks and hit send."}
                 </p>
               </div>
             </div>
