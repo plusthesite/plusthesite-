@@ -7,16 +7,21 @@ import { PRELOADER_DONE_EVENT } from "@/lib/preloader";
 /**
  * Idle screen for the first seconds of a hard load.
  *
- * Shows the looping animated wordmark plus a quiet status line while the
- * browser fetches and hydrates the page, then fades out as soon as the load
- * event fires - held for a short minimum so it never just flashes, and cut
- * by a 10s failsafe so it never traps anyone. Client-side navigations never
- * re-mount it.
+ * Shows the animated wordmark plus a quiet status line while the browser
+ * fetches and hydrates the page, then fades out. The curtain is click-through
+ * and lifts on DOMContentLoaded (not the full `load` event, which can trail
+ * by seconds on slow connections), held for a short minimum so it reads as
+ * a splash rather than a flicker, and cut by a failsafe so it never traps
+ * anyone. Client-side navigations never re-mount it.
  *
  * The curtain is always light with the navy wordmark (the brand's splash
  * look, matching the loading-screen mockup), centered, with the status line
  * under it and the skip affordance in the bottom-right corner. It is
  * click-through and lifts fast, so it never blocks the page below.
+ *
+ * The wordmark plays its intro once (draw-on → fill) instead of looping:
+ * the curtain lifts in ~1.5s, so a looping animation would never reach its
+ * filled state before it disappears.
  */
 export default function Preloader({ locale }: { locale: string }) {
     const [done, setDone] = useState(false);
