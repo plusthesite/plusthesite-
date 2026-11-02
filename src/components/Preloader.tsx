@@ -12,6 +12,11 @@ import { PRELOADER_DONE_EVENT } from "@/lib/preloader";
  * event fires - held for a short minimum so it never just flashes, and cut
  * by a 10s failsafe so it never traps anyone. Client-side navigations never
  * re-mount it.
+ *
+ * The curtain is always light with the navy wordmark (the brand's splash
+ * look, matching the loading-screen mockup), centered, with the status line
+ * under it and the skip affordance in the bottom-right corner. It is
+ * click-through and lifts fast, so it never blocks the page below.
  */
 export default function Preloader({ locale }: { locale: string }) {
     const [done, setDone] = useState(false);
@@ -20,8 +25,12 @@ export default function Preloader({ locale }: { locale: string }) {
     useEffect(() => {
         let cancelled = false;
         const mountedAt = performance.now();
-        const MIN_SHOW = 1200; // below this the curtain reads as a flicker
-        const MAX_SHOW = 10_000; // never hold the page hostage
+        // Keep the curtain long enough to read as a splash, not a flicker,
+        // but short enough that nobody waits on it. It is click-through, so
+        // even while it is up the page below is fully usable. 1.5s covers the
+        // full draw-on → fill intro of the wordmark.
+        const MIN_SHOW = 1500;
+        const MAX_SHOW = 6_000; // never hold the page hostage
 
         const finish = () => {
             if (cancelled) return;
@@ -32,15 +41,20 @@ export default function Preloader({ locale }: { locale: string }) {
             }, wait);
         };
 
-        if (document.readyState === "complete") {
+        if (document.readyState === "complete" || document.readyState === "interactive") {
             finish();
         } else {
+            // DOMContentLoaded is the real "page is readable" signal; the full
+            // load event can trail it by seconds on slow connections and the
+            // curtain must not sit there waiting for late images.
+            window.addEventListener("DOMContentLoaded", finish, { once: true });
             window.addEventListener("load", finish, { once: true });
         }
         const failsafe = setTimeout(finish, MAX_SHOW);
 
         return () => {
             cancelled = true;
+            window.removeEventListener("DOMContentLoaded", finish);
             window.removeEventListener("load", finish);
             clearTimeout(failsafe);
         };
@@ -58,7 +72,10 @@ export default function Preloader({ locale }: { locale: string }) {
     return (
         <div className={`preloader ${done ? "preloader--done" : ""}`}>
             <div className="preloader__inner">
-                <AnimatedLogo href={null} variant="auto" size="hero" loop />
+                {/* Intro-once (draw → fill), not the 6s hero loop: the curtain
+                    lifts in ~1.5s, so a looping animation would never reach its
+                    filled state before it disappears. */}
+                <AnimatedLogo href={null} variant="dark" size="hero" />
                 <p className="preloader__cta">
                     {locale === "id"
                         ? "Menyiapkan pengalaman..."

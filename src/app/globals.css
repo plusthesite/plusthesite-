@@ -1615,12 +1615,14 @@ html.plus-cursor-on [contenteditable] {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* The splash is always light with the navy wordmark, regardless of the
+     theme the page is about to render in. */
   background: #ffffff;
   transition: opacity 500ms ease, visibility 0s linear 500ms;
-}
-
-.dark .preloader {
-  background: #070b14;
+  /* The curtain is visual only: it must never hold the page hostage. Clicks
+     fall straight through to the navbar/hero underneath, so the site is
+     usable the instant the first paint lands. Only the Skip pill is live. */
+  pointer-events: none;
 }
 
 .preloader--done {
@@ -1629,6 +1631,9 @@ html.plus-cursor-on [contenteditable] {
   pointer-events: none;
 }
 
+/* Logo centered like the brand splash mockup; the status line hangs right
+   under it, skip lives in the bottom corner. Vertical centering comes from
+   .preloader's flex centering. */
 .preloader__inner {
   display: flex;
   flex-direction: column;
@@ -1643,10 +1648,6 @@ html.plus-cursor-on [contenteditable] {
   text-transform: uppercase;
   color: #64748b;
   animation: preloaderPulse 1.8s ease-in-out infinite;
-}
-
-.dark .preloader__cta {
-  color: #94a3b8;
 }
 
 .preloader__skip {
@@ -1664,11 +1665,13 @@ html.plus-cursor-on [contenteditable] {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
+  /* The curtain itself is click-through; the skip pill stays clickable. */
+  pointer-events: auto;
 }
 
-.dark .preloader__skip {
-  border-color: rgba(255, 255, 255, 0.16);
-  color: #94a3b8;
+.preloader__skip:hover {
+  border-color: rgba(15, 23, 42, 0.28);
+  color: #0f172a;
 }
 
 @keyframes preloaderRise {
